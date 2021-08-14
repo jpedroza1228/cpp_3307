@@ -1,0 +1,124 @@
+---
+title: "Fall 2021 Course Syllabus"
+subtitle: "PSY 3307-04/3307A-04: Statistics for Psychology"
+author: "Jonathan Pedroza, MS, MA"
+date: "8/13/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Meeting Time
+### Lecture: UPDATE
+### Activity: UPDATE
+
+-----------------------------------
+
+### Instructor: Jonathan A. Pedroza, MS, MA
+### Office: Virtual
+### Office Hours: UPDATE
+### Email: UPDATE@cpp.edu
+### Secondary Email: cpppedroza@gmail.com
+### Required Text: [Behavioral Sciences Stat Student Edition by Gary W. Heiman; ISBN:9781285458144](https://www.google.com/search?q=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&rlz=1C1CHBF_enUS926US926&sxsrf=ALeKk03IvchvrQPLaZyhZSEVrWwitWGGbw%3A1628892091107&ei=u-sWYfrkBbnd1sQP352cQA&oq=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&gs_lcp=Cgdnd3Mtd2l6EAMyBQghEKABMgUIIRCgAToFCCEQqwI6CAghEBYQHRAeOgcIIRAKEKABSgQIQRgAUPfmAViSqgJgpawCaABwAngBgAGtAYgB_Q-SAQQ1LjEzmAEAoAECoAEBwAEB&sclient=gws-wiz&ved=0ahUKEwi6rt7z_67yAhW5rpUCHd8OBwgQ4dUDCA4&uact=5)
+## Corequisites: PSY 3307 & PSY 3307A
+## Prerequisites: STA 1200 & PSY 2204
+## Required Materials: Basic scientific Calculator
+## Optional Materials: [CRAN R for calculations](https://ftp.osuosl.org/pub/cran/)
+
+-----------------------------------
+
+# Course Description
+
+Correlational techniques and inferential statistics useful to behavioral scientists. Product moment and rank order correlation coefficients, t-ratios, introduction to analysis of variance, selected non-parametric statistics. Selection, application, and interpretation of appropriate statistics for analysis of behavioral data.
+
+-----------------------------------
+
+# Course Structure
+
+This course will be conducted online (i.e., no face-to-face meetings) in a synchronous format (i.e., lectures and activities scheduled at specific times). Course content will be provided via Blackboard. Lectures and activities will be conducted via Zoom. Lectures will include a PowerPoint presentation with worked example problems, followed by practice problems. Recordings of the PowerPoint portion will be posted on Blackboard. Activities will include problem set discussion, practice problems, and SPSS tutorials. 
+
+-----------------------------------
+
+# Course Objectives
+
+Upon completion of this course, students will be able to: 
+
+* Understand and calculate descriptive statistics
+* Understand and calculate inferential statistics
+* Use SPSS to compute statistics
+* Read and interpret basic statistics used in the psychology literature
+* Develop a foundation for success in higher level statistics and research methods courses
+
+-----------------------------------
+
+# Grading Policy
+
+**Overview**: UPDATE
+A total of 500 points will be available for this course based on 3 examinations, 10 Blackboard quizzes, 15 problem sets, and 3 SPSS assignments.
+
+```{r, include = FALSE}
+table <- tibble::tibble(Assignments_Tests = c("Examination", "Quiz", "Problem Sets", "SPSS Assignments", "Total Class Points"),
+                        Amount = c("3", "10", "15", "3", ""),
+                        Points_Each = c("100", "8", "5", "15", ""),
+                        Total_Points = c("300", "80", "75", "45", "500"))
+
+library(tidyverse)
+library(kableExtra)
+
+```
+ 
+```{r}
+kbl(table) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                position = "center")
+```
+ 
+**Final Grade:** Your final grade will be the same for the lecture and activity based on the following scale: 
+
+```{r, include = FALSE}
+table2 <- tibble::tibble(Letter_Grade = c("A", "A-",
+                                          "B+", "B", "B-",
+                                          "C+", "C", "C-",
+                                          "D+", "D", "D-",
+                                          "F"),
+                         Points = c("457.5 - 500", "447.5-457",
+                                    "437.5-447", "407.5-437", "397.5-407",
+                                    "387.5-397", "357.5-387", "347.5-357",
+                                    "337.5-347", "307.5-337", "297.5-307",
+                                    "0-297.5"),
+                         Percentages = c("91.5-100", "89.5-91.4",
+                                    "87.5-89.4", "81.5-87.4", "79.5-81.4",
+                                    "77.5-79.4", "71.5-77.4", "69.5-71.4",
+                                    "67.5-69.4", "61.5-67.4", "59.5-61.4",
+                                    "0-59.5"))
+```
+
+```{r}
+kbl(table2) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                position = "center")
+```
+
+-----------------------------------
+
+# **Assignments**
+
+## **Exams:**
+
+## **Blackboard Quizzes:**
+
+## **Problem Sets:**
+
+## **SPSS Assignments:**
+
+
+
+-----------------------------------
+
+
