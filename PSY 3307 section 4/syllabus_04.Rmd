@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Instructor: Jonathan A. Pedroza, MS, MA
 ### Office: Virtual
 ### Office Hours: Tues 12pm-2pm; Thurs 5pm-6pm
-### Email: UPDATE@cpp.edu
+### Email: japedroza@cpp.edu
 ### Secondary Email: cpppedroza@gmail.com
 ### Required Text: [Behavioral Sciences Stat Student Edition by Gary W. Heiman; ISBN:9781285458144](https://www.google.com/search?q=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&rlz=1C1CHBF_enUS926US926&sxsrf=ALeKk03IvchvrQPLaZyhZSEVrWwitWGGbw%3A1628892091107&ei=u-sWYfrkBbnd1sQP352cQA&oq=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&gs_lcp=Cgdnd3Mtd2l6EAMyBQghEKABMgUIIRCgAToFCCEQqwI6CAghEBYQHRAeOgcIIRAKEKABSgQIQRgAUPfmAViSqgJgpawCaABwAngBgAGtAYgB_Q-SAQQ1LjEzmAEAoAECoAEBwAEB&sclient=gws-wiz&ved=0ahUKEwi6rt7z_67yAhW5rpUCHd8OBwgQ4dUDCA4&uact=5)
 ## Corequisites: PSY 3307 & PSY 3307A

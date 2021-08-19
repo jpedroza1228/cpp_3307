@@ -11,6 +11,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen=999)
 ```
 
 # Guide to Downloading R
@@ -20,7 +22,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. Because R is just a huge calculator.
 ```{r basic calculations, eval = TRUE, echo = TRUE}
-options(scipen=999)
 
 3 + 5
 
@@ -30,12 +31,50 @@ tictoc::toc()
 
 423164572464815794858642*2
 
-
 ```
 
 2. It's free. 
 
 3. It also lets you save parts in what are called `objects`. 
+
+4. You can turn in scripts instead of doing everything by hand. Which saves you writing everything by hand and having to take pictures of your work. It saves me having to figure out all of your handwriting.
+
+## Step-by-step of downloading R
+
+1. Download R for Windows or Mac
+
+![Download R page](class_schedule/images/r_download_page.jpg)
+
+2. Download Base R
+
+![Download Base](class_schedule/images/download_base_circled.jpg)
+
+3. Final Download Page
+
+![Final Download Page](class_schedule/images/final_download.jpg)
+
+4. Main R Page
+
+![Main R Page](class_schedule/images/r_main_page.jpg)
+
+You can work in this page, however you won't be able to see the work you've done. For that, you'll want to create a script. 
+
+5. Creating a script
+
+![script](class_schedule/images/script.jpg)
+File --> New Script
+
+File --> Save As
+
+Save with the name `Problem Set #_Pedroza Jonathan` for each assignment followed by your name.
+
+You can save the script too. This will be what is turned in for problem set assignments. From the screenshot, you can see that the top is the console that shows everything that is run. Below is the script where you can save your work. To run something you must highlight the whole selection and use `ctrl + R` for Windows or `Command + R` for Mac. 
+
+6. Highlighting Code to Run
+
+![Highlighting Code](class_schedule/images/highlighting.jpg)
+
+## Objects
 
 You can either use arrows or equal signs to create objects. The objects will allow you to save every single part of the functions you will be writing. For example, below I will show you the steps taken to get the standard deviation of some simulated test scores. But to get the standard deviation, you'll first have to do some steps that are shown in your textbook. 
 
@@ -129,6 +168,10 @@ dataset <- tibble::tibble(scores = test_scores,
                           dev = dev,
                           dev_sq = dev_sq) %>% 
   rowid_to_column()
+
+ggplot(data = dataset, aes(test_scores)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20) +
+  geom_vline(xintercept = 87.15, color = "red", size = 1.25, alpha = .7)
 
 ggplot(data = dataset, aes(rowid, scores)) +
   geom_point(color = "dodgerblue") +

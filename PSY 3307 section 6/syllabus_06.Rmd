@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Instructor: Jonathan A. Pedroza, MS, MA
 ### Office: Virtual
 ### Office Hours: Tues 12pm-2pm; Thurs 5pm-6pm
-### Email: UPDATE@cpp.edu
+### Email: japedroza@cpp.edu
 ### Secondary Email: cpppedroza@gmail.com
 ### Required Text: [Statistics For People Who (Think They) Hate Statistics by Neil J. Salkind; ISBN:	9781506333830](https://www.google.com/search?q=9781506333830+statistics+for+people+who+think+they+hate+statistics&rlz=1C1CHBF_enUS926US926&sxsrf=ALeKk03hp2iC100Xns1bIOJGDjhLhisYjA%3A1629321350281&ei=hngdYba9EPaV0PEPwdqY8Ac&oq=9781506333830+statistics+for+people+who+think+they+hate+statistics&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsAM6BQgAEM0COgUIIRCrAkoECEEYAFD_e1jqrwFg2LABaARwAngAgAF6iAGOJJIBBDcuMzaYAQCgAQHIAQTAAQE&sclient=gws-wiz&ved=0ahUKEwi2mLuCv7vyAhX2CjQIHUEtBn4Q4dUDCA4&uact=5)
 ## Corequisites: PSY 3307 & PSY 3307A
