@@ -1,6 +1,6 @@
 ---
 title: "Fall 2021 Course Syllabus"
-subtitle: "PSY 3307-06/3307A-06: Statistics for Psychology"
+subtitle: "PSY 3307-04/3307A-04: Statistics for Psychology"
 author: "Jonathan Pedroza, MS, MA"
 date: "8/13/2021"
 output:
@@ -15,8 +15,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Meeting Time
-### Lecture: 2:30pm-3:45pm
-### Activity: 4pm-4:50pm
+### Lecture: 8:30am-9:45am
+### Activity: 10am-10:50am
 
 -----------------------------------
 
@@ -25,13 +25,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Office Hours: Tues 12pm-2pm; Thurs 5pm-6pm
 ### Email: japedroza@cpp.edu
 ### Secondary Email: cpppedroza@gmail.com
-### Required Text: [Statistics For People Who (Think They) Hate Statistics by Neil J. Salkind; ISBN:	9781506333830](https://www.google.com/search?q=9781506333830+statistics+for+people+who+think+they+hate+statistics&rlz=1C1CHBF_enUS926US926&sxsrf=ALeKk03hp2iC100Xns1bIOJGDjhLhisYjA%3A1629321350281&ei=hngdYba9EPaV0PEPwdqY8Ac&oq=9781506333830+statistics+for+people+who+think+they+hate+statistics&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsAM6BQgAEM0COgUIIRCrAkoECEEYAFD_e1jqrwFg2LABaARwAngAgAF6iAGOJJIBBDcuMzaYAQCgAQHIAQTAAQE&sclient=gws-wiz&ved=0ahUKEwi2mLuCv7vyAhX2CjQIHUEtBn4Q4dUDCA4&uact=5)
+### Required Text: [Behavioral Sciences Stat Student Edition by Gary W. Heiman; ISBN:9781285458144](https://www.google.com/search?q=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&rlz=1C1CHBF_enUS926US926&sxsrf=ALeKk03IvchvrQPLaZyhZSEVrWwitWGGbw%3A1628892091107&ei=u-sWYfrkBbnd1sQP352cQA&oq=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&gs_lcp=Cgdnd3Mtd2l6EAMyBQghEKABMgUIIRCgAToFCCEQqwI6CAghEBYQHRAeOgcIIRAKEKABSgQIQRgAUPfmAViSqgJgpawCaABwAngBgAGtAYgB_Q-SAQQ1LjEzmAEAoAECoAEBwAEB&sclient=gws-wiz&ved=0ahUKEwi6rt7z_67yAhW5rpUCHd8OBwgQ4dUDCA4&uact=5)
 ## Corequisites: PSY 3307 & PSY 3307A
 ## Prerequisites: STA 1200 & PSY 2204
 ## Required Materials: Basic scientific Calculator
 ## Optional Materials: [CRAN R for calculations](https://ftp.osuosl.org/pub/cran/)
-## Zoom Information: https://uoregon.zoom.us/j/96728433202?pwd=MkxqV1ZadFNhV2d3ZzFtOVlpb0J6QT09
-### Meeting ID: 967 2843 3202
+## Zoom Information: https://cpp.zoom.us/j/85752742161
+### Meeting ID: 857 5274 2161
 ### Passcode: 3307
 
 -----------------------------------
@@ -64,7 +64,7 @@ Upon completion of this course, students will be able to:
 
 **Overview**: 
 UPDATE
-A total of 500 points will be available for this course based on 3 exams, 15 problem sets/quizzes, and 4 SPSS assignments.
+A total of 500 points will be available for this course based on 3 exams, 12 problem sets/quizzes, and 4 SPSS assignments.
 
 ```{r, include = FALSE}
 table <- tibble::tibble(Assignments_Tests = c("Exam", "Problem Set/Quiz", "SPSS Assignments", "Total Class Points"),
@@ -178,33 +178,33 @@ All classes will be recorded with automated closed captions and a full automated
 | :----------------------- | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------- |
 | Week 1b | 08/19/21 | Learn about using R as a calculator | No readings |  |
 | Week 2a | 08/24/21 | Introduction & Review  | Ch.1 |  |
-| Week 2b | 08/26/21 | Frequency & Central Tendency *Problem Set 1* | Ch.2 |  |
-| Week 3a | 08/31/21 | Variability & z-scores | Ch.3 | Problem set 1 |
-| Week 3b | 09/02/21 | Variability & z-scores *Problem Set 2* | Ch.3 |  |
-| Week 4a | 09/09/21 | Probability | Ch.8 | Problem set 2 |
-| Week 4b | 09/14/21 | Sampling Distributions & Hypothesis Testing *Problem Set 3* | Ch.7 | Study Guide (JP) |
-| Week 5a | 09/16/21 | Study Session | Ch.1-3, 7, 8 | Problem set 3 |
-| Week 5b | 09/21/21 | Exam 1 | Ch.1-3, 7, 8 | |
-| Week 6a | 09/23/21 | The z-test *Problem Set 4* | Ch.10 | |
-| Week 6b | 09/28/21 | Single sample t-test *Problem Set 5* | Ch.11 |  |
-| Week 7a | 09/30/21 | Independent Samples t-Test *SPSS Assignment 1* | Ch.11 | Problem sets 4 & 5 |
-| Week 7b | 10/07/21 | Independent Samples t-Test *Problem Set 6* | Ch.11 |  |
-| Week 8a | 10/12/21 | Paired t-Test | Ch.12 | Problem set 6 |
-| Week 8b | 10/14/21 | Paired t-Test *Problem Set 7* | Ch.12 | SPSS Assignment 1 & Study Guide (JP) |
-| Week 9a | 10/19/21 | Study Session | Ch.10-12 |  Problem set 7 |
-| Week 9b | 10/21/21 | Exam 2 | Ch.10-12 | |
-| Week 10a | 10/26/21 | One-way ANOVA *Problem Set 8* | Ch.13 |  |
-| Week 10b | 10/28/21 | ANOVA & Post-hoc tests *SPSS Assignment 2* | Ch.13 |  |
-| Week 11a | 11/02/21 | TWo-way ANOVA *Problem Set 9* | Ch.14 | Problem set 8 |
-| Week 11b | 11/04/21 | TWo-way ANOVA *SPSS Assignment 3* | Ch.14 |  |
-| Week 12a | 11/09/21 | Two-way ANOVA *Problem Set 10* | Ch.14 | Problem set 9 & SPSS Assignment 2 |
-| Week 12b | 11/11/21 | Repeated-measures ANOVA | Ch.18 |  |
-| Week 13a | 11/16/21 | Repeated-measures ANOVA *Problem Set 11* | Ch.18 | Problem set 10 & SPSS Assignment 3 |
-| Week 13b | 11/18/21 | Correlation | Ch.5 & Ch.15 |  |
-| Week 14a | 11/23/21 | Correlation *Problem Set 12* | Ch.5 & Ch.15 | Problem set 11 |
-| Week 14b | 11/25/21 | Regression *SPSS Assignment 4* | Ch.16 |  |
-| Week 15a | 11/30/21 | Chi Square | Ch.17 | Problem set 12 & Study Guide (JP) |
-| Week 15b | 12/2/21 | Study Session | Ch.5, 13-16, 17@, 18 | SPSS Assignment 4 |
-| Finals Week | 12/6-10/21 | Exam 3 | Ch.5, 13-16, 17@, 18 |  |
+| Week 2b | 08/26/21 | Frequency & Central Tendency *Problem Set 1* | Ch.2 & Ch.3 |  |
+| Week 3a | 08/31/21 | Variability & z-scores | Ch.4 & Ch.5 | Problem set 1 |
+| Week 3b | 09/02/21 | Variability & z-scores *Problem Set 2* | Ch.4 & Ch.5 |  |
+| Week 4a | 09/09/21 | Probability | Ch.6 | Problem set 2 |
+| Week 4b | 09/14/21 | Sampling Distributions *Problem Set 3* | No readings | Study Guide (JP) |
+| Week 5a | 09/16/21 | Study Session | Ch.1-7 | Problem set 3 |
+| Week 5b | 09/21/21 | Exam 1 | Ch.1-7 | |
+| Week 6a | 09/23/21 | Hypothesis Testing & the z-test *Problem Set 4* | Ch.7 | |
+| Week 6b | 09/28/21 | Single sample t-test *Problem Set 5* | Ch.8 |  |
+| Week 7a | 09/30/21 | Independent Samples t-Test *SPSS Assignment 1* | Ch.9 | Problem sets 4 & 5 |
+| Week 7b | 10/07/21 | Independent Samples t-Test *Problem Set 6* | Ch.9 |  |
+| Week 8a | 10/12/21 | Paired t-Test | Ch.9 | Problem set 6 |
+| Week 8b | 10/14/21 | Paired t-Test *Problem Set 7* | Ch.9 | SPSS Assignment 1 & Study Guide (JP) |
+| Week 9a | 10/19/21 | Study Session | Ch.7-9 |  Problem set 7 |
+| Week 9b | 10/21/21 | Exam 2 | Ch.7-9 | |
+| Week 10a | 10/26/21 | One-way ANOVA *Problem Set 8* | Ch.11 |  |
+| Week 10b | 10/28/21 | ANOVA & Post-hoc tests *SPSS Assignment 2* | Ch.11 |  |
+| Week 11a | 11/02/21 | TWo-way ANOVA *Problem Set 9* | Ch.12 | Problem set 8 |
+| Week 11b | 11/04/21 | TWo-way ANOVA *SPSS Assignment 3* | Ch.12 |  |
+| Week 12a | 11/09/21 | Two-way ANOVA *Problem Set 10* | Ch.12 | Problem set 9 & SPSS Assignment 2 |
+| Week 12b | 11/11/21 | Repeated-measures ANOVA | Ch.11 |  |
+| Week 13a | 11/16/21 | Repeated-measures ANOVA *Problem Set 11* | Ch.11 | Problem set 10 & SPSS Assignment 3 |
+| Week 13b | 11/18/21 | Correlation | Ch.10 |  |
+| Week 14a | 11/23/21 | Correlation *Problem Set 12* | Ch.10 | Problem set 11 |
+| Week 14b | 11/25/21 | Regression *SPSS Assignment 4* | Ch.10 |  |
+| Week 15a | 11/30/21 | Chi Square | Ch.13 | Problem set 12 & Study Guide (JP) |
+| Week 15b | 12/2/21 | Study Session | Ch.8-13@ | SPSS Assignment 4 |
+| Finals Week | 12/6-10/21 | Exam 3 | Ch.8-13@ |  |
 
 {{< /bootstrap-table >}}

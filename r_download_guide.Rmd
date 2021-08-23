@@ -39,7 +39,7 @@ tictoc::toc()
 
 4. You can turn in scripts instead of doing everything by hand. Which saves you writing everything by hand and having to take pictures of your work. It saves me having to figure out all of your handwriting.
 
-## Step-by-step of downloading R
+## Step-by-step of downloading R (Windows)
 
 1. Download R for Windows or Mac
 
@@ -73,6 +73,14 @@ You can save the script too. This will be what is turned in for problem set assi
 6. Highlighting Code to Run
 
 ![Highlighting Code](class_schedule/images/highlighting.jpg)
+
+### Mac Instructions
+
+1. ![Download R page](class_schedule/images/r_download_page.jpg)
+
+2. ![Download R-4.1.1pkg](class_schedule/images/mac_download.jpg)
+
+3. Follow Instructions by clicking Next.
 
 ## Objects
 
