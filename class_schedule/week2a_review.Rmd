@@ -1,0 +1,389 @@
+---
+title: "PSY 3307"
+subtitle: "Review of Common Terms"
+author: "Jonathan A. Pedroza, MS, MA"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(xaringanthemer)
+style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")
+```
+
+# Agenda
+
+* Steps of Statistics
+* Differences in Population & Sample
+* Variables & Relationships
+* Descriptive & Inferential Statistics
+* Statistics & Parameters
+* Experimental & Correlational Designs
+* Experiments
+* Correlational Studies
+* Measurement Scales
+* Continuous & Discrete Variables
+
+---
+
+# Steps of Statistics
+
+1. Organize Data
+2. Summarize Data
+3. Communicate Data
+4. Interpret Data
+
+---
+
+# What does this mean?
+
+1. Organize Data
+```{r, include = FALSE}
+library(tidyverse)
+library(ggpubr)
+
+options(scipen = 999)
+theme_set(theme_minimal())
+
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/ca_county.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-x1, -x) %>% 
+  filter(release_year == 2018 & 
+           county_name != "california")
+```
+
+
+```{r, echo = FALSE, eval = TRUE, out.width = "400px"}
+
+ggplot(data = data, aes(x = physical_inactivity)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20)
+
+```
+
+---
+
+2. Summarize Data
+```{r, echo = FALSE, eval = TRUE}
+psych::describe(data$physical_inactivity, na.rm = TRUE)[c("mean", "sd", "median", "min", "max", "skew", "kurtosis")]
+```
+
+---
+
+3. Communicate Data
+```{r, echo = FALSE, eval = TRUE}
+t.test(physical_inactivity ~ drinking_water_violations, data = data, var.equal = TRUE, alternative = "two.sided")
+```
+
+---
+
+4. Interpret Data
+
+"Based on the findings from the statistical test, there were no differences in physical inactivity between counties that had drinking water violations and the counties that did not have drinking water violations. 
+
+```{r, echo = FALSE, eval = TRUE, out.width = "400px"}
+data %>% 
+  mutate(drinking_water_violations = as.factor(drinking_water_violations)) %>% 
+  group_by(drinking_water_violations) %>% 
+  summarize(avg_inactivity = mean(physical_inactivity),
+            sd_inactivity = sd(physical_inactivity)) %>% 
+  ggplot(aes(x = drinking_water_violations, y = avg_inactivity)) + 
+  geom_col(aes(fill = drinking_water_violations)) +
+  geom_text(aes(label = avg_inactivity), vjust = 1.5) +
+  theme(legend.position = "none")
+```
+
+---
+
+# Differences in Population & Sample
+
+* **Population** is a large group of individuals, which a law of nature applies
+
+* **Sample** is a group of a given population intended to represent that population
+
+* **Participants** are those measured in a sample. Participants always refers to individuals (e.g., students, children, prisoners)
+
+* A sample is *supposed to generalize* to a given population
+
+* We never use subjects in the social sciences anymore, they are participants
+
+---
+
+# Real World Examples
+
+Tell me whether or not the examples are a population or a sample. If it is a sample then tell me whether or not it is a representative sample.
+
+1. All adults in the United States
+2. All students in PSY 3307-04
+3. All female students in PSY representing all students in PSY
+4. All adults in California representing adults in the United States
+5. All students in PSY 3307-06 representing students taking PSY 3307
+
+---
+
+# Variables & Relationships
+
+* **Variable** is anything that can produce different scores.
+
+* **Qualitative Variable** is a variable that represents a quality of category
+
+* **Quantitative Variable** is a variable measured in amounts
+
+* Qualitative = Categorical
+
+* Quantitative = Numeric
+
+---
+
+# Qualitative/Categorical  or Quantitative/Numeric
+
+1. Height in meters
+2. Name
+3. Race
+4. Gender
+5. Test Score
+6. Cups of Coffee Drank Today
+7. Full Address
+8. Number of times I've said "Um"
+
+---
+
+# Relationships
+
+.pull-left[* **Relationships** are when two variables are related; one variable changes the other changes consistently
+
+* Often use the term *association* when talking about relationships between two variables
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, out.width = "400px"}
+boxplot1 <- data %>% 
+  ggplot(aes(as.factor(drinking_water_violations), air_pollution_particulate_matter)) + 
+  geom_boxplot(aes(fill = drinking_water_violations), alpha = .5) + 
+  geom_point(color = "purple", alpha = .5) + 
+  theme(legend.position = "none")
+
+scatterplot1 <- data %>% 
+  ggplot(aes(access_to_exercise_opportunities, physical_inactivity)) +
+  geom_point(color = "purple", alpha = .5) +
+  geom_smooth(method = "lm", se = FALSE, color = "black")
+
+ggarrange(boxplot1, scatterplot1, nrow = 1)
+
+```
+]
+
+---
+
+# Look at the actual correlation between the two variables
+
+```{r, echo = FALSE, eval = TRUE}
+cor.test(data$access_to_exercise_opportunities, data$physical_inactivity)
+```
+
+---
+
+# Three Types of Relationships
+
+.pull-left[1. Positive - one variable goes up, the second variable also goes up
+2. Negative - one variable goes down, the second variable goes up (or the other way around too)
+3. No relationship - random data points everywhere
+]
+
+.pull-right[
+
+```{r, eval = TRUE, echo = FALSE}
+set.seed(082421)
+no <- rnorm(1000, mean = 0, sd = 1)
+  
+no_tibble <- tibble(value1 = no,
+                    value2 = no) %>% 
+  janitor::clean_names()
+  
+```
+
+```{r, eval = TRUE, echo = FALSE, out.width = "400px"}
+
+pos <- no_tibble %>% 
+  ggplot(aes(value1, value2)) + 
+  geom_point(color = "purple", alpha = .5)
+
+nothing <- data %>% 
+  ggplot(aes(some_college, air_pollution_particulate_matter)) + 
+  geom_point(color = "purple", alpha = .5)
+
+ggarrange(scatterplot1, pos, nothing, nrow = 1)
+```
+]
+
+---
+
+# Descriptive & Inferential Statistics
+
+* **Descriptive Statistics** used for organizing and summarizing your data. 
+
+* Tells the reader how the data looks.
+
+* **Inferential Statistics** used to estimate or infer if there is a relationship in your sample data that represents the population studying
+
+* Tells the reader if there is a relationship.
+
+---
+
+# Examples of Descriptive & Inferential Statistics
+
+1. The average amount of physical inactivity in California counties
+2. Finding the populations of each California county
+3. The association between parks and physical activity engaged 
+4. The *difference* in the number of liquor stores between San Diego and Los Angeles counties.  
+5. The number of males and females in PSY 3307. 
+
+---
+
+# Statistics vs Parameters
+
+* **Statistics** use English letters to get values for a sample 
+
+* **Parameter** use greek letters for values of a population
+
+Statistic = Sample
+
+Parameter = Population
+---
+
+# Learning Greek & Roman
+
+$$\Sigma = Sum$$
+$$ \bar{x} = sample\;mean $$
+$$ \mu = population\;mean $$
+$$ s^2 = variance $$
+$$ s = standard\;deviation $$
+$$ \sigma = population\;standard\;deviation $$
+$$ \sigma^2 = population\;variance $$
+
+---
+
+$$ r= sample\;correlation\;coefficient $$
+$$ \rho = population\;correlation\;coefficient $$
+$$ N = Total\;Observations\;(Either\;Sample\;or\;Population)$$
+$$ f = Frequency $$
+$$ n = observations\;for\;categories\;in\;survey $$
+
+---
+
+# Designs
+
+* **Design** is how a study is organized
+
+1. Experimental (manipulate your independent variable to see what effect it has on the dependent variable)
+  - True Experiment
+  - Quasi Experiment
+  - Natural Experiment
+  
+2. Correlational (don't manipulate anything; just look at the relationship between two variables)
+  - Correlation
+  - Regression
+
+---
+
+# Types of Variables
+
+* **Independent Variable (IV)** variable that is manipulated by experimenter to see if causes change in DV
+
+* **Dependent Variable (DV)** behavior that is measured; expected to be influenced by IV; outcome you are interested in
+
+* Let's keep it simple
+Correlational Design: IV --> DV
+Experimental Design: Manipulate IV to see if DV changes
+
+---
+
+# Conditions
+
+* **Conditions** are the categories of the IV to measure DV scores
+
+* Example: Examining test scores of students in a class. Half of the class gets a study guide while the other half is given nothing.
+
+IV = Study guide
+DV = Test scores
+Conditions: 1 = Group receiving study guide; 2 = Group receiving nothing (control group)
+
+* For experiments, you can say "IV had an effect on DV" or the "IV caused DV" but for correlational students that is a big NO NO. Every time JP hears/reads a correlational study that describes the effect of IV on DV he cries a little inside.
+
+---
+
+background-image: url(http://oyster.ignimgs.com/wordpress/stg.ign.com/2012/10/himym-who-wants-to-be-a-godparent-header.jpg)
+background-size: contain
+class: center, bottom, inverse
+
+# NAME THAT VARIABLE/DESIGN!
+
+---
+
+# Choose Design, IV, & DV
+
+1. Two randomly chosen groups are created to see who does better on an exam, with one group getting tutoring lessons.  
+2. A drug trial where two groups are randomly selected; one group gets a placebo and the other gets the drug to see if there are differences in blood pressure.
+3. Examining the association between getting a COVID vaccine and being hospitalized for COVID. 
+4. Giving male and female college students an exam and telling half of the male and female students that they will probably fail to examine the effect of stereotype threat 
+5. Examining differences between races/ethnicities and physical activity levels. 
+6. Put college male students in a "prison" to see how guards maintain law and order in a prison setting.
+7. Randomly choosing three groups of adults to see their physical activity habits; one group gets a personal trainer, one group gets a workout buddy, and one group gets nothing. 
+
+---
+
+# 4 Types of Measurement Scales
+
+1. Nominal
+- Categorize individuals (names, race/ethnicity, gender, sex, whether or not you can juggle), categories that are not ordered
+2. Ordinal
+- scores indicate rank order (race order, podiums), has categories that are ordered
+3. Interval
+- scores measure amounts, but zero is not an absolute zero (smallest number possible), has negative numbers, equal amounts separate adjacent numbers
+4. Ratio
+- has a true zero (zero is smallest number), no negative numbers
+
+---
+
+background-image: url(http://oyster.ignimgs.com/wordpress/stg.ign.com/2012/10/himym-who-wants-to-be-a-godparent-header.jpg)
+background-size: contain
+class: center, bottom, inverse
+
+# NAME THAT SCALE!
+
+---
+
+1. California Counties
+2. Temperature measured in Celcius
+2b. Temperature measured in Kelvin
+3. Olympic Medal Winners (Gold, Silver, Bronze)
+4. Money
+5. Income Brackets [0-10k, 11-20k, 21-30k, ...]
+6. Miles per hour (mpg)
+7. 10 most common baby names
+8. Grades (A, B, C, D, F)
+9. Grades (100-95, 94-90, 89-85, 84-80, ...)
+10. Grades (100-0%)
+
+---
+
+# Continuous & Discrete Variables
+
+* **Continuous** variable that can be measured with decimals.
+
+* Example: you can get a 94.3 on an exam.
+
+* **Discrete** can be categorical (sex, race/ethnicity);, does not allow fractional amounts
+
+* Example: Being a 4th year compared to a 3rd year
