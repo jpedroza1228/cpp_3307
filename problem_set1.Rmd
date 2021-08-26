@@ -1,0 +1,170 @@
+---
+title: "Problem Set 1"
+author: "JP"
+date: "8/14/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+set.seed(082421)
+# creating 5 different categories, with different amounts of time they show up in the data
+categories <- rep(letters[1:5], times = c(25, 15, 37, 40, 83))
+
+# 200 observations with the mean and standard deviation
+test_scores <- rnorm(n = 200, mean = 145.24, sd = 2.48)
+
+# Making the categories act like categories rather than numerical values
+categories <- as.factor(categories)
+```
+
+```{r}
+# Observations (be careful R is case sensitive)
+N = 200
+
+# Quick way of showing you the frequencies of each category
+table(categories)
+```
+
+
+```{r jp included}
+library(tidyverse)
+library(psych)
+
+set.seed(082421)
+data <- tibble(categories = rep(letters[1:5], times = c(25, 15, 37, 40, 83)),
+                   test_scores = rnorm(n = 200, mean = 145.24, sd = 2.48),
+                   normal_distribution = rnorm(n = 200, mean = 0, sd = 1))
+
+data %>% 
+  group_by(categories) %>% 
+  summarize(n = n()) %>% 
+  mutate(freq = n/sum(n)) %>% 
+ggplot(aes(fct_reorder(categories, n), n)) + 
+  geom_col(fill = "dodgerblue", color = "white") + 
+  theme_minimal()
+
+data %>% 
+  ggplot(aes(test_scores)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20) + 
+  theme_minimal()
+
+data %>% 
+  ggplot(aes(normal_distribution)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20) + 
+  theme_minimal()
+```
+
+
+```{r}
+table(categories)
+
+# Frequency of category A
+freq_a <- 25/N
+freq_a
+
+# Percent of category A
+percent_a <- freq_a*100
+percent_a
+
+freq_b <- 15/N
+freq_b
+
+percent_b <- freq_b*100
+percent_b
+  
+freq_c <- 37/N
+freq_c
+
+percent_c <- freq_c*100
+percent_c
+  
+freq_d <- 40/N
+freq_d
+
+percent_d <- freq_d*100
+percent_d
+  
+freq_e <- 83/N
+freq_e
+
+percent_e <- freq_e*100
+percent_e
+```
+
+```{r}
+# Just a way to combine all the percentages together to see in one place
+cbind(percent_a, percent_b, percent_c, percent_d, percent_e)
+```
+
+```{r}
+# To get the cumulative frequency of category A and B, I'll add them together
+freq_ab <- freq_a + freq_b
+freq_ab
+```
+
+
+```{r}
+# To get the cumlative percentage of all 5 categories
+total_percent <- percent_a + percent_b + percent_c + percent_d + percent_e
+total_percent
+```
+
+```{r}
+# find the mode
+x <- c(21, 21, 25, 23, 24, 23, 20, 19, 24, 25, 21, 21, 26, 22, 22, 24, 20, 19, 19, 20, 20, 23, 21, 21, 37, 23, 19, 26, 34, 33)
+
+sort(x)
+table(x)
+
+```
+
+```{r}
+# find the median
+sort(test_scores)
+sort(test_scores)[100:101]
+
+get_median <- (145.15 + 145.15)/2
+get_median
+
+median(test_scores)
+```
+
+
+```{r}
+# look at test scores first
+sort(test_scores)
+N
+
+# get the sum first
+sigma_sum <- sum(test_scores)
+sigma_sum
+
+# get the mean from the sum of the scores
+xbar <- sigma_sum/N
+xbar
+```
+
+```{r}
+# look at how far students deviated from the average score
+deviation <- test_scores - xbar
+deviation
+
+# look to see how far the worse test score was from the mean
+sort(deviation)
+```
+
+```{r}
+# calculate the sum of the deviations
+# what does this tell you?
+sum(deviation)
+
+```
+
