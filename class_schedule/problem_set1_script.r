@@ -1,19 +1,5 @@
----
-title: "Problem Set 1"
-author: "JP"
-date: "8/14/2021"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-    toc: true
----
+options(scipen = 999)
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r}
 set.seed(082421)
 # creating 5 different categories, with different amounts of time they show up in the data
 categories = rep(letters[1:5], times = c(5, 4, 6, 8, 7))
@@ -26,14 +12,12 @@ categories = as.factor(categories)
 
 # Observations (be careful R is case sensitive)
 N = 30
-```
 
-# I will do this two ways
 
-## Using the numerical values and then using the objects approach
 
-### Frequencies
-```{r}
+
+# Getting frequencies by using R as a calculator
+
 # get the frequencies of all the categories
 table(categories)
 
@@ -67,10 +51,12 @@ table(categories)
 # you can also use the calculations above to add up all the percentages
 16.667 + 13.333 + 20 + 26.667 + 23.333
 
-```
 
-### Frequencies using objects
-```{r}
+# Now getting frequencies by using objects
+
+#remember that N is the number of observations
+N
+
 freq_a <- 5/N
 freq_a
 
@@ -83,19 +69,19 @@ freq_b
 
 percent_b <- freq_b*100
 percent_b
-  
+
 freq_c <- 6/N
 freq_c
 
 percent_c <- freq_c*100
 percent_c
-  
+
 freq_d <- 8/N
 freq_d
 
 percent_d <- freq_d*100
 percent_d
-  
+
 freq_e <- 7/N
 freq_e
 
@@ -109,35 +95,25 @@ freq_ab
 # To get the cumlative percentage of all 5 categories
 total_percent = percent_a + percent_b + percent_c + percent_d + percent_e
 total_percent
-```
 
-```{r}
-# Just a way to combine all the percentages together to see in one place
-cbind(percent_a, percent_b, percent_c, percent_d, percent_e)
-```
 
-```{r}
+
+
 # find the mode
+# which value occurs most often
 table(categories)
 
-# which value occurs most often
 
-```
 
-## Getting the Median Two ways
 
-```{r}
+# Finding the mean
 sort(test_scores)
 
 #look for the middle value or in this case the 15th and 16th observations
 # 7.060384 & 7.212301 and then divide by 2
 (7.06 + 7.21)/2
 
-```
-
-
-```{r}
-# find the median
+# find the median using objects
 sort(test_scores)
 sort(test_scores)[15:16]
 
@@ -145,26 +121,25 @@ get_median = (7.06 + 7.21)/2
 get_median
 
 median(test_scores)
-```
 
-## Getting the Mean Two Ways
 
-```{r}
+
+# Finding the mean
 # look at test scores first in order for lowest to highest
 sort(test_scores)
 
-# Now let's get the sum
-1.98 + 3.54 + 3.57 + 4.28 + 4.40 + 4.51 + 4.98 + 5.67 + 5.90 + 6.09 + 6.44 + 6.44 + 6.59 + 6.82 + 7.06 + 7.21 + 7.29 + 7.82 + 7.87 + 7.87 + 8.24 + 8.69 + 8.85 + 8.92 + 9.38 + 9.41 + 10.67 + 10.95 + 12.06 + 12.59
+# Now let's get the sum of the scores
+1.98 + 3.54 + 3.57 + 4.28 + 4.40 + 4.51 + 4.98 + 5.67 + 5.90 + 6.09 + 6.44 + 6.44 + 6.59 + 6.82 + 7.06 +
+  7.21 + 7.29 + 7.82 + 7.87 + 7.87 + 8.24 + 8.69 + 8.85 + 8.92 + 9.38 + 9.41 + 10.67 + 10.95 + 12.06 + 12.59
 
-# Now let's decide the sum of the scores by the number of observations
-(1.98 + 3.54 + 3.57 + 4.28 + 4.40 + 4.51 + 4.98 + 5.67 + 5.90 + 6.09 + 6.44 + 6.44 + 6.59 + 6.82 + 7.06 + 7.21 + 7.29 + 7.82 + 7.87 + 7.87 + 8.24 + 8.69 + 8.85 + 8.92 + 9.38 + 9.41 + 10.67 + 10.95 + 12.06 + 12.59)/30
+# Now let's divide the sum of the scores by the number of observations to get the mean
+(1.98 + 3.54 + 3.57 + 4.28 + 4.40 + 4.51 + 4.98 + 5.67 + 5.90 + 6.09 + 6.44 + 6.44 + 6.59 + 6.82 + 7.06 +
+    7.21 + 7.29 + 7.82 + 7.87 + 7.87 + 8.24 + 8.69 + 8.85 + 8.92 + 9.38 + 9.41 + 10.67 + 10.95 + 12.06 + 12.59)/30
 
 # 7.20 is the mean of our scores
 
-```
 
-```{r}
-# now getting the mean with objects
+# Now getting the mean with objects
 sort(test_scores)
 
 # look at how many observations we have
@@ -183,11 +158,11 @@ xbar
 xbar2
 
 # we get the same mean
-```
 
-# Now deviations
-```{r}
 
+
+
+#Finding how far each participant deviates from the mean value/score
 sort(test_scores)
 # look at how far students deviated from the average score by doing each one individually
 1.98 - 7.20
@@ -222,11 +197,11 @@ sort(test_scores)
 12.59 - 7.20
 
 # now to get the sum of the deviations
-(-5.22) + (-3.66) + (-3.63) + (-2.92) + (-2.8) + (-2.69) + (-2.22) + (-1.53) + (-1.3) + (-1.11) + (-.76) + (-.76) + (-.61) + (-.38) + (-.14) + .01 + .09 + .62 +.67 + .67 + 1.04 + 1.49 + 1.65 + 1.72 + 2.18 +2.21 + 3.47 + 3.75 + 4.86 + 5.39
-```
+# this is right, you might just have to go past two decimal points
+(-5.22) + (-3.66) + (-3.63) + (-2.92) + (-2.8) + (-2.69) + (-2.22) + (-1.53) + (-1.3) + (-1.11) + (-.76) + (-.76) +
+  (-.61) + (-.38) + (-.14) + .01 + .09 + .62 +.67 + .67 + 1.04 + 1.49 + 1.65 + 1.72 + 2.18 +2.21 + 3.47 + 3.75 + 4.86 + 5.39
 
-
-```{r}
+# Now getting the deviations from the mean score/value using objects
 # remember to look at the test scores
 sort(test_scores)
 
@@ -242,4 +217,9 @@ sort(deviation)
 
 # getting the sum of the deviations
 sum(deviation)
-```
+
+
+
+
+
+

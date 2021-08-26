@@ -1,0 +1,108 @@
+---
+title: "homework_problem_set_1"
+author: "JP"
+date: "8/26/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(tidyverse)
+
+set.seed(082521)
+data = tibble(categories = rep(letters[1:5], times = c(25, 15, 37, 40, 83)),
+                   test_scores = rnorm(n = 200, mean = 145.24, sd = 2.48),
+                   normal_distribution = rnorm(n = 200, mean = 0, sd = 1))
+
+set.seed(082521)
+normal = rnorm(10000, mean = 0, sd = 1)
+neg_skew = rbeta(10000, shape1 = 40, shape2 = 2)
+pos_skew = rbeta(10000, shape1 = 2, shape2 = 40)
+
+skew = tibble::tibble(normal, 
+                       pos_skew,
+                       neg_skew) %>% 
+  rowid_to_column()
+
+options(scipen = 999)
+theme_set(theme_minimal())
+```
+
+1. What type of distribution is below?
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(normal)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .8)
+```
+
+2. What type of distribution is below?
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(pos_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .8)
+```
+
+3. What type of distribution is below?
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(neg_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .8)
+```
+
+4. Describe what a bimodal distribution is in your own words.
+
+5. What is the term for the formula below?
+
+$$ = \frac{f}{N} $$
+
+6. What is the difference between a histogram and a bar graph?
+
+8. What is this term and what does it mean?
+
+$$ \Sigma $$
+
+9. What measure of central tendency is best for skewed data?
+
+10. What is xbar and what is mu ($$ \mu $$)  
+
+# Copy the code below from set.seed to N = 30
+### Make sure to run everything together by highlighting everything and then pressing ctrl+R or command+R
+```{r}
+# copy and paste this into your R
+
+set.seed(082421)
+categories = rep(letters[1:5], times = c(5, 3, 2, 8, 12))
+test_scores = rnorm(n = 30, mean = 4.21, sd = 1.16)
+
+categories = as.factor(categories)
+
+N = 30
+
+# If doing it by hand, the test scores and categories are below
+test_scores
+
+categories
+
+```
+
+1. Provide the frequencies/proportions of categories A, B, C, D, & E
+
+2. Calculate the cumulative frequency of categories D & E
+
+3. Provide the mode for the categories.
+
+4. Calculate the Median for the test scores.
+
+5. Calculate the Mean for the test scores.
+
+6. Calculate the deviation of scores from the mean score/value.
+
+
+### Remember to double check your work with the following functions
+
+mean(test_scores)
+
+median(test_scores)

@@ -158,288 +158,307 @@ code span.ot { color: #007020; }
 </section>
 
 
+<div id="TOC" class="toc">
+<div class="toc-box">
+<ul>
+<li><a href="#i-will-do-this-two-ways">I will do this two ways</a><ul>
+<li><a href="#using-the-numerical-values-and-then-using-the-objects-approach">Using the numerical values and then using the objects approach</a><ul>
+<li><a href="#frequencies">Frequencies</a></li>
+<li><a href="#frequencies-using-objects">Frequencies using objects</a></li>
+</ul></li>
+<li><a href="#getting-the-median-two-ways">Getting the Median Two ways</a></li>
+<li><a href="#getting-the-mean-two-ways">Getting the Mean Two Ways</a></li>
+</ul></li>
+<li><a href="#now-deviations">Now deviations</a></li>
+</ul>
+</div>
+</div>
 
 <section class="main-content">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">set.seed</span>(<span class="dv">082421</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="co"># creating 5 different categories, with different amounts of time they show up in the data</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>categories &lt;-<span class="st"> </span><span class="kw">rep</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">15</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">83</span>))</span>
+<span id="cb1-3"><a href="#cb1-3"></a>categories =<span class="st"> </span><span class="kw">rep</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>))</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># 200 observations with the mean and standard deviation</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>test_scores &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">200</span>, <span class="dt">mean =</span> <span class="fl">145.24</span>, <span class="dt">sd =</span> <span class="fl">2.48</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># 30 observations with the mean and standard deviation</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>test_scores =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">30</span>, <span class="dt">mean =</span> <span class="fl">7.14</span>, <span class="dt">sd =</span> <span class="fl">2.16</span>)</span>
 <span id="cb1-7"><a href="#cb1-7"></a></span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Making the categories act like categories rather than numerical values</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>categories &lt;-<span class="st"> </span><span class="kw">as.factor</span>(categories)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Observations (be careful R is case sensitive)</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>N =<span class="st"> </span><span class="dv">200</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Quick way of showing you the frequencies of each category</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">table</span>(categories)</span></code></pre></div>
+<span id="cb1-9"><a href="#cb1-9"></a>categories =<span class="st"> </span><span class="kw">as.factor</span>(categories)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Observations (be careful R is case sensitive)</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>N =<span class="st"> </span><span class="dv">30</span></span></code></pre></div>
+<div id="i-will-do-this-two-ways" class="section level1">
+<h1>I will do this two ways</h1>
+<div id="using-the-numerical-values-and-then-using-the-objects-approach" class="section level2">
+<h2>Using the numerical values and then using the objects approach</h2>
+<div id="frequencies" class="section level3">
+<h3>Frequencies</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># get the frequencies of all the categories</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">table</span>(categories)</span></code></pre></div>
 <pre><code>## categories
-##  a  b  c  d  e 
-## 25 15 37 40 83</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
-## v tibble  3.1.1     v dplyr   1.0.5
-## v tidyr   1.1.3     v stringr 1.4.0
-## v readr   1.4.0     v forcats 0.5.1</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">library</span>(psych)</span></code></pre></div>
-<pre><code>## Warning: package &#39;psych&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## 
-## Attaching package: &#39;psych&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
-## 
-##     %+%, alpha</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">set.seed</span>(<span class="dv">082421</span>)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">categories =</span> <span class="kw">rep</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">15</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">83</span>)),</span>
-<span id="cb18-3"><a href="#cb18-3"></a>                   <span class="dt">test_scores =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">200</span>, <span class="dt">mean =</span> <span class="fl">145.24</span>, <span class="dt">sd =</span> <span class="fl">2.48</span>),</span>
-<span id="cb18-4"><a href="#cb18-4"></a>                   <span class="dt">normal_distribution =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">200</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
-<span id="cb18-5"><a href="#cb18-5"></a></span>
-<span id="cb18-6"><a href="#cb18-6"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="st">  </span><span class="kw">group_by</span>(categories) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">freq =</span> n<span class="op">/</span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">fct_reorder</span>(categories, n), n)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb18-11"><a href="#cb18-11"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb18-12"><a href="#cb18-12"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(test_scores)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">bins =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAHgCAMAAABNUi8GAAAArlBMVEUAAAAAADoAAGYAOpAAZrYekP86AAA6ADo6AGY6kNtNTU1NTW5NTY5NbqtNjshmAABmADpmtv9uTU1uTW5uTY5ubo5ubqtuq+SOTU2OTW6OTY6Obk2OyP+QOgCQkDqQ2/+rbk2rbm6rbo6ryKur5OSr5P+2ZgC22/+2///Ijk3I///bkDrb///kq27k///r6+v/tmb/yI7/25D/27b/5Kv//7b//8j//9v//+T///9MqBVmAAAACXBIWXMAAA7DAAAOwwHHb6hkAAASYUlEQVR4nO3cDVdc15GFYRJ7nLhtWZHjkWQPTpRkpLGwhYUGYfr//7H0x0ELEbHd99apU7sv714rYZmCTXHPo9vdaImTNSHGOalegBAVgBLrAJRYB6DEOgAl1gEosc5woL9SR92EAJQ6z7oWgFLnWdcCUOo861oASp1nXQtAqfOsawEodZ51LQClzrOuBaDUeda1AJQ6z7oWgFLnWdcCUOo861oASp1nXQtAqfOsawEodZ51LQClzrOuBaDUeda1AJQ6z7oWgFLnWdcCUOo861oAWlz3X/fHYLvCuhaAFtcBVAegxXUA1QFocR1AdQBaXAdQHYAW1wFUB6DFdQDVAWhxHUB1AFpcB1AdgBbXAVQHoMV1ANUBaHEdQHUAWlwHUB2AFtcBVAegxXUA1QFocR1AdQBaXAdQHYAW1wFUB6DFdQDVAWhxHUB1AFpcB1AdAfRitfr6bL2+er56dN7vC3pfFYDa1LXcD/Tyu7P1m2/W1y9Ot2+6xfuqANSmrkU/xG+QXv1wtrPaK95XBaA2dS0a6ObWefn0fH31/cubJUjfSKDVy1XmEKCX3371cn3x6DbQeLz/2HIHtalr0XfQjcyP76DxeF8VgNrUtfzOj5len/IcNLcOoDr3A22P7dcvnvEqPrEOoDriDvpmtdo8B+XnoLl1ANXhb5KK6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoAtLhuCtDO8b52LQAtrlNAk/F6X7sWgBbXAVQHoMV1ANUBaHEdQHUAWlwHUB2AFtcBVAegxXUA1QFocR1AdQBaXAdQHYAW1wFUB6DFdQDVAWhxHUB1AFpcB1AdgBbXAVQHoMV1ANUBaHEdQHUAWlwHUB2AFtcBVAegxXUA1QFocR1AdQBaXAdQHYAW1wFUB6DFdQDVAWhxHUB1AFpcB1AdgBbXAVQHoMV1ANUBaHEdQHUAWlwHUB2AFtcBVAegxXUA1QFocR1AdQBaXAdQHYAW1wFUB6DFdQDVAWhxHUB1AFpcNxeomB2q1/vatQC0uA6gOgAtrgOoDkCL6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoAtLgOoDoALa4DqM5EoL+SvskBWv1ddchMoPF4/7HlDjo/FnfQeLyvCkDnB6CLrAOoDkCL6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoAtLgOoDoALa4DqA5Ai+sAqgPQ4jqA6gC0uA6gOgAtrgOoDkCL6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoAtLgOoDoALa4DqA5Ai+sAqgPQ4jqA6gC0uA6gOgAtrgOoDkCL6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoAtLgOoDoALa4DqA5Ai+sAqgPQ4jqA6gC0uA6gOgAtrgOoDkCL6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoAtLgOoDoALa4DqA5Ai+sAqgPQ4jqA6gC0uA6gOgAtrgOoDkCL6wCqA9DiOoDqALS4DqA6AC2uA6gOQIvrAKoD0OI6gOoIoJffrlan6/XV89Wj835f0PuqAHR+RgO9+v7l+vKvL69fnK7ffNPvC3pfFYDOz2igF1uVr0+vfjhbX3531u0Lel8VgM5PxXPQzV308un57mbaliB9kwNUfUGVYd/27+cgoNcvnq0vHt0GGo/3H9sHcAed+3k9vtkZUUCvnj/bvFR6CtDMOoDqyFfxm9fwa56D5tYBVOd+oHufu4d5XsXn1QFU536gb1bbnPJz0Nw6gOrwN0nFdQDVAWhxHUB1AFpcB1AdgBbXAVQHoMV1ANUBaHEdQHUAWlwHUB2AFtelAJ07y/5mZwSgxXUA1QFocR1AdQBaXAdQHYAW1wFUB6DFdQDVAWhxHUB1AFpcB1AdgBbXAVQHoMV1ANUBaHEdQHUAWlwHUB2AFtcBVAegA+oyLIkZQCM5ClGd6zIsiRlAIzkKUZ3rMiyJGUAjOQpRnesyLIkZQCM5ClGd6zIsidligb5//GT75u0ff0r5UvschajOdRmWxAygkRyFqM51GZbEbKFAfz65yecpX6nlKER1rsuwJGYLBfrhDpqboxDVuS7DkpgtFuiQHIWoznUZlsRsuUDffbF7iOc5aOe6DEtitligv/2Y+uxzn6MQ1bkuw5KYLRYoz0EBGv9mO+fjOyhAU+oyLInZYoEm/wR0n6MQ1bkuw5KYLRbo+8cnvEjKqMuwJGaLBTokRyGqc12GJTEDaCRHIapzXYYlMVssUB7iARr/ZjvnP++g7//y95Sv1HIUojrXZVgSs4UDXb/97JeUL7XPUYjqXJdhScwWD5SH+M51GZbEbOlAX3EH7VyXYUnMFgu0vUj6A89BO9dlWBKzxQIdkqMQ1bkuw5KYATSSoxDVuS7DkpgtGOjun318mfKFbnIUojrXZVgSs+UC/Xn7+v3941ShRyGqc12GJTFbLFD+VSdA499s5wB0QF2GJTFbLFAe4gEa/2Y7hxdJA+oyLInZgoEOyFGI6lyXYUnMABrJUYjqXJdhScyWC/S3H79M/7fHRyGqc12GJTFbLtBXW5tS6K/k05EXOcOSmM0vrb6Kt/IpoPyYKVCX4WXmbLF3UIACtOTaqfBz0E51GV5mzpYLdP2Wn4POTYaXmbMFAx0QG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMycATQSG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMycATQSG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMycATQSG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMycATQSG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMycATQSG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMycATQSG1Gd6zK8zJwBNBIbUZ3rMrzMnAE0EhtRnesyvMyc5XzBxGunAtBOdaO9iBlAI7ER1blutBcxA2gkNqI61432ImYAjcRGVOe60V7EDKCR2IjqXDfai5gBNBIbUZ3rRnsRM4BGYiOqc91oL2IG0EhsRHWuG+1FzAAaiY2oznWjvYgZQCOxEdW5brQXMQNoJDaiOteN9iJmAI3ERlTnutFexAygkdiI6lw32ouYATQSG1Gd60Z7ETOARmIjqnPdaC9iBtBIbER1rhvtRcwAGomNqM51o72IGUAjsRHVuW60FzEDaCQ2ojrXjfYiZgCNxEZU57rRXsQMoJHYiOpcN9qLmAE0EhtRnetGexEzgEZiI6pz3WgvYgbQSGxEda4b7UXMABqJjajOdaO9iBlAI7ER1blutBcxA2gkNqI61432ImYAjcRGVOe60V7EDKCR2IjqXDfai5gBNBIbUZ3rRnsRM4BGYiOqc91oL2IG0EhsRHWuG+1FzB4O0Mvvztbrq+erR+f9vqCNqM51o72I2YMBerH6+mx9/eJ0/eabfl/QRlTnutFexOyhAH391b82d9CrH872d9JOsRHVuW60FzF7KED3D/GXT8/XV9+/vFmCfDrLBzr6gh4K9OLRbaDx2NzyOteN9iJmD/kOGo+NqM51o72I2cMCynPQwzLai5g9LKDXL57xKv6AjPYiZg8LKD8HPSyjvYjZwwGaERtRnetGexEzgEZiI6pz3WgvYgbQSGxEda4b7UXMABqJjajOdaO9iBlAI7ER1blutBcxA2gkNqI61432ImYAjcRGVOe60V7EDKCR2IiaUTfaxMwZQCMBaPoMoJEANH0G0EgAmj4DaCQATZ8BNBKAps8AGglA02cAjQSg6TOARgLQ9BlAIwFo+gygkQA0fQbQSACaPgNoJABNnwE0EoCmzwAaCUDTZwCNBKDpM4BGAtD0GUAjAWj6DKCRADR9BtBIAJo+A2gkAE2fATQSgKbPABoJQNNnAI0EoOkzgEYC0PTZ+GUyjqIFoBPqnEyIGUAjAWj6DKCRADR9BtBIAJo+A2gkAE2fATQSgKbPABoJQNNnAI0EoOkzgEYC0PQZQCMBaPoMoJEANH0G0EgAmj4DaCQATZ8BNBKAps8AGglA02cAjQSg6TOARgLQ9BlAIwFo+gygkQA0fQbQSACaPgNoJABNnwE0EoCmzwAaCUDTZw8Z6K8POU4IDYH2JTMTaDzcQdNnVstETwSgE+qczl3MrJaJnghAJ9Q5nbuYWS0TPRGATqhzOncxs1omeiIAnVDndO5iZrVM9EQAOqHO6dzFzGqZ6IkAdEKd07mLmdUy0RMB6IQ6p3MXM6tloicC0Al1TucuZlbLRE8EoBPqnM5dzKyWiZ4IQCfUOZ27mFktEz0RgE6oczp3MbNaJnoiAJ1Q53TuYma1TPREADqhzuncxcxqmeiJAHRCndO5i5nVMtETAeiEOqdzFzOrZaInAtAJdU7nLmZWy0RPBKAT6pzOXcyslomeCEAn1Dmdu5hZLRM9EYBOqHM6dzGzWiZ6IgCdUOd07mJmtUz0RAA6oc7p3MXMapnoiQB0Qp3TuYuZ1TLREwHohDqncxczq2WiJwLQCXVO5y5mVstETwSgE+qczl3MrJaJnghAJ9Q5nbuYWS0TPRGATqhzOncxs1omeiIAnVDndO5iZrVM9EQAOqHO6dzFzGqZ6IkAdEKd07mLmdUy0RMB6IQ6p3MXM6tloicC0Al1TucuZlbLRE8EoBPqnM5dzKyWiZ4IQCfUOZ27mFktEz0RgE6oczp3MbNaJnoiiwU675oBdOjsgAB0wnajz2/mzGoZgN6TedcFoENnBwSgE7YbfX4zZ1bLAPSezLsuAB06OyAAnbDd6PObObNaBqD3ZN51AejQ2QEB6ITtRp/fzJnVMgC9J/OuC0CHzg4IQCdsN/r8Zs6slgHoPZl3XQA6dHZAADoho89v5sxqGSegB63iAHThM6tlADpjmYXPrJYB6IxlFj6zWgagM5ZZ+MxqGYDOWGbhM6tlADpjmYXPrJYB6IxlFj6zWgagM5ZZ+MxqGYDOWGbhM6tl8oFePV89Oj8Iy0GrADR9ZrVMOtDrF6frN98chOWgVQCaPrNaJh3o1Q9n68vvzg7pOmgVgKbPrJZJB3r59Hx99f3LGw8iB5Ii5CYHaPpdoBePbgPtsFO3JuoWXdcy8Q4aj/dVoc6mrqXnc9CD4n1VqLOpazngVfyzQ1/FHxTvq0KdTV1Lz5+DHhTvq0KdTV3LYv/JB3VHXtcCUOo861oASp1nXQtAqfOsawEodZ51LQClzrOuBaDUeda1AJQ6z7oWgFLnWdcCUOo861oASp1nXQtAqfOsawEodZ51LcOBEjIlACXWASixDkCJdQBKrANQYh2AEusAlFgHoMQ6w4DufvnDxWr19ebNm9X+rU/ar6bY/iq/3v/OukNub2d67dpa/a/dKKAX2/W338r2l0C8Ph30VQ/NRTvzN6vTKb9vclBub+d67fZrJVy7QUBff/Wv9utzNkiv/9HvVz11yc12l//9P6fdf9dPOB9tZ3rt2loJ127sQ/wmmz9gm8eB1crrRrDb7vof/7u5A/T+bWkdcms702vX1kq4doOBXn771cv15V9fut0J9s+jnm0fonr/vskOubWd6bVrayVcu+F30Jv9vZ5L7S7y0/Nr3zto224Xv2u3y+vT47+Drj9cXb+LvH0hulo9s3sO+tF2u//2u3a7vD499ueg7RFg++b6n3YE1vtXob1/32SH3NrO9Nq1tRKu3dg76OY2sHkOevPGKEf1c1DHa9fWOt6fgxIyKwAl1gEosQ5AiXUASqwDUGIdgEby//932PvI7AA0kHd/+vtB7yPzA9BAAJofgM7Puy9OTr5c//bjyckff9r/18mT/ftuf8TJk/XuYz5ff3j77s9/23zKx59Y9214B6CBbO+Wv/24EffzZ7/s7pzvvnhy+w56877tx7x//GT3sdv/vfvi8/V/fGLh9+EcgAaytfV2exPc6Hv3558+vO/D/M77dh+7+b8dx7ufSD4ZgAayhffzyS5frl/tH8U/eg7a3rezuH372S+7D9h9zN1PJJ8MQAPZAd2i2+f9481zyjsvknbv+zTQO584bOvjCkAD2T3E/+EWyO0j9t1X8bfet/vYtw3x3U8csO8xBqCB7F/4bO6EG2y7u+RG3m1qN++7eXH04UXSFujdTyz8PpwD0EhenXy++9HR7s54sn/76tYzypv33f0x047j3U8knwpAiXUASqwD0P7Z/dUQj9t9AlBiHYAS6wCUWAegxDoAJdYBKLEOQIl1/g1GMg55XyAkxQAAAABJRU5ErkJggg==" /><!-- --></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(normal_distribution)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">bins =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">table</span>(categories)</span></code></pre></div>
-<pre><code>## categories
-##  a  b  c  d  e 
-## 25 15 37 40 83</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Frequency of category A</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>freq_a &lt;-<span class="st"> </span><span class="dv">25</span><span class="op">/</span>N</span>
-<span id="cb23-3"><a href="#cb23-3"></a>freq_a</span></code></pre></div>
-<pre><code>## [1] 0.125</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Percent of category A</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>percent_a &lt;-<span class="st"> </span>freq_a<span class="op">*</span><span class="dv">100</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>percent_a</span></code></pre></div>
-<pre><code>## [1] 12.5</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>freq_b &lt;-<span class="st"> </span><span class="dv">15</span><span class="op">/</span>N</span>
-<span id="cb27-2"><a href="#cb27-2"></a>freq_b</span></code></pre></div>
-<pre><code>## [1] 0.075</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>percent_b &lt;-<span class="st"> </span>freq_b<span class="op">*</span><span class="dv">100</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>percent_b</span></code></pre></div>
-<pre><code>## [1] 7.5</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>freq_c &lt;-<span class="st"> </span><span class="dv">37</span><span class="op">/</span>N</span>
-<span id="cb31-2"><a href="#cb31-2"></a>freq_c</span></code></pre></div>
-<pre><code>## [1] 0.185</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>percent_c &lt;-<span class="st"> </span>freq_c<span class="op">*</span><span class="dv">100</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>percent_c</span></code></pre></div>
-<pre><code>## [1] 18.5</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>freq_d &lt;-<span class="st"> </span><span class="dv">40</span><span class="op">/</span>N</span>
-<span id="cb35-2"><a href="#cb35-2"></a>freq_d</span></code></pre></div>
+## a b c d e 
+## 5 4 6 8 7</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Frequency &amp; Percentage of A</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="dv">5</span><span class="op">/</span><span class="dv">30</span></span></code></pre></div>
+<pre><code>## [1] 0.1666667</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>(<span class="dv">5</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 16.66667</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Frequency &amp; Percentage of B</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dv">4</span><span class="op">/</span><span class="dv">30</span></span></code></pre></div>
+<pre><code>## [1] 0.1333333</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>(<span class="dv">4</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 13.33333</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Frequency &amp; Percentage of C</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="dv">6</span><span class="op">/</span><span class="dv">30</span></span></code></pre></div>
 <pre><code>## [1] 0.2</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>percent_d &lt;-<span class="st"> </span>freq_d<span class="op">*</span><span class="dv">100</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>percent_d</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>(<span class="dv">6</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>freq_e &lt;-<span class="st"> </span><span class="dv">83</span><span class="op">/</span>N</span>
-<span id="cb39-2"><a href="#cb39-2"></a>freq_e</span></code></pre></div>
-<pre><code>## [1] 0.415</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>percent_e &lt;-<span class="st"> </span>freq_e<span class="op">*</span><span class="dv">100</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>percent_e</span></code></pre></div>
-<pre><code>## [1] 41.5</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># Just a way to combine all the percentages together to see in one place</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a><span class="kw">cbind</span>(percent_a, percent_b, percent_c, percent_d, percent_e)</span></code></pre></div>
-<pre><code>##      percent_a percent_b percent_c percent_d percent_e
-## [1,]      12.5       7.5      18.5        20      41.5</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># To get the cumulative frequency of category A and B, I&#39;ll add them together</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a>freq_ab &lt;-<span class="st"> </span>freq_a <span class="op">+</span><span class="st"> </span>freq_b</span>
-<span id="cb45-3"><a href="#cb45-3"></a>freq_ab</span></code></pre></div>
-<pre><code>## [1] 0.2</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="co"># To get the cumlative percentage of all 5 categories</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a>total_percent &lt;-<span class="st"> </span>percent_a <span class="op">+</span><span class="st"> </span>percent_b <span class="op">+</span><span class="st"> </span>percent_c <span class="op">+</span><span class="st"> </span>percent_d <span class="op">+</span><span class="st"> </span>percent_e</span>
-<span id="cb47-3"><a href="#cb47-3"></a>total_percent</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Frequency &amp; Percentage of D</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="dv">8</span><span class="op">/</span><span class="dv">30</span></span></code></pre></div>
+<pre><code>## [1] 0.2666667</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>(<span class="dv">8</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 26.66667</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Frequency &amp; Percentage of E</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="dv">7</span><span class="op">/</span><span class="dv">30</span></span></code></pre></div>
+<pre><code>## [1] 0.2333333</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>(<span class="dv">7</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 23.33333</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># cumulative frequencies of categories A &amp; B</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>(<span class="dv">5</span><span class="op">/</span><span class="dv">30</span>) <span class="op">+</span><span class="st"> </span>(<span class="dv">4</span><span class="op">/</span><span class="dv">30</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># another option is to do the calculations above and then just add up the frequency of A with the frequency of B</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fl">.167</span> <span class="op">+</span><span class="st"> </span><span class="fl">.133</span></span></code></pre></div>
+<pre><code>## [1] 0.3</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># To get the cumlative percentage of all 5 categories</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>(<span class="dv">5</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">4</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">6</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">8</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">7</span><span class="op">/</span><span class="dv">30</span>)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># find the mode</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">25</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>, <span class="dv">22</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">37</span>, <span class="dv">23</span>, <span class="dv">19</span>, <span class="dv">26</span>, <span class="dv">34</span>, <span class="dv">33</span>)</span>
-<span id="cb49-3"><a href="#cb49-3"></a></span>
-<span id="cb49-4"><a href="#cb49-4"></a><span class="kw">sort</span>(x)</span></code></pre></div>
-<pre><code>##  [1] 19 19 19 19 20 20 20 20 21 21 21 21 21 21 22 22 23 23 23 23 24 24 24 25 25
-## [26] 26 26 33 34 37</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="kw">table</span>(x)</span></code></pre></div>
-<pre><code>## x
-## 19 20 21 22 23 24 25 26 33 34 37 
-##  4  4  6  2  4  3  2  2  1  1  1</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># find the median</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
-<pre><code>##   [1] 134.6026 138.6590 139.0738 139.3146 140.6481 141.0502 141.0988 141.1035
-##   [9] 141.1375 141.1380 141.4194 141.7022 141.7744 141.8027 141.9590 141.9804
-##  [17] 142.0120 142.0637 142.0895 142.1730 142.2163 142.2395 142.4931 142.5006
-##  [25] 142.5334 142.5538 142.5741 142.6462 142.6816 142.7542 142.7567 142.8330
-##  [33] 142.9530 143.0586 143.1908 143.2290 143.2392 143.2602 143.2622 143.2759
-##  [41] 143.3404 143.3824 143.4056 143.4084 143.4834 143.5502 143.5649 143.5964
-##  [49] 143.6590 143.6692 143.6977 143.7023 143.7248 143.7768 143.7805 143.8114
-##  [57] 143.8496 143.8608 143.8831 143.9062 143.9474 143.9476 143.9788 143.9872
-##  [65] 144.0295 144.0307 144.0322 144.0706 144.0786 144.1668 144.1807 144.1818
-##  [73] 144.3090 144.3114 144.3347 144.4232 144.4328 144.4369 144.4716 144.4859
-##  [81] 144.4861 144.5310 144.5414 144.5621 144.6080 144.6234 144.7629 144.8319
-##  [89] 144.8582 144.8739 144.8923 144.9094 144.9415 145.0066 145.0213 145.0757
-##  [97] 145.0937 145.1032 145.1075 145.1476 145.1486 145.1711 145.1951 145.2134
-## [105] 145.2171 145.3056 145.3230 145.3234 145.3778 145.3927 145.4011 145.4075
-## [113] 145.4108 145.4381 145.4593 145.4612 145.4668 145.4771 145.5214 145.5390
-## [121] 145.5440 145.5636 145.6894 145.7318 145.8324 145.9406 146.0166 146.0703
-## [129] 146.0762 146.0777 146.1246 146.1513 146.2272 146.2418 146.2651 146.3248
-## [137] 146.3917 146.4091 146.4571 146.5022 146.5846 146.6483 146.6492 146.6618
-## [145] 146.8640 146.8803 146.8921 146.8990 146.9613 146.9688 147.0189 147.0210
-## [153] 147.0550 147.1581 147.1672 147.1764 147.1985 147.2099 147.2565 147.2887
-## [161] 147.3807 147.4062 147.4317 147.4499 147.5458 147.5663 147.5753 147.6565
-## [169] 147.6854 147.8156 147.8431 147.8826 147.9239 148.1064 148.1544 148.2044
-## [177] 148.2752 148.3099 148.3730 148.4917 148.6181 148.6522 148.8044 148.8498
-## [185] 148.8894 148.9197 149.0726 149.2909 149.3569 149.4733 149.6136 149.7444
-## [193] 149.7568 149.8469 150.2146 150.2415 150.5319 150.6428 150.8837 151.4952</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="kw">sort</span>(test_scores)[<span class="dv">100</span><span class="op">:</span><span class="dv">101</span>]</span></code></pre></div>
-<pre><code>## [1] 145.1476 145.1486</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>get_median &lt;-<span class="st"> </span>(<span class="fl">145.15</span> <span class="op">+</span><span class="st"> </span><span class="fl">145.15</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb57-2"><a href="#cb57-2"></a>get_median</span></code></pre></div>
-<pre><code>## [1] 145.15</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="kw">median</span>(test_scores)</span></code></pre></div>
-<pre><code>## [1] 145.1481</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># look at test scores first</span></span>
-<span id="cb61-2"><a href="#cb61-2"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
-<pre><code>##   [1] 134.6026 138.6590 139.0738 139.3146 140.6481 141.0502 141.0988 141.1035
-##   [9] 141.1375 141.1380 141.4194 141.7022 141.7744 141.8027 141.9590 141.9804
-##  [17] 142.0120 142.0637 142.0895 142.1730 142.2163 142.2395 142.4931 142.5006
-##  [25] 142.5334 142.5538 142.5741 142.6462 142.6816 142.7542 142.7567 142.8330
-##  [33] 142.9530 143.0586 143.1908 143.2290 143.2392 143.2602 143.2622 143.2759
-##  [41] 143.3404 143.3824 143.4056 143.4084 143.4834 143.5502 143.5649 143.5964
-##  [49] 143.6590 143.6692 143.6977 143.7023 143.7248 143.7768 143.7805 143.8114
-##  [57] 143.8496 143.8608 143.8831 143.9062 143.9474 143.9476 143.9788 143.9872
-##  [65] 144.0295 144.0307 144.0322 144.0706 144.0786 144.1668 144.1807 144.1818
-##  [73] 144.3090 144.3114 144.3347 144.4232 144.4328 144.4369 144.4716 144.4859
-##  [81] 144.4861 144.5310 144.5414 144.5621 144.6080 144.6234 144.7629 144.8319
-##  [89] 144.8582 144.8739 144.8923 144.9094 144.9415 145.0066 145.0213 145.0757
-##  [97] 145.0937 145.1032 145.1075 145.1476 145.1486 145.1711 145.1951 145.2134
-## [105] 145.2171 145.3056 145.3230 145.3234 145.3778 145.3927 145.4011 145.4075
-## [113] 145.4108 145.4381 145.4593 145.4612 145.4668 145.4771 145.5214 145.5390
-## [121] 145.5440 145.5636 145.6894 145.7318 145.8324 145.9406 146.0166 146.0703
-## [129] 146.0762 146.0777 146.1246 146.1513 146.2272 146.2418 146.2651 146.3248
-## [137] 146.3917 146.4091 146.4571 146.5022 146.5846 146.6483 146.6492 146.6618
-## [145] 146.8640 146.8803 146.8921 146.8990 146.9613 146.9688 147.0189 147.0210
-## [153] 147.0550 147.1581 147.1672 147.1764 147.1985 147.2099 147.2565 147.2887
-## [161] 147.3807 147.4062 147.4317 147.4499 147.5458 147.5663 147.5753 147.6565
-## [169] 147.6854 147.8156 147.8431 147.8826 147.9239 148.1064 148.1544 148.2044
-## [177] 148.2752 148.3099 148.3730 148.4917 148.6181 148.6522 148.8044 148.8498
-## [185] 148.8894 148.9197 149.0726 149.2909 149.3569 149.4733 149.6136 149.7444
-## [193] 149.7568 149.8469 150.2146 150.2415 150.5319 150.6428 150.8837 151.4952</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>N</span></code></pre></div>
-<pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="co"># get the sum first</span></span>
-<span id="cb65-2"><a href="#cb65-2"></a>sigma_sum &lt;-<span class="st"> </span><span class="kw">sum</span>(test_scores)</span>
-<span id="cb65-3"><a href="#cb65-3"></a>sigma_sum</span></code></pre></div>
-<pre><code>## [1] 29045.35</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a><span class="co"># get the mean from the sum of the scores</span></span>
-<span id="cb67-2"><a href="#cb67-2"></a>xbar &lt;-<span class="st"> </span>sigma_sum<span class="op">/</span>N</span>
-<span id="cb67-3"><a href="#cb67-3"></a>xbar</span></code></pre></div>
-<pre><code>## [1] 145.2267</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a><span class="co"># look at how far students deviated from the average score</span></span>
-<span id="cb69-2"><a href="#cb69-2"></a>deviation &lt;-<span class="st"> </span>test_scores <span class="op">-</span><span class="st"> </span>xbar</span>
-<span id="cb69-3"><a href="#cb69-3"></a>deviation</span></code></pre></div>
-<pre><code>##   [1]  -3.137213639  -4.123204529  -0.618687645  -0.793958694  -5.912176822
-##   [6]   0.096284425   6.268440451   0.789835090  -2.470013224  -0.789849480
-##  [11]  -3.010415662   2.588864897   1.794289476   0.850939733   2.616355360
-##  [16]   1.275432666  -1.197247493   2.062001439   1.971766494   4.386841337
-##  [21]  -4.089255953  -0.352849074   5.656934187   0.184079998   4.064144651
-##  [26]   0.849520088  -0.078139162  -3.267770291  -1.415322373  -1.676515328
-##  [31]   0.096674527  -1.966544552   4.987907149   3.577651903  -0.740822451
-##  [36]  -3.214746915  -1.557534435  -0.334427322  -1.343626794   1.949645740
-##  [41]   2.223140986   5.014815560  -0.695725740  -0.317287126  -0.463787305
-##  [46]  -1.377124516   1.653572293   2.927650218   3.146312438   0.312254788
-##  [51]   1.164949421   1.734569197  -1.964536078  -1.630352892  -0.031583734
-##  [56]  -0.917750280   2.348619779   1.038365061  -0.603334823  -1.818324641
-##  [61]  -4.088749367  -0.664654447  -1.524461620  -2.987250176   1.931402178
-##  [66]   0.294693697   2.029794958   3.623060007   4.246551135   2.339586491
-##  [71]  -0.740578967  -2.472517935  -0.055656424   0.166014628  -2.672938063
-##  [76]   0.317318443   5.416044390   0.151040594   0.078891595  -2.652611668
-##  [81]   1.792129914   2.153967898  -1.567732154  -0.205447587  -1.194481187
-##  [86]   0.234518025   3.391354749   0.713824067  -1.987481625   1.940446922
-##  [91]  -2.580525450  -1.997683586  -3.246363268   0.843522123  -1.501915017
-##  [96]   1.637301824   1.435026822  -3.807308528   0.605713779   1.422467340
-## [101]   2.204930130   2.179445414  -0.394823830  -1.279303771   3.662631152
-## [106]   0.240043367  -0.119216951   1.421573263  -1.844372024   1.672300244
-## [111]  -0.013287952  -0.009588083  -0.079163965   3.264982726  -0.123515487
-## [116]   3.693019232  -4.176549814   1.665334582  -1.148168606  -1.529065755
-## [121]   0.924541416   2.655856650  -3.424051905  -1.365962456  -0.915290747
-## [126]  -1.239553492  -6.152878718  -0.220159268  -0.368501504  -1.156099855
-## [131]  -2.545169510   0.336842650   0.462645486   2.977638210   1.357903056
-## [136]  -3.162979837   0.180745166 -10.624162906  -1.449957787  -2.726164130
-## [141]  -1.046055456  -0.285188475   5.305183914  -1.279087169   1.742050990
-## [146]   1.182396110  -3.053749210  -3.452278573   4.130164317  -1.886364725
-## [151]   0.250395656  -1.044878322   1.098068902   3.083191030   0.897857878
-## [156]  -0.755084018   3.425422076  -1.661847174  -2.035940169  -1.821103839
-## [161]  -2.168080456  -2.393744306   1.983166256  -2.733629876   2.319097595
-## [166]  -0.892072624  -1.950836570  -1.059889840   4.517699255  -4.578638833
-## [171]   2.879659449   2.458629791  -0.151004883   0.505040101   3.048457985
-## [176]   1.230324823   3.845855838  -1.743338607  -3.524480941   0.232554395
-## [181]  -2.273692372  -2.693317167   1.015107658   4.530093434   0.211360419
-## [186]  -1.247959899  -1.196002058   2.429781528   1.828254439   4.620144527
-## [191]  -4.127894890  -6.567686502  -0.685289107  -1.320542070  -0.133031371
-## [196]   1.000439173   2.697196416  -0.803508129  -1.446252852   0.174387246</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a><span class="co"># look to see how far the worse test score was from the mean</span></span>
-<span id="cb71-2"><a href="#cb71-2"></a><span class="kw">sort</span>(deviation)</span></code></pre></div>
-<pre><code>##   [1] -10.624162906  -6.567686502  -6.152878718  -5.912176822  -4.578638833
-##   [6]  -4.176549814  -4.127894890  -4.123204529  -4.089255953  -4.088749367
-##  [11]  -3.807308528  -3.524480941  -3.452278573  -3.424051905  -3.267770291
-##  [16]  -3.246363268  -3.214746915  -3.162979837  -3.137213639  -3.053749210
-##  [21]  -3.010415662  -2.987250176  -2.733629876  -2.726164130  -2.693317167
-##  [26]  -2.672938063  -2.652611668  -2.580525450  -2.545169510  -2.472517935
-##  [31]  -2.470013224  -2.393744306  -2.273692372  -2.168080456  -2.035940169
-##  [36]  -1.997683586  -1.987481625  -1.966544552  -1.964536078  -1.950836570
-##  [41]  -1.886364725  -1.844372024  -1.821103839  -1.818324641  -1.743338607
-##  [46]  -1.676515328  -1.661847174  -1.630352892  -1.567732154  -1.557534435
-##  [51]  -1.529065755  -1.524461620  -1.501915017  -1.449957787  -1.446252852
-##  [56]  -1.415322373  -1.377124516  -1.365962456  -1.343626794  -1.320542070
-##  [61]  -1.279303771  -1.279087169  -1.247959899  -1.239553492  -1.197247493
-##  [66]  -1.196002058  -1.194481187  -1.156099855  -1.148168606  -1.059889840
-##  [71]  -1.046055456  -1.044878322  -0.917750280  -0.915290747  -0.892072624
-##  [76]  -0.803508129  -0.793958694  -0.789849480  -0.755084018  -0.740822451
-##  [81]  -0.740578967  -0.695725740  -0.685289107  -0.664654447  -0.618687645
-##  [86]  -0.603334823  -0.463787305  -0.394823830  -0.368501504  -0.352849074
-##  [91]  -0.334427322  -0.317287126  -0.285188475  -0.220159268  -0.205447587
-##  [96]  -0.151004883  -0.133031371  -0.123515487  -0.119216951  -0.079163965
-## [101]  -0.078139162  -0.055656424  -0.031583734  -0.013287952  -0.009588083
-## [106]   0.078891595   0.096284425   0.096674527   0.151040594   0.166014628
-## [111]   0.174387246   0.180745166   0.184079998   0.211360419   0.232554395
-## [116]   0.234518025   0.240043367   0.250395656   0.294693697   0.312254788
-## [121]   0.317318443   0.336842650   0.462645486   0.505040101   0.605713779
-## [126]   0.713824067   0.789835090   0.843522123   0.849520088   0.850939733
-## [131]   0.897857878   0.924541416   1.000439173   1.015107658   1.038365061
-## [136]   1.098068902   1.164949421   1.182396110   1.230324823   1.275432666
-## [141]   1.357903056   1.421573263   1.422467340   1.435026822   1.637301824
-## [146]   1.653572293   1.665334582   1.672300244   1.734569197   1.742050990
-## [151]   1.792129914   1.794289476   1.828254439   1.931402178   1.940446922
-## [156]   1.949645740   1.971766494   1.983166256   2.029794958   2.062001439
-## [161]   2.153967898   2.179445414   2.204930130   2.223140986   2.319097595
-## [166]   2.339586491   2.348619779   2.429781528   2.458629791   2.588864897
-## [171]   2.616355360   2.655856650   2.697196416   2.879659449   2.927650218
-## [176]   2.977638210   3.048457985   3.083191030   3.146312438   3.264982726
-## [181]   3.391354749   3.425422076   3.577651903   3.623060007   3.662631152
-## [186]   3.693019232   3.845855838   4.064144651   4.130164317   4.246551135
-## [191]   4.386841337   4.517699255   4.530093434   4.620144527   4.987907149
-## [196]   5.014815560   5.305183914   5.416044390   5.656934187   6.268440451</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a><span class="co"># calculate the sum of the deviations</span></span>
-<span id="cb73-2"><a href="#cb73-2"></a><span class="co"># what does this tell you?</span></span>
-<span id="cb73-3"><a href="#cb73-3"></a><span class="kw">sum</span>(deviation)</span></code></pre></div>
-<pre><code>## [1] -1.506351e-12</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># you can also use the calculations above to add up all the percentages</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fl">16.667</span> <span class="op">+</span><span class="st"> </span><span class="fl">13.333</span> <span class="op">+</span><span class="st"> </span><span class="dv">20</span> <span class="op">+</span><span class="st"> </span><span class="fl">26.667</span> <span class="op">+</span><span class="st"> </span><span class="fl">23.333</span></span></code></pre></div>
+<pre><code>## [1] 100</code></pre>
+</div>
+<div id="frequencies-using-objects" class="section level3">
+<h3>Frequencies using objects</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>freq_a &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">/</span>N</span>
+<span id="cb32-2"><a href="#cb32-2"></a>freq_a</span></code></pre></div>
+<pre><code>## [1] 0.1666667</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Percent of category A</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>percent_a &lt;-<span class="st"> </span>freq_a<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>percent_a</span></code></pre></div>
+<pre><code>## [1] 16.66667</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>freq_b &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">/</span>N</span>
+<span id="cb36-2"><a href="#cb36-2"></a>freq_b</span></code></pre></div>
+<pre><code>## [1] 0.1333333</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>percent_b &lt;-<span class="st"> </span>freq_b<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>percent_b</span></code></pre></div>
+<pre><code>## [1] 13.33333</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>freq_c &lt;-<span class="st"> </span><span class="dv">6</span><span class="op">/</span>N</span>
+<span id="cb40-2"><a href="#cb40-2"></a>freq_c</span></code></pre></div>
+<pre><code>## [1] 0.2</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>percent_c &lt;-<span class="st"> </span>freq_c<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>percent_c</span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>freq_d &lt;-<span class="st"> </span><span class="dv">8</span><span class="op">/</span>N</span>
+<span id="cb44-2"><a href="#cb44-2"></a>freq_d</span></code></pre></div>
+<pre><code>## [1] 0.2666667</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>percent_d &lt;-<span class="st"> </span>freq_d<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>percent_d</span></code></pre></div>
+<pre><code>## [1] 26.66667</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>freq_e &lt;-<span class="st"> </span><span class="dv">7</span><span class="op">/</span>N</span>
+<span id="cb48-2"><a href="#cb48-2"></a>freq_e</span></code></pre></div>
+<pre><code>## [1] 0.2333333</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>percent_e &lt;-<span class="st"> </span>freq_e<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>percent_e</span></code></pre></div>
+<pre><code>## [1] 23.33333</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># cumulative frequency of A &amp; B</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>freq_ab =<span class="st"> </span>freq_a <span class="op">+</span><span class="st"> </span>freq_b</span>
+<span id="cb52-3"><a href="#cb52-3"></a>freq_ab</span></code></pre></div>
+<pre><code>## [1] 0.3</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="co"># To get the cumlative percentage of all 5 categories</span></span>
+<span id="cb54-2"><a href="#cb54-2"></a>total_percent =<span class="st"> </span>percent_a <span class="op">+</span><span class="st"> </span>percent_b <span class="op">+</span><span class="st"> </span>percent_c <span class="op">+</span><span class="st"> </span>percent_d <span class="op">+</span><span class="st"> </span>percent_e</span>
+<span id="cb54-3"><a href="#cb54-3"></a>total_percent</span></code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># Just a way to combine all the percentages together to see in one place</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="kw">cbind</span>(percent_a, percent_b, percent_c, percent_d, percent_e)</span></code></pre></div>
+<pre><code>##      percent_a percent_b percent_c percent_d percent_e
+## [1,]  16.66667  13.33333        20  26.66667  23.33333</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># find the mode</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a><span class="kw">table</span>(categories)</span></code></pre></div>
+<pre><code>## categories
+## a b c d e 
+## 5 4 6 8 7</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="co"># which value occurs most often</span></span></code></pre></div>
+</div>
+</div>
+<div id="getting-the-median-two-ways" class="section level2">
+<h2>Getting the Median Two ways</h2>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
+<pre><code>##  [1]  1.979125  3.537262  3.566831  4.282318  4.396029  4.506466  4.977139
+##  [8]  5.668250  5.895740  6.085677  6.436928  6.440507  6.589584  6.821120
+## [15]  7.060384  7.212301  7.288768  7.816361  7.868345  7.869582  8.239301
+## [22]  8.691209  8.845786  8.924377  9.383258  9.407202 10.668180 10.949238
+## [29] 12.055448 12.588050</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="co">#look for the middle value or in this case the 15th and 16th observations</span></span>
+<span id="cb63-2"><a href="#cb63-2"></a><span class="co"># 7.060384 &amp; 7.212301 and then divide by 2</span></span>
+<span id="cb63-3"><a href="#cb63-3"></a>(<span class="fl">7.06</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.21</span>)<span class="op">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 7.135</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="co"># find the median</span></span>
+<span id="cb65-2"><a href="#cb65-2"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
+<pre><code>##  [1]  1.979125  3.537262  3.566831  4.282318  4.396029  4.506466  4.977139
+##  [8]  5.668250  5.895740  6.085677  6.436928  6.440507  6.589584  6.821120
+## [15]  7.060384  7.212301  7.288768  7.816361  7.868345  7.869582  8.239301
+## [22]  8.691209  8.845786  8.924377  9.383258  9.407202 10.668180 10.949238
+## [29] 12.055448 12.588050</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a><span class="kw">sort</span>(test_scores)[<span class="dv">15</span><span class="op">:</span><span class="dv">16</span>]</span></code></pre></div>
+<pre><code>## [1] 7.060384 7.212301</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>get_median =<span class="st"> </span>(<span class="fl">7.06</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.21</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a>get_median</span></code></pre></div>
+<pre><code>## [1] 7.135</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a><span class="kw">median</span>(test_scores)</span></code></pre></div>
+<pre><code>## [1] 7.136343</code></pre>
+</div>
+<div id="getting-the-mean-two-ways" class="section level2">
+<h2>Getting the Mean Two Ways</h2>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a><span class="co"># look at test scores first in order for lowest to highest</span></span>
+<span id="cb73-2"><a href="#cb73-2"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
+<pre><code>##  [1]  1.979125  3.537262  3.566831  4.282318  4.396029  4.506466  4.977139
+##  [8]  5.668250  5.895740  6.085677  6.436928  6.440507  6.589584  6.821120
+## [15]  7.060384  7.212301  7.288768  7.816361  7.868345  7.869582  8.239301
+## [22]  8.691209  8.845786  8.924377  9.383258  9.407202 10.668180 10.949238
+## [29] 12.055448 12.588050</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a><span class="co"># Now let&#39;s get the sum</span></span>
+<span id="cb75-2"><a href="#cb75-2"></a><span class="fl">1.98</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.54</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.57</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.28</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.40</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.51</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.98</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.67</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.90</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.09</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.44</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.44</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.59</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.82</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.06</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.21</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.29</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.82</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.87</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.87</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.24</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.69</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.85</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.92</span> <span class="op">+</span><span class="st"> </span><span class="fl">9.38</span> <span class="op">+</span><span class="st"> </span><span class="fl">9.41</span> <span class="op">+</span><span class="st"> </span><span class="fl">10.67</span> <span class="op">+</span><span class="st"> </span><span class="fl">10.95</span> <span class="op">+</span><span class="st"> </span><span class="fl">12.06</span> <span class="op">+</span><span class="st"> </span><span class="fl">12.59</span></span></code></pre></div>
+<pre><code>## [1] 216.09</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a><span class="co"># Now let&#39;s decide the sum of the scores by the number of observations</span></span>
+<span id="cb77-2"><a href="#cb77-2"></a>(<span class="fl">1.98</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.54</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.57</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.28</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.40</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.51</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.98</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.67</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.90</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.09</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.44</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.44</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.59</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.82</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.06</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.21</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.29</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.82</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.87</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.87</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.24</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.69</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.85</span> <span class="op">+</span><span class="st"> </span><span class="fl">8.92</span> <span class="op">+</span><span class="st"> </span><span class="fl">9.38</span> <span class="op">+</span><span class="st"> </span><span class="fl">9.41</span> <span class="op">+</span><span class="st"> </span><span class="fl">10.67</span> <span class="op">+</span><span class="st"> </span><span class="fl">10.95</span> <span class="op">+</span><span class="st"> </span><span class="fl">12.06</span> <span class="op">+</span><span class="st"> </span><span class="fl">12.59</span>)<span class="op">/</span><span class="dv">30</span></span></code></pre></div>
+<pre><code>## [1] 7.203</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="co"># 7.20 is the mean of our scores</span></span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="co"># now getting the mean with objects</span></span>
+<span id="cb80-2"><a href="#cb80-2"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
+<pre><code>##  [1]  1.979125  3.537262  3.566831  4.282318  4.396029  4.506466  4.977139
+##  [8]  5.668250  5.895740  6.085677  6.436928  6.440507  6.589584  6.821120
+## [15]  7.060384  7.212301  7.288768  7.816361  7.868345  7.869582  8.239301
+## [22]  8.691209  8.845786  8.924377  9.383258  9.407202 10.668180 10.949238
+## [29] 12.055448 12.588050</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="co"># look at how many observations we have</span></span>
+<span id="cb82-2"><a href="#cb82-2"></a>N</span></code></pre></div>
+<pre><code>## [1] 30</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="co"># Now lets get the sum of the scores</span></span>
+<span id="cb84-2"><a href="#cb84-2"></a>sum_of_scores =<span class="st"> </span><span class="kw">sum</span>(test_scores)</span>
+<span id="cb84-3"><a href="#cb84-3"></a>sum_of_scores</span></code></pre></div>
+<pre><code>## [1] 216.0508</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="co"># get the mean</span></span>
+<span id="cb86-2"><a href="#cb86-2"></a>xbar =<span class="st"> </span>sum_of_scores<span class="op">/</span>N</span>
+<span id="cb86-3"><a href="#cb86-3"></a><span class="co"># could also look at it this way</span></span>
+<span id="cb86-4"><a href="#cb86-4"></a>xbar2 =<span class="st"> </span>sum_of_scores<span class="op">/</span><span class="dv">30</span></span>
+<span id="cb86-5"><a href="#cb86-5"></a></span>
+<span id="cb86-6"><a href="#cb86-6"></a>xbar</span></code></pre></div>
+<pre><code>## [1] 7.201692</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>xbar2</span></code></pre></div>
+<pre><code>## [1] 7.201692</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="co"># we get the same mean</span></span></code></pre></div>
+</div>
+</div>
+<div id="now-deviations" class="section level1">
+<h1>Now deviations</h1>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
+<pre><code>##  [1]  1.979125  3.537262  3.566831  4.282318  4.396029  4.506466  4.977139
+##  [8]  5.668250  5.895740  6.085677  6.436928  6.440507  6.589584  6.821120
+## [15]  7.060384  7.212301  7.288768  7.816361  7.868345  7.869582  8.239301
+## [22]  8.691209  8.845786  8.924377  9.383258  9.407202 10.668180 10.949238
+## [29] 12.055448 12.588050</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="co"># look at how far students deviated from the average score by doing each one individually</span></span>
+<span id="cb93-2"><a href="#cb93-2"></a><span class="fl">1.98</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -5.22</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1"></a><span class="fl">3.54</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -3.66</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a><span class="fl">3.57</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -3.63</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a><span class="fl">4.28</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -2.92</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a><span class="fl">4.40</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -2.8</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a><span class="fl">4.51</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -2.69</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1"></a><span class="fl">4.98</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -2.22</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a><span class="fl">5.67</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -1.53</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1"></a><span class="fl">5.90</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -1.3</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1"></a><span class="fl">6.09</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -1.11</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1"></a><span class="fl">6.44</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -0.76</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1"></a><span class="fl">6.44</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -0.76</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1"></a><span class="fl">6.59</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -0.61</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1"></a><span class="fl">6.82</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -0.38</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1"></a><span class="fl">7.06</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] -0.14</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1"></a><span class="fl">7.21</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 0.01</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1"></a><span class="fl">7.29</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 0.09</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1"></a><span class="fl">7.82</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 0.62</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1"></a><span class="fl">7.87</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 0.67</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1"></a><span class="fl">7.87</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 0.67</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1"></a><span class="fl">8.24</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 1.04</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1"></a><span class="fl">8.69</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 1.49</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1"></a><span class="fl">8.85</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 1.65</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1"></a><span class="fl">8.92</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 1.72</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1"></a><span class="fl">9.38</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 2.18</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1"></a><span class="fl">9.41</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 2.21</code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1"></a><span class="fl">10.67</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 3.47</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1"></a><span class="fl">10.95</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 3.75</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1"></a><span class="fl">12.06</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 4.86</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1"></a><span class="fl">12.59</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.20</span></span></code></pre></div>
+<pre><code>## [1] 5.39</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1"></a><span class="co"># now to get the sum of the deviations</span></span>
+<span id="cb153-2"><a href="#cb153-2"></a>(<span class="op">-</span><span class="fl">5.22</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">3.66</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">3.63</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">2.92</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">2.8</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">2.69</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">2.22</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">1.53</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">1.3</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">1.11</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">76</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">76</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">61</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">38</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">14</span>) <span class="op">+</span><span class="st"> </span><span class="fl">.01</span> <span class="op">+</span><span class="st"> </span><span class="fl">.09</span> <span class="op">+</span><span class="st"> </span><span class="fl">.62</span> <span class="fl">+.67</span> <span class="op">+</span><span class="st"> </span><span class="fl">.67</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.04</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.49</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.65</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.72</span> <span class="op">+</span><span class="st"> </span><span class="fl">2.18</span> <span class="fl">+2.21</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.47</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.75</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.86</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.39</span></span></code></pre></div>
+<pre><code>## [1] 0.09</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1"></a><span class="co"># remember to look at the test scores</span></span>
+<span id="cb155-2"><a href="#cb155-2"></a><span class="kw">sort</span>(test_scores)</span></code></pre></div>
+<pre><code>##  [1]  1.979125  3.537262  3.566831  4.282318  4.396029  4.506466  4.977139
+##  [8]  5.668250  5.895740  6.085677  6.436928  6.440507  6.589584  6.821120
+## [15]  7.060384  7.212301  7.288768  7.816361  7.868345  7.869582  8.239301
+## [22]  8.691209  8.845786  8.924377  9.383258  9.407202 10.668180 10.949238
+## [29] 12.055448 12.588050</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1"></a><span class="co"># lets remember what the mean was</span></span>
+<span id="cb157-2"><a href="#cb157-2"></a>xbar</span></code></pre></div>
+<pre><code>## [1] 7.201692</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1"></a><span class="co"># look at how far students deviated from the average score using the objects we created earlier</span></span>
+<span id="cb159-2"><a href="#cb159-2"></a>deviation =<span class="st"> </span>test_scores <span class="op">-</span><span class="st"> </span>xbar</span>
+<span id="cb159-3"><a href="#cb159-3"></a>deviation</span></code></pre></div>
+<pre><code>##  [1] -2.80566349 -3.66442975 -0.61210859 -0.76476402 -5.22256690  0.01060902
+##  [7]  5.38635782  0.61466928 -2.22455345 -0.76118503 -2.69522654  2.18156621
+## [13]  1.48951665  0.66788945  2.20550951  1.03760910 -1.11601555  1.72268513
+## [19]  1.64409340  3.74754569 -3.63486163 -0.38057177  4.85375559  0.08707613
+## [25]  3.46648728  0.66665299 -0.14130830 -2.91937412 -1.30595174 -1.53344238</code></pre>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1"></a><span class="co"># look to see how far the worse test score was from the mean</span></span>
+<span id="cb161-2"><a href="#cb161-2"></a><span class="kw">sort</span>(deviation)</span></code></pre></div>
+<pre><code>##  [1] -5.22256690 -3.66442975 -3.63486163 -2.91937412 -2.80566349 -2.69522654
+##  [7] -2.22455345 -1.53344238 -1.30595174 -1.11601555 -0.76476402 -0.76118503
+## [13] -0.61210859 -0.38057177 -0.14130830  0.01060902  0.08707613  0.61466928
+## [19]  0.66665299  0.66788945  1.03760910  1.48951665  1.64409340  1.72268513
+## [25]  2.18156621  2.20550951  3.46648728  3.74754569  4.85375559  5.38635782</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1"></a><span class="co"># getting the sum of the deviations</span></span>
+<span id="cb163-2"><a href="#cb163-2"></a><span class="kw">sum</span>(deviation)</span></code></pre></div>
+<pre><code>## [1] 5.77316e-15</code></pre>
+</div>
 </section>
 
 
