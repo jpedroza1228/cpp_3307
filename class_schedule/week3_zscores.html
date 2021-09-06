@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza, MS, MA" />
+    <meta name="date" content="2021-09-02" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## Z-Scores
+### Jonathan A. Pedroza, MS, MA
+### Cal Poly Pomona
+### 2021-09-02
+
+---
+
+
+
+
+
+# z-Scores
+
+* **relative standing**
+
+* **z-score** is a statistic that indicates the distance a score is from the mean when measured in standard deviation units
+  - positive values are above the mean
+  - negative values are below the mean
+  
+* z-score is the location on a distribution as well as the distance from the mean
+
+---
+
+# z-score Example
+
+* Get a score of 90 to the mean of 60
+  - deviate of 30
+
+* Standard deviation of 10
+
+* Now means that the +30 score is 3 SD above the mean
+  +30 score doesn't tell us much
+  +3 sd tells us much more
+  - also tells us that the z-score is 3
+  
+---
+
+# Calculating the z-score
+
+* For a sample 
+
+$$ z = \frac{X - \overline{X}}{S_{X}} $$
+
+* For a population
+
+$$ z = \frac{X - \mu}{\sigma_{X}} $$
+
+---
+
+# Calculating the raw score from a z-score
+
+$$ X = (z)(S_{X}) + \overline{X} $$
+
+---
+
+
+```r
+z = 1.4
+S_X = 1.14
+mean = 3.1
+
+(1.4)*(1.14) + 3.1
+```
+
+```
+## [1] 4.696
+```
+
+
+---
+
+# z-distribution to interpret scores
+
+* **z-distribution** is transforming all raw scores into z-scores
+
+* a z-score of 0 is the mean
+
+* the z-distribution also represents that everything has been standardized
+  - every variable is now comparable and on the same scale
+
+---
+
+# Some Reminders
+
+* A z-distribution will always have the same shape as the raw score distribution
+
+* the mean is and will always be zero
+
+* the standard deviation is 1, even when the standard deviation of the raw scores is a different value (e.g., 10, 15, 100)
+
+* z-scores that are greater in either the positive or negative direction mean that values are less likely to occur
+
+---
+
+# Comparing Apples to Oranges
+
+* When using the z-distribution, every variable is put on the same scale
+
+* often referred to as **standardized scores**
+
+---
+
+# z-distributino for Relative Frequency
+
+* relative frequency of z-scores will be the same on all normal z-distributions
+
+* Knowing that +1SD is above the mean, whatever raw scores fall within this part of the distribution will occur 34% of the time
+
+---
+
+![](week3_zscores_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+# Standard Normal Curve
+
+* **Standard Normal Curve** is a perfect normal z-distribution that serves as the model of any approximately normal z-distribution
+
+* Approach is most common with
+  - large sample (or population)
+  - interval or ratio scores
+  - come close to forming a normal distribution
+
+* While z-scores past +-3SD are possible, they occur .0013 of the time, which is why we often only look at +-3SD
+
+---
+
+![](week3_zscores_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+
+# Relative Frequency Using the z-Distribution
+
+* Calculate the z-score for one observation
+
+* Multiply by N
+
+* Answer will be the number of observations between the mean and the z-score you calculated
+
+* Then you can add up the other half to see all the observations that are at or below the score that the one observation had
+
+---
+
+# Example
+
+
+```r
+z_score = -1
+
+N = 100
+
+# 
+.3413*100
+```
+
+```
+## [1] 34.13
+```
+
+```r
+50 - 34.13
+```
+
+```
+## [1] 15.87
+```
+
+```r
+#15.87% of scores were at or below the z-score we calculated
+```
+
+---
+
+# Using the z-Table
+
+* In your Book at the end, you'll see the z-distribution
+
+* There are two ways to show this
+  - Area between mean and the z-score along with area beyond z in tail
+  - z-scores with the tenths position on the column and the hundredths position on the top row
+  
+---
+
+# Using z-Scores to Describe Sample Means
+
+* **Sampling Distribution of Means** is the frequency distribution showing all possible sample means when samples are drawn from a population
+
+* Every time a population is sampled from, they will always be slightly different, with some means being higher and some being lower
+
+* **Central Limit Theorem** statistical concept that defines the mean, standard deviation, and shape of a sampling distribution
+  - Always follows some rules
+    + A sampling distribution is always an approximately normal distribution
+    + mean of sampling distribution equals mean of underlying raw score population used to create the sampling distribution
+      + \mu is the mean of the means
+    + standard deviation of the sampling distribution is related to the standard deviation of the raw score population
+    
+---
+
+# Central Limit Theorem
+
+* The use of this concept is that we can assume that our sample is representative of the population without having to sample the whole population
+
+---
+
+# The Standard Error of the Mean
+
+$$ \sigma_{\overline{X}} = \frac{\sigma_{X}}{\sqrt{N}} $$
+
+* **Standard Error of the Mean** is the standard deviation of the sampling distribution of means
+
+* \sigma_{\overline{X}} will be used to describe the true standard error of the mean
+  - which is the population standard deviation of the population of sample means
+
+---
+
+# Example
+
+
+```r
+# population standard deviation of raw scores is 15
+# population mean/mu is 25
+sigma_raw = 15
+
+N = 100
+
+15/sqrt(N)
+```
+
+```
+## [1] 1.5
+```
+
+```r
+# 1.5
+```
+
+* Out of the sampling distribution, the individual sample means differ from the population mean of 25 by an average of 1.5 points
+
+---
+
+# z-Score from a Sample Mean
+
+$$ z = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}} $$
+
+* Using information from the previous slide
+  - \mu = 25
+  - \overline{X} = 21
+  - \sigma_{\overline{X}} = 1.5
+  
+
+```r
+(21 - 25)/1.5
+```
+
+```
+## [1] -2.666667
+```
+
+---
+
+# Relative Frequency of Sample Means
+
+* Because a sampling distribution is always an approximation of a normal distribution, transforming all sampling means into z-scores means it is a normal z-distribution
+
+---
+
+![](week3_zscores_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

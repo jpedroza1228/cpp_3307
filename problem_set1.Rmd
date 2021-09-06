@@ -2,11 +2,7 @@
 title: "Problem Set 1"
 author: "JP"
 date: "8/14/2021"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-    toc: true
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
