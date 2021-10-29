@@ -1,0 +1,100 @@
+---
+title: "problem_set_5"
+author: "Jonathan Pedroza, MS, MA"
+date: "9/27/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+![](se_changes_to_formula.png) 
+
+# Hand Calculations
+
+```{r}
+set.seed(09282021)
+
+values = rnorm(10, mean = 21, sd = 4.7)
+
+values
+```
+
+
+You are interested in the amount of hot dogs a competitive eater can eat in 10 minutes. You have a sample of 10 individuals from a local competitive eating group and the amount of hot dogs that they can eat in 10 minutes. From Nathan's Hot Dog Eating Contest records, you know that every competitive eater has a log of the amount of hot dogs they can eat in a 10 minute span, with the average being 18 hot dogs. You are now interested in knowing whether your sample of competitive eaters can eat significantly less or more hot dogs than everyone in Nathan's records. Answer all the steps comparing your sample to the population. 
+
+1. Create your null and research/alternative hypotheses (in words)
+
+2. Select an alpha
+
+3. Check assumptions
+
+4. Get the sample size
+
+5. Get the population mean
+
+6. Calculate the sample mean
+
+7. Calculate the variance/standard deviation (SD)
+
+8. Calculate the estimated standard error (SE)
+
+9. Calculate degrees of freedom (df)
+
+10. Calculate your t obtained value
+
+11. Compare t-value to t-critical value (use t-table)
+
+12. Check to see what hypothesis you should retain/reject
+
+13. Calculate the confidence intervals
+
+14. Write up report on statistical significance. 
+
+
+# SPSS Calculations
+
+You are interested in the average amount of time college students spend checking their emails according to the MTUAS scale. You have a sample of 372 college students from a local state university. You know all the students that have stated the amount of time they spend checking their emails is on average about 6.5 on the MTUAS scale. You are interested in whether or not your sample of college students is significantly different from the rest of the students in the amount of time they spend checking their emails according to the MTUAS. Answer all the steps comparing your sample to the population in SPSS. 
+
+1. Create your null and research/alternative hypotheses (in words)
+
+2. Select an alpha
+
+3. Check assumptions
+
+4. Get the sample size
+
+5. Get the population mean
+
+6. Calculate the sample mean
+
+7. Calculate the variance/standard deviation (SD)
+
+8. Calculate the estimated standard error (SE)
+
+9. Calculate degrees of freedom (df)
+
+10. Calculate your t obtained value
+
+11. Compare t-value to t-critical value (use t-table)
+
+12. Check to see what hypothesis you should retain/reject
+
+13. Calculate the confidence intervals
+
+14. Write up report on statistical significance. 
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,113 @@
+---
+title: "problem_set_5_example"
+author: "Jonathan Pedroza, MS, MA"
+date: "9/27/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+![](se_changes_to_formula.png) 
+
+# Hand Calculations
+
+1. Create your null and research/alternative hypotheses (in words)
+
+2. Select an alpha
+
+3. Check assumptions
+
+4. Get the sample size
+
+5. Get the population mean
+
+6. Calculate the sample mean
+
+7. Calculate the variance/standard deviation (SD)
+
+8. Calculate the estimated standard error (SE)
+
+9. Calculate degrees of freedom (df)
+
+10. Check to see what hypothesis you should retain/reject
+
+11. Calculate the confidence intervals
+
+12. Write up report on statistical significance. 
+
+```{r}
+values = c(3, 5, 4, 5, 2, 4, 6, 2, 6, 1)
+
+values
+```
+
+```{r, include = FALSE}
+3 +5 +4 +5 +2 +4 +6 +2 +6 +1
+# sum is 38
+
+38/10
+# mean is 3.8
+
+38^2
+# 1444
+
+1444/10
+# 144.4
+
+3^2 +5^2 +4^2 +5^2 +2^2 +4^2 +6^2 +2^2 +6^2 +1^2
+# 172
+
+172-144.4
+# 27.6
+
+27.6/(10-1)
+# 3.067 variance
+
+sqrt(3.067/10)
+# se is .55
+
+(3.8 - 3.5)/.55
+# t obtained value is .54
+
+```
+
+
+You are interested in the amount of time a person can hold their breath underwater. You have a sample of 10 individuals from a local diving school and the amount of time, in minutes, that they can hold their breath. From this school's records, you know that every individual at the school has a time logged, with the average being 3.5 minutes. You are now interested in knowing whether your sample of individuals can hold their breath significantly longer or shorter than the records of everyone at the school. Answer all the steps comparing your sample to the population. 
+
+
+# SPSS Calculations
+
+You are interested in the average amount of time college students spend on their smartphones according to the MTUAS scale. You have a sample of 372 college students from a local state university. You know all the students that have stated the amount of time they spend on their smartphones is on average about a 5 on the MTUAS scale. You are interested in whether or not your sample of college students is significantly different from the rest of the students in the amount of time they spend on their smartphones according to the MTUAS. Answer all the steps comparing your sample to the population in SPSS. 
+
+1. Create your null and research/alternative hypotheses (in words)
+
+2. Select an alpha
+
+3. Check assumptions
+
+4. Get the sample size
+
+5. Get the population mean
+
+6. Calculate the sample mean
+
+7. Calculate the variance/standard deviation (SD)
+
+8. Calculate the estimated standard error (SE)
+
+9. Calculate degrees of freedom (df)
+
+10. Check to see what hypothesis you should retain/reject
+
+11. Calculate the confidence intervals
+
+12. Write up report on statistical significance. 
+

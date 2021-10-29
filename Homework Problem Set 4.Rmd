@@ -1,0 +1,147 @@
+---
+title: "Problem Set Homework 4"
+author: "JP"
+date: "9/16/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+### Standard Error of the Mean
+
+$$ \sigma_{\overline{X}} = \frac{\sigma_{X}}{\sqrt{N}} $$
+
+### z-Score
+
+$$ z = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}} $$
+
+# Answer The following questions
+
+## Question 1
+
+You are interested in studying all CPP students and the amount of alcohol they drink in one sitting. You find out that all CPP students, on average, drink 5.8 alcoholic drinks, with a standard deviation of 2.31. You decide to see if a sample of 100 students that you gathered are similar to all CPP students. You see that these 100 students have on average 4.7 alcoholic drinks per sitting. Is the sample's alcohol drinking statistically different from all CPP students? 
+
+1. Create Null & Research Hypotheses
+
+H0: There will be no differences in alcohol drinking between all CPP students and the sample of students.
+
+H1: The sample of students' alcohol drinking will differ from alcohol drinking of all CPP students. 
+
+2. Calculate the standard error
+
+Population Mean = 5.8
+
+Sample Mean = 4.7
+
+Population Standard Deviation = 2.31
+
+Sample = 100
+
+Standard Error = .231
+
+```{r}
+2.31/sqrt(100)
+```
+
+
+3.  Calculate the obtained z-score
+
+```{r}
+(4.7 - 5.8)/.231
+```
+
+z-score = -4.762
+
+4. Compare to z-score critical value
+
+-4.762 > -1.96
+
+5. Make statement of statistical significance/nonsignificance
+
+The z-test finding shows evidence that there is a statistically significant difference between the sample of CPP students and all CPP students. Specifically, the sample of CPP students (*M* = 4.7) drinks on average less alcoholic drinks per sitting than all CPP students (*M* = 5.8). 
+
+## Question 2
+
+You are interested in studying all CPP students and the amount of snacks that students eat during class. You find out that all CPP students, on average, eat 1.4 snacks during class, with a standard deviation of .74. You decide to see if a sample of 200 students that you gathered are similar to all CPP students. You see that these 200 students have on average 3 snacks during class. Is the sample's snacking during class statistically different from all CPP students? 
+
+1. Create Null & Research Hypotheses
+
+H0: The sample of CPP students will eat the same amount of snacks during class as all CPP students. 
+
+H1: The sample of CPP students will eat more or less snacks during class when compared to all CPP students. 
+
+2. Calculate the standard error
+
+Population Mean = 1.4
+
+Sample Mean = 3
+
+Population Standard Deviation = .74
+
+Sample = 200
+
+Standard Error = .052
+
+```{r}
+.74/sqrt(200)
+```
+
+3.  Calculate the obtained z-score
+
+```{r}
+(1.4 - 3)/.052
+```
+
+z-score = 30.769
+
+4. Compare to z-score critical value
+
+30.769 > 1.96
+
+5. Make statement of statistical significance/nonsignificance
+
+The z-test finding shows evidence that there is a statistically significant difference between the sample of CPP students and all CPP students. Specifically, the sample of CPP students (*M* = 3) eats significantly more snacks during class than all CPP students (*M* = 1.4). 
+
+## Question 3
+
+You are interested in studying all CPP students and the amount of time it takes to find parking. You find out that all CPP students, on average, wait 62 minutes to park, with a standard deviation of 10.91. You decide to see if a sample of 50 students that you gathered are similar to all CPP students. You see that these 50 students wait 10 minutes less than all CPP students to find parking. Is the sample's time to wait for parking statistically different from all CPP students? 
+
+1. Create Null & Research Hypotheses
+
+H0: There will be no difference in time it takes to find parking between the sample of CPP students and all CPP students.
+
+H1: There will be a difference in time it takes to find parking between the sample of CPP students and all CPP students.
+
+2. Calculate the standard error
+
+Population Mean = 62
+
+Sample Mean = 52
+
+Population Standard Deviation = 10.91
+
+Sample = 50
+
+```{r}
+10.91/sqrt(50)
+```
+
+Standard Error = 1.543
+
+3.  Calculate the obtained z-score
+
+```{r}
+(52 - 62)/1.543
+```
+
+z-score = -6.48
+
+4. Compare to z-score critical value
+
+-6.48 > -1.96
+
+5. Make statement of statistical significance/nonsignificance
+
+Our sample's z-value (z = -6.48) indicates that there is evidence of a statistically significant difference between our cample of CPP students and all CPP students. Our findings indicate that our sample of CPP students take significantly less time (*M* = 52 minutes) to find parking compared to all CPP students (*M* = 62 minutes). 

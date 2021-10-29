@@ -1,0 +1,528 @@
+---
+title: "Problem Set 7"
+author: "JP"
+date: "10/8/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+```
+
+# Paired-Samples t-test
+
+1. Get the difference between each pair of scores
+
+2. Square each difference score
+
+3. Get the mean difference
+
+4. Get the variance/standard deviation of differences
+
+5. Get the standard error of the mean differences
+
+6. Get the t-obtained value
+
+7. Get the degrees of freedom
+
+8. Get the effect size
+
+9. Find out if the t-obtained value is statistically significant 
+
+10. Report the t-test statistic finding. Remember to include the means and standard deviations for the two time points. 
+
+# Formulas
+
+$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+$$df = N - 1$$
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+You are conducting an experiment where you are interested in how many words a one year old toddler can say. Your experimental manipulation is that every child will be given two two-hour long sessions to try and build a stronger vocabulary. You want to know if these lessons are enough for children to have a stronger stronger vocabulary than when they first arrived. You decided to get baseline data by having them say all the words they know and then you asked a second time after the vocabulary sessions. What test are you running and is the difference statistically significant?
+
+**NOTE** once you fill in the values for score_difference and score_difference_squared you will run everything from base_after `<-` to the double parantheses `))` like the picture below. The values in the screenshot are not the correct answers. 
+
+![](example_dataframe.png)
+
+```{r}
+set.seed(093021)
+
+baseline <- rnorm(10, mean = 1.5, sd =.5)
+after_session <- rnorm(10, mean = 4.1, sd = 2)
+
+baseline <- round(baseline, 2)
+after_session <- round(after_session, 2)
+
+base_after <- data.frame(participant = 1:10,
+                 baseline,
+                 after_session,
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+base_after
+
+base_after$baseline
+
+base_after$after_session
+
+```
+
+1. Get the difference between each pair of scores
+
+$$D = \Sigma({X}_{2} - {X}_{1})$$
+
+```{r}
+6.60 - 2.05
+3.82 - 1.25
+6.05 - 1.75
+3.87 - 1.11
+5.79 - 1.46
+1.87 - 1.75
+5.99 - 1.61
+6.71 - 1.85
+2.29 - 2.09
+9.36 - 1.35
+```
+
+2. Square each difference score
+
+$$D^2$$
+
+```{r}
+4.55^2
+2.57^2
+4.3^2
+2.76^2
+4.33^2
+.12^2
+4.38^2
+4.86^2
+.2^2
+8.01^2
+```
+
+```{r, include = FALSE}
+base_after <- base_after %>% 
+  mutate(score_difference = after_session - baseline,
+         score_difference_squared = score_difference^2)
+```
+
+```{r}
+base_after
+```
+
+3. Get the mean difference
+
+$$\overline{D} = \frac{\Sigma D}{N}$$
+
+```{r}
+(4.55 + 2.57 + 4.3 + 2.76 + 4.33 + .12 + 4.38 + 4.86 + .2 + 8.01)/10
+```
+
+$$\overline{D} = 3.61$$
+
+4. Get the variance/standard deviation of differences
+
+$$S^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+```{r}
+36.08^2
+
+20.70 + 6.60 + 18.49 + 7.62 + 18.75 + .01 + 18.49 + 23.62 + .04 + 64.16
+```
+
+$$S^2_{D} = \frac{178.49 - \frac{(36.08)^2}{10}}{10 - 1}$$
+
+```{r}
+1301.77/10
+```
+
+
+$$S^2_{D} = \frac{178.49 - \frac{1301.77}{10}}{10 - 1}$$
+
+```{r}
+178.49 - 130.18
+
+10 - 1
+```
+
+$$S^2_{D} = \frac{178.49 - 130.18}{9}$$
+
+```{r}
+48.31/9
+```
+
+$$S^2_{D} = \frac{48.31}{9}$$
+
+```{r}
+48.31/9
+```
+
+$$S^2_{D} = 5.37$$
+
+5. Get the standard error of the mean differences
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+```{r}
+5.37/10
+```
+
+$$S_{\overline{D}} = \sqrt{\frac{5.37}{10}}$$
+
+```{r}
+sqrt(.54)
+```
+
+
+$$S_{\overline{D}} = \sqrt{.54}$$
+
+$$S_{\overline{D}} = .73$$
+
+6. Get the t-obtained value
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+```{r}
+3.6 - 0
+```
+
+$$t_{obt} = \frac{3.6 - 0}{.73}$$
+
+```{r}
+3.6/.73
+```
+
+$$t_{obt} = \frac{3.6}{.73}$$
+
+$$t_{obt} = 4.93$$
+
+7. Get the degrees of freedom
+
+$$df = N - 1$$
+
+```{r}
+10-1
+```
+
+$$df = 10 - 1$$
+
+$$df = 9$$
+
+8. Get the effect size
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+```{r}
+sqrt(5.37)
+```
+
+$$d = \frac{-3.6}{\sqrt{5.37}}$$
+
+```{r}
+3.6/2.32
+```
+
+$$d = \frac{3.6}{2.32}$$
+
+$$d = 1.55$$
+
+9. Find out if the t-obtained value is statistically significant 
+
+4.93 > 2.26
+
+Therefore, our finding is statistically significant. 
+
+10. Report the t-test statistic finding. Remember to include the means and standard deviations for the two time points. 
+
+Note. Get the baseline and after means and standard deviations
+
+$$\overline{X}_{baseline} = \frac{\Sigma X}{N}$$
+
+$$S_{baseline} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}}$$
+
+```{r}
+2.05 + 1.25 + 1.75 + 1.11 + 1.46 + 1.75 + 1.61 + 1.85 + 2.09 + 1.35
+16.27/10
+# mean = 1.63
+
+2.05^2 + 1.25^2 + 1.75^2 + 1.11^2 + 1.46^2 + 1.75^2 + 1.61^2 + 1.85^2 + 2.09^2 + 1.35^2
+
+16.27^2
+264.71/10
+
+27.46 - 26.47
+
+.99/9
+sqrt(.11)
+# sd = 0.33
+```
+
+$$\overline{X}_{after} = \frac{\Sigma X}{N}$$
+
+$$S_{after} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}}$$
+```{r}
+6.6 + 3.82 + 6.05 + 3.87 + 5.79 + 1.87 + 5.91 + 6.71 + 2.29 + 9.36
+52.27/10
+# mean = 5.23
+
+6.6^2 + 3.82^2 + 6.05^2 + 3.87^2 + 5.79^2 + 1.87^2 + 5.91^2 + 6.71^2 + 2.29^2 + 9.36^2
+
+52.27^2
+2732.15/10
+
+319.56 - 273.22
+
+46.34/9
+sqrt(5.15)
+# sd = 2.27
+```
+
+A paired-samples t-test was conducted looking at before and after vocabulary sessions for a sample of 10 toddlers. The difference in number of words spoken before the vocabulary sessions (*M* = 1.63, *SD* = 0.33) to after the sessions (*M* = 5.23, *SD* = 2.27) was found to result in a statistically significant difference; *t*(9) = 4.93, *p* < .05. The toddlers in this sample spoke significantly more words after the vocabulary sessions than before the sessions. The magnitude of the association was representative of having a small sample size, as the vocabulary sessions had a strong effect on the amount of words spoken (d = 1.55).
+
+You are conducting an experiment where you are interested in getting smokers to stop smoking can help build lung capacity. You are going to test this by conducting an smoking cessation program for a year and having your sample run a mile. Before your program begins, you have every participant run a mile and get the times for each participant. After the year of the program to stop participants from smoking, you decide to have them run a mile again and track the times. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+smoking <- rnorm(7, mean = 20, sd = 8.1)
+no_smoking <- rnorm(7, mean = 8, sd = 5.3)
+
+smoking <- round(smoking, 2)
+no_smoking <- round(no_smoking, 2)
+
+smoking
+no_smoking
+
+smoke_df <- data.frame(participant = 1:7,
+                 smoking,
+                 no_smoking,
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________"))
+
+smoke_df
+
+smoke_df$smoking
+
+smoke_df$no_smoking
+
+```
+
+1. Get the difference between each pair of scores
+
+$$D = \Sigma({X}_{2} - {X}_{1})$$
+
+```{r}
+28.97 - 11.75
+15.91 - 14.22
+24.05 - 6.37
+13.7 - 14.61
+19.34 - 7.27
+24.07 - 13.16
+21.83 - 7.39
+
+```
+
+
+2. Square each difference score
+
+$$D^2$$
+
+```{r}
+17.22^2
+1.69^2
+17.68^2
+(-.91)^2
+12.07^2
+10.91^2
+14.44^2
+```
+
+
+```{r, include = FALSE}
+smoke_df <- smoke_df %>% 
+  mutate(score_difference = smoking - no_smoking,
+         score_difference_squared = score_difference^2)
+```
+
+```{r}
+smoke_df
+```
+
+3. Get the mean difference
+
+$$\overline{D} = \frac{\Sigma D}{N}$$
+
+```{r}
+(17.22 + 1.69 + 17.68 + (-.91) + 12.07 + 10.91 + 14.44)/7
+```
+
+$$\overline{D} = 10.44$$
+
+4. Get the variance/standard deviation of differences
+
+$$S^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+```{r}
+73.1^2
+
+296.53 + 2.86 + 312.58 + .83 + 145.68 + 119.03 + 208.51
+```
+
+$$S^2_{D} = \frac{1086.02 - \frac{(73.1)^2}{7}}{7 - 1}$$
+
+```{r}
+5343.61/7
+```
+
+
+$$S^2_{D} = \frac{1086.02 - \frac{5343.61}{7}}{7 - 1}$$
+
+```{r}
+1086.02 - 763.37
+
+7 - 1
+```
+
+$$S^2_{D} = \frac{1086.02 - 763.37}{6}$$
+
+```{r}
+322.65/6
+```
+
+$$S^2_{D} = \frac{322.65}{6}$$
+
+$$S^2_{D} = 53.78$$
+
+5. Get the standard error of the mean differences
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+```{r}
+53.78/7
+```
+
+$$S_{\overline{D}} = \sqrt{\frac{53.78}{7}}$$
+
+```{r}
+sqrt(7.68)
+```
+
+
+$$S_{\overline{D}} = \sqrt{7.68}$$
+
+$$S_{\overline{D}} = 2.77$$
+
+6. Get the t-obtained value
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+```{r}
+10.44 - 0
+```
+
+$$t_{obt} = \frac{10.44 - 0}{2.77}$$
+
+```{r}
+10.44/2.77
+```
+
+$$t_{obt} = \frac{10.44}{2.77}$$
+
+$$t_{obt} = 3.77$$
+
+7. Get the degrees of freedom
+
+$$df = N - 1$$
+
+```{r}
+7 - 1 
+```
+
+$$df = 7 - 1$$
+
+$$df = 6$$
+
+8. Get the effect size
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+```{r}
+sqrt(53.78)
+```
+
+$$d = \frac{10.44}{\sqrt{53.78}}$$
+
+```{r}
+10.44/7.33
+```
+
+$$d = \frac{10.44}{7.33}$$
+
+$$d = 1.42$$
+
+9. Find out if the t-obtained value is statistically significant 
+
+3.77 > 2.447
+
+Therefore, our finding is statistically significant. 
+
+10. Report the t-test statistic finding. Remember to include the means and standard deviations for the two time points. 
+
+Note. Get the smoking and non-smoking means and standard deviations
+
+$$\overline{X}_{smoking} = \frac{\Sigma X}{N}$$
+
+$$S_{smoking} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}}$$
+
+```{r}
+28.97 + 15.91 + 24.05 + 13.70 + 19.34 + 24.07 + 21.83
+147.87/7
+# mean = 21.12
+
+28.97^2 + 15.91^2 + 24.05^2 + 13.70^2 + 19.34^2 + 24.07^2 + 21.83^2
+
+147.87^2
+21865.54/7
+
+3288.43 - 3123.65
+
+164.78/6
+sqrt(27.46)
+# sd = 5.24
+```
+
+$$\overline{X}_{non} = \frac{\Sigma X}{N}$$
+
+$$S_{non} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}}$$
+```{r}
+11.75 + 14.22 + 6.37 + 14.61 + 7.27 + 13.16 + 7.39
+74.77/7
+# mean = 10.68
+
+11.75^2 + 14.22^2 + 6.37^2 + 14.61^2 + 7.27^2 + 13.16^2 + 7.39^2
+
+74.77^2
+5590.553/7
+
+874.95 - 798.65
+
+76.3/6
+sqrt(12.72)
+# sd = 3.57
+```
+
+A paired-samples t-test was conducted looking at the amount of time it took to run a mile in a sample of smokers. Participants were assessed before and after a smoking cessation program to reduce the frequency of smoking in the sample. There was a statistically significant difference in the time needed to complete the mile for participants; *t*(6) = 3.77, *p* < .05. Participants spent on average 21.12 minutes (*SD* = 5.24) to complete the mile before the cessation program. After the program's completion, participants took on average 10.68 (*SD* = 3.57) to complete the mile. The strength of the association was strong between the reduction in smoking and amount of time to run a mile (d = 1.42). 
