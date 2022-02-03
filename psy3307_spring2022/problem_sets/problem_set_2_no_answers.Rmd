@@ -1,0 +1,76 @@
+---
+title: "Problem Set 2"
+author: "Jonathan A. Pedroza, PhD"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, eval = TRUE}
+library(tidyverse)
+options(scipen = 999)
+theme_set(theme_minimal())
+```
+
+1. Deviance
+
+**Answer:** 
+
+------------------------------------------------------------------------
+
+2. What is the difference between variance and standard deviation? What is similar between variance and standard deviation?
+
+**Answer:** 
+
+------------------------------------------------------------------------
+
+3. If adding the sum of deviations, what value should you get no matter what the data looks like?
+
+**Answer:**
+
+------------------------------------------------------------------------
+
+4. What is the range useful for?
+
+**Answer:** 
+
+------------------------------------------------------------------------
+
+5. How does the range differ from the interquartile range?
+
+**Answer:** 
+
+------------------------------------------------------------------------
+
+6. Calculate the sum of deviations.
+
+```{r}
+data <- c(9, 7, 8, 3, 5, 2, 4, 7, 4, 9)
+data
+```
+
+
+**Answer:**
+
+------------------------------------------------------------------------
+
+7. Calculate the sum of deviance squared.
+
+**Answer:**
+
+------------------------------------------------------------------------
+
+8. Calculate the variance.
+
+**Answer:**
+
+------------------------------------------------------------------------
+
+9. Calculate the standard deviation. 
+
+**Answer:** 
+
+------------------------------------------------------------------------

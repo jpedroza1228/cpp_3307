@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 1 - Research Methods</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza, PhD" />
+    <meta name="date" content="2022-01-25" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 1 - Research Methods
+## PSY 3307
+### Jonathan A. Pedroza, PhD
+### Cal Poly Pomona
+### 2022-01-25
+
+---
+
+
+
+
+# Agenda
+
+- 
+
+---
+
+# Designs
+
+* **Design** is how a study is organized
+
+- Experimental (manipulate your independent variable to see what effect it has on the dependent variable)
+  - True Experiment
+  - Quasi Experiment
+  - Natural Experiment
+  
+- Correlational (don't manipulate anything; just look at the relationship between two variables)
+  - Correlation
+  - Regression
+
+---
+
+# Differences in Population &amp; Sample
+
+- **Population** is a large group of individuals, which a law of nature applies
+
+- **Sample** is a group of a given population intended to represent that population
+
+- **Participants** are those measured in a sample. Participants always refers to individuals (e.g., students, children, prisoners)
+
+- A sample is *supposed to generalize* to a given population
+
+- We never use subjects in the social sciences anymore, they are participants
+
+---
+
+# Statistics vs Parameters
+
+- **Statistics** use English letters to get values for a sample 
+
+- **Parameter** use greek letters for values of a population
+
+Statistic = Sample
+
+Parameter = Population
+
+---
+
+# Straight into Terms
+
+- **raw score** is the score given to a participant
+
+- **Frequency** denoted as f; number of times a score occurs/is counted
+
+*Note.* Not F, that is something completely different. 
+
+- **Frequency Distribution** is a distribution of each score and the number of times the score has occurred/is counted
+
+---
+
+# Visualizing Frequencies
+
+- Best way of visualizing frequencies is by using a bar graph
+
+- **Bar graph** graph with vertical bar over each nominal/ordinal category
+
+- **Side Note** A pie graph will always be inferior to a bar graph/any other visual
+
+- **Histogram** is a frequency graph used for interval or ratio scores
+
+- **Frequency Polygon** similar to a histogram, which shows data points connected with straight lines 
+
+- **Grouped Distributions** put continuous data into categories
+  - The next slide has data ranging from 6-10 in coffee uniformity; I could lump them as anything below a perfect 10 (6-9) and then 10 as a different category
+
+---
+
+# Normal Distribution
+
+![paranormal distribution](https://jech.bmj.com/sites/default/files/highwire/jech/60/1/6/embed/graphic-1.gif)
+
+---
+
+# Why Is It a Normal Distribution?
+
+- **Normal curve** is often called the bell-shaped curve; is symmetrical
+
+- **Normal Distribution** same thing as normal curve; represents the population because if you have enough data you will get a normal distribution (central limit theorem); if your data looks like this in a histogram, you're in good shape
+
+- **Distribution Tail** has two tails; these will be more important for statistics
+
+---
+
+# Skewed Distributions
+
+- **Negative Skew** is like a finger pointing left; not normal and is asymmetrical; indicates higher frequency of middle and higher scores; no low frequency in higher scores
+
+- **Positive Skew** is like a finger pointing right; not normal and is asymmetrical; indicates higher frequency of low and middle scores; no low frequency in lower scores
+
+- Some thresholds are that if you have a skewness value of +-2 or +-3 then you're good to use that variable like it is.
+
+- **Kurtosis** is when your frequency are really skinny and tall or really flat and wide
+
+---
+
+# Bimodal Distribution
+
+- **Bimodal Distribution** is when your distribution has two humps with a valley in the middle; high frequencies both below and above the middle of the plot
+
+---
+
+# Some Notes From JP
+
+Deciding what is positively and negatively skewed from visuals alone is not good enough
+
+You'll want to look into your descriptive statistics and look at skewness and kurtosis to make sure they are within +-3
+
+Some statistics can handle some skewness and kurtosis
+
+Other times you'll have to transform the variable using fancy methods that we will not talk about in this class.
+
+---
+
+# Relative Frequency
+
+* **Relative Frequency** the proportion of times a score occures/is counted in the distribution
+
+$$ Relative\;frequency = f/N$$
+
+Here, f is the frequency of one category of a nominal variable. N is the total number of observations for all the categories of that variable. 
+
+
+```r
+f = 37
+N = 2000
+
+relative_frequency = f/N
+relative_frequency
+```
+
+```
+## [1] 0.0185
+```
+
+```r
+percent = relative_frequency*100
+percent
+```
+
+```
+## [1] 1.85
+```
+
+---
+
+# Relative Frequency Using Normal Curve
+
+- **Proportion of Area under the Curve** is the proportion of total area under the normal curve
+
+- **Percentile** is the percentage of all scores in the sample below a particular score
+
+- **Cumulative Frequency** is the number of scores in the data at or below a particular score
+
+---
+
+# Greek Terms
+
+`$$\Sigma = Sum\;of\;scores$$`
+
+`$$\Sigma\;X = Sum\;Of\;X$$`
+
+---
+
+# Greek Terms
+
+- Both of these are stating that we are adding all of the data points together.
+
+- **Sum of X** is the sum of the scores in a sample
+  - X is just another way to say all the data points for the variable.
+
+---
+
+# Central Tendency
+
+* Concept that as statisticians every person is just a data point
+
+* We are interested in the central score
+  - We are interested in how much a person is away from that central score
+  - But when it comes to statistics we like to group together our participants' scores/values
+  
+* **Measures of Central Tendency** are statistics that summarize the location of a distribution on a variable by indicating where the center is
+
+* A Normal distribution will have the central point right down the center
+
+* A skewed distribution will have the central point where the frequency of scores is the highest
+
+---
+
+# The Mode
+
+.pull-left[
+![](https://i.imgflip.com/prj6o.jpg)
+]
+
+.pull-right[
+* Value/score with the highest frequency
+
+* Essentially useless in statistics
+
+* **Unimodal distributions** distribution with only one hump; one value is the mode
+
+* **Bimodal distributions** distribution with two humps; two values with the highest frequency; two modes
+
+---
+
+# The Median
+
+.pull-left[
+![](https://i.kym-cdn.com/entries/icons/original/000/033/395/Thumbnail_expert_micro.png)
+]
+
+.pull-right[
+* **Median** is the middle value/score; the 50th percentile
+
+* Unlike the mode, it will always be close to the middle of a distribution
+
+* You'll only ever have one median
+
+* The symbol is:
+`$$Mdn = Median$$`
+]
+
+---
+
+# The Median
+
+* Preferred for ordinal/ordered data
+
+* Not the best option for normally distributed interval &amp; ratio scores
+
+* Is more reliable when dealing with skewed data
+
+* *Important Note* If you have an even number of scores/values, then you will add the two middle values and divide by 2
+
+---
+
+# The Mean/Average
+
+* **Mean** is the score located at the `mathematical` center of a distribution
+
+* Xbar is often used for the mean
+  - $$ \overline{X} $$ 
+
+* $$\overline{X} = \frac{\Sigma\;X}{N} $$ is the formula to calculate the mean.
+  - Xbar is the Sum of X/Scores divided by the total number of observations/scores/values
+
+* Calculate the mean for interval and ratio scales
+  - The mean of ordinal/ordered data makes no sense
+  
+* Basis for most `inferential statistics`
+
+---
+
+# When to Use Each Measure
+
+* The Median more accurately describes/summarizes skewed data compared to the mean
+  - The mean will be pulled toward the extreme tail of the distribution
+  
+* Normal distribution then use the mean as the best measure to describe/summarize data
+
+---
+
+# The Mean in Research
+
+* Most statistics revolve around the mean
+
+* Can't just trust descriptive statistics like the mean
+
+---
+
+# Deviation
+
+* The distance a participant's score/value is from the mean/average
+
+* Deviations can be positive or negative
+  - participants can score lower (negative) than the mean and higher (positive) than the mean
+  
+* To get the deviation, you subtract the mean from each participant's score
+
+* $$ X - \overline{X} $$
+
+* The larger the value the farther away from the mean the score/value is
+
+* **Sum of the deviations around the mean** is the sum of all differences between the scores and the mean
+
+---
+
+# Looking to the Future
+
+* Deviations is the start for upcoming lectures and statistical tests, especially the sum of the deviations
+
+* $$ \Sigma(X - \overline{X}) $$
+
+* If the sum of the deviations is 0 then that means your math is good
+
+* Deviation of each score/value from the mean is often referred to as error/residual in statistical tests
+
+* Correlational designs use the mean of IV and the mean of DV to look for a relationship between the two variables
+
+* Experiments compare the two or more groups (IV) and the relationship with the mean value/score of the DV
+
+---
+
+# Visuals
+
+* Line Graphs are good for showing progress or change in time
+
+* To show group differences (nominal or ordinal IV), bar graphs are the norm
+
+* Scatterplots are best for continuous IV and continuous DV (interval or ratio)
+
+---
+
+# Describing the Population Mean
+
+* $$ \mu = Population\;Mean $$
+
+* If you test a population then you would use mu instead of xbar
+
+* $$ \mu = \frac{\Sigma\;X}{N} $$
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

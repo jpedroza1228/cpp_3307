@@ -1,0 +1,181 @@
+---
+title: "Problem Set 1"
+author: "Jonathan A. Pedroza, PhD"
+date: '2022-02-01'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, eval = TRUE}
+library(tidyverse)
+
+set.seed(082521)
+normal = rnorm(10000, mean = 0, sd = 1)
+neg_skew = rbeta(10000, shape1 = 40, shape2 = 2)
+pos_skew = rbeta(10000, shape1 = 2, shape2 = 40)
+
+skew <- tibble::tibble(normal, 
+                       pos_skew,
+                       neg_skew) %>% 
+  rowid_to_column()
+
+options(scipen = 999)
+theme_set(theme_minimal())
+```
+
+1. What type of distribution is below?
+
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(normal)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .8) +
+  labs(x = '')
+```
+
+**Answer:** Normal distribution. It looks perfectly symmetrical and has the highest point at the middle with two even tails.
+
+------------------------------------------------------------------------
+
+2. What type of distribution is below?
+
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(pos_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .8) +
+  labs(x = '')
+```
+
+**Answer:** Positively skewed distribution. It has a high frequency of low scores and a low frequency of higher scores. 
+
+------------------------------------------------------------------------
+
+3. What type of distribution is below?
+
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(neg_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .8) +
+  labs(x = '')
+```
+
+**Answer:** Negatively skewed distribution. It has a high frequency of high scores and a low frequency of lower scores.
+
+------------------------------------------------------------------------
+
+4. Describe what a bimodal distribution is in your own words.
+
+**Answer:** A bimodal distribution is a distribution with two modes, or two most frequent points. It can often show that there are two distinct groups in your distribution. 
+
+------------------------------------------------------------------------
+
+5. What is the term for the formula below?
+
+$$= \frac{f}{N}$$
+
+**Answer:** This is the formula for relative frequency. It is the frequency/count of a value divided by the number of observations. 
+
+------------------------------------------------------------------------
+
+6. Calculate the relative frequency for each category. The following data will be for numbers 6-8.**If using R/RStudio, you can copy+paste what is below and run that in R/RStudio to see the values.**
+
+```{r, echo = TRUE, eval = TRUE}
+categories <- c('d', 'e', 'a', 'e', 'e', 'e',
+                'b', 'd', 'e', 'c', 'a', 'e',
+                'a', 'd', 'e', 'd', 'e', 'c',
+                'a', 'b', 'e', 'a', 'b', 'd',
+                'd', 'd', 'd', 'e', 'e', 'e')
+categories
+table(categories)
+```
+
+**Answer:**
+5/30 - A
+3/30 - B
+2/30 - C
+8/30 - D
+12/30 - E
+
+------------------------------------------------------------------------
+
+7. Get the **proportions** & **percentages** of each category.
+
+**Answer:**
+
+```{r}
+5/30
+3/30
+2/30
+8/30
+12/30
+```
+
+.17 - A
+.10 - B
+.07 - C
+.27 - D
+.40 - E
+
+```{r}
+.17*100
+.10*100
+.07*100
+.27*100
+.40*100
+```
+
+17% A
+10% B
+07% C
+27% D
+40% E
+
+------------------------------------------------------------------------
+
+8. Calculate the cumulative frequency of categories D and E combined.
+
+**Answer:**
+
+.27 - D
+.40 - E
+
+```{r}
+.27 + .40
+```
+
+D and E combined = .67 or 67% of the distribution
+
+------------------------------------------------------------------------
+
+9.Calculate the median for the following values. The following data will be for numbers 9 & 10. **If using R/RStudio, you can copy+paste what is below and run that in R/RStudio to see the values.**
+
+```{r, echo = TRUE, eval = TRUE}
+numbers <- c(3, 5, 7, 6, 4, 9, 1, 8, 4, 6, 6, 4, 5, 2, 3)
+numbers
+```
+
+```{r}
+sort(numbers)
+```
+
+
+**Answer:** 5 is the median, as it is the 8th value in order from smallest to largest.
+
+------------------------------------------------------------------------
+
+10. Calculate the mean for the following values.
+
+```{r}
+1+2+3+3+4+4+4+5+5+6+6+6+7+8+9
+# sum is 73
+```
+
+```{r}
+73/15
+```
+
+**Answer:** The mean/average value for the values provided was 4.87.
+
+------------------------------------------------------------------------

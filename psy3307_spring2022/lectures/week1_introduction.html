@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 1 - Introduction &amp; Review</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza, PhD" />
+    <meta name="date" content="2022-01-25" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 1 - Introduction &amp; Review
+## PSY 3307
+### Jonathan A. Pedroza, PhD
+### Cal Poly Pomona
+### 2022-01-25
+
+---
+
+
+
+
+# Agenda
+
+- Introductions
+- Syllabus
+- Review
+- Types of Research
+- Steps of Conducting Statistics Within the Research Process
+- Levels of Measurement
+  - Measurement Error
+- Measurement Scales
+
+---
+
+# About Me
+
+- My name is Jonathan A. Pedroza (he/him)
+  - please refer to me as **JP** unless around other instructors/faculty
+  
+- First-generation Graduate
+  - CPP Alumni (2014)
+  - CSUDH (2017)
+  - University of Oregon (2021)
+  
+---
+
+# About Me
+
+![uo grad](../additional_resources/uo_grad.jpg)
+
+---
+
+# About Me
+
+![hiking](../additional_resources/hike.jpg)
+
+---
+
+# About Me
+
+![lucy](../additional_resources/lucy.jpg)
+
+---
+
+# Nerdy Stuff
+
+- Passion/Nerdy Topics:
+  - I love creating data visualizations in `R`
+  - health inequities in communities of color
+  - examining environmental variables that influence health behaviors
+
+---
+
+# Nerdy Stuff
+
+![non_passing_rate](../additional_resources/non_passing_rate_visualization.png)
+
+---
+
+# Break-out Rooms - Tell Me About Yourself
+
+- Name &amp; pronouns
+
+- What do you want to do after you graduate?
+
+- What is your experience with statistics?
+
+- What is your experience with SPSS?
+
+- Something that you are passionate/nerdy about
+
+---
+
+# Learning Objectives
+
+- Use SPSS to compute statistics
+
+- Read/Interpret Descriptive &amp; Inferential Statistics
+
+- Understand &amp; Solve Formulas for Statistical Tests
+
+- Understand Sampling, Statistical Null Hypothesis Testing, Effect Sizes, Confidence Intervals
+
+- Demonstrate ability to apply these skills to test hypotheses using real data
+
+---
+
+# Topics Covered
+
+- Descriptive Statistics
+- Probability
+- Random Selection
+- Normal Curve &amp; Sampling Distribution
+- Hypothesis Testing
+- Rules for Statistical Decisions (Types I and II Errors)
+- Sample Size Importance (One- vs Two-tailed Tests)
+- Z-scores, z-ratio, and t-ratio (single group, independent-samples t-test, paired)
+- Analysis of Variance (One-way, Two-way, Repeated-measure, mixed)
+- Confidence Intervals/Error bars in plots
+- Most common plots (histograms, boxplots, scatterplots)
+- Correlation &amp; Regression Analysis
+- Chi-square (One-way, Two-way)
+- Non-parametric statistics
+
+---
+
+# You Might be Feeling Like...
+
+![spongebob running](https://media.giphy.com/media/yJ1dPF1ZZOduE/giphy.gif)
+
+---
+
+# What I Need From You
+
+- Cameras are optional
+  - It helps me see if you are confused
+  
+- Unmute yourself and interrupt me
+
+- put in the chat that you are confused
+
+- private message me in the chat that you are confused
+
+---
+
+# Review
+
+- **Variable**
+  - anything that can produce different scores; scores that vary
+
+- **Relationship**
+  - the connection between two variables
+
+- Three different types of relationships
+  - **positive relationship** is when one variable increases, the second variable increases
+  - **negative relationship** is when one variable increases, the second variable decreases
+  - **no relationship** shows no clear connection between two variables
+  
+---
+
+
+# Poll: Is it a Variable?
+
+- Height
+- Age
+- Class Standing
+- Name
+
+---
+
+# Relationships
+
+&lt;img src="week1_introduction_files/figure-html/unnamed-chunk-1-1.png" width="400px" /&gt;
+
+---
+
+# Descriptive &amp; Inferential Statistics
+
+* **Descriptive Statistics** used for organizing and summarizing your data. 
+
+* Tells the reader how the data looks.
+
+* **Inferential Statistics** used to estimate or infer if there is a relationship in your sample data that represents the population studying
+
+* Tells the reader if there is a relationship.
+
+---
+
+# Examples of Descriptive &amp; Inferential Statistics
+
+1. The average amount of physical inactivity in California counties
+2. The association between parks and physical activity engaged 
+3. The *difference* in the number of liquor stores between San Diego and Los Angeles counties.  
+4. The number of males and females in PSY 3307. 
+
+---
+
+# Types of Research
+
+- **Qualitative**
+  - testing theories using language
+  
+- **Quantitative**
+  - testing theories with numbers
+
+---
+
+# Poll: Types of Research
+
+- Finding the average age of students that take PSY 3307 
+- Conducting interviews with people on why they won't get vaccinated
+- Focus groups on improving graduation rates at CPP
+- Testing to see if drinking more coffee makes you better at math
+
+---
+
+# Variables
+
+- **Independent variables** are often seen as the cause of some effect
+  - Experimental designs = cause
+  - Correlational designs = predictor
+  - **Predictor variable** predicts an outcome; IV --&gt; DV
+
+- **Dependent variables** are variables that are affected by the independent variable(s)
+  - Outcome based on changes from the independent variable
+  - Also called **outcome variable**
+
+- Independent variables = IV
+
+- Dependent variables = DV
+
+- This class, most analyses will be focused on one IV and one DV
+  - More advanced statistics can have multiples of both
+
+---
+
+# Conditions
+
+* **Conditions** are the categories of the IV to measure DV scores in an experiment
+
+* Example: Examining test scores of students in a class. Half of the class gets a study guide while the other half is given nothing.
+
+IV = Study guide
+DV = Test scores
+Conditions: 1 = Group receiving study guide; 2 = Group receiving nothing (control group)
+
+* For experiments, you can say "IV had an effect on DV" or the "IV caused DV" but for correlational students that is a big NO NO. Every time JP hears/reads a correlational study that describes the effect of IV on DV he cries a little inside.
+
+---
+
+# Levels of Measurement
+
+- What is being measured and the numbers that represent what is being measured is the **level of measurement**
+
+- **Categorical variables**
+  - entities are divided into distinct categories
+  - variables that do not allow fractions
+  
+- Ex: Getting an 94.5 on a exam
+
+- **Continuous variables**
+  - a score for each person/distinct score
+  - variables that can be measured with decimals
+  
+- Ex: Being a 4th year compared to a 3rd year student
+
+---
+
+# Categorical Variables
+
+- **Binary variables**
+  - there are only two categories (sex)
+
+- **Nominal variables**
+  - categorize into groups; categories are not ordered (race/ethnicity groups)
+  - can be binary and nominal
+
+- **Ordinal variables**
+  - ordered categories
+  - categories indicate rank order (race order)
+
+---
+
+# Continuous Variables
+
+- **Interval variables**
+  - equal intervals on the variable represent equal differences in measurement
+  - zero is not an absolute zero
+
+- **Ratio variables**
+  - similar to interval
+  - true zero (zero is the smallest number)
+
+---
+
+# Measurement Scale Examples
+
+1. California Counties
+2. Temperature measured in Celcius
+2b. Temperature measured in Kelvin
+3. Olympic Medal Winners (Gold, Silver, Bronze)
+4. Money
+5. Income Brackets [0-10k, 11-20k, 21-30k, ...]
+6. Miles per hour (mpg)
+7. 10 most common baby names
+8. Grades (A, B, C, D, F)
+9. Grades (100-95, 94-90, 89-85, 84-80, ...)
+10. Grades (100-0%)
+
+---
+
+# Measurement Error
+
+- **Measurement error** is the discrepancy between the actual value you're trying to measure and the value you obtained
+
+- A participant's ID states a weight of 130lbs
+
+- Their actual weight is 134lbs
+
+- There is a measurement error of 4lbs
+
+---
+
+# Learning Greek &amp; Roman
+
+`$$\Sigma = Sum$$`
+
+`$$\bar{x} = sample\;mean$$`
+
+`$$\mu = population\;mean$$`
+
+---
+
+# Learning Greek &amp; Roman
+
+`$$s^2 = variance$$`
+
+`$$s = standard\;deviation$$`
+
+`$$\sigma = population\;standard\;deviation$$`
+
+`$$\sigma^2 = population\;variance$$`
+
+---
+
+# Learning Greek &amp; Roman
+
+$$ N = Total\;Observations\;(Either\;Sample\;or\;Population)$$
+
+$$ f = Frequency $$
+
+$$ n = observations\;for\;categories\;in\;survey $$
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
