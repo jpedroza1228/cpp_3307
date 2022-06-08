@@ -1,0 +1,148 @@
+---
+title: "Exam 2 Study Guide"
+format: docx
+editor: visual
+---
+
+## Topics To Know For The Exam
+
+-   how can bias affect modeling
+
+-   what an outlier is
+
+-   what is an influential outlier and when should we consider them
+
+-   what assumptions do
+
+-   main assumptions
+
+-   how to assess
+
+    -   linearity
+
+    -   normality
+
+    -   homoscedasticity
+
+    -   independence of residuals
+
+-   know if your data needs to be normally distributed
+
+    -   what should be normally distributed
+
+-   how the central limit theorem involved in modeling
+
+-   know what and how homoscedasticity affects models
+
+-   know what homoscedasticity and heteroscedasticity are
+
+    -   what are options if you have heteroscedasticity
+
+-   what independence is
+
+-   know the difference between a p-p plot and a q-q plot
+
+-   what are the problems with statistical tests for testing normality assumption
+
+-   how to spot issues with normality and independence
+
+    -   how should visuals look for these assumptions
+
+-   know how to write out statistics in text form
+
+-   what can be done with bias in your data
+
+```{=html}
+<!-- -->
+```
+-   how to deal with violated assumptions
+
+-   know the difference between independent-samples t-test and paired-samples t-test
+
+-   know how t-tests are included in the linear model
+
+-   know what a dummy variable
+
+    -   know what the values are for dummy variables
+
+-   know what the intercept in a linear model is (t-test only)
+
+-   know what a Welch t-test and how its different from a Student's t-test
+
+-   know the interpretation of a t-test
+
+    -   what does it mean to have a significant finding
+
+-   what is the issue of running multiple t-tests
+
+    -   what will happen if we run 20 tests and find one statistical finding
+
+-   know why we remove population means from calculations
+
+-   know how to calculate independent-samples t-test, paired-samples t-test, and one-way ANOVA
+
+-   know what the variance sum law is
+
+-   know what is missing from equations/formulas
+
+-   know what formulas/equations mean
+
+-   know what needs to be done when groups are different for independent-samples t-tests
+
+-   know the designs of each test (between-subjects, within-subjects)
+
+-   know the difference in the formulas for a paired-samples t-test
+
+-   know the difference in the distributions between the t-test distributions
+
+-   know the standard error of differences
+
+-   know how to calculate effect sizes for all tests
+
+    -   know size of correlation effect sizes
+
+-   difference between ANOVA and independent-samples t-test
+
+-   know how to read all the tables (studentized, t, F)
+
+-   know what a reference group
+
+-   know what an ANOVA can't do compared to a linear regression
+
+-   know how to formulate both a null hypothesis and an alternative hypothesis
+
+-   know, generally, the difference between a planned contrast and a post-hoc analysis
+
+-   know what a F-test tells us and what it doesn't tell us
+
+-   know when to check post-hoc findings
+
+-   know what a grand mean is compared to group means
+
+-   know what the total, model, and residual sum of squares
+
+-   know the difference between sum of squares and mean squares
+
+-   know what each degrees of freedom are and what they are used for
+
+-   know what a F-test is compared to the specific comparisons
+
+-   know how to calculate a Tukey Honestly Significant Difference Test
+
+-   know how to tell if a finding is statistically significant
+
+-   know what can be done to data suffering heterogeneity/heteroscedasticity for a F-test
+
+-   what can be done to correct model parameters that may violate assumptions for F-tests
+
+-   know, generally, what orthogonal vs non-orthogonal contrasts are
+
+-   know how many curves in a line equal what trend is trying to be shown
+
+-   know what happens when there are too many curves in a trend line
+
+-   know when to use the Least-Significant Difference comparison
+
+-   know what post-hoc tests are the most balanced
+
+-   know the difference between $R^2$ and $\eta^2$

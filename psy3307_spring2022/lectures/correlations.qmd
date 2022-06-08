@@ -1,0 +1,408 @@
+---
+title: "Correlation"
+author: "Jonathan A. Pedroza, PhD"
+format: beamer
+editor: visual
+---
+
+## Modeling Relationships
+
+$$
+outcome_i = (model) + error_i
+$$
+
+$$
+outcome_i = (b_1X_i) + error_i
+$$
+
+-   if we work with standardized scores (what are those called?) then the equation changes because the predictor and outcome have a mean of 0
+
+## Modeling Relationships
+
+-   we would lose the intercept so what is left over is the following equation
+
+$$
+z(outcome)_i = b_1z(X_i) + error_i
+$$
+
+-   wit this equation the outcome can be presented as a standardized score predicted by a standardized variable multiplied by $b_1$
+
+## Modeling Relationships
+
+-   when using standardized scores, the value becomes a pearson product-moment correlation coefficient
+
+    -   pearson product-moment correlation coefficient = correlation coefficient
+
+        -   denoted with a $r$
+
+        -   which means the correlation coefficient or $r$ is standardized
+
+## Covariance
+
+-   simply put, **covariance** is an un-standardized correlation
+
+-   to understand covariance, we must look at variance
+
+$$
+S^2 = \frac{\sum^n_{i = 1}(X_i - X)^2}{N - 1} = \frac{\sum^n_{i = 1}(X_i - X)(X_i - X)}{N - 1}
+$$
+
+-   covariance is the examination of the relationship between two variables
+
+    -   if one variable deviates from its mean, the other variable should either deviate from its mean in the same direction or in the opposite direction
+
+## Covariance
+
+-   for variance, we \_\_\_\_\_\_ our deviations
+
+    -   for covariance, we multiply the deviation of one variable by the deviation for the second variable
+
+        -   positive values indicate a relationship in the same direction
+
+        -   negative values indicate a relationship where the deviations are in opposite directions
+
+-   multiplying deviations of one variable by the deviations of a second variable provides **cross-product deviations**
+
+-   we then get the average by dividing by the degrees of freedom ($N -1$)
+
+$$
+covariance(x, y) = \frac{\sum^n_{i = 1}(x_{i} - \overline{x})(y_{i} - \overline{y})}{N - 1}
+$$
+
+## Covariance Example
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+example <- data.frame(x = c(1, 4, 5, 6, 7),
+                      y = c(10, 9, 8, 6, 8))
+example
+```
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+
+
+mean(example$x)
+mean(example$y)
+```
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+example$x_deviations <- example$x - 4.6
+example$y_deviations <- example$y - 8.2
+
+example
+```
+
+## Covariance Example
+
+$$
+covariance(x, y) = \frac{\Sigma(x_{i} - \overline{x})(y_{i} - \overline{y})}{N - 1}
+$$
+
+## Covariance Example
+
+$$
+\frac{(1 - 4.6)(10 - 8.2) + (4 - 4.6)(9 - 8.2) + (5 - 4.6)(8 - 8.2) + (6 - 4.6)(6 - 8.2) + (7 - 4.6)(8 - 8.2)}{5 - 1}
+$$
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+(1 - 4.6)
+(10 - 8.2)
+(4 - 4.6)
+(9 - 8.2)
+(5 - 4.6)
+```
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+(8 - 8.2)
+(6 - 4.6)
+(6 - 8.2)
+```
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+(7 - 4.6)
+(8 - 8.2)
+
+5 - 1
+```
+
+## Covariance Example
+
+$$
+\frac{(-3.6)(1.8) + (-.6)(.8) + (.4)(-.2) + (1.4)(-2.2) + (2.4)(-.2)}{4}
+$$
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+(-3.6)*(1.8)
+(-.6)*(.8)
+(.4)*(-.2)
+(1.4)*(-2.2)
+(2.4)*(-.2)
+```
+
+## Covariance Example
+
+$$
+\frac{(-6.48) + (-.48) + (-.08) + (-3.08) + (-.48)}{4}
+$$
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+(-6.48) + (-.48) + (-.08) + (-3.08) + (-.48)
+```
+
+$$
+covariance(x, y) = \frac{-10.6}{4}
+$$
+
+## Covariance Example
+
+```{r, echo = TRUE, eval = TRUE}
+-10.6/4
+```
+
+## Covariance Example
+
+$$
+covariance(x, y) = -2.65
+$$
+
+## Covariance Example
+
+```{r}
+example %>% 
+  ggplot(aes(x, y)) + 
+  geom_point(size = 3, color = "dodgerblue") + 
+  theme_classic()
+```
+
+## Covariance Example
+
+-   since this is a negative covariance, which of the following would be true
+
+    -   both variables deviated from the mean in the same direction
+
+    -   one variable deviated away from the mean (increased) while one variable deviated from the mean in the opposite direction (decreased)
+
+## Standardization & Correlation Coefficients
+
+-   **standardization** is the process of converting the covariance into standardized units
+
+    -   the unit of measurement we are looking for are standard deviation units
+
+        -   **standard deviation** is the average deviation from the mean
+
+-   to standardize our covariance, we would divide by the standard deviation
+
+    -   we have 2 standard deviations though
+
+    -   just like with our deviations, we are going to multiply our standard deviations
+
+## Standardization & Correlation Coefficients
+
+-   so our covariance value is divided by the product of our multiplied standard deviations
+
+    -   this is known as a **correlation coefficient**
+
+$$
+r = \frac{cov_{xy}}{S_{x}S_{y}} = \frac{\Sigma(x_{i} - \overline{x})(y_{i} - \overline{y})}{(N - 1)S_{x}S_{y}}
+$$
+
+-   this correlation coefficient is the **Pearson product-moment correlation coefficient** or simply **Pearson's correlation coefficient** or $r$
+
+## Standardization & Correlation Coefficients
+
+-   by standardizing our covariance, we now can only have values that go from -1 to 1
+
+    -   these are seen by the strength of the relationship
+
+        -   r =0 --> no correlation
+
+        -   r = .1 is a small/weak correlation/effect size
+
+        -   r = .3 is a moderate/medium correlation/effect size
+
+        -   r = .5 is a large correlation/effect size
+
+## Standardization & Correlation Coefficients
+
+-   JP: while these values can go from -1 to 1, negative and positive values don't matter in regard to strength
+
+    -   r = -.8 is a larger correlation than r = .6
+
+    -   the larger number will always be the larger correlation
+
+    -   negative values only indicate direction
+
+        -   r = -.8 is a large negative/inverse correlation
+
+-   when we examine a correlation between two variables, we are using a **bivariate correlation**
+
+## Significance of Correlation Coefficient
+
+-   the issue with the sampling distribution for Pearson's $r$ is that the sampling distribution is not normal
+
+    -   to fix this, we can adjust the sampling distribution to be normal by using z-scores
+
+$$
+z_{r} = \frac{1}{2}log_{e}(\frac{1 + r}{1 - r})
+$$
+
+-   the $z_r$ also has a standard error by calculating the following equation
+
+$$
+SE_{z_{r}} = \frac{1}{\sqrt{N - 3}}
+$$
+
+## Significance of Correlation Coefficient
+
+-   transform your adjusted $r$ value into a z-score
+
+    -   our hypotheses for a correlation is that the correlation will be different from zero
+
+    -   as with other tests, rather than subtract zero, we can just have the value divided by the standard error to get a z-score
+
+$$
+z = \frac{z_{r}}{SE{z_{r}}}
+$$
+
+-   we could also use a t-test with a correction in the degrees of freedom ($N - 2$
+
+$$
+t_{r} = \frac{r\sqrt{N - 2}}{\sqrt{1 - r^2}}
+$$
+
+## Some Notes About Correlation Coefficients
+
+-   remember that our correlation coefficients do not indicate causality
+
+    -   unless the design of your study would indicate a cause --> effect relationship (e.g., experiments), then you can only state that there is a relationship present
+
+        -   or state there is evidence of a significant relationship
+
+-   this can be due to several reasons
+
+    -   directionality of your variables
+
+        -   your IV could be your DV and vice versa
+
+        -   Ex: depression --> obesity \| obesity --> depression
+
+    -   is there a third variable or **tertium quid** which could be influencing the relationship between your two variables
+
+## Confidence Intervals for $r$
+
+-   we can calculate confidence intervals using those $z_r$ values and the corresponding standard errors
+
+$$
+lower\;CI = \overline{X} - (1.96 * SE)
+$$
+
+$$
+upper\;CI = \overline{X} + (1.96 * SE)
+$$
+
+-   becomes
+
+$$
+lower\;CI = z_{r} - (1.96 * SE_{z_{r}})
+$$
+
+$$
+upper\;CI = z_{r} + (1.96 * SE_{z_{r}})
+$$
+
+## Confidence Intervals for $r$
+
+-   we can then convert these back to correlation coefficients by using the following formula
+
+$$
+r = \frac{\epsilon^{2z_{r}} - 1}{\epsilon^{2z_{r}} + 1}
+$$
+
+-   SPSS does not compute your standard confidence intervals for you
+
+    -   to get around this AGAIN we will be using bootstrapped confidence intervals
+
+## Bivariate Correlation
+
+-   let's talk about some sources of bias
+
+-   when fitting a linear model, we want a linear relationship between our variables so we need
+
+    -   an outcome that is numeric/continuous/ratio/interval
+
+    -   and a predictor that is also numeric/continuous/ratio/interval
+
+-   we'll also look for outliers
+
+    -   there are additional correlational tests that can rank the data to deal with outliers
+
+    -   JP: I don't think outliers will affect our data anyway
+
+-   we'll also look at out P-P and Q-Q plots to make sure the data looks normal
+
+## Pearson's Correlation Coefficient Using SPSS Statistics
+
+-   we will cover SPSS stuff during the activity section
+
+    -   if you square your correlation coefficient you get your **coefficient of determination**
+
+    -   which is the amount of variability in one variable that is shared by the other variable
+
+    -   $R^2$
+
+## Spearman's Correlation Coefficient
+
+-   **Spearman's correlation coefficient**, denoted as $r_s$, is a non-parametric statistic that can be useful for minimizing effects of extreme scores (outliers) or violations of assumptions
+
+-   rquires only ordinal data for both variables
+
+    -   pronounced as rho or $\rho$
+
+-   it works by ranking the data of your variables and then applies the Pearson's correlation coefficient equation to those ranks
+
+-   we will look at Spearman's correlation coefficient when conducting correlations in SPSS
+
+## Kendall's tau $\tau$ (non-parametric)
+
+-   non-parametric test that should be used for small datasets
+
+    -   with large number of "tied" ranks
+
+-   seen as a better alternative to Spearman's correlation as an estimate of the correlation in the population
+
+## Biserial & Point-Biserial Correlations
+
+-   Biserial and point-biserial correlation coefficients are similar in that they are correlations where one variable is dichotomous (2 categories)
+
+    -   the difference is that dichotomous variable is either discrete or continuous
+
+-   a **point-biserial correlation coefficient** is used when one variable is a discrete dichotomous variable (sex)
+
+-   **biserial correlation coefficient** is used when one variable is a continuous dichotomous variable (passing an exam = 1, failing an exam = 0)
+
+    -   a variable on a continuum would fall under a biserial correlation coefficient
+
+$$
+point-biserial = r_{pb}
+$$
+
+$$
+biserial = r_{b}
+$$

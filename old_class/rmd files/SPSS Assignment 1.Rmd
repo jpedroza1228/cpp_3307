@@ -1,0 +1,99 @@
+---
+title: "SPSS Assignment 1"
+author: "JP"
+date: "10/1/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Context (20 points)
+
+You are interested in whether there are differences in the amount of phone calls that are being made between male and female students. You think that there will be a difference between the two groups but you're not sure which group will have a higher score. Create hypotheses and conduct all the analyses and visualizations below. You will submit your answers to anything that is not SPSS specific (hypotheses, t critical value, write up) on this **word document and will turn in this document** as well as your **SPSS output file**. Email me if you have any questions about submitting both documents. 
+
+## Create a `null` and `alternative` hypothesis (in words) (3 points)
+
+H0:
+
+H1: 
+
+## Rename `gender` into `sex` (1 point)
+
+## Get a composite average score for phone calls (2 points)
+
+```{r}
+library(tidyverse)
+
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  mutate(phone = (mtuas_phonecall_q1 + mtuas_phonecall_q2)/2,
+         sex = ccc_gender)
+```
+
+- there are two variables that will make up the composite score
+
+## Conduct descriptive statistics for the following variables (2 points)
+
+- please write out what the mean and standard deviation for the composite score to get full credit
+
+- make sure to include your initials after the composite score
+
+```{r}
+jp %>% 
+  summarize(mean = mean(phone),
+            sd = sd(phone))
+```
+
+
+- `sex`
+- `mtuas_phonecall_q1`
+- `mtuas_phonecall_q2`
+- `avg phonecall variable`
+
+```{r}
+jp %>% 
+  ggplot(aes(sex)) + 
+  geom_bar()
+
+jp %>% 
+  ggplot(aes(phone)) + 
+  geom_histogram(color = "white", bins = 15) 
+```
+
+## Get a descriptive visual for the composite score (1 point)
+
+- is the skewness acceptable for the composite score
+
+- is the distribution "normal" enough
+
+
+## Conduct inferential statistic (independent samples t-test) (3 points)
+
+```{r}
+t.test(phone ~ sex, data = jp)
+t.test(phone ~ sex, data = jp, var.equal = TRUE)
+```
+
+- report the correct inferential statistics in the form of a t-test (e.g., t(df) = t value, p value, 95% CI [lower confidence interval, upper confidence interval]) 
+
+## Tell me whether or not your finding is statistically significant (1 point)
+
+## find the t-critical value for a two-tailed test (2 points)
+
+- look at your t table to see the t critical value for your test
+
+## Show some type of visualization that shows the difference in the two groups on internet use (2 points)
+
+```{r}
+jp %>% 
+  ggplot(aes(factor(sex), phone)) + 
+  geom_boxplot(aes(color = factor(sex)))
+```
+
+
+## Reject/Retain the Null Hypothesis? (1 point)
+
+## Write up on your findings (2 points)

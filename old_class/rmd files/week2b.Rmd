@@ -1,0 +1,71 @@
+---
+title: "PSY 3307"
+subtitle: "Frequency Distributions"
+author: "Jonathan A. Pedroza, MS, MA"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(xaringanthemer)
+style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")
+
+library(tidyverse)
+library(kableExtra)
+```
+
+# Agenda
+
+* Frequency & Distributions
+* 
+
+---
+
+# Straight into Terms
+
+* **raw score**
+
+* **Frequency** denoted as f. 
+
+*Note.* Not F, that is something completely different. 
+
+* **Frequency Distribution**
+
+--- 
+
+# Example
+
+.pull-left[
+```{r}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(n = n()) %>% 
+  kbl() %>% 
+  kable_styling()
+```
+
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, out.width = "300px"}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(n = n()) %>%
+  ungroup() %>% 
+ggplot(aes(as.factor(cyl), n)) + 
+  geom_col(fill = "dodgerblue", color = "white", position = "dodge2") + 
+  geom_text(aes(label = n), vjust = 1.5, size = 10) +
+  theme_classic()
+```
+]

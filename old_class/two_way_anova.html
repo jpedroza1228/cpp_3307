@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza PhD" />
+    <meta name="date" content="2021-10-26" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## Two-Way Analysis of Variance
+### Jonathan A. Pedroza PhD
+### Cal Poly Pomona
+### 2021-10-26
+
+---
+
+
+
+
+# Agenda
+
+- Go over the problem set
+- Talk about two-way ANOVA
+- Talk about how to do one-way ANOVA in SPSS
+  - small introduction into two-way ANOVA
+
+---
+
+
+```r
+jp &lt;- rio::import(here::here("jp_thesis_1.sav")) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  rowid_to_column() %&gt;% 
+  mutate(sex = ccc_gender,
+         sex = recode(sex, "1" = "Male",
+                      "2" = "Female"),
+         sex = factor(sex),
+         race = recode(ccc_ethnicity, "0" = "other", 
+                       "1" = "other", 
+                       "2" = "black",
+                       "3" = "white",
+                       "4" = "latino",
+                       "5" = "other",
+                       "6" = "other"),
+         race = factor(race),
+         bmi = ccc_bmi,
+         games_avg = (mtuas_videogaming_q1 + mtuas_videogaming_q2 + mtuas_videogaming_q3)/3,
+         tv_avg = (mtuas_tv_q1 + mtuas_tv_q2)/2,
+         race = relevel(race, ref = "white"),
+         sex = relevel(sex, ref = "Male"))
+```
+
+---
+
+![](two_way_anova_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+games_aov &lt;- aov(games_avg ~ sex*race, data = jp)
+summary(games_aov)
+```
+
+```
+##              Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+## sex           1   67.9   67.91  12.458 0.00047 ***
+## race          3   33.2   11.06   2.029 0.10940    
+## sex:race      3   13.9    4.62   0.847 0.46885    
+## Residuals   364 1984.2    5.45                    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+---
+
+
+```r
+TukeyHSD(games_aov)
+```
+
+```
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = games_avg ~ sex * race, data = jp)
+## 
+## $sex
+##                  diff       lwr        upr     p adj
+## Female-Male -0.922324 -1.436203 -0.4084449 0.0004697
+## 
+## $race
+##                    diff        lwr       upr     p adj
+## black-white   1.0951037 -0.1055662 2.2957736 0.0880413
+## latino-white  0.4365617 -0.5218704 1.3949937 0.6426557
+## other-white   0.2870969 -0.9494590 1.5236527 0.9322516
+## latino-black -0.6585420 -1.5789904 0.2619063 0.2533249
+## other-black  -0.8080068 -2.0153608 0.3993472 0.3109927
+## other-latino -0.1494648 -1.1162571 0.8173276 0.9784633
+## 
+## $`sex:race`
+##                                   diff         lwr       upr     p adj
+## Female:white-Male:white    -1.42105263 -3.95082181 1.1087165 0.6791225
+## Male:black-Male:white       0.33333333 -2.47400554 3.1406722 0.9999610
+## Female:black-Male:white    -0.03333333 -2.58558979 2.5189231 1.0000000
+## Male:latino-Male:white     -0.07657658 -2.47472390 2.3215707 1.0000000
+## Female:latino-Male:white   -0.82222222 -3.14691967 1.5024752 0.9609956
+## Male:other-Male:white       0.47619048 -2.47090143 3.4232824 0.9996897
+## Female:other-Male:white    -1.27777778 -3.84716366 1.2916081 0.7984779
+## Male:black-Female:white     1.75438596 -0.28227171 3.7910436 0.1499467
+## Female:black-Female:white   1.38771930 -0.27986457 3.0553032 0.1833630
+## Male:latino-Female:white    1.34447606 -0.07606382 2.7650159 0.0785517
+## Female:latino-Female:white  0.59883041 -0.69385716 1.8915180 0.8512976
+## Male:other-Female:white     1.89724311 -0.32810487 4.1225911 0.1595431
+## Female:other-Female:white   0.14327485 -1.55040953 1.8369592 0.9999962
+## Female:black-Male:black    -0.36666667 -2.43118972 1.6978564 0.9994203
+## Male:latino-Male:black     -0.40990991 -2.28056568 1.4607459 0.9977418
+## Female:latino-Male:black   -1.15555556 -2.93107256 0.6199614 0.4940448
+## Male:other-Male:black       0.14285714 -2.39359572 2.6793100 0.9999998
+## Female:other-Male:black    -1.61111111 -3.69677318 0.4745510 0.2670754
+## Male:latino-Female:black   -0.04324324 -1.50345366 1.4169672 1.0000000
+## Female:latino-Female:black -0.78888889 -2.12504834 0.5472706 0.6205220
+## Male:other-Female:black     0.50952381 -1.74135481 2.7604024 0.9972252
+## Female:other-Female:black  -1.24444444 -2.97153672 0.4826478 0.3561556
+## Female:latino-Male:latino  -0.74564565 -1.75679334 0.2655020 0.3256644
+## Male:other-Male:latino      0.55276705 -1.52173340 2.6272675 0.9923783
+## Female:other-Male:latino   -1.20120120 -2.69114928 0.2887469 0.2172123
+## Male:other-Female:latino    1.29841270 -0.69072273 3.2875481 0.4900532
+## Female:other-Female:latino -0.45555556 -1.82415078 0.9130397 0.9720604
+## Female:other-Male:other    -1.75396825 -4.02425136 0.5163149 0.2669068
+```
+
+---
+
+
+```r
+effectsize::eta_squared(games_aov, alternative = "two.sided", ci = .95)
+```
+
+```
+## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |       95% CI
+## -----------------------------------------
+## sex       |           0.03 | [0.01, 0.08]
+## race      |           0.02 | [0.00, 0.04]
+## sex:race  |       6.93e-03 | [0.00, 0.03]
+```
+
+
+---
+
+
+```r
+games_lm &lt;- lm(games_avg ~ sex*race, data = jp)
+summary(games_lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = games_avg ~ sex * race, data = jp)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.643 -1.889 -0.445  1.577  6.656 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value     Pr(&gt;|t|)    
+## (Intercept)           4.16667    0.73832   5.643 0.0000000336 ***
+## sexFemale            -1.42105    0.82980  -1.713       0.0877 .  
+## raceblack             0.33333    0.92085   0.362       0.7176    
+## racelatino           -0.07658    0.78662  -0.097       0.9225    
+## raceother             0.47619    0.96669   0.493       0.6226    
+## sexFemale:raceblack   1.05439    1.07105   0.984       0.3256    
+## sexFemale:racelatino  0.67541    0.89363   0.756       0.4503    
+## sexFemale:raceother  -0.33292    1.11495  -0.299       0.7654    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.335 on 364 degrees of freedom
+## Multiple R-squared:  0.05476,	Adjusted R-squared:  0.03658 
+## F-statistic: 3.012 on 7 and 364 DF,  p-value: 0.004344
+```
+
+---
+
+
+```r
+effectsize::eta_squared(games_lm, alternative = "two.sided", ci = .95)
+```
+
+```
+## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |       95% CI
+## -----------------------------------------
+## sex       |           0.03 | [0.01, 0.08]
+## race      |           0.02 | [0.00, 0.04]
+## sex:race  |       6.93e-03 | [0.00, 0.03]
+```
+
+---
+
+
+```r
+effectsize::eta_squared(games_aov, alternative = "two.sided", ci = .95)
+```
+
+```
+## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |       95% CI
+## -----------------------------------------
+## sex       |           0.03 | [0.01, 0.08]
+## race      |           0.02 | [0.00, 0.04]
+## sex:race  |       6.93e-03 | [0.00, 0.03]
+```
+
+```r
+.03 + .02 + 6.93e-03
+```
+
+```
+## [1] 0.05693
+```
+
+```r
+summary(games_lm)$r.squared
+```
+
+```
+## [1] 0.05475845
+```
+
+
+---
+
+
+```r
+games_lm2 &lt;- lm(games_avg ~ tv_avg*sex, data = jp)
+summary(games_lm2)
+```
+
+```
+## 
+## Call:
+## lm(formula = games_avg ~ tv_avg * sex, data = jp)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.5225 -1.8583 -0.4204  1.4894  6.5796 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value           Pr(&gt;|t|)    
+## (Intercept)       4.02427    0.50918   7.903 0.0000000000000318 ***
+## tv_avg            0.03881    0.08857   0.438            0.66151    
+## sexFemale        -1.95077    0.59839  -3.260            0.00122 ** 
+## tv_avg:sexFemale  0.20609    0.10461   1.970            0.04958 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.289 on 368 degrees of freedom
+## Multiple R-squared:  0.08115,	Adjusted R-squared:  0.07366 
+## F-statistic: 10.83 on 3 and 368 DF,  p-value: 0.0000007761
+```
+
+---
+
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+![](two_way_anova_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+---
+
+
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+![](two_way_anova_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+```
+## Warning: Removed 353 rows containing non-finite values (stat_smooth).
+```
+
+```
+## Warning: Removed 361 rows containing missing values (geom_point).
+```
+
+![](two_way_anova_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+interactions::probe_interaction(games_lm2, pred = tv_avg, modx = sex)
+```
+
+```
+## SIMPLE SLOPES ANALYSIS 
+## 
+## Slope of tv_avg when sex = Female: 
+## 
+##   Est.   S.E.   t val.      p
+## ------ ------ -------- ------
+##   0.24   0.06     4.40   0.00
+## 
+## Slope of tv_avg when sex = Male: 
+## 
+##   Est.   S.E.   t val.      p
+## ------ ------ -------- ------
+##   0.04   0.09     0.44   0.66
+```
+
+![](two_way_anova_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+
+---
+
+`$$\left[\begin{array}{cc}
+-\\
+Male\\
+Female\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+White\\
+Male\;White\\
+Female\;White\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Black\\
+Male\;Black\\
+Female\;Black\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Latino\\
+Male\;Latino\\
+Female\;Latina\\
+\end{array}\right]
+\left[\begin{array}{cc} 
+Other\\
+Male\;Other\\
+Female\;Other\\
+\end{array}\right]$$`
+
+---
+
+
+```r
+set.seed(102621)
+
+table &lt;- data.frame(sex = c("male", "male", "male", "female", "female", "female"),
+                    white = rnorm(6, 10, 1.5),
+                     black = rnorm(6, 5, 2.4),
+                     latino = rnorm(6, 15, 3.1),
+                    other = rnorm(6, 12, 5))
+
+table
+```
+
+```
+##      sex     white    black   latino     other
+## 1   male  9.826393 6.659524 17.89335  2.092671
+## 2   male 12.819043 3.846659 14.55356  5.404460
+## 3   male  7.326992 7.134491 18.51053 11.091112
+## 4 female  8.978196 3.108109 14.12090 10.223289
+## 5 female 13.758694 5.488555 12.02529 14.294188
+## 6 female  8.770219 5.401871 15.96283 13.253053
+```
+
+---
+
+# Two-way ANOVA
+
+- **two-way ANOVA** is a parametric ANOVA test that involves two IVs
+	- one-way ANOVA is with one IV
+
+- we will be covering a **two-way between-subjects ANOVA**, or two IVs that involve independent samples 
+
+- we will come back to within-subjects ANOVA
+	- repeated measures ANOVA
+	- **two-way within-subjects ANOVA** is when every participant receives the same two IVs
+
+- lastly, we will cover **two-way mixed-design ANOVA**, which is when one IV is between-subjects and the other IV is within-subjects
+
+---
+
+# Two-way ANOVA
+
+- to understand two-way ANOVAs we will refer to the amount of levels each variable has
+	- Ex: Variable 1: Sex (Male and Female) &amp; Variable 2: Generation (baby boomers, generation X, millennials)
+	- The design is a 3 x 2 (3 by 2) ANOVA, is also a 2 x 3 ANOVA (just know which variable has each number of levels)
+
+- our two-way ANOVAs are not the same thing as an ANCOVA because we are interested in the **interaction** of our two IVs
+
+- in a two-way ANOVA, we need to think about the **cells**, or the conbination of the two factors/IVs' levels
+	- the columns are one IV
+	- the rows are the other IV
+	
+---
+
+# Two-way ANOVA
+
+- when each level of both IVs are combined, this is seen as a factorial design
+
+- assumptions of a two-way ANOVA
+	- pretty much exactly the same assumptions as a one-way ANOVA
+	
+		+ homogenous variance
+		+ interval/ratio DV
+		+ normally distributed
+		
+---
+
+# Main Effects
+
+- JP Note: Just because it states it is a main effect, it is not automatically cause --&gt; effect
+	- this is just a term
+
+- the main effect is the association between one IV and the DV
+	- we have been doing this with one-one ANOVA
+
+- In a two-way ANOVA, we get the mean for each IV
+	- this is referred to as **collapsing**, where we average the scores from each level in one factor to calculate the main effect mean for the other factor
+	
+---
+
+# Main Effects
+
+- a **main effect mean** is the mean of the level of one factor after collapsing the other factor
+
+- *to see a main effect, look at how the main effect means change as the levels of the factor change*
+
+- simply, when we are interested in one IV and the association with the DV, we either look at our data horizontally or vertically
+
+---
+
+# Interactions
+
+- the difference between a one-way ANCOVA and a two-way ANOVA is the inclusion of an interaction
+
+- two IVs combined and teh influence of both on the DV is referred to as a two-way interaction
+	- less common is a three-way interaction, which is three variables together
+
+- rather than collapsing, we look at the cell means
+	- **cell means** are the means of the scores from one cell
+	
+---
+
+
+```r
+set.seed(102621)
+
+table &lt;- data.frame(sex = c("male", "male", "male", "female", "female", "female"),
+                    white = rnorm(6, 10, 1.5),
+                     black = rnorm(6, 5, 2.4),
+                     latino = rnorm(6, 15, 3.1))
+
+table
+```
+
+```
+##      sex     white    black   latino
+## 1   male  9.826393 6.659524 17.89335
+## 2   male 12.819043 3.846659 14.55356
+## 3   male  7.326992 7.134491 18.51053
+## 4 female  8.978196 3.108109 14.12090
+## 5 female 13.758694 5.488555 12.02529
+## 6 female  8.770219 5.401871 15.96283
+```
+	
+---
+
+# Interactions
+
+- Ex: we would look at the average for white males, black males, latino males and white females, black females, latina females
+
+- For our main effects, we compare the level means, for the interaction, we look at tht cell means
+
+- **two-way interaction effect** is when a IV-DV relationship is dependent on the other IV values
+
+- the book has a mention of an interaction with one value going up as the other goes down
+	- **but** there are times where the visual looks like an interaction but the interaction is cancelled out (I'll show an example)
+
+- when including an interaction, the order of caring is:
+	- is the interaction is significant, good
+	- if not, then look at the main effects
+
+---
+
+# Recap
+
+- In a two-way between-subjects ANOVA we have
+	- the first main effect (IV 1 and its association with DV)
+	- the second main effect (IV 2 and its association with DV)
+	- the interaction effect (IV 1 x IV2 and this association with DV)
+
+- this means that we are essentially running three different F tests 
+	- we'll show this in SPSS
+	- one for the first main effect
+	- another for the second main effect
+	- a third for the interaction
+	- then whatever is leftover in the error/within
+
+- look at the interaction first, then the main effects
+
+---
+
+# Looking at Main Effects
+
+`$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$`
+
+- we need the `k`, `df_wn`, `MS_wn`, and the `n`
+	- make sure to remember that the n may be different for groups
+
+`$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$`
+
+---
+
+# Looking at the Interaction
+
+- along with working out the calculations, we will also visualize the interaction
+
+- you can visualize it several different ways
+	- line graph
+	- boxplots
+	-bar graphs
+
+- I'll show all of these in SPSS
+
+- parallel lines in a visualization indicates there is no interaction
+
+---
+
+# Tukey for Interaction
+
+- can be used to see what specific cell means are significantly different
+
+- it is slightly different for SPSS
+
+- we don't compare every single cell mean though
+
+- **counfounded comparisons** are comparisons between two cells that differ along more than one factor
+
+- **unconfounded comparisons** are comparisons that differ along only one factor
+  - this is the preferred way of looking at comparisons 
+  - we'll only look at vertical or horizontal comparisons
+
+- because we're not looking at all comparisons, we'll examine adjusted k
+
+---
+
+
+```r
+set.seed(102621)
+
+table &lt;- data.frame(sex = c("male", "male", "male", "female", "female", "female"),
+                    white = rnorm(6, 10, 1.5),
+                     black = rnorm(6, 5, 2.4),
+                     latino = rnorm(6, 15, 3.1))
+
+table
+```
+
+```
+##      sex     white    black   latino
+## 1   male  9.826393 6.659524 17.89335
+## 2   male 12.819043 3.846659 14.55356
+## 3   male  7.326992 7.134491 18.51053
+## 4 female  8.978196 3.108109 14.12090
+## 5 female 13.758694 5.488555 12.02529
+## 6 female  8.770219 5.401871 15.96283
+```
+
+---
+
+# Interpreting Two-way ANOVA
+
+- We'll look at the interaction first
+
+- Then look at each main effect if there is a nonsignificant interaction
+
+1. look at the F tests
+
+2. look at post-hoc comparisons
+
+3. look at effect size of each component of the model (main effects and interaction)
+
+---
+
+# Final Note
+
+Because we're talking about generalized linear models, we will begin to talk about parameter estimates and what they mean
+
+- Something super important to note is how to interpret single associations
+
+- we will have more exposure to this in regression, but it is super helpful for interpretation
+
+For example, if we see a significant association between sex and our outcome, we would interpret it as:
+
+For a one point increase in X, there is a ____ increase/decrease in Y (continuous)
+
+For a one point difference Between Males and Females, there is a ____ increase/decrease in Y (categorical)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

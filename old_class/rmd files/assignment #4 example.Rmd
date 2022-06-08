@@ -1,0 +1,88 @@
+---
+title: "SPSS Assignments"
+author: "JP"
+date: "8/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages, eval = TRUE, echo = FALSE}
+library(tidyverse)
+
+options(scipen = 999)
+theme_set(theme_minimal())
+
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/ca_county.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-x1, -x) %>% 
+  filter(release_year == 2018 &
+           county_name != "california")
+  
+```
+
+# What Each Assignment Will Look Like
+
+## Create a research question and a hypothesis.
+
+RQ: Is violent crime related to physical inactivity in California counties? 
+
+H: More violent crime will be associated with more physical inactivity in California counties. 
+
+
+
+## Conduct some descriptive statistics
+
+Next, you will collect the mean and median for the outcome variable that we are interested in. For this assignment, the outcome will be
+
+```{r, include = TRUE}
+psych::describe(data$violent_crime, na.rm = TRUE)
+psych::describe(data$physical_inactivity, na.rm = TRUE)
+
+ggplot(data = data, aes(violent_crime)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20)
+
+ggplot(data = data, aes(physical_inactivity)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20)
+```
+
+
+## Test Assumptions
+
+```{r}
+reg.diagnostics::linear_residuals(data = data, x = "violent_crime", y = physical_inactivity, se = FALSE, alpha = .5, size = 1.25,
+                                  line_size = 1.25, color = "red", line_color = "dodgerblue")
+
+reg.diagnostics::uni_bi_dist(data = data, x = violent_crime, y = physical_inactivity,
+                             fill = "dodgerblue", alpha = .7, bins = 15, color = "gray70",
+                             loess_color = "darkgreen", line_color = "red", se = FALSE, size = 1.25)
+```
+
+## Conduct inferential statistic for the tutorial
+
+```{r, include = TRUE}
+model <- lm(physical_inactivity ~ violent_crime, data = data)
+summary(model)
+lm.beta::lm.beta(model)
+```
+
+## Show some type of visualization to get the point across of the data
+
+```{r}
+ggplot(data = data, aes(violent_crime, physical_inactivity)) + 
+  geom_point(aes(color = county_name)) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  theme(legend.position = "none")
+
+```
+
+## Write up on your findings
+
+There was a significant association between violent crime and physical inactivity (*b* = 0.00005, *SE* = 0.00002, *\beta* = .33, *p* = .01). For every .33 average increase in violent crime, there was a 1 point average increase in physical inactivity. 
+
+```{r, include = TRUE}
+broom::tidy(model)
+jtools::summ(model)
+```

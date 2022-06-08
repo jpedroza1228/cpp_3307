@@ -1,0 +1,141 @@
+---
+title: "Exam 1 Study Guide"
+author: "JP"
+date: "9/13/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Study Guide
+
+1. Know what a variable is
+
+2. The differences between a continuous and a discrete variable
+           Expected to see examples and choose continuous or discrete
+           
+3. Know the differences between a sample and a population
+           be expected to choose from examples what each is
+           
+4. Know what participants are?
+
+5. Know what a relationship is
+           know the three different types of relationships
+           
+6. Know what descriptive and inferential statistics are
+           examples
+           
+7. Know differences between statistics and parameters
+           be able to see what the differences are through the use of greek or roman letters
+           
+8. Know differences between correlational and experimental designs
+
+9. Know what independent and dependent variables are
+           Be able to choose what they are through examples
+           
+10. Conditions
+           be able to see what the conditions are within the IV/DV examples
+           
+11. Know the 4 types of measurement scales
+           Be able to decide whether examples are nominal, ordinal, ratio, and interval
+           
+12. Know what frequency is
+
+13. Know what a frequency distribution is
+
+14. Know how to calculate relative frequency
+
+15. How to visualize both discrete and continuous variables
+
+16. Normal Distribution/normal curve/bell-shaped curve
+
+17. Know the differences between negative and positive skew
+
+18. Know what a bimodal distribution is
+
+19. Provide the percentages for a normal distribution
+           know what is within +-1 sd, 2 sd, and 3sd
+           Know what the percentages are from the mean to 1sd, 2sd, and 3sd
+           Know how much of the distribution is covered by doing the math of these sections
+           
+20. Proportion of Area under the Curve
+
+21. Percentiles and how to get them from proportions
+
+22. Know what the Cumulative Frequency is and how to calculate it
+           
+23. Be able to calculate the standard deviation given some data
+  could be through the use of word problems
+
+24. Be able to calculate the variance
+
+25. Know what the measures of variability
+
+26. Know what the measures of central tendency
+
+27. Know how to calculate the range
+
+28. Know why the range is important
+
+29. Know the differences between the variance and the standard deviation
+
+30. How we get the sum of deviations to not equal zero
+
+31. Standard deviation and variance calculations
+
+32. Greek letters for populations and samples
+
+33. Recreate the formulas for either populations or samples
+
+34. How to adjust for biased estimators
+
+35. Examples of representative samples of populations
+
+36. estimated population standard deviation and variance
+
+37. Sum of Squared Xs or Squared Sum of X
+
+38. What is a z-score
+
+39. What is the mean of the z-distribution
+
+40. calculate the sample and population z-score
+
+41. Know how to calculate the formula based on whether or not it is a sample or population
+
+42. calculate the raw score from a given z-score
+
+43. Interpret scores using the z-distribution
+
+44. What units are z-scores?
+
+45. Comparing association strengths using different associations
+
+46. what is a z-distribution
+
+47. use the z-table for z-scores to see proportion under the curve and area between the mean and the z-score
+
+48. conduct relative frequency using the z-distribution
+
+49. describe the central limit theorem
+
+50. sampling distribution of means
+
+51. calculate the standard error of the mean
+
+52. Probability
+
+53. Differences between odds and probabilities
+
+54. Know how to calculate probabilities based on word problems
+
+55. Know about Sampling Error
+
+56. Understand the regions of rejection
+
+57. Understand what the criterion are for the social sciences
+
+58. Know what a critical value is; especially for the z-distribution
+  especially for one-tail and two-tailed tests

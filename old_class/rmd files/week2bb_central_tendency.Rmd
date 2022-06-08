@@ -1,0 +1,492 @@
+---
+title: "PSY 3307"
+subtitle: "Central Tendency"
+author: "Jonathan A. Pedroza, MS, MA"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(xaringanthemer)
+style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")
+
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+
+coffee <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv') %>% 
+  mutate(species = as.factor(species),
+         process = recode(processing_method, "Washed / Wet" = "washed",
+                          "Semi-washed / Semi-pulped" = "not_washed",
+                          "Pulped natural / honey" = "not_washed",
+                          "Other" = "not_washed",
+                          "Natural / Dry" = "not_washed",
+                          "NA" = NA_character_),
+         process = as.factor(process),
+         species = as.factor(species),
+         country_of_origin = as.factor(country_of_origin),
+         variety = as.factor(variety)) %>% 
+  drop_na(process, color)
+
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/ca_county.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-x1, -x) %>% 
+  filter(county_name != "california")
+
+options(scipen = 999)
+theme_set(theme_minimal())
+```
+
+# Agenda
+
+* Greek Terms
+* Central Tendency
+* Measures of Central Tendency
+* The Mode
+* The Median
+* The Mean
+* When to Use Each Measure
+* Using The Mean in Research
+  - Deviation
+* Describing Population Mean
+
+---
+
+# Greek Terms
+
+$$ \Sigma = Sum of scores  $$
+
+```{r, echo = TRUE, eval = TRUE}
+21+ 21+ 25+ 23+ 24+ 23+ 20+ 19+ 24+ 25+ 21+ 21+ 26+ 22+ 22+ 24+ 20+ 19+ 19+ 20+ 20+ 23+ 21+ 21+ 37+ 23+ 19+ 26+ 34+ 33
+```
+
+
+$$ \Sigma\;X = Sum\;Of\;X   $$
+```{r, echo = TRUE, eval = TRUE}
+x <- c(21, 21, 25, 23, 24, 23, 20, 19, 24, 25, 21, 21, 26, 22, 22, 24, 20, 19, 19, 20, 20, 23, 21, 21, 37, 23, 19, 26, 34, 33)
+
+sum(x)
+
+```
+
+* Both of these are stating that we are adding all of the data points together.
+
+* **Sum of X** is the sum of the scores in a sample
+  - X is just another way to say all the data points for the variable.
+
+---
+
+# Central Tendency
+
+* Concept that as statisticians every person is just a data point
+
+* We are interested in the central score
+  - We are interested in how much a person is away from that central score
+  - But when it comes to statistics we like to group together our participants' scores/values
+  
+* **Measures of Central Tendency** are statistics that summarize the location of a distribution on a variable by indicating where the center is
+
+* A Normal distribution will have the central point right down the center
+
+* A skewed distribution will have the central point where the frequency of scores is the highest
+
+---
+
+# Normal Distribution Example
+
+```{r, include = FALSE}
+set.seed(082521)
+normal <- rnorm(10000, mean = 0, sd = 1)
+neg_skew <- rbeta(10000, shape1 = 5, shape2 = 2)
+pos_skew <- rbeta(10000, shape1 = 2, shape2 = 5)
+
+skew <- tibble::tibble(normal, 
+                       pos_skew,
+                       neg_skew) %>% 
+  rowid_to_column()
+
+```
+
+```{r, eval = TRUE, echo = FALSE}
+psych::describe(skew)[2:4, ][c("mean", "sd", "median")]
+```
+
+.pull-left[
+```{r, eval = TRUE, echo = FALSE}
+skew %>% 
+  ggplot(aes(normal)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .5)
+```
+]
+
+.pull-right[
+```{r, eval = TRUE, echo = FALSE}
+skew %>% 
+  ggplot(aes(normal)) + 
+  geom_histogram(fill = "gray70", color = "white", aes(y=..density.., fill=..count..), bins = 20, alpha = .5) +
+  stat_function(fun = dnorm, n = 10000,
+                args = list(mean = mean(skew$normal), sd = sd(skew$normal)),
+                color = "black", size = 1.25) +
+  geom_vline(xintercept = -.01, linetype = 2, color = "red", size = 1.25) + 
+  geom_vline(xintercept = -.03, linetype = 2, color = "dodgerblue", size = 1.25) + 
+  annotate("text", x = .7, y = .05, label = "Mean", size = 10, color = "red") + 
+  annotate("text", x = -.9, y = .05, label = "Median", size = 10, color = "dodgerblue")
+```
+]
+
+---
+
+# Positively Skewed Data
+
+```{r, eval = TRUE, echo = FALSE}
+psych::describe(skew)[2:4, ][c("mean", "sd", "median")]
+```
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(pos_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .5)
+
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(pos_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", aes(y=..density.., fill=..count..), bins = 20, alpha = .5) +
+  stat_function(fun = dnorm, n = 10000,
+                args = list(mean = mean(skew$pos_skew), sd = sd(skew$pos_skew)),
+                color = "black", size = 1.25) +
+  geom_vline(xintercept = .28, linetype = 2, color = "red", size = 1.25) + 
+  geom_vline(xintercept = .26, linetype = 2, color = "dodgerblue", size = 1.25) + 
+  annotate("text", x = .37, y = .5, label = "Mean", size = 10, color = "red") + 
+  annotate("text", x = .16, y = .5, label = "Median", size = 10, color = "dodgerblue")
+```
+
+]
+
+---
+
+# Negatively Skewed Data
+
+```{r, eval = TRUE, echo = FALSE}
+psych::describe(skew)[2:4, ][c("mean", "sd", "median")]
+```
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(neg_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", bins = 20, alpha = .5)
+```
+
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE}
+skew %>% 
+  ggplot(aes(neg_skew)) + 
+  geom_histogram(fill = "gray70", color = "white", aes(y=..density.., fill=..count..), bins = 20, alpha = .5) +
+  stat_function(fun = dnorm, n = 10000,
+                args = list(mean = mean(skew$neg_skew), sd = sd(skew$neg_skew)),
+                color = "black", size = 1.25) +
+  geom_vline(xintercept = .72, linetype = 2, color = "red", size = 1.25) + 
+  geom_vline(xintercept = .74, linetype = 2, color = "dodgerblue", size = 1.25) + 
+  annotate("text", x = .63, y = .5, label = "Mean", size = 10, color = "red") + 
+  annotate("text", x = .85, y = .5, label = "Median", size = 10, color = "dodgerblue")
+```
+]
+
+---
+
+# The Mode
+
+.pull-left[
+![](https://i.imgflip.com/prj6o.jpg)
+]
+
+.pull-right[
+* Value/score with the highest frequency
+
+* Essentially useless in statistics
+
+* **Unimodal distributions** distribution with only one hump; one value is the mode
+
+* **Bimodal distributions** distribution with two humps; two values with the highest frequency; two modes
+
+```{r, echo = FALSE, eval = TRUE}
+table(x)
+```
+]
+
+---
+
+# The Median
+
+.pull-left[
+![](https://i.kym-cdn.com/entries/icons/original/000/033/395/Thumbnail_expert_micro.png)
+]
+
+.pull-right[
+* **Median** is the middle value/score; the 50th percentile
+
+* Unlike the mode, it will always be close to the middle of a distribution
+
+* You'll only ever have one median
+
+* The symbol is:
+$$Mdn = Median$$
+]
+
+---
+
+# The Median
+
+* Preferred for ordinal/ordered data
+
+* Not the best option for normally distributed interval & ratio scores
+
+* Is more reliable when dealing with skewed data
+
+* *Important Note* If you have an even number of scores/values, then you will add the two middle values and divide by 2
+
+---
+
+```{r, echo = TRUE, eval = TRUE}
+odd <- c(1, 6, 3, 8, 9, 8, 3)
+even <- c(1, 6, 3, 4, 9, 8, 5, 6)
+
+sort(odd)
+sort(even)
+
+get_median <- (5+6)/2
+get_median
+
+median(odd)
+median(even)
+```
+
+---
+
+# The Mean/Average
+
+* **Mean** is the score located at the `mathematical` center of a distribution
+
+* Xbar is often used for the mean
+  - $$ \overline{X} $$ 
+
+* $$\overline{X} = \frac{\Sigma\;X}{N} $$ is the formula to calculate the mean.
+  - Xbar is the Sum of X/Scores divided by the total number of observations/scores/values
+
+* Calculate the mean for interval and ratio scales
+  - The mean of ordinal/ordered data makes no sense
+  
+* Basis for most `inferential statistics`
+
+---
+
+```{r, echo = TRUE, eval = TRUE}
+x <- c(21, 21, 25, 23, 24, 23, 20, 19, 24, 25, 21, 21, 26, 22, 22, 24, 20, 19, 19, 20, 20, 23, 21, 21, 37, 23, 19, 26, 34, 33)
+
+sigma_x <-  sum(x)
+N <-  30
+
+x_bar <- sigma_x/N
+
+x_bar
+mean(x)
+
+```
+
+---
+
+# When to Use Each Measure
+
+* The Median more accurately describes/summarizes skewed data compared to the mean
+  - The mean will be pulled toward the extreme tail of the distribution
+  
+* Normal distribution then use the mean as the best measure to describe/summarize data
+
+---
+
+# The Mean in Research
+
+* Most statistics revolve around the mean
+
+* Can't just trust descriptive statistics like the mean
+
+---
+
+# Descriptive Statistics Are Never Enough
+
+```{r, eval = TRUE, echo = FALSE}
+library(datasauRus)
+
+ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset)) +
+    geom_point() +
+    theme_void() +
+    theme(legend.position = "none") +
+    facet_wrap(~dataset, ncol=4)
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+datasaurus_dozen %>% 
+  group_by(dataset) %>% 
+  summarize(mean_x = mean(x),
+            mean_y = mean(y),
+            sd_x = sd(x),
+            sd_y = sd(y)) %>% 
+  ungroup() %>% 
+  ggplot(aes(mean_x, mean_y)) + 
+  geom_point() + 
+  geom_vline(xintercept = 54.3, color = "red", linetype = 2) + 
+  geom_hline(yintercept = 47.8, color = "red", linetype = 2) + 
+  xlim(50, 60) +
+  ylim(40, 50) +
+  facet_wrap(~dataset)
+  
+```
+
+---
+
+# Deviation
+
+* The distance a participant's score/value is from the mean/average
+
+* Deviations can be positive or negative
+  - participants can score lower (negative) than the mean and higher (positive) than the mean
+  
+* To get the deviation, you subtract the mean from each participant's score
+
+* $$ X - \overline{X} $$
+
+* The larger the value the farther away from the mean the score/value is
+
+* **Sum of the deviations around the mean** is the sum of all differences between the scores and the mean
+
+---
+
+# Example
+
+```{r, eval = TRUE, echo = TRUE}
+x
+
+one_part <- 37
+another_part <- 19
+
+x_bar
+
+one_part - x_bar
+another_part - x_bar
+
+```
+
+---
+
+```{r, eval = TRUE, echo = TRUE}
+all_deviations <- x - x_bar
+all_deviations
+
+sum_deviations <- sum(all_deviations)
+sum_deviations
+```
+
+---
+
+# Looking to the Future
+
+* Deviations is the start for upcoming lectures and statistical tests, especially the sum of the deviations
+
+* $$ \Sigma(X - \overline{X}) $$
+
+* If the sum of the deviations is 0 then that means your math is good
+
+* Deviation of each score/value from the mean is often referred to as error/residual in statistical tests
+
+* Correlational designs use the mean of IV and the mean of DV to look for a relationship between the two variables
+
+* Experiments compare the two or more groups (IV) and the relationship with the mean value/score of the DV
+
+---
+
+# Visuals
+
+* Line Graphs are good for showing progress or change in time
+
+* To show group differences (nominal or ordinal IV), bar graphs are the norm
+
+* Scatterplots are best for continuous IV and continuous DV (interval or ratio)
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+data %>% 
+  group_by(release_year, county_name) %>% 
+  summarize(avg_drive_death = mean(alcohol_impaired_driving_deaths)) %>% 
+  # ungroup() %>% 
+  filter(county_name == "los_angeles_county" |
+           county_name == "san_diego_county" |
+           county_name == "kern_county" |
+           county_name == "yolo_county" |
+           county_name == "sacramento_county" | 
+           county_name == "humboldt_county") %>% 
+  ggplot(aes(as.factor(release_year), avg_drive_death, group = county_name)) + 
+  geom_point(aes(color = county_name)) + 
+  geom_line(aes(color = county_name)) +
+  labs(caption = "Percent of motor vehicle crash deaths with alcohol involvement")
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+data %>% 
+  mutate(alcohol_weighted = alcohol_impaired_driving_deaths/population) %>%
+  group_by(release_year, county_name) %>% 
+  summarize(avg_drive_death = mean(alcohol_weighted)) %>% 
+  # ungroup() %>% 
+  filter(county_name == "los_angeles_county" |
+           county_name == "san_diego_county" |
+           county_name == "kern_county" |
+           county_name == "yolo_county" |
+           county_name == "sacramento_county" | 
+           county_name == "humboldt_county") %>% 
+  ggplot(aes(as.factor(release_year), avg_drive_death, group = county_name)) + 
+  geom_point(aes(color = county_name)) + 
+  geom_line(aes(color = county_name)) +
+  labs(caption = "Percent of motor vehicle crash deaths with alcohol involvement")
+```
+
+---
+
+# Describing the Population Mean
+
+* $$ \mu = Population\;Mean $$
+
+* If you test a population then you would use mu instead of xbar
+
+* $$ \mu = \frac{\Sigma\;X}{N} $$
+
+
+
+
+
+
+
+
+
+

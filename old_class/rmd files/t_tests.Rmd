@@ -1,0 +1,366 @@
+---
+title: "What t-test are we running?"
+author: "JP"
+date: "10/6/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Steps for one-sample t-test
+
+1. Get the sample mean
+
+2. Get the population mean
+
+3. Get the estimated variance/standard deviation
+
+4. Get the standard error
+
+5. Calculate the t-obtained value
+
+6. Get the degrees of freedom
+
+7. Get the effect size
+
+
+# Independent samples t-test
+
+1. Get the means of both groups/samples
+
+2. Get the variances of both groups/samples
+
+3. Get the group/sample sizes (n)
+
+4. Get the pooled variance by getting the groups'/samples' variances averaged
+
+5. Get the standard error of the differences
+
+6. Calculate the t-obtained value
+
+7. Get the degrees of freedom
+
+8. Calculate the confidence intervals
+
+9. Get the effect size
+
+
+# Paired-Samples t-test
+
+1. Get the difference between each pair of scores
+
+2. Square each difference score
+
+3. Get the mean difference
+
+4. Get the variance/standard deviation of differences
+
+5. Get the standard error of the mean differences
+
+6. Get the t-obtained value
+
+7. Get the degrees of freedom
+
+8. Get the effect size
+
+
+# Examples of t-distribution
+
+Alpha = .05, df = 27
+
+Alpha = .01, df = 27
+
+Alpha = .05, df = 80
+
+Alpha = .05, df = 71
+
+Alpha = .01, df = 42
+
+Alpha = .01, df = 20
+
+Alpha = .01, df = 19
+
+Alpha = .01, df = 1
+
+Alpha = .01, df = 1073
+
+Alpha = .05, df = 14
+
+Alpha = .05, df = 350
+
+Alpha = .05, df = 100
+
+Alpha = .05, df = 52
+
+Alpha = .05, df = 7
+
+Alpha = .05, df = 2
+
+
+# Formulas
+
+$$S^2_{x} = \frac{\Sigma(X - \overline{X})^2}{N - 1}$$
+
+$$S_{x} = \sqrt{\frac{\Sigma(X - \overline{X})^2}{N - 1}}$$
+
+$$S^2_{x} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+$$S_{x} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}}$$
+
+$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+$$S^2_{D} = \sqrt{\frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}}$$
+
+$$S^2_{pool} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{(n_{1} - 1) + (n_{2} - 1)}$$
+
+$$S_{\overline{X}} = \sqrt{\frac{S^2_{x}}{N}}$$
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(S^2_{pool})(\frac{1}{n_{1}} + \frac{1}{n_{2}})}$$
+
+$$df = N - 1$$
+
+$$df = (n_{1} - 1) + (n_{2} - 1)$$
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+$$t_{obt} = \frac{\overline{X} - \mu}{S_{\overline{X}}}$$
+
+$$t_{obt} = \frac{(\overline{X_{1}} - \overline{X_{2}}) - (\mu_{1} - \mu_{2})}{S_{\overline{X_{1}} - \overline{X_{2}}}}$$
+
+$$d = \frac{(\overline{X_{1}} - \overline{X_{2}})}{\sqrt{S_{2}}}$$
+
+$$d = \frac{\overline{X}}{\sqrt{S^2_{X}}}$$
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+# Word Problems
+
+## Problem 1
+
+You are conducting an experiment where you are interested in how many words a one year old toddler can say. Your experimental manipulation is that every child will be given two two-hour long sessions to try and build a stronger vocabulary. You want to know if these lessons are enough for children to have a stronger stronger vocabulary than when they first arrived. You decided to get baseline data by having them say all the words they know and then you asked a second time after the vocabulary sessions. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+baseline <- rnorm(10, mean = 1.5, sd =.5)
+after_session <- rnorm(10, mean = 4.1, sd = 2)
+
+baseline <- round(baseline, 2)
+after_session <- round(after_session, 2)
+
+base_after <- data.frame(participant = 1:10,
+                 baseline,
+                 after_session,
+                 score_difference = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+                 score_difference_squared = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+
+base_after
+
+base_after$baseline
+
+base_after$after_session
+
+```
+
+
+```{r, echo = FALSE, eval = FALSE}
+mean(baseline)
+mean(after_session)
+
+sd(baseline)
+sd(after_session)
+
+base_after %>% 
+  mutate(score_difference = after_session - baseline,
+         score_difference_squared = score_difference^2) %>% 
+  summarize(mean_score_diff = mean(score_difference),
+            sum_score_diff = sum(score_difference),
+            var_score_diff = sd(score_difference)^2,
+            sum_score2 = sum(score_difference_squared))
+```
+
+
+## Problem 2
+
+You are conducting an experiment where you are interested in typing errors in adults. You are specifically interested in whether using a child's typing game will help reduce the number of typing errors. You decide to split your participants into two groups, with one group getting the child's typing game and the other getting no help typing. You decide to test these groups to see which group had less typing errors at the end of the experiment. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+child_game <- rnorm(9, mean = 10, sd = 4.7)
+no_help <- rnorm(12, mean = 30, sd = .99)
+
+child_game <- round(child_game, 2)
+no_help <- round(no_help, 2)
+
+child_game
+no_help
+
+```
+
+```{r}
+mean(child_game)
+mean(no_help)
+
+sd(child_game)
+sd(no_help)
+
+sum(child_game)
+# child game
+15.20^2+  7.63^2+ 12.35^2+  6.34^2+  9.61^2+ 12.36^2+ 11.06^2+ 13.32^2+ 15.52^2
+# 1267.71
+
+
+sum(no_help)
+# no help
+29.70^2+ 31.24^2+ 29.86^2+ 30.96^2+ 29.89^2+ 30.84^2+ 28.90^2+ 30.90^2+ 31.29^2+ 29.10^2+ 32.60^2+ 29.04^2
+# 11074.66
+
+sd(child_game)^2
+
+103.39^2
+
+10689.49/9
+
+1267.71 - 1187.72
+
+79.99/8
+
+
+sd(no_help)^2
+
+364.32^2
+
+132729.1/12
+
+11074.66 - 11060.76
+
+13.9/11
+
+# 1.26
+
+```
+
+$$Child\;Game\;S^2_{x} = \frac{1267.71 - \frac{(103.39)^2}{9}}{9 - 1}$$
+
+$$Child\;Game\;S^2_{x} = \frac{1267.71 - \frac{10689.49}{9}}{9 - 1}$$
+
+$$Child\;Game\;S^2_{x} = \frac{1267.71 - 1187.72}{8}$$
+
+$$Child\;Game\;S^2_{x} = 10$$
+
+$$No\;Help\;S^2_{x} = \frac{11074.66 - \frac{(364.32)^2}{12}}{12 - 1}$$
+
+$$No\;Help\;S^2_{x} = \frac{11074.66 - \frac{132729.1}{12}}{11}$$
+
+$$No\;Help\;S^2_{x} = \frac{11074.66 - 11060.76}{11}$$
+
+$$No\;Help\;S^2_{x} = \frac{13.9}{11}$$
+
+$$No\;Help\;S^2_{x} = 1.26$$
+
+$$S^2_{pool} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{(n_{1} - 1) + (n_{2} - 1)}$$
+
+$$S^2_{pool} = \frac{(9 - 1)10 + (12 - 1)1.26}{(9 - 1) + (12 - 1)}$$
+
+$$S^2_{pool} = \frac{(8)10 + (11)1.26}{(8) + (11)}$$
+
+$$S^2_{pool} = \frac{80 + 13.86}{19}$$
+
+$$S^2_{pool} = \frac{93.86}{19}$$
+
+$$S^2_{pool} = 4.94$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(4.94)(.11 + .08)}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(4.94)(.19)}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{.94}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = .97$$
+
+$$t_{obt} = \frac{(\overline{X_{1}} - \overline{X_{2}}) - (\mu_{1} - \mu_{2})}{S_{\overline{X_{1}} - \overline{X_{2}}}}$$
+
+$$t_{obt} = \frac{(11.49 - 30.36) - 0}{.97}$$
+
+$$t_{obt} = \frac{-18.87}{.97}$$
+
+$$t_{obt} = -19.45$$
+
+```{r}
+mean(child_game)
+mean(no_help)
+```
+
+
+## Problem 3
+
+You are conducting an experiment where you are interested in how many useless Disney facts participants can state. You are interested in whether going to Disneyland for a day will help with Disney knowledge. You decide one group gets to go to Disneyland and the other can look online for an hour. You decide to test these groups at the end of the day to see who knows more about Disney. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+land <- rnorm(6, mean = 16, sd = 2.2)
+google <- rnorm(9, mean = 18, sd = 5)
+
+land <- round(land, 2)
+google <- round(google, 2)
+
+land
+google
+
+```
+
+
+## Problem 4
+
+You are conducting an experiment where you are interested in getting smokers to stop smoking can help build lung capacity. You are going to test this by conducting an smoking cessation program for a year and having your sample run a mile. Before your program begins, you have every participant run a mile and get the times for each participant. After the year of the program to stop participants from smoking, you decide to have them run a mile again and track the times. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+smoking <- rnorm(7, mean = 20, sd = 8.1)
+no_smoking <- rnorm(7, mean = 8, sd = 5.3)
+
+smoking <- round(smoking, 2)
+no_smoking <- round(no_smoking, 2)
+
+smoking
+no_smoking
+
+smoke_df <- data.frame(participant = 1:7,
+                 smoking,
+                 no_smoking,
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________"))
+
+smoke_df
+
+smoke_df$smoking
+
+smoke_df$no_smoking
+
+```
+
+
+## Problem 5
+
+You are interested in the amount driving infractions a student driver makes during their driving test. You have a sample of 15 individuals from a DMV and you know how many errors they have all made during their test. You know that in order to pass, you have to have no more than 5 errors during your driving test, as has been proven throughout the state to be an acceptable amount of errors. You are now interested in whether or not your sample made less or more errors than the state allowed amount. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+f1 <- rnorm(15, mean = 2, sd = 5.3)
+
+f1 <- round(f1, 2)
+
+f1
+
+```
+

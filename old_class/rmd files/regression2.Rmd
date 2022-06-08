@@ -1,0 +1,325 @@
+---
+title: "PSY 3307"
+subtitle: "Regressions"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(ggpubr)
+
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  rename(sex = ccc_gender) %>% 
+  mutate(bmi = ccc_bmi,
+         depression = (dass_depress_q1 + dass_depress_q2 + dass_depress_q3 + dass_depress_q4 + dass_depress_q5 + dass_depress_q6 + dass_depress_q7)/7,
+         tv = (mtuas_tv_q1 + mtuas_tv_q2)/2,
+         smartphone = (mtuas_smartphone_q1 + mtuas_smartphone_q2 + mtuas_smartphone_q3 + mtuas_smartphone_q4 + mtuas_smartphone_q5 + mtuas_smartphone_q6 +
+                         mtuas_smartphone_q7 + mtuas_smartphone_q8 + mtuas_smartphone_q9)/9,
+         video_game = (mtuas_videogaming_q1 + mtuas_videogaming_q2 + mtuas_videogaming_q3)/3,
+         pa = (cpaq_light_exercise + cpaq_moderate_exercise + cpaq_vigorous_exercise + cpaq_muscle_exercise)/4,
+         snacks = (ffq_cake_portion + ffq_saltysnacks_portion + ffq_chocolate_portion + ffq_icecream_portion)/4,
+         stress = (dass_stress_q1 + dass_stress_q2 + dass_stress_q3 + dass_stress_q4 + dass_stress_q5 + dass_stress_q6 + dass_stress_q7)/7) 
+
+theme_set(theme_minimal())
+
+set.seed(11112021)
+data <- data.frame(participant = 1:20,
+                   test_score = rnorm(20, 70, 10),
+                   study_hour = rnorm(20, 20, 5))
+
+long_data <- data %>% 
+  pivot_longer(c(test_score, study_hour), names_to = "variables", values_to = "values")
+
+```
+
+# We're at the Finish Line
+
+.pull-left[
+![crying school boy](https://media.giphy.com/media/FeeShV3yKc8P6/giphy.gif)
+]
+
+.pull-right[
+![sad spongebob](https://media.giphy.com/media/j1ywOobEJlqQo/giphy.gif)
+]
+
+---
+
+# Agenda (1/2)
+
+- The difference between correlation and regression
+- The linear model
+- Basic linear regression
+- Assessing fit
+- Assessing individual predictors
+- Bias in regression
+- Assumptions in linear regression
+- Cross-validation of the model
+- Sample size in regression
+- Simple regression in SPSS
+- Interpretation of the overall model
+  - Model parameters
+
+---
+
+# Agenda (2/2)
+
+- Multiple linear regression
+  - hierarchical regression
+  - stepwise methods/forced entry
+- Comparing models
+- Multicollinearity 
+- Multiple regression in SPSS
+- Robust regression
+- Interpretation of multiple regression
+- How to report multiple regression
+
+---
+
+# There are a variety of different regression techniques
+
+- linear regression
+- logistic regression
+- negative-binomial regression
+- multinomial regression
+- ridge regression
+- lasso regression
+- elastic net regression
+- spatial regression
+- quantile regression
+- poisson regression
+- structural equation modeling
+- mixed effect model/multi-level model
+
+- these also all have different estimation types (which we are not getting into)
+
+---
+
+.pull-left[
+![sound of music](https://media.giphy.com/media/12x7cOJs8WV5aE/giphy.gif)
+]
+
+.pull-right[
+# For this class
+
+- we are only focusing on (multiple) linear regression
+
+- if we can get to it (interactions in linear regression)
+]
+
+---
+
+# Holy Smokes!
+
+- the book only covers linear regression in 3 pages!
+
+![holy smokes](https://media.giphy.com/media/hLnRU79qfaAn111cG2/giphy.gif)
+
+---
+
+# Difference between Correlation and Regression
+
+- Both focus on the strength of a relationship
+  - regression focuses more on the direction of the relationship
+  
+- correlation only states if the two variables are positively or negatively related
+  - there is a relationship present
+
+- regression is scale dependent in that coefficients are the expected change on average in y given a one-point/unit increase in X
+  - for a one point increase in X, there is a _____ increase/decrease in Y
+  
+- That being said, a standardized regression coefficient in a simple linear regression is the same thing as a correlation coefficient
+
+---
+
+# Simple Linear Regression
+
+$$Y_{i} = b_{0} + b_{1}X_{i} + \epsilon_{i}$$
+
+- IV = predictor variable/indicator variable
+  - `X`` in the equation
+
+- DV = outcome variable/criterion variable
+  - `Y` in the equation
+  
+- `b0` is the y-intercept (we'll get to this shortly)
+
+- `b1` is the slope of the association between X and Y
+
+- `e` is the error/residual of what is unexplained in our model
+
+---
+
+# Multiple Linear Regression
+
+$$Y_{i} = b_{0} + b_{1}X_{1i} + b_{2}X_{2i} + \epsilon_{i}$$
+
+- in addition to everything from our simple linear regression
+
+- `b2` is the slope of our second IV
+
+- `X2` is the second variable in our model
+
+--- 
+
+# More Complex Linear Regression 
+
+$$Y_{i} = b_{0} + b_{1}X_{1i} + b_{2}X_{2i} + b_{n}X_{ni} + \epsilon_{i}$$
+
+---
+
+# Regression Scores
+
+- in simple and multiple linear regressions, you will have actual scores and predicted scores
+  - **actual scores** are values that participants answered in your study/survey/experiment
+  - **predicted values** are values that are predicted on the regression line
+    
+    + values that fall on the regression line
+
+---    
+
+# Actual Values
+
+$$Y = actual\;scores$$
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE}
+set.seed(112221)
+
+jp %>% 
+  sample_frac(.1) %>% 
+  ggplot(aes(rowid, tv)) + 
+  geom_point() +
+  geom_hline(yintercept = mean(jp$tv), color = "dodgerblue") +
+    annotate("text",
+           label = "Mean",
+           x = 100,
+           y = 5.5,
+           color = "dodgerblue",
+           size = 10)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(tv)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 15) +
+  geom_vline(xintercept = mean(jp$tv), color = "black", size = 1.25)
+```
+]
+
+---
+
+# More Actual Values
+
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_point(data = jp[13:18, ],
+             color = "red",
+             size = 2) +
+  labs(title = "Regression of Smartphone Use and TV Usage",
+       x = "Smartphone Use",
+       y = "TV Usage",
+       caption = "Red indicates true X and Y values for each participant")
+```
+
+---
+
+# Predicted Values
+
+$$\prime{Y} = predicted\;scores$$
+
+- From this, we can get the predictions from our model
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+simple_lm <- lm(tv ~ smartphone, data = jp)
+
+jp$predictions <- predict(simple_lm)
+
+jp %>% 
+  ggplot(aes(smartphone, predictions)) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  geom_point(color = "dodgerblue", size = 2)
+```
+
+---
+
+# Simple Linear Regression Example
+
+```{r, echo = FALSE, eval = TRUE}
+cor.test(jp$tv, jp$smartphone)
+
+simple_lm <- lm(tv ~ smartphone, data = jp)
+arm::display(simple_lm, detail = TRUE)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+cor.test(jp$tv, jp$smartphone)
+
+lm.beta::lm.beta(simple_lm)
+```
+
+---
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point(color = "dodgerblue") + 
+  stat_ellipse(size = 1.25, linetype = 2) + 
+  labs(title = "Correlation of Smartphone Use and TV Usage",
+       x = "Smartphone Use",
+       y = "TV Usage")
+```
+]
+
+--
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point(color = "dodgerblue") + 
+  geom_smooth(method = "lm", se = FALSE, color = "black", size = 1.25) +
+  labs(title = "Regression of Smartphone Use and TV Usage",
+       x = "Smartphone Use",
+       y = "TV Usage")
+```
+]
+
+---
+
+# The Linear Model
+
+- Correlation
+$$Y_{i} = (bX_{i}) + \epsilon_{i}$$
+
+- Regression
+$$Y_{i} = (b_{0} + b_{1}X_{i}) + \epsilon_{i}$$
+or 
+
+$$Y_{i} = a + bX_{i} + \epsilon$$
+
+---

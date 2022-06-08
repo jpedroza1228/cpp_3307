@@ -1,0 +1,552 @@
+---
+title: "Factorial ANOVA"
+author: "Jonathan A. Pedroza, PhD"
+format: beamer
+editor: visual
+---
+
+## Factorial Design
+
+```{r, echo = FALSE}
+library(tidyverse)
+library(emmeans)
+
+small_cars <- mtcars %>% 
+  filter(cyl != 8) %>% 
+  mutate(cyl = recode(cyl,
+                      '4' = '0',
+                      '6' = '1')) %>% 
+  select(mpg, cyl, am)
+
+```
+
+-   factorial designs are often also referred to as two-way ANOVA
+
+-   JP: I like to draw out my factorial ANOVAs because it also helps with understanding means
+
+    -   a two-way ANOVA has 2 IVs as well as an interaction (we'll talk about this shortly)
+
+        -   they can often be written out as the number of variables and the number of levels/conditions per variable
+
+        -   Ex: penguins (Adelie, Gentoo, and Chinstrap) and sex (Male and Female) would be a 3 x 2 (Three by Two) Factorial Design
+
+        -   Ex: Intervention (Control, Physical Activity, Physical Activity + Eating Habits) and method of delivery (Online and In-person) would be \_\_\_\_\_\_\_\_
+
+        -   Ex: Intervention (Control and Treatment) and Age (Young Adult, Adult, Older Adult) and Sex (Male and Female) would be \_\_\_\_\_\_\_
+
+    -   an ANCOVA can have two variables, with one being a covariate, but will not include an interaction
+
+## Factorial Design
+
+-   **independent factorial design** has several IVs/predictors comparing different groups
+
+    -   between-subjects design
+
+-   **repeated-measures factorial design** has several IVs/predictors that have been measured where all participants receive all conditions
+
+    -   within-subjects design
+
+-   **mixed design** has several IVs/predictors with some measuring all participants over all conditions while also examining different groups
+
+    -   Ex: pretest-posttest while comparing whether or not participants meet a MDD diagnosis
+
+    -   one IV is between-subjects and the other IV is a within-subjects variable
+
+## Independent Factorial Design
+
+-   the best way of deciphering ANOVAs are by what precedes the word ANOVA
+
+    -   **one**-way ANOVA
+
+    -   **two**-way independent ANOVA
+
+## Independent Factorial Design
+
+$$
+Y_{i} = b_{0} + b_{1}X_{1i} + b_{2}X_{2i} + ... + b_{n}X_{ni} + \epsilon_{i}
+$$
+
+-   let's talk cars
+
+    -   variables = number of cylinders and transmission type
+
+        -   levels = 4 vs 6 cylinder (we'll leave out 8 cylinder for the example)
+
+        -   levels = manual vs automatic
+
+## Independent Factorial Design
+
+-   SPSS does not require dummy coding for ANOVA but you can run the same test in a linear regression with dummy coded variables and get the same estimates
+
+    -   we'll have reference groups for each variable
+
+$$
+MPG_{i} = b_{0} + b_{1}Cylinder_{1i} + b_{2}Transmission_{2i} + \epsilon_{i}
+$$
+
+-   however, the model above is not a two-way ANOVA
+
+    -   it lacks one core component (right now it's only an ANCOVA)
+
+## Independent Factorial Design
+
+$$
+MPG_{i} = b_{0} + b_{1}Cylinder_{1i} + b_{2}Transmission_{2i} + b_{3}Interaction_{i} + \epsilon_{i}
+$$
+
+$$
+MPG_{i} = b_{0} + b_{1}Cylinder_{1i} + b_{2}Transmission_{2i} + 
+$$
+
+$$
+b_{3}Cylinder*Transmission_{i} + \epsilon_{i}
+$$
+
+-   the **interaction** term is the combined (multiplied) effect of cylinder and transmission type on MPG
+
+## Independent Factorial Design
+
+-   let's now look at the *b* values
+
+```{r}
+small_cars
+```
+
+## Independent Factorial Design
+
+-   combinations we'll have are:
+
+    -   4-cylinder (coded = 0) and automatic (coded = 0)
+
+        -   Average MPG = 22.9, SD = 1.45
+
+    -   4-cylinder (coded = 0) and manual (coded = 1)
+
+        -   Average MPG = 28.1, SD = 4.48
+
+    -   6-cylinder (coded = 1) and automatic (coded = 0)
+
+        -   Average MPG = 19.1, SD = 1.63
+
+    -   6-cylinder (coded = 1) and manual (coded = 1)
+
+        -   Average MPG = 20.6, SD = 0.75
+
+## Independent Factorial Design
+
+$$
+MPG_{i} = b_{0} + b_{1}Cylinder_{1i} + b_{2}Transmission_{2i} + 
+$$
+
+$$
+b_{3}Cylinder*Transmission_{i} + \epsilon_{i}
+$$
+
+$$
+X_{4, automatic}= b_{0} + (b_{1} * 0) + (b_{2} * 0) + (b_{3} * 0) + \epsilon_{i}
+$$
+
+$$
+b_{0} = X_{4, automatic}
+$$
+
+$$
+b_{0} = 22.9
+$$
+
+-   $b_0$ will be the average MPG for cars that are a **4-cylinder** car and have an **automatic** transmission
+
+## Independent Factorial Design
+
+-   now we can look at when we have a 6-cylinder car
+
+$$
+X_{6, automatic}= b_{0} + (b_{1} * 1) + (b_{2} * 0) + (b_{3} * 0) + \epsilon_{i}
+$$
+
+$$
+= b_{0} + b_{1}
+$$
+
+## Independent Factorial Design
+
+$$
+= X_{4, automatic} + b_{1}
+$$
+
+$$
+b_{1} = X_{6, automatic} - X_{4, automatic}
+$$
+
+$$
+b_{1} = 19.1 - 22.9
+$$
+
+$$
+b_{1} = -3.8
+$$
+
+## Independent Factorial Design
+
+-   $b_1$ is the average difference between a for **6-cylinder** cars that have an **automatic** transmission and **4-cylinder** cars that are **automatic**
+
+## Independent Factorial Design
+
+-   Let's now move on to $b2$
+
+$$
+X_{4, manual}= b_{0} + (b_{1} * 0) + (b_{2} * 1) + (b_{3} * 0) + \epsilon_{i}
+$$
+
+$$
+= b_{0} + b_{2}
+$$
+
+## Independent Factorial Design
+
+$$
+= X_{4, automatic} + b_{2}
+$$
+
+$$
+b_{2} = X_{4, manual} - X_{4, automatic}
+$$
+
+$$
+b_{2} = 28.1 - 22.9
+$$
+
+$$
+b_{2} = 5.2
+$$
+
+## Independent Factorial Design
+
+-   $b_{2}$ is the average difference between **4-cylinder** cars that are **manual** and **4-cylinder** cars that are **automatic**
+
+## Independent Factorial Design
+
+-   Finally, let's focus on the **interaction,** or the multiplied terms of cylinder and transmission
+
+$$
+X_{6, manual} = b_{0} + (b_{1} * 1) + (b_{2} * 1) + (b_{3} * 1) + \epsilon_{i}
+$$
+
+$$
+= b_{0} + b_{1} + b_{2} + b_{3}
+$$
+
+## Independent Factorial Design
+
+$$
+= X_{4, automatic} + (X_{6, automatic} - X_{4, automatic}) + (X_{4, manual} - X_{4, automatic}) + b_{3}
+$$
+
+$$
+= X_{6, automatic} + X_{4, manual} - X_{4, automatic}
+$$
+
+$$
+b_{3} = X_{4, automatic} - X_{6, automatic}  + X_{6, manual} - X_{4, manual}
+$$
+
+## Independent Factorial Design
+
+$$
+b_{3} = 22.9 - 19.1 + 20.6 - 28.1
+$$
+
+$$
+b_{3} = 3.8 + (-7.5)
+$$
+
+$$
+b_{3} = -3.7
+$$
+
+## Independent Factorial Design
+
+```{r}
+summary(lm(mpg ~ as.factor(cyl)*as.factor(am),
+           data = small_cars))
+```
+
+## Independent Factorial Design
+
+```{r, echo = FALSE}
+small_cars %>%
+  mutate(cyl = as.factor(cyl),
+         am = as.factor(am),
+         cyl = recode(cyl, '0' = '4-cyl',
+                      '1' = '6-cyl'),
+         am = recode(am, '0' = 'automatic',
+                     '1' = 'manual')) %>% 
+  group_by(cyl, am) %>% 
+  summarize(mean_mpg = mean(mpg),
+            sd_mpg = sd(mpg)) %>% 
+  ungroup() %>% 
+  drop_na(cyl, am, mean_mpg, sd_mpg) %>% 
+  ggplot(aes(cyl, mean_mpg, group = am)) + 
+  geom_point(aes(color = am)) + 
+  geom_line(aes(color = am)) +
+  annotate(geom = 'text',
+           label = 'b0',
+           x = .9,
+           y = 22.9,
+           color = 'darkgreen',
+           size = 10) + 
+  annotate(geom = 'text',
+           label = 'b1',
+           x = .9,
+           y = 21,
+           color = 'darkgreen',
+           size = 10) + 
+  annotate(geom = 'text',
+           label = 'b2',
+           x = .9,
+           y = 24,
+           color = 'darkgreen',
+           size = 10) + 
+  annotate(geom = 'text',
+           label = '28.1 - 22.9 = 5.2',
+           x = .8,
+           y = 26,
+           color = 'red',
+           size = 8) + 
+  annotate(geom = 'text',
+           label = '20.6 - 19.1 = 1.5',
+           x = 2.1,
+           y = 20,
+           color = 'red',
+           size = 8) + 
+  theme_light()
+```
+
+## Independent Factorial Design
+
+-   the interaction shows us the difference between automatic and manual transmissions when comparing 4-cylinder and 6-cylinder cars in their average MPG
+
+-   from the findings, we can conclude
+
+    -   a difference between 4-cylinder cars and 6-cylinder cars in average MPG?
+
+    -   a difference between automatic and manual transmission cars in average MPG?
+
+    -   a difference in average MPG between 4-cylinder and 6-cylinder cars is dependent on whether or not a car has an automatic or manual transmission?
+
+## Behind the Scenes of Factorial Designs
+
+![](images/paste-736A9802.png)
+
+## Behind the Scenes of Factorial Designs
+
+-   calculations are very similar to a one-way ANOVA
+
+    -   model sum of squares is now broken up into
+
+        -   what is explained from our first IV
+
+        -   what is explained from our second IV
+
+        -   what is explained by the interaction between $IV_{1}$ and $IV_{2}$
+
+## Total Sum of Squares
+
+$$
+SS_{T} = \sum^N_{i = 1}(x_{i} - \overline{X}_{grand})^2
+$$
+
+$$
+SS_{T} = S^2_{grand}(N - 1)
+$$
+
+-   N is still the number of participants in our sample
+
+## Model Sum of Squares
+
+$$
+SS_{M} = \sum^k_{g = 1} n_{g}(\overline{X}_{g} - \overline{X}_{grand})^2
+$$
+
+-   we are still looking at what the variance our model explains in our outcome
+
+-   using the car data from before, we could find the model sum of squares by using the 2 levels of cylinder (4-cyl and 6-cyl) and the 2 levels of transmission (automatic and manual)
+
+    -   the mean of each group and subtract the grand mean from it
+
+-   degrees of freedom for the model would still follow the same formula $df_{M} = k - 1$, so since we have 2 levels for both variables we would have 4 different groups
+
+## Main Effect of $IV_1$
+
+$$
+SS_{A} = \sum^k_{g = 1} n_{g}(\overline{X}_{g} - \overline{X}_{grand})^2
+$$
+
+-   common letters for the main effects are $A$ and $B$ with the interaction being $A*B$
+
+-   if our first variable is cylinder, then we would use the means for all cars that are a 4-cylinder and all cars that are a 6-cylinder **independent** of whether these cars have a manual or automatic transmission
+
+    -   only focusing on cylinder types for the main effect of cylinder on MPG
+
+-   df for this main effect would still be $k - 1$, but now we are only focusing on our two cylinder groups so it would now be $2 - 1 = 1$
+
+## Main Effect of $IV_2$
+
+$$
+SS_{B} = \sum^k_{g = 1} n_{g}(\overline{X}_{g} - \overline{X}_{grand})^2
+$$
+
+-   we'll now do the same thing for transmission types (automatic and manual) **independent** of how many cylinders are car has
+
+## Interaction of $IV_1 * IV_2$
+
+-   the easiest way of calculating the sum of squares for the interaction is by using the information we already have
+
+$$
+SS_{A*B} = SS_{M} - SS_{A} - SS_{B}
+$$
+
+-   the degrees of freedom could be calculated the same way
+
+$$
+df_{A*B} = df_{M} - df_{A} - df_{B}
+$$
+
+## Residual Sum of Squares
+
+-   we can calculate the residual sum of squares the same way we did when conducting a one-way ANOVA
+
+$$
+SS_{R} = SS_{T} - SS_{M}
+$$
+
+-   remember that at this point, we already calculated the $SS_T$ and the $SS_M$ so we can use this formula to get the variance not explained by our model
+
+$$
+SS_{R} = \sum^k_{g = 1}S^2_{g}(n_{g} - 1)
+$$
+
+-   our you can use this formula to get the variance of each group and add them all together
+
+## The F-statistic
+
+-   the only difference between a factorial ANOVA and a one-way ANOVA is that, we will now calculate three different mean squares values for the model and the residual mean squares
+
+    $$
+    MS_{A} = \frac{SS_A}{df_A}
+    $$
+
+$$
+MS_{B} = \frac{SS_B}{df_B}
+$$
+
+$$
+MS_{A*B} = \frac{SS_{A*B}}{df_{A*B}}
+$$
+
+$$
+MS_{R} = \frac{SS_{R}}{df_{R}}
+$$
+
+## The F-statistic
+
+-   we will also calculate F statistics for both main effects and the interaction
+
+    -   since these F tests are all signal-to-noise ratios, we will use the residual mean squares for the noise of each test
+
+$$
+F_A = \frac{MS_A}{MS_R}
+$$
+
+$$
+F_B = \frac{MS_B}{MS_R}
+$$
+
+$$
+F_{A*B} = \frac{MS_{A*B}}{MS_R}
+$$
+
+## The F-statistic
+
+```{r, echo = FALSE}
+aov_model <- aov(mpg ~ as.factor(cyl)*as.factor(am),
+                 data = small_cars)
+summary(aov_model)
+
+small_cars %>%
+  group_by(cyl, am) %>% 
+  summarize(mean_mpg = mean(mpg),
+            sd_mpg = sd(mpg)) %>% 
+  ungroup()
+```
+
+## Model Assumptions
+
+-   if you violate the assumption of homogeneity of variance (homoscedasticity), SPSS will struggle to correct for the assumption with anything more than a $2 x 2$ design
+
+    -   one way to get around this is to bootstrap your post-hoc tests
+
+-   we'll look at the residuals and predicted values
+
+-   we'll test for normality
+
+## Simple Effects Analysis
+
+-   one way to break down interactions is through the use of **simple effects analysis**
+
+    -   examines the effect/relationship of one IV at individual levels of the other IV
+
+    -   Ex: cylinder --> MPG for automatic cars; cylinder --> MPG for manual cars
+
+-   we'll talk about how to conduct simple effect analyses in SPSS syntax
+
+    -   which we'll talk about today
+
+## Interpreting Interaction Graphs
+
+-   "a picture is worth a thousand words"
+
+-   if a significant interaction is found, then we would state that the relationship between cylinder and MPG is dependent on what type of transmission a car has
+
+## Interpreting Interaction Graphs
+
+```{r}
+small_cars %>%
+  mutate(cyl = as.factor(cyl),
+         am = as.factor(am),
+         cyl = recode(cyl, '0' = '4-cyl',
+                      '1' = '6-cyl'),
+         am = recode(am, '0' = 'automatic',
+                     '1' = 'manual')) %>% 
+  group_by(cyl, am) %>% 
+  summarize(mean_mpg = mean(mpg),
+            sd_mpg = sd(mpg)) %>% 
+  ungroup() %>% 
+  drop_na(cyl, am, mean_mpg, sd_mpg) %>% 
+  ggplot(aes(cyl, mean_mpg, group = am)) + 
+  geom_point(aes(color = am)) + 
+  geom_line(aes(color = am)) +
+  theme_light()
+```
+
+## Interpreting Interaction Graphs
+
+-   non-parallel lines indicate some degree of an interaction
+
+    -   Note: this does not mean non-parallel lines always show a statistically significant interaction
+
+-   interaction plots that cross are non-parallel and could indicate a possible statistically significant interaction
+
+    -   Note: the visual/plot can tell us that there may be a significant interaction; however, only our F-test for the interaction will tell us if the interaction is significant or not
+
+## Interpreting Interaction Graphs
+
+-   SPSS allows for bar plots or line plots
+
+    -   both are not the prettiest but line plots are easier to read (for me personally)
+
+    -   you can also include error bars (which is best practice) but for our assignments i will not because it clutters SPSS output
+
+```{r}
+summary(aov_model)
+```

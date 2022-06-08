@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza PhD" />
+    <meta name="date" content="2021-10-07" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## Two Sample t-test Pt2
+### Jonathan A. Pedroza PhD
+### Cal Poly Pomona
+### 2021-10-07
+
+---
+
+
+
+
+# Agenda
+
+- Review terms
+  - independent samples t-test, homogeneity of variance, pooled variance, standard error of the difference
+- Between &amp; Within Designs
+- One Tailed Independent Samples t-test
+- Paired Sample t-test
+- Performing a Paired Sample t-test
+- Effect Size
+
+---
+
+# One Sample t-test
+
+- used when we are confident that the direction of the relationship
+
+- if you think one group will have a higher score/value then you would make that statement in your alternative hypothesis
+
+---
+
+# Steps for one-tailed test
+
+- Variable(Groups) = Intervention(Got Intervention/Control)
+- Outcome = Fruit &amp; Vegetable Intake
+
+1. decide which sample/group score you think will be larger
+  - I think that the intervention group will eat more fruits and vegetables
+
+2. decide which condition/group to subtract from the other
+  - `intervention group - control group`
+
+3. decide whether the difference will be positive or negative
+  - a positive value should be returned from the previous equation
+  
+---
+
+4. create hypotheses
+  - The intervention group will eat the same or less fruits and vegetables than the control group
+    - H0: mu(intervention group) - mu(control group) ≤ 0
+  - The intervention group will eat more fruits and vegetables than the control group
+    - H1: mu(intervention group) - mu(control group) &gt; 0
+    
+---
+
+5. locate regions of rejection
+  - since we are interested in a positive difference in our hypothesis, we'll only be looking at the upper tail of the distribution
+
+6. conduct your independent samples t-test
+  - make sure your groups/samples are subtracted the same way as your hypotheses
+    - `intervention group - control group`
+
+---
+
+# Paired Samples t-test
+
+- within-subjects/groups design
+
+- also called related-samples t-test
+  - each participant gets measured in each condition
+
+- an example would be an intervention for weight loss where everyone's weight is measured before (first time point to measure) the intervention and after (second time point to measure)
+
+- **matched-samples design** is when a participant in one condition is matched with a participant in the other condition
+
+- **repeated-measures design** is when each participant gets measured twice
+  - can be more for more rigorous statistics, but not the ones we'll learn about in this class
+
+---
+
+# Why we use paired-samples t-tests
+
+- pretest/posttest design
+  - before everyone gets the intervention/experiment (pretest or first time point) and then after the intervention/experiment (posttest or second time point)
+
+---
+
+- we subtract every person's before/after score from the before/score score to get a `difference` score
+
+- you can subtract whatever score you want from the other (before - after or after - before)
+
+- **mean differences** the mean of the differences between the paired scores
+  - repesented as dbar
+
+- add all the values of differences for before/after to get a sum and then divide by the number of participants (each person has a before and after score or the number of difference scores)
+
+$$ Sample\;mean\;difference = \overline{D} $$
+
+$$population\;mean\;difference = \mu_{D} $$
+
+- now because we have a sample mean from a sample, we can now perform a one-sample t-test
+
+---
+
+# Hypotheses
+
+- our null hypothesis is that there will be no change in scores on both occasions so there should be a difference of zero
+
+`$$H_0: \mu_{D} = 0$$`
+
+- our alternative hypothesis is that either our before or after scores should be higher
+  - our hypothesis supports either a positive or negative change
+
+`$$H_1: \mu_{D} \neq 0$$`
+
+- similar to the independent samples t-test, our sampling distribution is of mean differences
+
+---
+
+# Steps to paired-samples t-test
+
+Calculate the estimated variance of the difference scores
+
+`$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$`
+
+**Note** the notation changes from X to D because we are working with differences in scores and not means
+
+---
+
+Calculate the standard error of the mean differences
+
+`$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$`
+
+---
+
+Find the obtained t-value
+
+`$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$`
+
+The population difference will be zero unless you are testing for a nonzero difference
+
+---
+
+Calculate the degrees of freedom
+
+`$$df = N - 1$$`
+
+---
+
+Calculate effect size
+
+`$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$`
+
+OR
+
+`$$r^2_{pb} = \sqrt{\frac{(t_{obt})^2}{(t_{obt})^2 + df}}$$`
+---
+
+Discuss Significance
+
+- Is the difference between time point 1 and time point 2 statistically significant?
+
+---
+
+# Example
+
+
+```r
+set.seed(100521)
+t1 = rnorm(10, mean = 10, sd = 1.5)
+
+t2 = rnorm(10, mean = 5.8, sd = 4)
+
+df &lt;- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+```
+
+---
+
+
+```r
+df
+```
+
+```
+##    participant    t1    t2 score_difference score_difference_squared
+## 1            1  8.32 12.75    _____________            _____________
+## 2            2 13.96 10.54    _____________            _____________
+## 3            3  8.17  7.51    _____________            _____________
+## 4            4  8.40  4.32    _____________            _____________
+## 5            5  8.90  9.95    _____________            _____________
+## 6            6  7.58  3.64    _____________            _____________
+## 7            7  9.67  6.45    _____________            _____________
+## 8            8 11.51  3.40    _____________            _____________
+## 9            9 10.13  3.43    _____________            _____________
+## 10          10 11.49 13.77    _____________            _____________
+```
+
+
+---
+
+
+```r
+df$t2
+```
+
+```
+##  [1] 12.75 10.54  7.51  4.32  9.95  3.64  6.45  3.40  3.43 13.77
+```
+
+```r
+df$t1
+```
+
+```
+##  [1]  8.32 13.96  8.17  8.40  8.90  7.58  9.67 11.51 10.13 11.49
+```
+
+---
+
+
+
+---
+
+
+```r
+12.75 - 8.32
+```
+
+```
+## [1] 4.43
+```
+
+```r
+10.54 - 13.96
+```
+
+```
+## [1] -3.42
+```
+
+```r
+7.51 - 8.17
+```
+
+```
+## [1] -0.66
+```
+
+---
+
+
+```r
+4.32 - 8.40
+```
+
+```
+## [1] -4.08
+```
+
+```r
+9.95 - 8.90
+```
+
+```
+## [1] 1.05
+```
+
+```r
+3.64 - 7.58
+```
+
+```
+## [1] -3.94
+```
+
+---
+
+
+```r
+6.45 - 9.67
+```
+
+```
+## [1] -3.22
+```
+
+```r
+3.40 - 11.51
+```
+
+```
+## [1] -8.11
+```
+
+```r
+3.43 - 10.13 
+```
+
+```
+## [1] -6.7
+```
+
+```r
+13.77 - 11.49
+```
+
+```
+## [1] 2.28
+```
+
+---
+
+To get your dataframe to include the numbers you just included, you need to run this again. Then it should fill in the blanks with the numbers you provided. 
+
+
+```r
+df &lt;- data.frame(participant = 1:10,
+  t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c(4.43, -3.42, -.66, -4.08, 1.05, -3.94, -3.22, -8.11, -6.7, 2.28),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+```
+
+---
+
+
+```r
+df$score_difference
+```
+
+```
+##  [1]  4.43 -3.42 -0.66 -4.08  1.05 -3.94 -3.22 -8.11 -6.70  2.28
+```
+
+---
+
+
+```r
+(4.43)^2
+```
+
+```
+## [1] 19.6249
+```
+
+```r
+(-3.42)^2
+```
+
+```
+## [1] 11.6964
+```
+
+```r
+(-.66)^2
+```
+
+```
+## [1] 0.4356
+```
+
+---
+
+
+```r
+(-4.08)^2
+```
+
+```
+## [1] 16.6464
+```
+
+```r
+(1.05)^2
+```
+
+```
+## [1] 1.1025
+```
+
+```r
+(-3.94)^2
+```
+
+```
+## [1] 15.5236
+```
+
+---
+
+
+```r
+(-3.22)^2
+```
+
+```
+## [1] 10.3684
+```
+
+```r
+(-8.11)^2
+```
+
+```
+## [1] 65.7721
+```
+
+```r
+(-6.7)^2
+```
+
+```
+## [1] 44.89
+```
+
+```r
+(2.28)^2
+```
+
+```
+## [1] 5.1984
+```
+
+---
+
+
+```r
+df &lt;- data.frame(participant = 1:10,
+  t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c(4.43, -3.42, -.66, -4.08, 1.05, -3.94, -3.22, -8.11, -6.7, 2.28),
+                 score_difference_squared = c(19.62, 11.70, .44, 16.64, 1.10, 15.52, 10.37, 65.77, 44.89, 5.20))
+
+df
+```
+
+```
+##    participant    t1    t2 score_difference score_difference_squared
+## 1            1  8.32 12.75             4.43                    19.62
+## 2            2 13.96 10.54            -3.42                    11.70
+## 3            3  8.17  7.51            -0.66                     0.44
+## 4            4  8.40  4.32            -4.08                    16.64
+## 5            5  8.90  9.95             1.05                     1.10
+## 6            6  7.58  3.64            -3.94                    15.52
+## 7            7  9.67  6.45            -3.22                    10.37
+## 8            8 11.51  3.40            -8.11                    65.77
+## 9            9 10.13  3.43            -6.70                    44.89
+## 10          10 11.49 13.77             2.28                     5.20
+```
+
+---
+
+
+```r
+df$score_difference
+```
+
+```
+##  [1]  4.43 -3.42 -0.66 -4.08  1.05 -3.94 -3.22 -8.11 -6.70  2.28
+```
+
+```r
+4.43 + (-3.42) + (-0.66) + (-4.08) + 1.05 + (-3.94) + (-3.22) + (-8.11) + (-6.70) + 2.28
+```
+
+```
+## [1] -22.37
+```
+
+```r
+# sum difference is -22.37
+
+-22.37/10
+```
+
+```
+## [1] -2.237
+```
+
+```r
+# mean difference is -2.24
+```
+
+---
+
+## Calculate the estimated variance of the difference scores
+
+`$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$`
+
+`$$s^2_{D} = \frac{\Sigma D^2 - \frac{(-22.37)^2}{10}}{10 - 1}$$`
+
+---
+
+
+```r
+19.62+ 11.70+ .44+ 16.64+ 1.10+ 15.52+ 10.37+ 65.77+ 44.89+ 5.20
+```
+
+```
+## [1] 191.25
+```
+
+`$$s^2_{D} = \frac{191.25 - \frac{(-22.37)^2}{10}}{10 - 1}$$`
+
+---
+
+
+```r
+(-22.37)^2
+```
+
+```
+## [1] 500.4169
+```
+
+`$$s^2_{D} = \frac{191.25 - \frac{500.42}{10}}{10 - 1}$$`
+
+---
+
+
+```r
+500.42/10
+```
+
+```
+## [1] 50.042
+```
+
+`$$s^2_{D} = \frac{191.25 - 50.04}{9}$$`
+
+---
+
+
+```r
+191.25 - 50.04
+```
+
+```
+## [1] 141.21
+```
+
+`$$s^2_{D} = \frac{141.21}{9}$$`
+
+---
+
+
+```r
+141.21/9
+```
+
+```
+## [1] 15.69
+```
+
+`$$s^2_{D} = 15.69$$`
+
+---
+
+## Calculate the standard error of the mean differences
+
+`$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$`
+
+`$$S_{\overline{D}} = \sqrt{\frac{15.69}{10}}$$`
+
+---
+
+
+```r
+15.69/10
+```
+
+```
+## [1] 1.569
+```
+
+`$$S_{\overline{D}} = \sqrt{1.57}$$`
+
+---
+
+
+```r
+sqrt(1.57)
+```
+
+```
+## [1] 1.252996
+```
+
+`$$S_{\overline{D}} = 1.25$$`
+
+---
+
+## Find the obtained t-value
+
+`$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$`
+
+`$$t_{obt} = \frac{-2.24 - 0}{1.25}$$`
+
+---
+
+
+```r
+-2.24 - 0
+```
+
+```
+## [1] -2.24
+```
+
+`$$t_{obt} = \frac{-2.24}{1.25}$$`
+
+---
+
+
+```r
+-2.24/1.25
+```
+
+```
+## [1] -1.792
+```
+
+`$$t_{obt} = -1.79$$`
+
+---
+
+## Calculate the degrees of freedom
+
+`$$df = N - 1$$`
+
+
+```r
+10 - 1
+```
+
+```
+## [1] 9
+```
+
+`$$df = 9$$`
+
+---
+
+## Calculate effect size
+
+`$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$`
+
+---
+
+
+```r
+mean(df$score_difference)
+```
+
+```
+## [1] -2.237
+```
+
+```r
+sd(df$score_difference)^2
+```
+
+```
+## [1] 15.69073
+```
+
+```r
+-2.24
+```
+
+```
+## [1] -2.24
+```
+
+```r
+15.69
+```
+
+```
+## [1] 15.69
+```
+
+`$$d = \frac{-2.24}{\sqrt{15.69}}$$`
+
+---
+
+
+```r
+sqrt(15.69)
+```
+
+```
+## [1] 3.96106
+```
+
+```r
+sd(df$score_difference)
+```
+
+```
+## [1] 3.961153
+```
+
+`$$d = \frac{-2.24}{3.96}$$`
+
+---
+
+
+```r
+-2.24/3.96
+```
+
+```
+## [1] -0.5656566
+```
+
+`$$d = -.57$$`
+
+so really this means
+
+`$$d = .57$$`
+
+---
+
+`$$r^2_{pb} = \sqrt{\frac{(t_{obt})^2}{(t_{obt})^2 + df}}$$`
+
+`$$r^2_{pb} = \sqrt{\frac{(-1.79)^2}{(-1.79)^2 + df}}$$`
+
+---
+
+
+```r
+(-1.79)^2
+```
+
+```
+## [1] 3.2041
+```
+
+`$$r^2_{pb} = \sqrt{\frac{3.20}{3.20 + 9}}$$`
+
+---
+
+
+```r
+3.20 + 9
+```
+
+```
+## [1] 12.2
+```
+
+`$$r^2_{pb} = \sqrt{\frac{3.20}{12.20}}$$`
+
+---
+
+
+```r
+3.2/12.2
+```
+
+```
+## [1] 0.2622951
+```
+
+`$$r^2_{pb} = \sqrt{.26}$$`
+
+---
+
+
+```r
+sqrt(.26)
+```
+
+```
+## [1] 0.509902
+```
+
+`$$r^2_{pb} = .51$$`
+
+---
+
+## Discuss Significance
+
+t-obtained value of -1.79
+
+t-critical value of 
+
+---
+
+# One-tailed paired-samples t-test
+
+- choose whether you think your `after` score would be lower/higher than the `before` score
+
+- have your hypotheses reflect that
+
+- if you think after scores should be higher than before (learning intervention) then the difference scores should be positive
+  - because you subtracted before scores from after scores
+
+`$$H_{a}: \mu_{D} &gt; 0$$`
+
+`$$H_{0}: \mu_{D} \leq 0$$`
+
+---
+
+# Reporting
+
+- report in a similar style to all other t-test
+  - t(df) = t value, p value
+  
+- you'll also report the means of the before and after scores
+  - you won't report the difference between the two means
+  
+---
+
+# Effect Sizes
+
+- **effect size** is the amount of influence that changing the conditions of the IV has on the DV
+
+- **cohen's d** is a measure of effect size in two-sample studies that reflects the magnitude of difference
+
+  - small = .2
+  
+  - medium = .5
+  
+  - large = .8
+
+- larger effect size means stronger the strength of the association/relationship between the IV and DV
+
+---
+
+# Effect Size using Proportion of Variance Accounted For
+
+- used to determine how consistently scores change
+
+- **proportion of variance accounted for** is the proportion of differences in DV scores assocaited with changing the conditions of the IV
+  - effect size using **squared point-biserial correlation coefficient**, which indicates the proprotion of variance in DV scores that is accounted fro by IV variable in two-sample studies, are below
+  
+    - small = .09
+    
+    - moderate = .10-.25
+    
+    - large = .25
+
+---
+
+# Practice Time
+
+
+```r
+set.seed(093021)
+
+mistakes_made_tutor = rnorm(10, mean = 1.5, sd = 1.4)
+mistakes_made_control = rnorm(8, mean = 4.1, sd = 1)
+
+mistakes_made_tutor
+```
+
+```
+##  [1] 3.0495964 0.7931460 2.1999939 0.4106114 1.3852964 2.2035563 1.8161635
+##  [8] 2.4894226 3.1436843 1.0698578
+```
+
+```r
+mistakes_made_control
+```
+
+```
+## [1] 5.347698 3.962054 5.072715 3.985207 4.945898 2.984944 5.004625 5.405361
+```
+
+---
+
+
+```r
+set.seed(093021)
+
+translating_native_speaker = rnorm(9, mean = 20, sd = 4.7)
+translating_non_native = rnorm(14, mean = 10, sd = .99)
+
+translating_native_speaker
+```
+
+```
+## [1] 25.20222 17.62699 22.34998 16.34277 19.61492 22.36194 21.06141 23.32163
+## [9] 25.51808
+```
+
+```r
+translating_non_native
+```
+
+```
+##  [1]  9.695828 11.235221  9.863433 10.962988  9.886355 10.837439  8.896095
+##  [8] 10.895579 11.292308  9.102475 12.603552  9.039360 10.388593  9.487347
+```
+
+---
+
+
+```r
+set.seed(093021)
+
+first_gen_bmi = rnorm(6, mean = 22, sd = 2.2)
+second_gen_bmi = rnorm(9, mean = 28, sd = 5)
+
+first_gen_bmi
+```
+
+```
+## [1] 24.43508 20.88923 23.09999 20.28810 21.81975 23.10559
+```
+
+```r
+second_gen_bmi
+```
+
+```
+## [1] 29.12916 31.53365 33.87030 26.46378 34.23849 27.31027 32.86358 27.42604
+## [9] 32.22949
+```
+
+---
+
+
+```r
+set.seed(100521)
+t1 = rnorm(10, mean = 15, sd = 2.7)
+
+t2 = rnorm(10, mean = 12, sd = 2.1)
+
+df1 &lt;- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+df1$t2
+```
+
+```
+##  [1] 15.65 14.49 12.90 11.22 14.18 10.86 12.34 10.74 10.76 16.19
+```
+
+```r
+df1$t1
+```
+
+```
+##  [1] 11.98 22.12 11.71 12.11 13.02 10.65 14.40 17.73 15.23 17.69
+```
+
+---
+
+
+```r
+set.seed(100521)
+t1 = rnorm(10, mean = 8, sd = 1.2)
+
+t2 = rnorm(10, mean = 10.5, sd = 4.8)
+
+df11 &lt;- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+df11$t2
+```
+
+```
+##  [1] 18.83 16.19 12.55  8.72 15.48  7.90 11.28  7.62  7.66 20.07
+```
+
+```r
+df11$t1
+```
+
+```
+##  [1]  6.66 11.17  6.54  6.72  7.12  6.06  7.73  9.21  8.10  9.19
+```
+
+---
+
+
+```r
+set.seed(100521)
+t1 = rnorm(10, mean = 15, sd = 5.6)
+
+t2 = rnorm(10, mean = 4.3, sd = 5)
+
+df111 &lt;- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+df111$t2
+```
+
+```
+##  [1] 12.98 10.22  6.43  2.45  9.49  1.60  5.11  1.30  1.34 14.27
+```
+
+```r
+df111$t1
+```
+
+```
+##  [1]  8.73 29.78  8.18  9.01 10.89  5.97 13.76 20.65 15.49 20.57
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

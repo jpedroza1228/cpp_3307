@@ -1,0 +1,22 @@
+---
+title: 'Error & One-Sample Tests'
+subtitle: "PSY 3307"
+author: "Jonathan A. Pedroza, PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+options(scipen = 9999)
+```
+
+# 

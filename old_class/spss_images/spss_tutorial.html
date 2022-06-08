@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza, MS, MA" />
+    <meta name="date" content="2021-09-09" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## SPSS Tutorial
+### Jonathan A. Pedroza, MS, MA
+### Cal Poly Pomona
+### 2021-09-09
+
+---
+
+
+
+
+
+# Things We'll Learn With SPSS
+
+* Changing scale of variables
+* Recoding variables
+  - reverse scoring variables
+* dummy coding variables
+* run descriptives
+* run frequencies
+* standardize variables (z-transform variables)
+* Create bar graphs/histograms of variables 
+* Creating composite scores
+
+---
+
+# Changing Scale of Variables
+
+---
+
+.pull-left[
+* You'll need to go to the Variable View
+
+* Click on `Measure` and change it to the appropriate measurement scale
+
+* Scale is both ratio and interval scales combined
+]
+
+.pull-right[
+![changing scale](measure_change.jpg)
+]
+
+---
+
+#Recoding Variables
+
+---
+
+.pull-left[
+* Go to Transform --&gt; Recode into Different Variables
+]
+
+.pull-right[
+![recode 1](recoding_1.jpg)
+]
+
+---
+
+.pull-left[
+* Choose the variable you want to change by clicking the blue box to move the variable over
+
+* Give it a new name and a label explaining the changes you are going to make
+
+* Click Change
+
+* Click on `Old and New Values`
+
+]
+
+.pull-right[
+![recode 2](recoding_2.jpg)
+]
+
+---
+
+.pull-left[
+* Choose the old value and provide a new value in the respective areas
+
+* Make sure to click on `Add` below `New Value` so that you will actually make the changes
+
+* Continue
+
+* OK
+
+* Your output window should open up afterward showing the changes you made
+]
+
+.pull-right[
+![recode 3](recoding_3.jpg)
+]
+
+---
+
+# Reverse Scoring Variables
+
+---
+
+.pull-left[
+* One example of recoding is to reverse score
+
+* You can check the values of variables in `Variable View` to see if they need reverse scoring
+  - You'll most likely get this information from the published article
+
+* Same steps as recoding from previous slides
+
+* The screenshot shows that I am changing the order of the values
+
+* Give it a meaningful name
+]
+
+.pull-right[
+![reverse score](reverse_score_1.jpg)
+]
+
+---
+
+# Dummy Coding Variables
+
+---
+
+.pull-left[
+* Useful for analyses where we are comparing multiple groups or are controlling for additional variables
+  - ANOVA does not use this, it does what are called post-hoc tests (we'll get there)
+  - most useful in multiple regression
+
+* To control/adjust for additional variables = Make sure we are accounting for important variables
+
+* Go to `Create Dummy Variables`
+
+* Only works for nominal and ordinal data (e.g., variables with categories)
+]
+
+.pull-right[
+![dummy 1](dummy_1.jpg)
+]
+
+---
+
+.pull-left[
+* move the variable over that you want dummy variables for
+
+* put a name under `Root Names` so you know you created dummy variables
+]
+
+.pull-right[
+![dummy 2](dummy_2.jpg)
+]
+
+---
+
+.pull-left[
+* Additionally, you can use the recoding method and give them each a new name
+
+* Old values would be all the options that you are not interested in
+  - Using the class standing variable, I created a variable called freshman
+    + Old values are 0 for all the old values that aren't freshmen (#1)
+
+* So everyone is a 0 (e.g., 2 = 0, 3 = 0, 4 = 0, 5 = 0)
+  - freshmen are 1 so we would keep it as 1 = 1
+  
+* Instead of doing it one-by-one, you can input the range of values
+  - 2 through 5 for the old values
+]
+
+.pull-right[
+![classic dummy](dummy_classic.jpg)
+]
+
+---
+
+# Descriptive Statistics
+
+---
+
+.pull-left[
+* Descriptive statistics are Analyze --&gt; Descriptive Statistics --&gt; Descriptives
+]
+
+.pull-right[
+![descriptive statistics](descriptives_1.jpg)
+]
+
+---
+
+.pull-left[
+* Move the variables over that you want descriptive statistics of
+
+* Click on `Options` to choose what type of descriptive statistics you want
+
+* Continue
+
+* OK
+
+* It will then show you in the output
+]
+
+.pull-right[
+![descriptive statistics 2](descriptives_2.jpg)
+]
+
+---
+
+# Frequencies
+
+---
+
+.pull-left[
+* Frequencies is also under Analyze --&gt; Descriptive Statistics --&gt; Frequencies
+]
+
+.pull-right[
+![descriptive statistics](descriptives_1.jpg)
+]
+
+---
+
+
+.pull-left[
+* You will move your variables over
+
+* Statistics gives you descriptive statistics 
+
+* At the bottom there is `Display Frequency Tables`
+  - Make sure this is checked to get frequency tables
+  
+* Charts will give you the option of either choosing bar graphs or histograms
+  - This is the fastest way to get plots
+]
+
+.pull-right[
+![frequencies](frequency_1.jpg)
+]
+
+---
+
+# Z-transforming Variables
+
+---
+
+.pull-left[
+* Go to descriptives
+
+* Click on the `Save Stnadardized Values as Variables` at the bottom
+
+* OK
+
+* Now you'll have additional variables that are on a z-distribution
+  - Run descriptives to see how they differ from the raw values
+]
+
+.pull-right[
+![z-transformations](z_transformation.jpg)
+]
+
+---
+
+# Plots
+
+---
+
+.pull-left[
+* You can get basic descriptive plots through frequencies
+
+* For more detailed graphs, Graphs --&gt; Legacy Dialogs --&gt; ...
+  - Bar for bar graphs
+  - Line for looking at time
+  - Boxplot for analyses later on (t.test &amp; ANOVA)
+  - Scatterplot for analyses later on (correlation &amp; regression)
+  - Histogram for continuous variables to be shown on a histogram
+]
+
+.pull-right[
+![plots](visual_1.jpg)
+]
+
+---
+
+# Creating Composite Scores
+
+---
+
+.pull-left[
+* Go to Transform --&gt; Compute Variable
+]
+
+.pull-right[
+![compute](compute_1.jpg)
+]
+
+---
+
+.pull-left[
+* `Target Variable` is the name you want for your new variable
+
+* In `Numeric Expression` you'll use this to create averages or summative scores for composite scores/variables
+
+* The reasoning is rather than test all questions of a certain construct (e.g., depression), you test the average depression score based on all aspects of depression in each question combined
+
+* Add all the variables up together that belong to a specific construct
+
+* OK
+
+* Output will automatically come up with your new calculation and new variable
+]
+
+.pull-right[
+![depression](avg_depression.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

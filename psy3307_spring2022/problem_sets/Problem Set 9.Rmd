@@ -1,0 +1,369 @@
+---
+title: "problem_set_9"
+author: "Jonathan A. Pedroza, PhD"
+date: '2022-03-24'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this study, you are interested in seeing if there are differences in the exam grades of four different groups of students. The first group received no assistance with the materials, the second group received all the materials but no guidance, the third group received lectures over audio recordings, and the last group received lectures with video recordings. You want to see if there are any differences among these groups and if there are differences, you want to know which groups are specifically different from one another. Lastly, you are curious to know how much of variation in exam grades are determined from differences in teaching the materials for the exam. Please gather the following information.
+
+```{r}
+grades <- data.frame(nothing = c(65, 63, 60, 59, 62),
+                     material = c(68, 67, 67, 76, 74),
+                             audio = c(86, 64, 70, 72, 89),
+                             video = c(99, 89, 95, 96, 88))
+grades
+
+```
+
+## Means for each group
+
+```{r}
+mean(grades$nothing)
+mean(grades$material)
+mean(grades$audio)
+mean(grades$video)
+```
+
+Nothing average = 61.8
+Material average = 70.4
+Audio average = 76.2
+Video average = 93.4
+
+## Grand Mean
+
+```{r}
+(65 + 63 + 60 + 59 + 62 +
+  68 + 67 + 67 + 76 + 74 + 
+  86 + 64 + 70 + 72 + 89 +
+  99 + 89 + 95 + 96 + 88)/20
+```
+
+Grand mean = 75.45
+
+## Variance and SD for each group
+
+```{r}
+(65 - 61.8)^2 + 
+(63 - 61.8)^2 + 
+(60 - 61.8)^2 + 
+(59 - 61.8)^2 + 
+(62 - 61.8)^2
+
+(68 - 70.4)^2 + 
+(67 - 70.4)^2 + 
+(67 - 70.4)^2 + 
+(76 - 70.4)^2 + 
+(74 - 70.4)^2
+
+(86 -76.2)^2 + 
+(64 -76.2)^2 + 
+(70 -76.2)^2 + 
+(72 -76.2)^2 + 
+(89 -76.2)^2
+
+(99 - 93.4)^2 + 
+(89 - 93.4)^2 + 
+(95 - 93.4)^2 + 
+(96 - 93.4)^2 + 
+(88 - 93.4)^2
+  
+```
+
+```{r}
+22.8/4
+
+73.2/4
+
+464.8/4
+
+89.2/4
+```
+
+Nothing variance = 5.7
+Material variance = 18.3
+Audio variance = 116.2
+Video variance = 22.3
+
+```{r}
+sd(grades$nothing)^2
+sd(grades$material)^2
+sd(grades$audio)^2
+sd(grades$video)^2
+```
+
+```{r}
+sqrt(5.7)
+sqrt(18.3)
+sqrt(116.2)
+sqrt(22.3)
+```
+
+Nothing sd = 2.39
+Material sd = 4.28
+Audio sd = 10.78
+Video sd = 4.72
+
+## Grand Variance
+
+```{r}
+(65 + 63 + 60 + 59 + 62 +
+  68 + 67 + 67 + 76 + 74 + 
+  86 + 64 + 70 + 72 + 89 +
+  99 + 89 + 95 + 96 + 88)/20
+```
+
+```{r}
+(65 - 75.45)^2 + 
+(63 - 75.45)^2 + 
+(60 - 75.45)^2 + 
+(59 - 75.45)^2 + 
+(62 - 75.45)^2 + 
+(68 - 75.45)^2 + 
+(67 - 75.45)^2 + 
+(67 - 75.45)^2 + 
+(76 - 75.45)^2 + 
+(74 - 75.45)^2 +  
+(86 - 75.45)^2 + 
+(64 - 75.45)^2 + 
+(70 - 75.45)^2 + 
+(72 - 75.45)^2 + 
+(89 - 75.45)^2 + 
+(99 - 75.45)^2 + 
+(89 - 75.45)^2 + 
+(95 - 75.45)^2 + 
+(96 - 75.45)^2 + 
+(88 - 75.45)^2 
+
+3322.95/19
+```
+
+Grand Variance = 174.89
+
+## Total Sum of Squares
+
+$$
+SS_{T} = S^2_{grand}(N - 1)
+$$
+
+```{r}
+174.89*(20 - 1)
+
+20 - 1
+174.89*19
+```
+
+Sum of squares total = 3322.91
+
+## Total df
+
+$$
+df_{T} = N - 1
+$$
+
+```{r}
+20 - 1
+```
+
+
+## Model Sum of Squares
+
+$$
+SS_{M} = \sum^k_{g = 1} n_{g}(\overline{X}_{g} - \overline{X}_{grand})^2
+$$
+
+```{r}
+5*(61.8 - 75.45)^2 +
+5*(70.4 - 75.45)^2 +
+5*(76.2 - 75.45)^2 +
+5*(93.4 - 75.45)^2 
+```
+
+Model sum of squares = 2672.95
+
+## Model df
+
+$$
+df_{M} = k - 1
+$$
+
+```{r}
+4 - 1
+```
+
+
+## Residual Sum of Squares
+
+$$
+SS_{R} = SS_{T} - SS_{M}
+$$
+
+$$
+SS_{R} = \sum^k_{g = 1}S^2_{g}(n_{g} - 1)
+$$
+
+```{r}
+3322.91 - 2672.95
+```
+
+Residual sum of squares = 649.96
+
+## Residual df
+
+$$
+df_{R} = df_{T} - df_{M}
+$$
+
+$$
+N - k
+$$
+
+```{r}
+19 - 3
+
+20 - 4
+```
+
+
+## Model Mean Squares
+
+$$
+MS_{M} = \frac{SS_{M}}{df_{M}}
+$$
+
+```{r}
+2672.95/3
+```
+
+Model mean squares = 890.98
+
+## Residual Mean Squares
+
+$$
+MS_{R} = \frac{SS_{R}}{df_{R}}
+$$
+
+```{r}
+649.96/16
+```
+
+Residual mean squares = 40.62
+
+## F-statistic
+
+$$
+F = \frac{MS_{M}}{MS_{R}}
+$$
+
+```{r}
+890.98/40.62
+```
+
+F statistic = 21.93
+
+## Is your finding statistically significant?
+
+Yes. 
+
+21.93 > 3.24
+
+## Post-hoc Analyses (Tukey HSD)
+
+Go [here](https://www.real-statistics.com/statistics-tables/studentized-range-q-table/) for the studentized range q table. You'll have 6 comparisons to check with your post-hoc tests. 
+
+$k$ = groups
+df = $df_{R}$
+
+k = 4
+df_r = 16
+
+q = 4.046
+
+$$
+HSD = (q_{k})(\sqrt{\frac{MS_{R}}{n}})
+$$
+
+$$
+HSD = (4.046)(\sqrt{\frac{40.62}{5}})
+$$
+
+$$
+HSD = (4.046)(\sqrt{8.12})
+$$
+
+$$
+HSD = (4.046)(2.85)
+$$
+
+$$
+HSD = 11.53
+$$
+
+```{r}
+40.62/5
+
+sqrt(8.12)
+
+4.046*2.85
+```
+
+The difference between means must be greater than 11.53
+
+**Differences between means**
+
+```{r}
+61.8 - 70.4 #nothing - material
+61.8 - 76.2 #nothing - audio
+61.8 - 93.4 #nothing - video
+
+70.4 - 76.2 #material - audio
+70.4 - 93.4 #material - video
+
+76.2 - 93.4 #audio - video
+```
+
+What significant differences were found?
+
+8.6 < 11.53 nothing - material
+14.4 > 11.53 nothing - audio
+31.6 > 11.53 nothing - video
+
+5.8 < 11.53 material - audio
+23 > 11.53 material - video
+
+17.2 > 11.53 audio - video
+
+## Variance Explained
+
+Report the $R^2$/$\eta^2$
+
+$$
+R^2 = \eta^2 = \frac{SS_{M}}{SS_{T}}
+$$
+
+```{r}
+2672.95/3322.91
+.804*100
+```
+
+Group differences account for 80.4% of the variance in exam scores.
+
+```{r}
+library(tidyverse)
+grade_long <- grades %>% 
+  pivot_longer(1:4,
+               names_to = 'groups',
+               values_to = 'group_values')
+
+aov_find <- aov(group_values ~ as.factor(groups),
+                data = grade_long)
+summary(aov_find)
+TukeyHSD(aov_find)
+
+
+```
+

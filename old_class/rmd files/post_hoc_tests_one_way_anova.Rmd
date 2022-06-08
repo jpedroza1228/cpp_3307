@@ -1,0 +1,834 @@
+---
+title: "PSY 3307"
+subtitle: "Analysis of Variance (ANOVA)"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+```
+
+# Agenda
+
+- Post-hoc tests
+  - Tukey HSD
+  - Bonferroni Correction
+- Effect sizes
+- Proportion of Variance Accounted For
+- What is an ANCOVA
+
+  
+---
+
+# Post-hoc Tests
+
+- **Tukey HSD (Honestly Significant Difference)** is a post hoc test for ANOVA to compare mean for each level in a factor
+  - used only when the `ns` in each level of the factor are equal
+  
+- it computes the the minimum difference between two means that is required for them to be significantly different
+
+- Bonferroni Correction
+  - based on your alpha, you get that value and divide by the number of tests you need to conduct
+
+---
+
+# From last class
+
+$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+2\\
+12\\
+14\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+31.67\\
+7\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+4.52\\
+\\
+\\
+\end{array}\right]$$
+
+---
+
+# Tukey Steps
+
+1. Find `q_{k}`, which are values of studentized range statistic
+  - We'll come back to studentized values
+  - locate the `k`
+  - find the `df_{wm}`
+
+2. Compute the HSD
+  
+$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$
+
+---
+
+3. Determine the differences between each pair of means
+
+4. Compare each difference between means to the Tukey HSD value
+  - if the absolute difference between two means is greater than the HSD then these differences are significantly different
+    
+    + similar to a independent samples t-test with a significant t-obtained value
+
+---
+
+# Example from last slides
+
+MS within = 7
+n = 5
+
+For `q_{k}`, we need k and `df_{wn}`
+df_wn = 12
+k = 3
+q_k = 3.77
+
+```{r}
+3.77*(sqrt(7/5))
+```
+
+---
+
+Our Tukey HSD is `4.46`
+
+So now we compare the means of our three groups/levels
+
+```{r}
+8 - 6 # easy - medium
+8 - 3 # easy - hard
+6 - 3 # medium - hard
+```
+
+2 < 4.46
+5 > 4.46
+3 < 4.46
+
+So only the difference between easy and the hard groups was a statistically significant finding at an alpha of .05
+
+---
+
+# Effect Size
+
+- cohen's d only really used for two-sample designs (t-tests)
+
+- rather, for ANOVA and regression, we will rely on **Proportion of variance accounted for**
+  - there are better effect sizes (most would argue that proportion of variance accounted for in regression models is not an effect size)
+
+- greater the eta squared, the more that our IV accounts for the DV
+
+- eta squared is the same as R squared
+
+- **eta squared** is the proportion of variance in the DV that is accounted for with the change in levels in the factor/IV
+
+---
+
+# Formula
+
+$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$
+
+- SS between is the differences between all the scores in the experiment
+  - it is also what we know our model is actually looking at
+  
+- because it is proportion, we can easily interpret it as the percentage that the change in groups/levels accounts for the DV score difference
+
+$$ANOVA:\;eta^{squared} = \eta^2$$
+
+$$Regression:\;R^2$$
+
+---
+
+# ANCOVA
+
+- conceptually the same thing as ANOVA but it includes covariates/control variables
+
+- ANCOVA = Analysis of Covariance
+
+- The same thing as multiple regression
+
+- You are still interested in differences between levels on your DV values, but now you include additional variables to help account for some of the variance in your DV
+
+---
+
+
+$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+SS_{bn}\\
+SS_{wn}\\
+SS_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+df_{bn}\\
+df_{wn}\\
+df_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$
+
+---
+
+# Context
+
+You are trying out four different methods for helping participants with their depression. You decide to give out: medication only, individual therapy, group, and medication and individual therapy. Below are each level's depression levels at the end of the experiment. You are interested in a difference between the four groups. 
+
+```{r}
+data <- data.frame(meds = c(4, 5, 4, 6, 5),
+                   ind_therapy = c(5, 4, 3, 5, 5),
+                   group = c(8, 8, 6, 9, 10),
+                   med_ind = c(3, 1, 3, 2, 1))
+
+data
+```
+
+---
+
+# Hypotheses
+
+H0: There will be no differences between the therapeutic approaches
+
+H1: There will be differences between the therapeutic approaches
+
+Even better,
+
+H1: The group that receives medication and individual therapy will have significantly better or worse depression rates than every other group.
+
+---
+
+# Step-by-step
+
+What is the k?
+
+```{r, include = FALSE}
+k = 4
+k
+```
+
+---
+
+What is the number of participants per level?
+
+```{r, include = FALSE}
+meds_n = 5
+ind_n = 5
+group_n = 5
+both = 5
+
+meds_n
+ind_n
+group_n
+both
+```
+
+---
+
+What is the total number of participants?
+
+```{r, include = FALSE}
+total_n = meds_n + ind_n + group_n + both
+total_n
+```
+
+---
+
+What is the sum of each group?
+
+```{r, include = FALSE}
+meds_sum = sum(data$meds)
+ind_sum = sum(data$ind_therapy)
+group_sum = sum(data$group)
+med_ind_sum = sum(data$med_ind)
+
+meds_sum
+ind_sum
+group_sum
+med_ind_sum
+```
+
+---
+
+What is the mean of each group?
+
+```{r, include = FALSE}
+meds_mean = mean(data$meds)
+ind_mean = mean(data$ind_therapy)
+group_mean = mean(data$group)
+med_ind_mean = mean(data$med_ind)
+
+meds_mean
+ind_mean
+group_mean
+med_ind_mean
+```
+
+---
+
+What is the sum of squared Xs for reach group?
+
+```{r, include = FALSE}
+meds_sum2 = 4^2 + 5^2 + 4^2 + 6^2 + 5^2
+ind_sum2 = 5^2 + 4^2 + 3^2 + 5^2 + 5^2
+group_sum2 = 8^2 + 8^2 + 6^2 + 9^2 + 10^2
+med_ind_sum2 = 3^2 + 1^2 + 3^2 + 2^2 + 1^2
+
+meds_sum2
+ind_sum2
+group_sum2
+med_ind_sum2
+
+```
+
+---
+
+What is the total sum?
+
+```{r, include = FALSE}
+total_sum = meds_sum + ind_sum + group_sum + med_ind_sum
+total_sum
+```
+
+---
+
+What is the total sum of all squared values?
+
+```{r, include = FALSE}
+total_sum2 = meds_sum2 + ind_sum2 + group_sum2 + med_ind_sum2
+total_sum2
+```
+
+---
+
+What is the sum of squares total?
+
+$$SS_{total} = \Sigma(X_{ij} - \overline{X})^2$$
+
+$$SS_{total} = \Sigma X^2_{total} - \frac{(\Sigma X_{total})^2}{N}$$
+
+```{r, include = FALSE}
+587 - ((97^2)/20)
+# 116.55
+```
+
+---
+
+What is the sum of squares between/treatment?
+
+$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$
+
+$$SS_{bn} = \Sigma(\frac{(\Sigma X\;in\;each\;column)^2}{n\;in\;each\;column}) - \frac{(\Sigma X_{total})^2}{N}$$
+
+```{r, include = FALSE}
+24^2
+576/5
+
+22^2
+484/5
+
+41^2
+1681/5
+ 
+10^2
+100/5
+
+97^2
+9409/20
+
+(115.2 + 96.8 + 336.2 + 20) - 470.45
+# 97.75
+```
+
+---
+
+What is the sum of squares within/error?
+
+$$SS_{wn} = SS_{total} - SS_{bn}$$
+
+
+$$SS_{error} = SS_{total} - SS_{treat}$$
+
+```{r, include = FALSE}
+116.55 - 97.75
+# 18.8
+```
+
+---
+
+What are the degrees of freedom between?
+
+$$df_{bn} = k - 1$$
+
+```{r, include = FALSE}
+4 - 1
+# 3
+```
+
+---
+
+What are the degrees of freedom within? (N - k)
+
+```{r, include = FALSE}
+20 - 4
+# 16
+```
+
+---
+
+What are the degrees of freedom total? (N - 1)
+
+```{r, include = FALSE}
+20 - 1
+# 19
+```
+
+---
+
+What is the mean squares between value?
+
+$$MS_{bn} = \frac{SS_{bn}}{df_{bn}}$$
+
+```{r, include = FALSE}
+97.75/3
+# ms between = 32.58
+```
+
+
+---
+
+What is the mean squares within value?
+
+$$MS_{wn} = \frac{SS_{wn}}{df_{wn}}$$
+
+```{r, include = FALSE}
+18.8/16
+# 1.18
+```
+
+---
+
+What is the F-obtained value?
+
+$$F_{obt} = \frac{MS_{bn}}{MS_{wn}}$$
+
+```{r, include = FALSE}
+32.58/1.18
+# f value is 27.61
+```
+
+---
+
+Calculate the Tukey HSD
+
+$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$
+
+```{r, include = FALSE}
+# 16 df_wn
+# ms_wn = 1.18
+# n = 5
+# k = 4
+# qk = 4.046
+
+4.046*(sqrt(1.18/5))
+# HSD = 1.97
+```
+
+---
+
+```{r, include = FALSE}
+# meds_mean is 4.8
+# ind_mean is 4.4
+# group_mean is 8.2
+# med_ind_mean 2
+
+4.8 - 4.4 #ns
+8.2 - 4.8 #s
+8.2 - 4.4 #s
+8.2 - 2 #s
+4.8 - 2 #s
+4.4 - 2 #s
+
+```
+
+---
+
+# Effect Size
+
+$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$
+
+```{r, include = FALSE}
+eta2 = 97.75/116.55
+eta2
+```
+
+---
+
+What can we say?
+
+- There is no significant difference between medications and individual therapy in depression scores
+- There are lower depression scores in the group with individual therapy compared to group therapy
+- There are lower depression scores in the group with medications compared to group therapy
+- There are lower depression scores in the group with individual therapy and medications compared to group therapy
+- There are lower depression scores in the group with individual therapy and medications compared to medications alone
+- There are lower depression scores in the group with individual therapy and medications compared to individual therapy alone
+
+- Effect size: The differences in therapeutic styles accounted for 83.87% of the variance in depression scores in our sample.
+
+---
+
+```{r}
+data2 <- data.frame(meds = c(4, 5, 4, 6, 5),
+                   ind_therapy = c(5, 4, 3, 5, 5),
+                   group = c(8, 8, 6, 9, 10),
+                   med_ind = c(3, 1, 3, 2, 1),
+                   control = c(10, 9, 8, 7, 9))
+
+data2
+```
+
+---
+
+# Step-by-step
+
+What is the k?
+
+```{r, include = FALSE}
+k = 5
+k
+```
+
+---
+
+What is the number of participants per level?
+
+```{r, include = FALSE}
+meds_n = 5
+ind_n = 5
+group_n = 5
+both = 5
+control = 5
+
+meds_n
+ind_n
+group_n
+both
+control
+```
+
+---
+
+What is the total number of participants?
+
+```{r, include = FALSE}
+total_n = meds_n + ind_n + group_n + both + control
+total_n
+```
+
+---
+
+What is the sum of each group?
+
+```{r, include = FALSE}
+meds_sum = sum(data2$meds)
+ind_sum = sum(data2$ind_therapy)
+group_sum = sum(data2$group)
+med_ind_sum = sum(data2$med_ind)
+control_sum = sum(data2$control)
+
+meds_sum
+ind_sum
+group_sum
+med_ind_sum
+control_sum
+```
+
+---
+
+What is the mean of each group?
+
+```{r, include = FALSE}
+meds_mean = mean(data2$meds)
+ind_mean = mean(data2$ind_therapy)
+group_mean = mean(data2$group)
+med_ind_mean = mean(data2$med_ind)
+control_mean = mean(data2$control)
+
+meds_mean
+ind_mean
+group_mean
+med_ind_mean
+control_mean
+```
+
+---
+
+What is the sum of squared Xs for reach group?
+
+```{r, include = FALSE}
+meds_sum2 = 4^2 + 5^2 + 4^2 + 6^2 + 5^2
+ind_sum2 = 5^2 + 4^2 + 3^2 + 5^2 + 5^2
+group_sum2 = 8^2 + 8^2 + 6^2 + 9^2 + 10^2
+med_ind_sum2 = 3^2 + 1^2 + 3^2 + 2^2 + 1^2
+control_sum2 = 10^2 + 9^2 + 8^2 + 7^2 + 9^2 
+
+meds_sum2
+ind_sum2
+group_sum2
+med_ind_sum2
+control_sum2
+```
+
+---
+
+What is the total sum?
+
+```{r, include = FALSE}
+total_sum = meds_sum + ind_sum + group_sum + med_ind_sum + control_sum
+total_sum
+```
+
+---
+
+What is the total sum of all squared values?
+
+```{r, include = FALSE}
+total_sum2 = meds_sum2 + ind_sum2 + group_sum2 + med_ind_sum2 + control_sum2
+total_sum2
+```
+
+---
+
+What is the sum of squares total?
+
+$$SS_{total} = \Sigma(X_{ij} - \overline{X})^2$$
+
+$$SS_{total} = \Sigma X^2_{total} - \frac{(\Sigma X_{total})^2}{N}$$
+
+```{r, include = FALSE}
+962 - ((140^2)/25)
+# 178
+```
+
+---
+
+What is the sum of squares between/treatment?
+
+$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$
+
+$$SS_{bn} = \Sigma(\frac{(\Sigma X\;in\;each\;column)^2}{n\;in\;each\;column}) - \frac{(\Sigma X_{total})^2}{N}$$
+
+```{r, include = FALSE}
+24^2
+576/5
+
+22^2
+484/5
+
+41^2
+1681/5
+ 
+10^2
+100/5
+
+43^2
+1849/5
+
+130^2
+16900/25
+
+(115.2 + 96.8 + 336.2 + 20 + 369.8) - 784
+# 154
+```
+
+---
+
+What is the sum of squares within/error?
+
+$$SS_{wn} = SS_{total} - SS_{bn}$$
+
+
+$$SS_{error} = SS_{total} - SS_{treat}$$
+
+```{r, include = FALSE}
+178 - 154
+# 24
+```
+
+---
+
+What are the degrees of freedom between?
+
+$$df_{bn} = k - 1$$
+
+```{r, include = FALSE}
+5 - 1
+# 4
+```
+
+---
+
+What are the degrees of freedom within? (N - k)
+
+```{r, include = FALSE}
+25 - 5
+# 20
+```
+
+---
+
+What are the degrees of freedom total? (N - 1)
+
+```{r, include = FALSE}
+25 - 1
+# 24
+```
+
+---
+
+What is the mean squares between value?
+
+$$MS_{bn} = \frac{SS_{bn}}{df_{bn}}$$
+
+```{r, include = FALSE}
+154/4
+# ms between = 38.5
+```
+
+
+---
+
+What is the mean squares within value?
+
+$$MS_{wn} = \frac{SS_{wn}}{df_{wn}}$$
+
+```{r, include = FALSE}
+24/20
+# 1.2
+```
+
+---
+
+What is the F-obtained value?
+
+$$F_{obt} = \frac{MS_{bn}}{MS_{wn}}$$
+
+```{r, include = FALSE}
+38.5/1.2
+# f value is 32.08
+```
+
+---
+
+Calculate the Tukey HSD
+
+$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$
+
+```{r, include = FALSE}
+# df_wn = 20
+# ms_wn = 1.2
+# n = 5
+# k = 5
+# qk = 4.232
+
+4.232*(sqrt(1.2/5))
+# HSD = 2.07
+```
+
+---
+
+```{r, include = FALSE}
+# meds_mean is 4.8
+# ind_mean is 4.4
+# group_mean is 8.2
+# med_ind_mean 2
+# control_mean 8.6
+
+4.8 - 4.4 #ns
+8.2 - 4.8 #s
+4.8 - 2 #s
+8.6 - 4.8 #s
+
+8.2 - 4.4 #s
+4.4 - 2 #s
+8.6 - 4.4 #s
+
+8.2 - 2 #s
+8.6 - 8.2 #ns
+
+8.6 - 2 #s
+
+```
+
+---
+
+$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$
+
+```{r, include = FALSE}
+eta2 = 154/178
+eta2
+```
+
+---
+
+What can we say?
+
+- There is no significant difference between medications and individual therapy in depression scores
+- There are lower depression scores in the group with medications compared to group therapy
+- There are lower depression scores in the group with individual therapy and medications compared to medications alone
+- There are lower depression scores in the group with medications compared to the control group
+- There are lower depression scores in the group with individual therapy compared to group therapy
+
+---
+
+- There are lower depression scores in the group with individual therapy and medications compared to individual therapy alone
+- There are lower depression scores in the group with individual therapy compared to the control group
+- There are lower depression scores in the group with individual therapy and medications compared to group therapy
+- There are no significant differences between the group therapy group and the control group
+- There are lower depression scores in the group with individual therarpy and medications compared to the control group
+
+- Effect size: The differences in therapeutic styles accounted for 91.61% of the variance in depression scores in our sample.
+
+

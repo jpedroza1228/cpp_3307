@@ -1,0 +1,424 @@
+---
+title: "Midterm 1"
+format: html
+editor: visual
+---
+
+### Exam
+
+1\. The following is an example of a \_\_\_\_\_\_\_\_.
+
+-   A. **Positive relationship**
+
+-   B. Unhealthy relationship
+
+-   C. Negative relationship
+
+-   D. No relationship
+
+2\. When your IV increases and your DV decreases you have a \_\_\_\_\_\_\_\_\_\_\_.
+
+-   A.**Negative relationship**
+
+-   B. Positive relationship
+
+-   C. Unhealthy relationship
+
+-   D. No relationship
+
+3\. Inferential statistics are for summarizing your data to tell the reader how the data looks.
+
+-   A. True
+
+-   B. **False**
+
+4.Parameters are for populations and statistics are for samples.
+
+-   A. **True**
+
+-   B. False
+
+5\. You are interested in hearing participants' stories about hardships they have faced in their lives. You decide to interview them about their stories. This is an example of \_\_\_\_\_\_\_\_.
+
+-   A. **Qualitative resaerch**
+
+-   B. Quantitative research
+
+-   C. Mixed-methods research
+
+-   D. Is this research?
+
+6.You are interested in comparing participants that are severely depressed to those that are slightly depressed to see if it impacts students' ability to focus. What are the independent and dependent variables?
+
+-   A. **IV: Level of depression, DV: ability to focus**
+
+-   B. IV: Being severely depressed, DV: ability to focus
+
+-   C. IV: Ability to focus, DV: Level of depression
+
+-   D. IV: participants, DV: Level of depression
+
+7\. What are the conditions of the study?
+
+-   A. level of depression, ability to focus
+
+-   B. ability to focus, being slightly depressed, being severely depressed
+
+-   C. **being slightly depressed, being severely depressed**
+
+-   D. level of depression, being severely depressed, being slightly depressed
+
+8\. Which example is representative of a binary variable?
+
+-   A. Money (amount of money in an account)
+
+-   B. income bracket (0-10k, 11k-20k, 21k-30k, etc.)
+
+-   C. **sex**
+
+-   D. race/ethnicity
+
+9\. You are dealing with some skewed distributions in your data; what should you use to address your skewed data?
+
+-   A.Mean
+
+-   B. **Median**
+
+-   C. Mode
+
+-   D. Standard deviation
+
+10\. When the actual value and your obtained value are not the same value, you are experiencing \_\_\_\_\_\_\_.
+
+-   A. **Measurement error**
+
+-   B. variance
+
+-   C. standard deviation
+
+-   D. z-score
+
+11\. What is the difference between a measure of variability and a measure of central tendency?
+
+-   A. Measures of central tendency measure the distance scores are from one another, while measures of variability indicate the center of a distribution
+
+-   B. **Measures of variability measure the distance scores are from one another, while measures of central tendency indicate the center of a distribution**
+
+-   C. They do the same thing
+
+-   D. Measures of central tendency measures the tendency to be central while measures of variability measures variables
+
+12\. What is the difference between variance and standard deviation?
+
+-   A. Variance is a measure of central tendency and standard deviation is a measure of variability
+
+-   B. Variance is in square root units and standard deviation is in squared units
+
+-   C. **Standard deviation is easier to interpret since variance is in squared units**
+
+-   D. Variance is a larger distance from the mean than standard deviation
+
+13\. What is the range for the following values (10, 8, 3, 15, 30)?
+
+-   A.20
+
+-   B. 15
+
+-   C. **27**
+
+-   D. 10
+
+14\. What is the following symbol used for?
+
+$$\Sigma$$
+
+-   A. the sum
+
+-   B. the mean
+
+-   C. the median
+
+-   
+
+    D.  sigma
+
+15\. What is the standard deviation for the following values? (5, 5, 5, 5, 5, 5)
+
+16\. In order to get the quartiles of a distribution, you would need to get the median and then the medians of the lower half of the distribution and the upper half of the distribution.
+
+-   A. **True**
+
+-   B. False
+
+17\. When you add up the deviance scores, you will get 1 as your answer every time.
+
+-   A. True
+
+-   B. **False**
+
+18\. When looking at a distribution, the distance between -1SD and +1SD will be \_\_\_\_\_.
+
+-   A. \~34%
+
+-   B. **\~68%**
+
+-   C. \~50%
+
+-   D. \~100%
+
+19\. What is the critical value for a two-tailed z-distribution?
+
+-   A. +-1.65
+
+-   B. **+-1.96**
+
+-   C. +-2
+
+-   D. +-1
+
+20\. What is the mean and standard deviation of the z-distribution?
+
+-   A. **M = 0, SD = 1**
+
+-   B. M = 1, SD = 1
+
+-   C. M = .5, SD = 1
+
+-   D. M = 100, SD = 1
+
+21\. What is A in the following formula?
+
+$$z = \frac{\overline{X} - A}{S_{\overline{X}}}$$
+
+-   A. Sample standard deviation
+
+-   B. **Population mean**
+
+-   C. Sample mean
+
+-   
+
+    D.  Standard Error
+
+22\. Probability is different from odds because
+
+-   A. probability is focused on how many times an event will occur compared to another event
+
+-   B. odds is focused on how many times an event will occur out of all the possible total number of events
+
+-   C. **probability is focused on how many times an event will occur out of all the possible total number of events**
+
+-   D. odds are only good for gambling
+
+23\. What is another name for the bell-shaped curve?
+
+-   A. z-distribution
+
+-   B. Paranormal distribution
+
+-   C. **Normal distribution**
+
+-   D. Raw distribution
+
+24\. A distribution that is extremely flat is indicative of a \_\_\_\_\_\_\_\_ distribution.
+
+-   A.Kurtosis
+
+-   B. Skewness
+
+-   C. Leptokurtic
+
+-   D. **Platykurtic**
+
+25\. What is the *best* conclusion you should draw when you see a bimodal distribution?
+
+-   A. The statistics will be able to handle it
+
+-   B. **The data is indicating that there are two groups in the distribution**
+
+-   C. You should cry because there is no fixing it
+
+-   D. That you may have multiple medians
+
+26\. What measure of central tendency is mainly used with inferential statistics?
+
+-   A. Variance
+
+-   B. **Mean**
+
+-   C. Median
+
+-   D. Mode
+
+27\. You have a z-score of 1.3, how much of the distribution is being covered? (Hint: use your z-table)
+
+-   
+
+    A.  
+
+-   
+
+    B.  
+
+-   
+
+    C.  
+
+-   
+
+    D.  
+
+28\. There are special cases where the z-distribution will not reflect that of a normal distribution.
+
+-   A. True
+
+-   B. **False**
+
+29\. What is the best description of the standard error?
+
+-   A. It is the standard deviation of the sample means
+
+-   B. It is on the raw distribution of scores for a single sample
+
+-   C. It is the measure of variability on the z-distribution
+
+-   D. It only works for one-sample t-tests
+
+30\. If you find out that your sample is significantly different from the population using a z-test, you can conclude that *without a doubt* your sample is different from the population
+
+-   A. True
+
+-   B. False
+
+31\. When I am estimating from a population and I want to state how confident I am that the population average is between two values, I am using \_\_\_\_\_\_.
+
+-   A. criterion
+
+-   B. point estimates
+
+-   C. **confidence intervals**
+
+-   D. unconfident intervals
+
+32\. If a value passes the critical value, for instance a z-score of 2, you would state \_\_\_\_\_\_\_.
+
+-   A. **Your sample is significantly different from the population**
+
+-   B. Without a doubt, your sample is better or worse than the population
+
+-   C. your sample is identical to your population
+
+-   D. No one uses z-tests so it does not matter
+
+33\. The common value used in the social sciences for Fisher's p value is \_\_\_\_.
+
+-   A. **5%**
+
+-   B. 2.5%
+
+-   C. 1%
+
+-   D. 10%
+
+34\. A type I error is when you think you found a significant relationship but in reality, you did not find a relationship.
+
+-   A. **True**
+
+-   B. False
+
+35\. You run 3 statistical analyses with a p-value of .05 and you want to correct your p-value (because you are a good researcher). What value would you get from a Bonferroni correction?
+
+-   A. **.017**
+
+-   B. .013
+
+-   C. .10
+
+-   D. .05
+
+36\. The distance that your t-test goes past the critical value indicates the strength of the relationship.
+
+-   A. True
+
+-   B. **False**
+
+37\. You think your sample is better at statistics than the general population. A one-tailed test should only be used with strong empirical evidence that your sample is better than the population.
+
+-   A. **True**
+
+-   B. False
+
+38\. The main difference between a z-test and a one-sample t-test is that for a one-sample t-test you need to estimate the standard error from your own sample.
+
+-   A. **True**
+
+-   B. False
+
+39\. When you are looking at seeing whether or not two variables are associated, you are assessing the \_\_\_\_\_\_\_\_\_\_ between the two variables.
+
+-   A. Mean
+
+-   B. Median
+
+-   C. Distribution
+
+-   D. **Relationship**
+
+40\. You are looking at rates of depression in students and see that it varies for each participant. This is an example of a \_\_\_\_\_\_.
+
+-   A. Measure of central tendency
+
+-   B. Mean
+
+-   C. Relationship
+
+-   D. **Variable**
+
+For the following questions, you will be using the following data. If using R, then you can copy+paste the code below to use for your analyses. Those of you doing this by hand can copy the values below.
+
+The context behind this is that you are interested knowing whether your sample of students (n = 10) is significantly different from the population of all CPP students in the amount of alcohol drinks they have during a given weekend night. You know from snooping around that the average amount of drinks that a CPP student drinks is 9 drinks. However, this is all the information that you have.
+
+```{r}
+data <- data.frame(number_drinks = c(4, 3, 5, 7, 6,
+                                     10, 12, 1, 8, 4))
+
+data
+```
+
+41\. What type of test will you be running?
+
+-   A. **one-sample t-test**
+
+-   B. z-test
+
+42. Which is an example of a two-tailed test alternative hypothesis?
+
+-   A. The sample and population will drink the same amount of drinks.
+
+-   B. The sample of students will drink less than the entirety of the CPP student population.
+
+-   C. The sample of students will drink more than the entirety of the CPP student population.
+
+-   D. **The sample of students will drink more or less than the entirety of the CPP student population.**
+
+43\. Calculate and report the mean.
+
+44\. Calculate the sum of squares.
+
+45\. Calculate the degrees of freedom.
+
+46\. Calculate the standard deviation.
+
+47\. Calculate the standard error.
+
+48\. Calculate the obtained value.
+
+49\. Using the appropriate table, find the critical value.
+
+50\. Is your finding statistically significant when comparing the t-obtained value to the t-critical value from the table?
+
+-   A. Yes
+
+-   B. No
+
+52\. What is JP's favorite extra credit value? (extra credit)

@@ -1,0 +1,146 @@
+---
+title: "SPSS Assignment 1"
+author: "JP"
+date: "8/16/2021"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages, eval = TRUE, echo = FALSE}
+library(tidyverse)
+
+options(scipen = 999)
+theme_set(theme_minimal())
+
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  filter(ccc_class_standing == 3 |
+           ccc_class_standing == 4)
+  
+```
+
+# What Each Assignment Will Look Like
+
+## Create a `null` and `alternative` hypothesis
+
+
+
+## Rename `gender` into `sex`
+
+
+
+## Conduct descriptive statistics for the following variables
+
+
+
+- also include the appropriate descriptive visualization for each variable below
+
+- `sex`
+- `mtuas internet q1`
+- `mtuas internet q2`
+- `mtuas internet q3`
+- `mtuas internet q4`
+- `avg internet score variable`
+
+## Conduct inferential statistic (independent samples t-test)
+
+- screenshot the table with the independent samples t-test
+
+## Tell me whether or not your finding is statistically significant
+
+## find the t-critical value for a two-tailed test
+
+## Show some type of visualization that shows the difference in the two groups on internet use
+
+- examples of what it should look like are below
+
+## Reject/Retain the Null Hypothesis?
+
+## Write up on your findings
+
+```{r, include = TRUE}
+jp <- jp %>% 
+  mutate(sex = factor(ccc_gender),
+         internet_avg = (mtuas_internet_q1 + mtuas_internet_q2 + mtuas_internet_q3 + mtuas_internet_q4)/4)
+```
+
+```{r}
+psych::describeBy(jp$internet_avg, jp$sex, na.rm = TRUE)
+
+psych::describe(jp$internet_avg, na.rm = TRUE)
+```
+
+```{r}
+jp %>% 
+  mutate(sex = recode(sex, "1" = "Male",
+                      "2" = "Female")) %>% 
+  ggplot(aes(sex)) + 
+  geom_bar(aes(color = sex, fill = sex)) + 
+  scale_fill_manual(values = c("#d74122", "#387448")) +
+  theme(legend.position = "none")
+
+jp %>% 
+  group_by(sex) %>% 
+  count()
+
+jp %>% 
+  ggplot(aes(internet_avg)) + 
+  geom_histogram(color = "white", fill = "#d74122", bins = 10)
+
+internet_only <- jp %>% 
+  dplyr::select(mtuas_internet_q1:mtuas_internet_q4)
+
+map(internet_only, ~ggplot(data = internet_only, aes(.x)) + geom_histogram(color = "white", fill = "#387448", bins = 10))
+```
+
+```{r}
+car::leveneTest(internet_avg ~ sex, data = jp)
+
+t_test_finding <- t.test(internet_avg ~ sex, data = jp, var.equal = TRUE)
+t_test_finding
+t.test(internet_avg ~ sex, data = jp)
+```
+
+```{r}
+jp %>% 
+  mutate(sex = recode(sex, "1" = "Male",
+                      "2" = "Female")) %>% 
+  group_by(sex) %>% 
+  summarize(mean_internet = mean(internet_avg),
+            sd_internet = sd(internet_avg)) %>% 
+  ungroup() %>% 
+  ggplot(aes(sex, mean_internet)) + 
+  geom_col(fill = "gray70", alpha = .5) +
+  geom_errorbar(aes(ymin = mean_internet - sd_internet,
+                    ymax = mean_internet + sd_internet,
+                    color = sex), size = 1.25) +
+  scale_color_manual(values = c("#d74122", "#387448")) +
+  theme(legend.position = "none") +
+  labs(x = "",
+       y = "Average Time on the Internet")
+
+jp %>% 
+  mutate(sex = recode(sex, "1" = "Male",
+                    "2" = "Female")) %>% 
+  ggplot(aes(sex, internet_avg)) +
+  geom_boxplot(aes(fill = sex), alpha = .5) +
+  geom_jitter(color = "black", alpha = .5) + 
+  scale_fill_manual(values = c("#d74122", "#387448")) +
+  theme(legend.position = "none") +
+  labs(x = "",
+       y = "Average Time on the Internet")
+
+```
+
+```{r, include = TRUE}
+broom::tidy(t_test_finding)
+```
+
+We conducted an independent samples t-test to examine if there was a difference in time spent on the internet between males and females. Our t-test showed that males (*M* = 5.95, *SD* = 1.95) spent less time on the internet compared to females (*M* = 6.61, *SD* = 2.17); *t*(239) = -2.26, *p* = .025. We are 95% certain that females have values of -1.23 and -0.08 less than males; indicating less time spent on the internet.  

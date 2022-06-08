@@ -1,0 +1,228 @@
+---
+title: "Problem Set 4"
+author: "JP"
+date: '2022-02-24'
+output:
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+You are interested in knowing how a sample of college students compare to all college students in regard to their GPAs. You decide to test to see whether your group is significantly different from the rest of the university. You have data for 15 students that you are using for your sample. From information you gathered on the college's website, you know that the average college GPA is 3.5 for all 1000 students. You also break into the registrar's office and find information about how much students deviate from the GPA for all college students. You find out the standard deviation for all college students is 1.2. Answer the following questions.
+
+```{r}
+problem_set <- data.frame(gpa = c(3.7, 3.2, 4, 2.7, 3.1,
+                                  2.5, 2.9, 3.3, 1.9, 3.1,
+                                  3.6, 3, 2.5, 2.3, 3.5),
+                          mean_value = c('', '', '', '', '',
+                            '', '', '', '', '',
+                            '', '', '', '', ''),
+                   deviance = c('', '', '', '', '',
+                            '', '', '', '', '',
+                            '', '', '', '', ''),
+                   dev_squared = c('', '', '', '', '',
+                            '', '', '', '', '',
+                            '', '', '', '', ''))
+problem_set
+```
+
+1. What is the number of participants?
+
+```{r}
+problem_set$n <- 15
+unique(problem_set$n)
+```
+
+
+2. What is the mean gpa score?
+
+```{r}
+(3.7+3.2+4+2.7+3.1+2.5+2.9+3.3+1.9+3.1+3.6+3.0+2.5+2.3+3.5)/15
+
+problem_set$mean_value <- mean(problem_set$gpa)
+unique(problem_set$mean_value)
+```
+
+
+3. What is the deviance between participants' scores and the mean gpa score?
+
+$$(X_{i} - \overline{X})$$
+
+```{r}
+3.7-3.02
+3.2-3.02
+4.0-3.02
+2.7-3.02
+3.1-3.02
+2.5-3.02
+2.9-3.02
+3.3-3.02
+1.9-3.02
+3.1-3.02
+3.6-3.02
+3.0-3.02
+2.5-3.02
+2.3-3.02
+3.5-3.02
+
+problem_set$deviance <- problem_set$gpa - problem_set$mean_value
+unique(problem_set$deviance)
+```
+
+4. Calculate the sum of errors/total deviation.
+
+$$\sum_{i = 1}^n(X_{i} - \overline{X})$$
+
+```{r}
+(0.68) + (0.18) +(0.98) +(-0.32) +(0.08)+(-0.52)+(-0.12)+
+  (0.28)+(-1.12) +(0.08)+(0.58)+(-0.02)+(-0.52)+(-0.72) +(0.48)
+
+sum(problem_set$deviance)
+```
+
+
+5. Calculate the deviance squared for each participant. 
+
+$$(X_{i} - \overline{X})^2$$
+
+```{r}
+(0.68)^2
+(0.18)^2
+(0.98)^2
+(-0.32)^2
+(0.08)^2
+(-0.52)^2
+(-0.12)^2
+(0.28)^2
+(-1.12)^2
+(0.08)^2
+(0.58)^2
+(-0.02)^2
+(-0.52)^2
+(-0.72)^2
+(0.48)^2
+
+problem_set$dev_squared <- problem_set$deviance^2
+
+unique(problem_set$dev_squared)
+```
+
+
+6. Calculate the sum of squared errors/sum of squares.
+
+$$\sum_{i = 1}^n(X_{i} - \overline{X})^2$$
+
+```{r}
+(0.68)^2 + (0.18)^2 +(0.98)^2 +(-0.32)^2 +(0.08)^2+(-0.52)^2+(-0.12)^2+
+  (0.28)^2+(-1.12)^2 +(0.08)^2+(0.58)^2+(-0.02)^2+(-0.52)^2+(-0.72)^2 +(0.48)^2
+
+problem_set$ss <- sum(problem_set$dev_squared)
+
+unique(problem_set$ss)
+```
+
+
+7. Calculate the degrees of freedom.
+
+$$df = n - 1$$
+
+```{r}
+15 - 1
+
+problem_set$df <- problem_set$n - 1
+unique(problem_set$df)
+```
+
+
+8. Calculate the variance/mean squared error for your model.
+
+$$S^2 = \frac{\sum_{i = 1}^n(X_{i} - \overline{X})^2}{N - 1}$$
+
+```{r}
+4.54/14
+
+problem_set$var <- problem_set$ss/problem_set$df
+unique(problem_set$var)
+```
+
+
+9. Calculate the standard deviation for your sample. 
+
+$$S = \sqrt{\frac{\sum_{i = 1}^n(X_{i} - \overline{X})^2}{N - 1}}$$
+
+```{r}
+.32^2
+
+sqrt(.32)
+
+problem_set$sd_value <- sqrt(problem_set$var)
+unique(problem_set$sd_value)
+```
+
+
+10. Conduct a z-test using your sample and the population mean and population standard deviation. (*HINT* You'll need to calculate the population standard error.)
+
+$$\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{N}}$$
+
+```{r}
+problem_set$pop_sd <- 1.2
+problem_set$mu <- 3.5
+problem_set$pop_n <- 1000
+
+sqrt(1000)
+
+1.2/31.62
+# se is .04
+
+problem_set$sigma_se <- problem_set$pop_sd/sqrt(problem_set$pop_n)
+unique(problem_set$sigma_se)
+```
+
+
+$$z_{obt} = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}}$$
+
+```{r}
+(3.02 - 3.5)/.04
+
+problem_set$z_obt <- (problem_set$mean_value - problem_set$mu)/problem_set$sigma_se
+unique(problem_set$z_obt)
+```
+
+
+11. What is the z-critical value for a two-tailed z-test?
+
+Answer: 
+
+Now, for some reason you lost the standard deviation for the entire college. You decide that the z-test probably wasn't the best way to compare your sample to the whole college. You decide to estimate the population standard error by using your sample data. (The population mean will remain the same). 
+
+12. Calculate the standard error from your calculations using the mean. (Using S for the standard error to not get confused with Sigma. They are the same.)
+
+$$S_{\overline{X}} = \frac{S}{\sqrt{n}}$$
+
+```{r}
+sqrt(15)
+
+.57/3.87
+# se is .15
+
+problem_set$se_value <- problem_set$sd_value/sqrt(problem_set$n)
+unique(problem_set$se_value)
+```
+
+
+13. Calculate a one-sample t-test. 
+
+$$t_{obt} = \frac{\overline{X} -\mu}{S_{\overline{X}}}$$
+
+```{r}
+(3.02 - 3.5)/.15
+
+problem_set$t_obt <- (problem_set$mean_value - problem_set$mu)/problem_set$se_value
+unique(problem_set$t_obt)
+```
+
+14. Tell me whether the finding is statistically significant or not. (Look at the t-table)

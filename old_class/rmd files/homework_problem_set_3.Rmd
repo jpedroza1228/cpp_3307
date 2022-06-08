@@ -1,0 +1,97 @@
+---
+title: "Homework Problem Set 3"
+author: "JP"
+date: "9/8/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Calculate the standard deviation using either formula discussed in class.
+
+```{r, echo = TRUE, eval = TRUE}
+set.seed(090821)
+
+test_scores = c(81, 78, 91, 88, 95, 97, 99, 79, 73, 74)
+
+N = 10
+
+```
+
+```{r}
+test_scores
+```
+
+```{r}
+81^2 + 78^2 + 91^2 + 88^2 + 95^2 + 97^2 + 99^2 + 79^2 + 73^2 + 74^2
+# 73951 is sum of squared Xs
+
+81 + 78 + 91 + 88 + 95 + 97 + 99 + 79 + 73 + 74
+# sum of Xs is 855
+
+855^2
+# squared sum of Xs is 731025
+
+731025/10
+# 73102.5 is the right side of the numerator
+
+73951.0 - 73102.5
+# numerator is 848.5
+
+10 - 1
+# denominator is 9
+
+848.5/9
+# variance is 94.28
+
+sqrt(94.27778)
+# sd is 9.71
+
+sd(test_scores)
+
+```
+
+**Answer** 
+
+# SPSS Practice
+
+**For SPSS Answers, please see the syntax file in the `Answer Key` folder.**
+
+1. Gather descriptive statistics using the `descriptives` tab in SPSS for the following variables. (Get a screenshot of this table and put it on this word document.)
+  - ffq_sausage
+  - ffq_pizza_portion
+  - dass_stress_q1
+  - dass_depress_q7
+  
+**Picture Answer**
+
+2. Get the z-transformed variables from problem 1. (Screenshot the variables in either the `Data View` or the `Variable View`.)
+
+**Picture Answer**
+
+3. Get the descriptive statistics and the histograms for the z-transformed variables from problem 2. Use the `frequencies` tab for the descriptive statistics (Screenshot the table and one variable histogram and put it on this word document.)
+
+**Picture Answer**
+  
+4. Also, get either the bar graph of each variable from the previous problem using the `frequencies` tab. I do not need the descriptive statistics for this section. (Get a screenshot of one of the variables and put it on this word document.)
+
+**Picture Answer**
+
+5. Reverse score the `ffq_sausage` variable. To show that you did it correctly, get the frequencies of both the original variable and the new variable you created. (Get a screenshot the frequency tables and put it on this word document.)
+
+**Picture Answer**
+
+6. Dummy code the `ccc_class_standing` variable. Rename the variables in the `Variable View` to the names that correspond to the numbers. For example, 1 = Freshmen, 2 = Sophomore, 3 = Junior, 4 = Senior, 5 = Senior_plus. (Get a screenshot of the variables in the data or variable view and put it on this word document.)
+
+**Picture Answer**
+
+7. Create a composite score of the variables that start with `cpaq`. There should be 4 questions. Then get the descriptive statistics and histogram for the new variable you created. (Screenshot the table and the histogram and put it on this word document.)
+
+**Picture Answer**
+

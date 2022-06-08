@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza PhD" />
+    <meta name="date" content="2021-10-21" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## Analysis of Variance (ANOVA)
+### Jonathan A. Pedroza PhD
+### Cal Poly Pomona
+### 2021-10-21
+
+---
+
+
+
+
+# Agenda
+
+- Post-hoc tests
+  - Tukey HSD
+  - Bonferroni Correction
+- Effect sizes
+- Proportion of Variance Accounted For
+- What is an ANCOVA
+
+  
+---
+
+# Post-hoc Tests
+
+- **Tukey HSD (Honestly Significant Difference)** is a post hoc test for ANOVA to compare mean for each level in a factor
+  - used only when the `ns` in each level of the factor are equal
+  
+- it computes the the minimum difference between two means that is required for them to be significantly different
+
+- Bonferroni Correction
+  - based on your alpha, you get that value and divide by the number of tests you need to conduct
+
+---
+
+# From last class
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+2\\
+12\\
+14\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+31.67\\
+7\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+4.52\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Tukey Steps
+
+1. Find `q_{k}`, which are values of studentized range statistic
+  - We'll come back to studentized values
+  - locate the `k`
+  - find the `df_{wm}`
+
+2. Compute the HSD
+  
+`$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$`
+
+---
+
+3. Determine the differences between each pair of means
+
+4. Compare each difference between means to the Tukey HSD value
+  - if the absolute difference between two means is greater than the HSD then these differences are significantly different
+    
+    + similar to a independent samples t-test with a significant t-obtained value
+
+---
+
+# Example from last slides
+
+MS within = 7
+n = 5
+
+For `q_{k}`, we need k and `df_{wn}`
+df_wn = 12
+k = 3
+q_k = 3.77
+
+
+```r
+3.77*(sqrt(7/5))
+```
+
+```
+## [1] 4.460724
+```
+
+---
+
+Our Tukey HSD is `4.46`
+
+So now we compare the means of our three groups/levels
+
+
+```r
+8 - 6 # easy - medium
+```
+
+```
+## [1] 2
+```
+
+```r
+8 - 3 # easy - hard
+```
+
+```
+## [1] 5
+```
+
+```r
+6 - 3 # medium - hard
+```
+
+```
+## [1] 3
+```
+
+2 &lt; 4.46
+5 &gt; 4.46
+3 &lt; 4.46
+
+So only the difference between easy and the hard groups was a statistically significant finding at an alpha of .05
+
+---
+
+# Effect Size
+
+- cohen's d only really used for two-sample designs (t-tests)
+
+- rather, for ANOVA and regression, we will rely on **Proportion of variance accounted for**
+  - there are better effect sizes (most would argue that proportion of variance accounted for in regression models is not an effect size)
+
+- greater the eta squared, the more that our IV accounts for the DV
+
+- eta squared is the same as R squared
+
+- **eta squared** is the proportion of variance in the DV that is accounted for with the change in levels in the factor/IV
+
+---
+
+# Formula
+
+`$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$`
+
+- SS between is the differences between all the scores in the experiment
+  - it is also what we know our model is actually looking at
+  
+- because it is proportion, we can easily interpret it as the percentage that the change in groups/levels accounts for the DV score difference
+
+`$$ANOVA:\;eta^{squared} = \eta^2$$`
+
+`$$Regression:\;R^2$$`
+
+---
+
+# ANCOVA
+
+- conceptually the same thing as ANOVA but it includes covariates/control variables
+
+- ANCOVA = Analysis of Covariance
+
+- The same thing as multiple regression
+
+- You are still interested in differences between levels on your DV values, but now you include additional variables to help account for some of the variance in your DV
+
+---
+
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+SS_{bn}\\
+SS_{wn}\\
+SS_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+df_{bn}\\
+df_{wn}\\
+df_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Context
+
+You are trying out four different methods for helping participants with their depression. You decide to give out: medication only, individual therapy, group, and medication and individual therapy. Below are each level's depression levels at the end of the experiment. You are interested in a difference between the four groups. 
+
+
+```r
+data &lt;- data.frame(meds = c(4, 5, 4, 6, 5),
+                   ind_therapy = c(5, 4, 3, 5, 5),
+                   group = c(8, 8, 6, 9, 10),
+                   med_ind = c(3, 1, 3, 2, 1))
+
+data
+```
+
+```
+##   meds ind_therapy group med_ind
+## 1    4           5     8       3
+## 2    5           4     8       1
+## 3    4           3     6       3
+## 4    6           5     9       2
+## 5    5           5    10       1
+```
+
+---
+
+# Hypotheses
+
+H0: There will be no differences between the therapeutic approaches
+
+H1: There will be differences between the therapeutic approaches
+
+Even better,
+
+H1: The group that receives medication and individual therapy will have significantly better or worse depression rates than every other group.
+
+---
+
+# Step-by-step
+
+What is the k?
+
+
+
+---
+
+What is the number of participants per level?
+
+
+
+---
+
+What is the total number of participants?
+
+
+
+---
+
+What is the sum of each group?
+
+
+
+---
+
+What is the mean of each group?
+
+
+
+---
+
+What is the sum of squared Xs for reach group?
+
+
+
+---
+
+What is the total sum?
+
+
+
+---
+
+What is the total sum of all squared values?
+
+
+
+---
+
+What is the sum of squares total?
+
+`$$SS_{total} = \Sigma(X_{ij} - \overline{X})^2$$`
+
+`$$SS_{total} = \Sigma X^2_{total} - \frac{(\Sigma X_{total})^2}{N}$$`
+
+
+
+---
+
+What is the sum of squares between/treatment?
+
+`$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$`
+
+`$$SS_{bn} = \Sigma(\frac{(\Sigma X\;in\;each\;column)^2}{n\;in\;each\;column}) - \frac{(\Sigma X_{total})^2}{N}$$`
+
+
+
+---
+
+What is the sum of squares within/error?
+
+`$$SS_{wn} = SS_{total} - SS_{bn}$$`
+
+
+`$$SS_{error} = SS_{total} - SS_{treat}$$`
+
+
+
+---
+
+What are the degrees of freedom between?
+
+`$$df_{bn} = k - 1$$`
+
+
+
+---
+
+What are the degrees of freedom within? (N - k)
+
+
+
+---
+
+What are the degrees of freedom total? (N - 1)
+
+
+
+---
+
+What is the mean squares between value?
+
+`$$MS_{bn} = \frac{SS_{bn}}{df_{bn}}$$`
+
+
+
+
+---
+
+What is the mean squares within value?
+
+`$$MS_{wn} = \frac{SS_{wn}}{df_{wn}}$$`
+
+
+
+---
+
+What is the F-obtained value?
+
+`$$F_{obt} = \frac{MS_{bn}}{MS_{wn}}$$`
+
+
+
+---
+
+Calculate the Tukey HSD
+
+`$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$`
+
+
+
+---
+
+
+
+---
+
+# Effect Size
+
+`$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$`
+
+
+
+---
+
+What can we say?
+
+- There is no significant difference between medications and individual therapy in depression scores
+- There are lower depression scores in the group with individual therapy compared to group therapy
+- There are lower depression scores in the group with medications compared to group therapy
+- There are lower depression scores in the group with individual therapy and medications compared to group therapy
+- There are lower depression scores in the group with individual therapy and medications compared to medications alone
+- There are lower depression scores in the group with individual therapy and medications compared to individual therapy alone
+
+- Effect size: The differences in therapeutic styles accounted for 83.87% of the variance in depression scores in our sample.
+
+---
+
+
+```r
+data2 &lt;- data.frame(meds = c(4, 5, 4, 6, 5),
+                   ind_therapy = c(5, 4, 3, 5, 5),
+                   group = c(8, 8, 6, 9, 10),
+                   med_ind = c(3, 1, 3, 2, 1),
+                   control = c(10, 9, 8, 7, 9))
+
+data2
+```
+
+```
+##   meds ind_therapy group med_ind control
+## 1    4           5     8       3      10
+## 2    5           4     8       1       9
+## 3    4           3     6       3       8
+## 4    6           5     9       2       7
+## 5    5           5    10       1       9
+```
+
+---
+
+# Step-by-step
+
+What is the k?
+
+
+
+---
+
+What is the number of participants per level?
+
+
+
+---
+
+What is the total number of participants?
+
+
+
+---
+
+What is the sum of each group?
+
+
+
+---
+
+What is the mean of each group?
+
+
+
+---
+
+What is the sum of squared Xs for reach group?
+
+
+
+---
+
+What is the total sum?
+
+
+
+---
+
+What is the total sum of all squared values?
+
+
+
+---
+
+What is the sum of squares total?
+
+`$$SS_{total} = \Sigma(X_{ij} - \overline{X})^2$$`
+
+`$$SS_{total} = \Sigma X^2_{total} - \frac{(\Sigma X_{total})^2}{N}$$`
+
+
+
+---
+
+What is the sum of squares between/treatment?
+
+`$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$`
+
+`$$SS_{bn} = \Sigma(\frac{(\Sigma X\;in\;each\;column)^2}{n\;in\;each\;column}) - \frac{(\Sigma X_{total})^2}{N}$$`
+
+
+
+---
+
+What is the sum of squares within/error?
+
+`$$SS_{wn} = SS_{total} - SS_{bn}$$`
+
+
+`$$SS_{error} = SS_{total} - SS_{treat}$$`
+
+
+
+---
+
+What are the degrees of freedom between?
+
+`$$df_{bn} = k - 1$$`
+
+
+
+---
+
+What are the degrees of freedom within? (N - k)
+
+
+
+---
+
+What are the degrees of freedom total? (N - 1)
+
+
+
+---
+
+What is the mean squares between value?
+
+`$$MS_{bn} = \frac{SS_{bn}}{df_{bn}}$$`
+
+
+
+
+---
+
+What is the mean squares within value?
+
+`$$MS_{wn} = \frac{SS_{wn}}{df_{wn}}$$`
+
+
+
+---
+
+What is the F-obtained value?
+
+`$$F_{obt} = \frac{MS_{bn}}{MS_{wn}}$$`
+
+
+
+---
+
+Calculate the Tukey HSD
+
+`$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$`
+
+
+
+---
+
+
+
+---
+
+`$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$`
+
+
+
+---
+
+What can we say?
+
+- There is no significant difference between medications and individual therapy in depression scores
+- There are lower depression scores in the group with medications compared to group therapy
+- There are lower depression scores in the group with individual therapy and medications compared to medications alone
+- There are lower depression scores in the group with medications compared to the control group
+- There are lower depression scores in the group with individual therapy compared to group therapy
+
+---
+
+- There are lower depression scores in the group with individual therapy and medications compared to individual therapy alone
+- There are lower depression scores in the group with individual therapy compared to the control group
+- There are lower depression scores in the group with individual therapy and medications compared to group therapy
+- There are no significant differences between the group therapy group and the control group
+- There are lower depression scores in the group with individual therarpy and medications compared to the control group
+
+- Effect size: The differences in therapeutic styles accounted for 91.61% of the variance in depression scores in our sample.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

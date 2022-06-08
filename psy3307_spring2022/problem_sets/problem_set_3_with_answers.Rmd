@@ -1,0 +1,246 @@
+---
+title: "Problem Set 3"
+author: "JP"
+date: '2022-02-18'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 9999)
+library(tidyverse)
+```
+
+For this assignment, you will be measuring your participants' happiness level. It is on a scale from 1-10. Give me the following information. In addition to that, you'll fit a "model" with your own prediction of what would happen at your own choosing of happiness. For example, if you are interested in how the model fits with 10 on the happiness scale, you would include 10 to calculate the sum of squares/sum of squared errors. **If working with R/RStudio, make sure to copy everything below from the word `data` to the word `data`.**
+
+```{r}
+
+data <- data.frame(happiness = c(10, 9, 9, 7, 5,
+                                 2, 3, 1, 6, 7),
+                   mean = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   deviance = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   dev_squared = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   first_predict = c(3, 3, 3, 3, 3,
+                                     3, 3, 3, 3, 3),
+                   predict_dev_squared = c('', '', '', '', '',
+                            '', '', '', '', ''))
+
+data
+```
+
+
+1. What is the number of participants?
+
+Answer: **10 participants**
+
+```{r}
+data$n <- 10
+data
+```
+
+
+2. What is the mean happiness score?
+
+Answer: The average happiness score is **5.9** on the scale of 1-10.
+
+```{r}
+data$happy_sum <- (10+9+9+7+5+2+3+1+6+7)
+data
+data$mean_value <- 59/10
+data
+
+```
+
+
+3. What is the deviance between participants' scores and the mean happiness score?
+
+Answer: Below are the deviance scores for each participant.
+
+```{r}
+10-5.9
+9-5.9
+9-5.9
+7-5.9
+5-5.9
+2-5.9
+3-5.9
+1-5.9
+6-5.9
+7-5.9
+
+data$deviance <- data$happiness - data$mean_value
+data
+```
+
+$$(X_{i} - \overline{X})$$
+
+4. Calculate the sum of errors/total deviation.
+
+Answer: **~0 (or -3.55e-15)**
+
+```{r}
+4.1+3.1+3.1+1.1+(-.9)+(-3.9)+(-2.9)+(-4.9)+.1+1.1
+
+data$dev_sum <- sum(data$deviance)
+data
+```
+
+$$\sum_{i = 1}^n(X_{i} - \overline{X})$$
+
+5. Calculate the deviance squared for each participant. 
+
+Answer: Below are the squared values for each participant.
+
+```{r}
+(10-5.9)^2
+(9-5.9)^2
+(9-5.9)^2
+(7-5.9)^2
+(5-5.9)^2
+(2-5.9)^2
+(3-5.9)^2
+(1-5.9)^2
+(6-5.9)^2
+(7-5.9)^2
+
+data$dev_squared <- data$deviance^2
+data
+```
+
+$$(X_{i} - \overline{X})^2$$
+
+6. Calculate the sum of squared errors/sum of squares.
+
+Answer: The sum of squares is **86.9**.
+
+```{r}
+(10-5.9)^2 + (9-5.9)^2+ (9-5.9)^2 + (7-5.9)^2 + (5-5.9)^2 + (2-5.9)^2 + (3-5.9)^2 + (1-5.9)^2 + (6-5.9)^2 + (7-5.9)^2
+
+data$ss <- sum(data$dev_squared)
+data
+```
+
+
+$$\sum_{i = 1}^n(X_{i} - \overline{X})^2$$
+
+7. Calculate the degrees of freedom.
+
+Answer: Degrees of freedom is **9**.
+
+```{r}
+10-1
+
+data$df <- 10 - 1
+data
+
+```
+
+$$df = n - 1$$
+
+8. Calculate the variance/mean squared error for your model.
+
+Answer: Variance is **9.66**.
+
+```{r}
+86.9/9
+
+sd(data$happiness)^2
+
+data$var <- data$ss/data$df
+data
+```
+
+
+$$S^2 = \frac{\sum_{i = 1}^n(X_{i} - \overline{X})^2}{N - 1}$$
+
+9. Calculate the standard deviation for your sample. 
+
+Answer: Standard deviation is **3.11**.
+
+```{r}
+sqrt(9.66)
+
+data$sd_value <- sqrt(data$var)
+sd(data$happiness)
+data
+```
+
+$$S = \sqrt{\frac{\sum_{i = 1}^n(X_{i} - \overline{X})^2}{N - 1}}$$
+
+10. Make your prediction. You can include deviance, sum of errors, deviance squared values, and sum of squared errors calculations. 
+
+Answer: With a prediction of 3 on the happiness scale (not very happy), I'm going to test for the sum of squared errors/sum of squares. The sum of squares is **171**. So randomly choosing a happiness of 3 fit a worse fitting model than using the mean.
+
+```{r}
+10-3
+9-3
+9-3
+7-3
+5-3
+2-3
+3-3
+1-3
+6-3
+7-3
+
+data$pred_dev <- data$happiness - data$first_predict
+data
+
+(10-3)^2
+(9-3)^2
+(9-3)^2
+(7-3)^2
+(5-3)^2
+(2-3)^2
+(3-3)^2
+(1-3)^2
+(6-3)^2
+(7-3)^2
+
+data$predict_dev_squared <- data$pred_dev^2
+data
+
+(10-3)^2 + (9-3)^2 + (9-3)^2 + (7-3)^2 + (5-3)^2 + (2-3)^2 + (3-3)^2 + (1-3)^2 + (6-3)^2 + (7-3)^2
+data$ss_pred <- sum(data$predict_dev_squared)
+data
+```
+
+
+11. Calculate the standard error from your calculations using the mean.
+
+Answer: The standard error is **0.98**.
+
+```{r}
+3.11/sqrt(10)
+
+data$se <- data$sd_value/(sqrt(data$n))
+data
+```
+
+$$\sigma_{\overline{X}} = \frac{S}{\sqrt{N}}$$
+
+12. Calculate confidence intervals using a 95% z-score distribution. 
+
+Answer: The lower confidence interval was **3.97** and the upper confidence interval is **7.83**.
+
+```{r}
+5.9 - (1.96*.98)
+
+5.9 + (1.96*.98)
+
+data$lower_ci <- data$mean_value - (1.96*data$se)
+data$upper_ci <- data$mean_value + (1.96*data$se)
+
+data
+```
+
+$$lower = \overline{X} - (1.96*SE)$$
+
+$$upper = \overline{X} + (1.96*SE)$$
+
+13. What does the 95% confidence intervals tell us about the average happiness value we calculated? 
+
+Answer: The average happiness value for our sample was 5.9. I am 95% confident that the population average happiness value is between 3.97 and 7.83. 

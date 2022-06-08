@@ -1,0 +1,271 @@
+---
+title: "z-scores"
+subtitle: "PSY 3307"
+author: "Jonathan A. Pedroza, PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+
+theme_set(theme_light())
+options(scipen = 999)
+
+xvalues <- tibble(x = c(-3, 3))
+
+dnorm_one_sd <- function(x){
+  norm_one_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_one_sd[x <= -1 | x >= 1] <- NA
+  return(norm_one_sd)
+}
+
+
+dnorm_two_sd <- function(x){
+  norm_two_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_two_sd[x <= -2 | x >= 2] <- NA
+  return(norm_two_sd)
+}
+
+dnorm_three_sd <- function(x){
+  norm_three_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_three_sd[x <= -3 | x >= 3] <- NA
+  return(norm_three_sd)
+}
+
+area_one_sd <- round(pnorm(1) - pnorm(-1), 4)
+area_one_sd
+
+area_two_sd <- round(pnorm(2) - pnorm(-2), 4)
+area_two_sd
+
+area_three_sd <- round(pnorm(3) - pnorm(-3), 4)
+area_three_sd
+```
+
+
+# Agenda
+
+- distributions
+- z-scores
+- using z-scores
+
+---
+
+# Distributions
+
+- raw distribution is where the scores of a distribution are on whatever scale of the variable you are looking at
+  - Ex: looking at number of minutes studying for all students in your class/sample
+
+- z-score distribution is a distribution where all the scores are in standard deviation units
+
+- probability distribution is the distribution ranges from 0 to 1 of the likelihood of something happening (0 = not happening, 1 = event will definitely happen)
+  - **Probability Density Functions** is a mathematical formula to specify the distributions
+
+---
+
+# z-score
+
+### Sample z-score
+
+$$z = \frac{X - \overline{X}}{S}$$
+
+### Population z-score
+
+$$z = \frac{X - \overline{X}}{\sigma}$$
+
+---
+
+# Getting raw scores from a z-score
+
+$$X = (z)(S) + \overline{X}$$
+
+---
+
+# z-scores 
+
+- **z-score** is a statistic that indicates the distance a score is from the mean when measured in standard deviation units
+  - positive values are above the mean
+  - negative values are below the mean
+  
+---
+
+# z-score Example
+
+- Get a score of 90 to the mean of 60
+  - deviate of 30
+
+- Standard deviation of 10
+ 
+- Now means that the +30 score is 3 SD above the mean
+  -  30 score doesn't tell us much
+  - 3 sd tells us much more
+  - also tells us that the z-score is 3
+
+---
+
+# z-distribution to interpret scores
+
+- **z-distribution** is transforming all raw scores into z-scores
+
+- a z-score of 0 is the mean
+
+- the z-distribution also represents that everything has been standardized
+  - every variable is now comparable and on the same scale
+  
+---
+
+# JP Reminders
+
+- A z-distribution will always have the same shape as the raw score distribution
+
+- the mean is and will always be zero
+
+- the standard deviation is 1, even when the standard deviation of the raw scores is a different value (e.g., 10, 15, 100)
+
+- z-scores that are greater in either the positive or negative direction mean that values are less likely to occur
+
+---
+
+# Comparing Apples to Oranges
+
+- When using the z-distribution, every variable is put on the same scale
+
+- often referred to as **standardized scores**
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+library(tidyverse)
+ggplot(xvalues, aes(x = x)) + stat_function(fun = dnorm) + 
+  stat_function(fun = dnorm_one_sd, geom = "area", fill = "orange", alpha = 0.7) +
+  stat_function(fun = dnorm_two_sd, geom = "area", fill = "blue", alpha = 0.5) +
+  stat_function(fun = dnorm_three_sd, geom = "area", fill = "green", alpha = 0.3) +
+  geom_text(x = .5, y = 0.25, size = 4, fontface = "bold",
+            label = paste0((area_one_sd * 100)/2, "%")) +
+    geom_text(x = -.5, y = 0.25, size = 4, fontface = "bold",
+            label = paste0((area_one_sd * 100)/2, "%")) +
+  geom_text(x = 1.5, y = 0.05, size = 4, fontface = "bold",
+            label = paste0(round((pnorm(2) - pnorm(1))*100, 2), "%")) +
+  geom_text(x = -1.5, y = 0.05, size = 4, fontface = "bold",
+            label = paste0(round((pnorm(-1) - pnorm(-2))*100, 2), "%")) +
+  geom_text(x = 2.5, y = 0.008, size = 4, fontface = "bold",
+            label = paste0(round((pnorm(3) - pnorm(2))*100, 2), "%")) +
+  geom_text(x = -2.5, y = 0.008, size = 4, fontface = "bold",
+            label = paste0(round((pnorm(-2) - pnorm(-3))*100, 2), "%")) +
+  scale_x_continuous(breaks = c(-3:3)) + 
+  labs(x = "\nNumber of Standard Deviations From the Mean (z)", y = "f(z) \n", title = "Standard Normal Distribution \n",
+       caption = "Thanks to\nhttps://steemit.com/programming/@dkmathstats/creating-normal-distribution-plots-with-r-programming\nfor the assistance with the code.") +
+  geom_vline(xintercept = 0, color = "black", linetype = 2, alpha = .3) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12))
+```
+
+---
+
+# Standard Normal Curve
+
+- **Standard Normal Curve** is a perfect normal z-distribution that serves as the model of any approximately normal z-distribution
+
+- Approach is most common with
+  - large sample (or population)
+  - interval or ratio scores
+  - come close to forming a normal distribution
+
+- While z-scores past +-3SD are possible, they occur .0013 of the time, which is why we often only look at +-3SD
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+
+ggplot(xvalues, aes(x = x)) + stat_function(fun = dnorm) + 
+  stat_function(fun = dnorm_one_sd, geom = "area", fill = "orange", alpha = 0.7) +
+  stat_function(fun = dnorm_two_sd, geom = "area", fill = "blue", alpha = 0.5) +
+  stat_function(fun = dnorm_three_sd, geom = "area", fill = "green", alpha = 0.3) +
+  geom_text(x = 0, y = 0.25, size = 4, fontface = "bold",
+            label = paste0("<----------------", area_one_sd * 100, "%", "-------------->")) +
+  geom_text(x = 0, y = 0.05, size = 4, fontface = "bold",
+            label = paste0("<---------------------------------------", area_two_sd * 100, "%", "-------------------------------------->")) +
+  geom_text(x = 0, y = 0.008, size = 4, fontface = "bold",
+            label = paste0("<--------------------------------------------------------", area_three_sd * 100, "%", "-------------------------------------------------------->")) +
+  scale_x_continuous(breaks = c(-3:3)) + 
+  labs(x = "\n z", y = "f(z) \n", title = "Standard Normal Distribution \n") +
+  geom_vline(xintercept = 0, color = "black", linetype = 2, alpha = .3) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12))
+
+```
+
+---
+
+# Relative Frequency Using the z-Distribution
+
+- Calculate the z-score for one observation
+
+- Multiply by N
+
+- Answer will be the number of observations between the mean and the z-score you calculated
+
+- Then you can add up the other half to see all the observations that are at or below the score that the one observation had
+
+---
+
+# Example
+
+```{r}
+z_score = -1
+
+N = 100
+
+# 
+.3413*100
+
+50 - 34.13
+
+#15.87% of scores were at or below the z-score we calculated
+
+```
+
+---
+
+# Using the z-Table
+
+- In your Book at the end, you'll see the z-distribution
+
+- There are two ways to show this
+  - Area between mean and the z-score along with area beyond z in tail
+  - z-scores with the tenths position on the column and the hundredths position on the top row
+
+---
+
+# Using z-Scores to Describe Sample Means
+
+- **Sampling Distribution of Means** is the frequency distribution showing all possible sample means when samples are drawn from a population
+
+- Every time a population is sampled from, they will always be slightly different, with some means being higher and some being lower
+
+- **Central Limit Theorem** statistical concept that defines the mean, standard deviation, and shape of a sampling distribution
+  - Always follows some rules
+    + A sampling distribution is always an approximately normal distribution
+    + mean of sampling distribution equals mean of underlying raw score population used to create the sampling distribution
+      + \mu is the mean of the means
+    + standard deviation of the sampling distribution is related to the standard deviation of the raw score population
+    
+---
+
+# Central Limit Theorem
+
+- The use of this concept is that we can assume that our sample is representative of the population without having to sample the whole population

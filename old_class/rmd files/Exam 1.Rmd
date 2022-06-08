@@ -1,0 +1,511 @@
+---
+title: "Exam 1"
+author: "JP"
+date: "9/3/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+
+xvalues <- tibble(x = c(-3, 3))
+
+dnorm_one_sd <- function(x){
+  norm_one_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_one_sd[x <= -1 | x >= 1] <- NA
+  return(norm_one_sd)
+}
+
+
+dnorm_two_sd <- function(x){
+  norm_two_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_two_sd[x <= -2 | x >= 2] <- NA
+  return(norm_two_sd)
+}
+
+dnorm_three_sd <- function(x){
+  norm_three_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_three_sd[x <= -3 | x >= 3] <- NA
+  return(norm_three_sd)
+}
+
+area_one_sd <- round(pnorm(1) - pnorm(-1), 4)
+area_one_sd
+
+area_two_sd <- round(pnorm(2) - pnorm(-2), 4)
+area_two_sd
+
+area_three_sd <- round(pnorm(3) - pnorm(-3), 4)
+area_three_sd
+```
+
+```{r}
+set.seed(091921)
+x = rnorm(200, 50, 1)
+x2 = rnorm(200, -50, 1)
+y = rnorm(200, .8*x, sqrt(1-.8^2))
+z = rnorm(200, -.8*x, sqrt(1-.8^2))
+
+df_xy = data.frame(x, x2, y, z)
+
+```
+
+```{r}
+ggplot(df_xy, aes(x, y)) + 
+  geom_point() +
+  labs(x = " ",
+       y = " ") + 
+  theme_minimal()
+```
+
+Which is represented in the visual above?
+
+A positive relationship
+ - A negative relationship
+ - No relationship
+ - A heartfelt relationship 
+ 
+```{r}
+ggplot(df_xy, aes(x, x2)) + 
+  geom_point() +
+    labs(x = " ",
+       y = " ") +
+  theme_minimal()
+```
+
+Which is represented in the visual above?
+
+ - A positive relationship
+ - A negative relationship
+No relationship
+ - A heartfelt relationship 
+ 
+```{r}
+ggplot(df_xy, aes(x, z)) + 
+  geom_point() +
+    labs(x = " ",
+       y = " ") +
+  theme_minimal()
+```
+
+Which is represented in the visual above?
+
+ - A positive relationship
+A negative relationship
+ - No relationship
+ - A heartfelt relationship 
+
+What is another term for relationship is?
+
+  - An affair
+An association
+  - A relation
+  - A connection
+  
+What is the most important role of a sample?
+
+To generalize to a given population
+  - To be significantly different from a given population
+  - To be normally distributed
+  - To be large
+
+Inferential statistics is for summarizing your data to tell the reader how the data looks.
+
+  - TRUE
+FALSE
+
+Parameters are for populations and statistics are for samples.
+
+TRUE
+  - FALSE
+
+A researcher is interested in studying driving habits of drivers in California. The researcher decides to give a short survey about driving habits to individuals at the DMV that have just passed their driving tests to receive their licenses. Which response is the best choice to reflect the sample gathered?
+
+  - A representative sample
+An unrepresentative sample
+  - A population
+  - A group of awesome drivers
+
+You are interested in the difference between a different types of treatment for depression in a sample of college students. Some students receive no treatment, another group of students receive Cognitive Behavioral Therapy (CBT), and the last group of students receive a prescription for anti-depressants. All the students are randomly chosen to be in a group and at the end of the study, you decide to give them a survey to assess their level of depression. What are the independent (IV) and dependent variables (DV)?
+
+  - IV = depression levels, DV = treatment type
+IV = treatment type, DV = depression levels
+  - IV = receiving CBT, DV = depression levels
+  - IV = receiving anti-depressants, DV = depression levels
+  
+What are the conditions?
+
+  - depression levels, receiving CBT, receiving anti-depressants
+  - treatment type, no treatment, receiving CBT
+  - receiving CBT, receiving anti-depressants, no treatment, depression levels
+no treatment, receiving CBT, receiving anti-depressants
+  
+A correlational design was used for this example.
+
+  - TRUE
+FALSE
+
+Label each measurement type (ordinal, interval, ratio, interval) to the correct example: (Matching)
+
+Race/ethnicity
+Place in a race
+Temperature in Celcius
+The amount of physical cash in a wallet
+
+Frequency is the number of times a score occurs
+
+TRUE
+  - FALSE
+  
+What is the difference between a bar graph and a histogram?
+
+A bar graph is commonly used for discrete data
+  - A bar graph is commonly used for continuous data
+  - A histogram has spaces between the frequencies measured
+  - A histogram has lines, while a bar graph has bars
+
+You are dealing with some skewed distributions in your data; what should you use to address your skewed data?
+
+  - Mean
+Median
+  - Mode
+  - Standard deviation
+
+Name a case where you can have more than one mode.
+
+Bimodal distribution
+  - Negatively skewed data
+  - Positively skewed data
+  - Paranormal distribution
+
+You have 25 college students. You are interested in knowing the breakdown of sex in these 25 students. After counting, you see there are 17 male students and 8 female students. What is the relative frequency of female students?
+
+  - 25/17
+  - 17/25
+.32
+  - .68
+
+From the example above, what is the cumulative frequency of both males and females?
+
+25
+  - 8
+  - 17
+  - 10
+  
+What is the proportion of area under the curve if a participant is in the 50% percentile?
+
+  - 50%
+.50
+  - .05
+  - 100%
+
+The mode is the middle value of the distribution.
+
+  - TRUE
+FALSE
+  
+To calculate the mean you...
+  
+Get the sum of scores and divide by the number of observations
+  - Get the sum of scores squared and divide by N
+  - Get N and divide by the sum of squares
+  - Get the sum of squares
+  
+What is the median of the following set of numbers (2, 3, 4, 4, 5, 7, 9, 10, 12)?
+
+  - 4
+5
+  - 12
+  - 4.5
+  
+Which score deviates the most from a mean of 0?
+  
+  - -2
+-4
+  - 3
+  - .5
+  
+
+
+What is the mean?
+```{r}
+numbers = c(10, 10, 13, 14, 17, 18, 14, 13, 18, 12)
+
+numbers
+# choices are 14, 12.7, 13.9, 13
+
+# 13.9
+```
+
+
+What is the median for the following numbers
+```{r}
+numbers = c(10, 10, 13, 14, 17, 18, 14, 13, 18, 12)
+
+numbers
+# choices are 9, 14, 13, 13.5
+# 13.5
+```
+
+What is the mode(s) for the following numbers
+```{r}
+numbers = c(10, 10, 13, 14, 17, 18, 14, 13, 18, 12)
+
+numbers
+# multiple answers 10, 14, 13, 12, 18
+# 10, 13, 14, 18 are correct answers
+```
+
+
+What is the difference between a measure of variability and a measure of central tendency?
+
+  - Measures of central tendency measure the distance scores are from one another, while measures of variability indicate the center of a distribution
+Measures of variability measure the distance scores are from one another, while measures of central tendency indicate the center of a distribution
+  - They do the same thing
+  - Measures of central tendency measures the tendency to be central while measures of variability measures variables
+
+What is the difference between variance and standard deviation?
+
+  - Variance is a measure of central tendency and standard deviation is a measure of variability
+  - Variance is in square root units and standard deviation is in squared units
+Standard deviation is easier to interpret since variance is in squared units
+  - Variance is a larger distance from the mean than standard deviation
+
+
+I give out an exam, where student grades are 10, 8, 3, 15, and 30. What is the range of scores on this exam?
+
+choices are 15, 3, 8, 27
+27 is correct
+
+How is range calculated?
+
+  - You subtract the maximum value from the minimum value
+  - You add the minimum value to the maximum value
+You subtract the minimum value from the maximum value
+  - You divide the maximum value from the minimum value
+
+Unbiased estimators use sample data to estimate variability in the population
+  
+  - TRUE
+  - FALSE
+  
+To estimate the population variance and standard deviation you should...
+
+  - Subtract the total number of observations
+  - Subtract 2 from the total number of observations
+  - Add 1 to the total number of observations
+Subtract 1 from the total number of observations
+
+
+What are the following values referred to collectively? 8^2 + 10^2 + 3^2 + 8^2
+Sum of squared Xs
+  - Squared sum of X
+  - Xs squared 
+  - X squared
+
+
+Calculate the estimated population variance for the following problem. 
+
+29.07
+29.067
+29.0667
+
+```{r}
+scores = c(14, 17, 20, 8, 15, 10, 2, 9, 11, 6)
+
+scores
+```
+
+```{r}
+sd_scores = c(8, 9, 4, 7, 5, 3, 10, 4, 6, 2)
+
+sd_scores
+```
+
+Calculate the estimated population standard deviation for the following problem. Please show your work.
+
+Note. If using a R script, copy everything below.
+
+Answers
+2.66
+2.658
+2.6583
+
+
+$$ A^2_{x} = \frac{\Sigma(B - \overline{X})^2}{N - 1} $$
+
+What is A?
+  - Standard deviation
+  - Standard error of the mean
+Variance
+  - Deviation
+
+What is B?
+Each participant's observation
+  - Mean
+  - Standard deviation
+  - Standard error of the mean
+
+$$ A_{x} = \sqrt{\frac{B - \frac{(\Sigma X)^2}{N}}{C - 1}} $$
+What is A?
+Standard deviation
+  - Standard error of the mean
+  - Variance
+  - Deviation
+
+What is B?
+Sum of squared Xs
+  - Sum of Xs
+  - Mean
+  - Mu
+
+From the equation above, what is C?
+Number of observations
+  - Mean
+  - Median
+  - Standard error of the mean
+
+$$ z = \frac{\overline{X} - \mu}{A} $$
+
+From the equation above, what is A?
+
+  - Sample standard deviation
+  - Population standard deviation
+  - Standard error of the mean
+  - mu
+
+
+What is the difference between the sampling distribution and a distribution of raw scores?
+  - each score on the raw distribution is a mean
+each score on sampling distribution is a mean
+  - the standard deviation of a raw score distribution is always 1
+  - A raw score distribution is always symmetrical
+
+
+What is the mean and standard deviation of the z-distribution?
+
+  - Mean = 100, SD = 1
+  - Mean = 1, SD = 0
+Mean = 0, SD = 1
+  - Mean = 1, SD = 1
+
+What is the critical value for a two-tailed z-distribution?
+
+  - +-1.65
+  - +-1
++-1.96
+  - +-2
+
+What is the area at or under a z-score of 1.5?
+  - 
+  - 
+  - 
+  - 
+
+What is the area between a z-score of -.4 and the mean?
+  - 
+  - 
+  - 
+  - 
+
+
+
+```{r, echo = FALSE, eval = TRUE}
+ggplot(xvalues, aes(x = x)) + stat_function(fun = dnorm) + 
+  stat_function(fun = dnorm_one_sd, geom = "area", fill = "orange", alpha = 0.7) +
+  stat_function(fun = dnorm_two_sd, geom = "area", fill = "blue", alpha = 0.5) +
+  stat_function(fun = dnorm_three_sd, geom = "area", fill = "green", alpha = 0.3) +
+  # geom_text(x = 0, y = 0.25, size = 4, fontface = "bold",
+  #           label = paste0("<----------------", "___", "%", "-------------->")) +
+  # geom_text(x = 0, y = 0.05, size = 4, fontface = "bold",
+  #           label = paste0("<---------------------------------------", "___", "%", "-------------------------------------->")) +
+  geom_text(x = 0, y = 0.015, size = 4, fontface = "bold",
+            label = paste0("<--------------------------------------------------------", "___", "%", "-------------------------------------------------------->")) +
+  scale_x_continuous(breaks = c(-3:3)) + 
+  labs(x = "\n z", y = "f(z) \n", title = "Standard Normal Distribution \n") +
+  geom_vline(xintercept = 0, color = "black", linetype = 2, alpha = .3) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12))
+```
+
+
+What is the percentage for the area of the z-distribution between -3 and +3 sd?
+99.7%
+  - 99%
+  - 95%
+  - 100%
+
+
+```{r, echo = FALSE, eval = TRUE}
+
+ggplot(xvalues, aes(x = x)) + stat_function(fun = dnorm) + 
+  stat_function(fun = dnorm_one_sd, geom = "area", fill = "orange", alpha = 0.7) +
+  stat_function(fun = dnorm_two_sd, geom = "area", fill = "blue", alpha = 0.5) +
+  stat_function(fun = dnorm_three_sd, geom = "area", fill = "green", alpha = 0.3) +
+  geom_text(x = .5, y = 0.25, size = 4, fontface = "bold",
+            label = paste0("A", "%")) +
+    # geom_text(x = -.5, y = 0.25, size = 4, fontface = "bold",
+    #         label = paste0("___", "%")) +
+  # geom_text(x = 1.5, y = 0.05, size = 4, fontface = "bold",
+  #           label = paste0("B", "%")) +
+  # geom_text(x = -1.5, y = 0.05, size = 4, fontface = "bold",
+  #           label = paste0(round((pnorm(-1) - pnorm(-2))*100, 2), "%")) +
+  # geom_text(x = 2.5, y = 0.008, size = 4, fontface = "bold",
+  #           label = paste0(round((pnorm(3) - pnorm(2))*100, 2), "%")) +
+  # geom_text(x = -2.5, y = 0.008, size = 4, fontface = "bold",
+  #           label = paste0("C", "%")) +
+  scale_x_continuous(breaks = c(-3:3)) + 
+  labs(x = "\nNumber of Standard Deviations From the Mean (z)", y = "f(z) \n", title = "Standard Normal Distribution \n",
+       caption = "Thanks to\nhttps://steemit.com/programming/@dkmathstats/creating-normal-distribution-plots-with-r-programming\nfor the assistance with the code.") +
+  geom_vline(xintercept = 0, color = "black", linetype = 2, alpha = .3) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12))
+```
+
+In the visual above, how much area is between either +1sd and the mean (A)?
+  - 34%
+  - 38%
+  - 68%
+  - 95%
+
+
+You are interested in studying all UC doctoral students and the amount of coffee they drink in a given day. You find out that all UC doctoral students, on average, drink 4 cups of coffee a day, with a standard deviation of 3.1. You decide to see if a sample of 500 students that you gathered are similar to all UC doctoral students. You see that these 500 students have on average 4.3 cups of coffee a day. What is the standard error of the mean?
+
+```{r}
+3.1/sqrt(500)
+
+4/sqrt(500)
+
+4.3/sqrt(500)
+```
+
+```{r}
+(4.3 - 4)/.139
+
+(4 - 4.3)/.179
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

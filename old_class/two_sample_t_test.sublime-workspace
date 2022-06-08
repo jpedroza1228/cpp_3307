@@ -1,0 +1,178 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 130.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/cpppe/Desktop/keys.R",
+		"/C/Users/cpppe/Desktop/github_projects/dissertation/gce_key.json",
+		"/C/Users/cpppe/Desktop/gce_key.json",
+		"/C/Users/cpppe/Desktop/rhs data/scripts/modeling_special_edition.Rmd",
+		"/E/UO/R Projects/accult stress health behaviors/paper_analyses_all.Rmd",
+		"/C/Users/cpppe/AppData/Local/Temp/kite_tutorial.py",
+		"/C/Users/cpppe/Downloads/after_oakplots.R",
+		"/C/Users/cpppe/Downloads/GMT20201117-220328_Jonathan-P.transcript.vtt",
+		"/C/Users/cpppe/Desktop/python_stuff/practice_python/pandas_practice.ipynb",
+		"/C/Users/cpppe/Desktop/github_projects/Final_ML_Blog/_posts/2020-11-30-shoe-me-what-youre-working-with-data-desc/show-me-what-youre-working-with-data-desc.Rmd",
+		"/C/Users/cpppe/AppData/Local/Temp/Temp1_NPS_TrailStandard_20161021.zip/NPS_TrailStandard_20161021/NPS_TRAIL_20161021.xml",
+		"/C/Users/cpppe/Desktop/python_stuff/python_script.py"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "two_sample_t_test.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,121 @@
+---
+title: "All Important Formulas"
+author: "JP"
+date: "9/30/2021"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Variance (with unbiased estimators)
+
+$$S^2_{X} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+# Standard Deviation (with unbiased estimators)
+
+$$ s_{x} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}} $$
+
+# z-score for individual participants
+
+$$ z = \frac{X - \overline{X}}{S_{X}} $$
+
+# Raw Score From z-Score
+
+$$ X = (z)(S_{X}) + \overline{X} $$
+
+# Standard Error for z-test
+
+$$\sigma_{\overline{X}} = \frac{\sigma_{X}}{\sqrt{N}}$$
+
+# z-score for z-test
+
+$$z_{obt} = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}}$$
+
+# Standard Error for one sample t-test
+
+$$S_{\overline{X}} = \frac{S_{X}}{\sqrt{N}}$$
+
+# one sample t-test
+
+$$t_{obt} = \frac{\overline{X} - \mu}{S_{\overline{X}}}$$
+
+# Standard Error change
+
+$$S_{\overline{X}} = \sqrt{\frac{S^2_{x}}{N}}$$
+
+
+# Confidence Interval Calculations
+
+$$ (s_{\overline{x}})(-t_{crit}) + \overline{X} \; \leq \;  \mu \; \leq \; (s_{\overline{x}})(t_{crit}) + \overline{X} $$
+
+# Independent Samples t-test hypotheses
+
+$$ H0: \mu_{1} - \mu_{2} = 0 $$
+
+$$ H1: \mu_{1} - \mu_{2} \neq 0 $$
+
+# Pooled Variance
+
+$$S^2_{pool} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{(n_{1} - 1) + (n_{2} - 1)}$$
+
+# Standard Error of the Difference
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(S^2_{pool})(\frac{1}{n_{1}} + \frac{1}{n_{2}})}$$
+
+# t-obtained for independent samples t-test
+
+$$t_{obt} = \frac{(\overline{X_{1}} - \overline{X_{2}}) - (\mu_{1} - \mu_{2})}{S_{\overline{X_{1}} - \overline{X_{2}}}}$$
+
+# Degrees of Freedom for Independent Samples t-test
+
+$$df = (n_{1} - 1) + (n_{2} - 1)$$
+
+# r Effect Size for independent samples t-test and paired samples t-test
+
+$$r^2_{pb} = \sqrt{\frac{(t_{obt})^2}{(t_{obt})^2 + df}}$$
+Reminder: r effect sizes are .1 = small, .3 = medium, .5 = large
+
+# Cohen's d Effect Size for Independent Samples t-test
+
+Reminder: subtract the mean of the control group from the manipulated group
+
+Reminder: the standard deviation will be from the control group
+
+Reminder: cohen's d effect sizes are .2 = small, .5 = medium, .8 = large
+
+$$d = \frac{(\overline{X_{1}} - \overline{X_{2}})}{S_{2}}$$
+
+# Confidence intervals for independent samples t-test
+
+$$Lower\;Bound: (\overline{X}_{1} - \overline{X}_{2}) - t_{\alpha/2}\;*\;\sqrt{\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}}$$
+
+$$Upper\;Bound: (\overline{X}_{1} - \overline{X}_{2}) + t_{\alpha/2}\;*\;\sqrt{\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}}$$
+
+# Cohen's d Effect Size for Paired Samples t-test
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+# df for paired-samples t-test
+
+$$df = N - 1$$
+
+# Estimated Variance for Difference Scores
+
+$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+# Standard Error of the Mean Differences
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+# t-obtained value for paired-samples t-test
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+
+#

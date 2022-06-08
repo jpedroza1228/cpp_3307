@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza PhD" />
+    <meta name="date" content="2021-10-14" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## Analysis of Variance (ANOVA)
+### Jonathan A. Pedroza PhD
+### Cal Poly Pomona
+### 2021-10-14
+
+---
+
+
+
+
+# Agenda
+
+- Review t-tests
+- Overview of Analysis of Variance (ANOVA)
+  - Quick Review of all the different types of ANOVA
+    + One-way ANOVA
+    + Two-way ANOVA
+    + Factorial ANOVA
+    + Repeated-measures ANOVA
+    + Mixed-effect ANOVA
+- Components of ANOVA
+- Performing ANOVA
+- Post-hoc Tests (Tukey's HSD Test)
+- Effect Size and Eta^2
+- JP is Including More
+
+---
+
+# Review t-tests
+
+- Things we need to remember
+  - How to read a table (z, t, and now F)
+  - Differences between within- and between-designs
+  - What is an IV, DV, and conditions
+
+---
+
+# Analysis of Variance (ANOVA)
+
+- **Factor** is just another word for IV
+
+- A **level** is the same thing as a condition (from t-tests) and similar to a t-test, ANOVA has to do with differences between or among sample means
+  - however ANOVA does not have restrictions on the number of groups we can test
+
+- `k` is the symbol for the number of levels in a factor
+  - otherwise known as the number of conditions in an IV
+
+`$$k = number\;of\;levels\;in\;factor$$`
+
+---
+
+# Example of the Absurdity 
+
+
+```
+## Warning: Missing column names filled in: 'X1' [1]
+```
+
+```
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   state_fips_code = col_character(),
+##   county_fips_code = col_character(),
+##   fips_code = col_character(),
+##   state_abbreviation = col_character(),
+##   county_name = col_character(),
+##   reading_scores_aian = col_logical(),
+##   math_scores_aian = col_logical(),
+##   communicable_disease = col_logical(),
+##   cancer_incidence = col_logical(),
+##   coronary_heart_disease_hospitalizations = col_logical(),
+##   cerebrovascular_disease_hospitalizations = col_logical(),
+##   smoking_during_pregnancy = col_logical(),
+##   opioid_hospital_visits = col_logical(),
+##   alcohol_related_hospitalizations = col_logical(),
+##   motor_vehicle_crash_occupancy_rate = col_logical(),
+##   on_road_motor_vehicle_crash_related_er_visits = col_logical(),
+##   childhood_immunizations = col_logical(),
+##   reading_proficiency = col_logical(),
+##   w_2_enrollment = col_logical(),
+##   poverty = col_logical()
+##   # ... with 17 more columns
+## )
+## i Use `spec()` for the full column specifications.
+```
+
+```
+## Warning: 2165 parsing failures.
+##  row                                      col           expected       actual                                                                                             file
+## 3098 communicable_disease                     1/0/T/F/TRUE/FALSE 923.16280686 'https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/county20_sub.csv'
+## 3098 cancer_incidence                         1/0/T/F/TRUE/FALSE 466.9        'https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/county20_sub.csv'
+## 3098 coronary_heart_disease_hospitalizations  1/0/T/F/TRUE/FALSE 2.8793188267 'https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/county20_sub.csv'
+## 3098 cerebrovascular_disease_hospitalizations 1/0/T/F/TRUE/FALSE 2.5567201393 'https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/county20_sub.csv'
+## 3098 smoking_during_pregnancy                 1/0/T/F/TRUE/FALSE 0.1119272232 'https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/county20_sub.csv'
+## .... ........................................ .................. ............ ................................................................................................
+## See problems(...) for more details.
+```
+
+---
+
+
+```r
+aov_find &lt;- aov(adult_smoking ~ state_abbreviation, data = data)
+summary(aov_find)
+```
+
+```
+##                      Df Sum Sq Mean Sq F value              Pr(&gt;F)    
+## state_abbreviation   50  2.338 0.04676   80.92 &lt;0.0000000000000002 ***
+## Residuals          3142  1.815 0.00058                                
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+---
+
+
+```r
+tukey_find &lt;- TukeyHSD(aov_find)
+tukey_find$`state_abbreviation`[1:10, 1:4]
+```
+
+```
+##               diff          lwr        upr           p adj
+## AK-CA  0.087343654  0.065752343 0.10893497 0.0000000000000
+## AL-CA  0.079242299  0.062110931 0.09637367 0.0000000000000
+## AR-CA  0.083350172  0.066642931 0.10005741 0.0000000000000
+## AZ-CA  0.043470569  0.016330229 0.07061091 0.0000002016392
+## CO-CA  0.022238079  0.004924024 0.03955213 0.0003319958281
+## CT-CA -0.001099152 -0.035556182 0.03335788 1.0000000000000
+## DC-CA  0.038867947 -0.030362089 0.10809798 0.9909882820559
+## DE-CA  0.042165472 -0.007583593 0.09191454 0.3079515102058
+## FL-CA  0.070667490  0.053536122 0.08779886 0.0000000000000
+## GA-CA  0.061787805  0.047121974 0.07645364 0.0000000000000
+```
+
+---
+
+# Another Reason Why I Like Regression
+
+- In a real-life scenario, you would already have a hypothesis where you would be interested in whether or not a state is different from the rest
+
+- Therefore, you'd already have a reference group to compare everyone to and just need to run one test
+
+- Below is the same test, just through a regression framework
+
+---
+
+
+```r
+lm_find &lt;- lm(adult_smoking ~ state_abbreviation, data = data)
+summary(lm_find)
+```
+
+```
+## 
+## Call:
+## lm(formula = adult_smoking ~ state_abbreviation, data = data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.07620 -0.01314 -0.00115  0.01065  0.24411 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)           0.120788   0.003129  38.598 &lt; 0.0000000000000002 ***
+## state_abbreviationAK  0.087344   0.005390  16.205 &lt; 0.0000000000000002 ***
+## state_abbreviationAL  0.079242   0.004277  18.529 &lt; 0.0000000000000002 ***
+## state_abbreviationAR  0.083350   0.004171  19.984 &lt; 0.0000000000000002 ***
+## state_abbreviationAZ  0.043471   0.006775   6.416   0.0000000001609179 ***
+## state_abbreviationCO  0.022238   0.004322   5.145   0.0000002839612803 ***
+## state_abbreviationCT -0.001099   0.008602  -0.128             0.898331    
+## state_abbreviationDC  0.038868   0.017283   2.249             0.024584 *  
+## state_abbreviationDE  0.042165   0.012419   3.395             0.000694 ***
+## state_abbreviationFL  0.070667   0.004277  16.524 &lt; 0.0000000000000002 ***
+## state_abbreviationGA  0.061788   0.003661  16.876 &lt; 0.0000000000000002 ***
+## state_abbreviationHI  0.004873   0.010300   0.473             0.636138    
+## state_abbreviationIA  0.037774   0.003946   9.573 &lt; 0.0000000000000002 ***
+## state_abbreviationID  0.020741   0.004757   4.360   0.0000134333660949 ***
+## state_abbreviationIL  0.037535   0.003925   9.564 &lt; 0.0000000000000002 ***
+## state_abbreviationIN  0.078731   0.004001  19.679 &lt; 0.0000000000000002 ***
+## state_abbreviationKS  0.041179   0.003904  10.547 &lt; 0.0000000000000002 ***
+## state_abbreviationKY  0.102313   0.003817  26.806 &lt; 0.0000000000000002 ***
+## state_abbreviationLA  0.097335   0.004322  22.519 &lt; 0.0000000000000002 ***
+## state_abbreviationMA  0.012178   0.006951   1.752             0.079863 .  
+## state_abbreviationMD  0.023188   0.005736   4.042   0.0000541700332905 ***
+## state_abbreviationME  0.041134   0.006617   6.217   0.0000000005747961 ***
+## state_abbreviationMI  0.055081   0.004083  13.490 &lt; 0.0000000000000002 ***
+## state_abbreviationMN  0.028997   0.004045   7.169   0.0000000000009353 ***
+## state_abbreviationMO  0.083841   0.003844  21.812 &lt; 0.0000000000000002 ***
+## state_abbreviationMS  0.082862   0.004093  20.244 &lt; 0.0000000000000002 ***
+## state_abbreviationMT  0.047953   0.004464  10.741 &lt; 0.0000000000000002 ***
+## state_abbreviationNC  0.053935   0.003939  13.693 &lt; 0.0000000000000002 ***
+## state_abbreviationND  0.050437   0.004527  11.142 &lt; 0.0000000000000002 ***
+## state_abbreviationNE  0.025540   0.003992   6.397   0.0000000001820520 ***
+## state_abbreviationNH  0.028419   0.007894   3.600             0.000323 ***
+## state_abbreviationNJ  0.019746   0.006005   3.288             0.001019 ** 
+## state_abbreviationNM  0.050001   0.005176   9.661 &lt; 0.0000000000000002 ***
+## state_abbreviationNV  0.054738   0.006472   8.457 &lt; 0.0000000000000002 ***
+## state_abbreviationNY  0.032766   0.004355   7.524   0.0000000000000689 ***
+## state_abbreviationOH  0.071424   0.004035  17.699 &lt; 0.0000000000000002 ***
+## state_abbreviationOK  0.069781   0.004147  16.825 &lt; 0.0000000000000002 ***
+## state_abbreviationOR  0.033532   0.005041   6.652   0.0000000000339306 ***
+## state_abbreviationPA  0.058727   0.004277  13.732 &lt; 0.0000000000000002 ***
+## state_abbreviationRI  0.014937   0.010300   1.450             0.147118    
+## state_abbreviationSC  0.059827   0.004700  12.730 &lt; 0.0000000000000002 ***
+## state_abbreviationSD  0.050012   0.004291  11.654 &lt; 0.0000000000000002 ***
+## state_abbreviationTN  0.102683   0.003976  25.823 &lt; 0.0000000000000002 ***
+## state_abbreviationTX  0.028669   0.003473   8.256 &lt; 0.0000000000000002 ***
+## state_abbreviationUT -0.020682   0.005390  -3.837             0.000127 ***
+## state_abbreviationVA  0.049078   0.003756  13.068 &lt; 0.0000000000000002 ***
+## state_abbreviationVT  0.026162   0.006951   3.764             0.000170 ***
+## state_abbreviationWA  0.019686   0.004923   3.999   0.0000651598872471 ***
+## state_abbreviationWI  0.040070   0.004208   9.522 &lt; 0.0000000000000002 ***
+## state_abbreviationWV  0.108596   0.004484  24.216 &lt; 0.0000000000000002 ***
+## state_abbreviationWY  0.040882   0.005820   7.025   0.0000000000026156 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.02404 on 3142 degrees of freedom
+## Multiple R-squared:  0.5629,	Adjusted R-squared:  0.5559 
+## F-statistic: 80.93 on 50 and 3142 DF,  p-value: &lt; 0.00000000000000022
+```
+
+---
+
+
+```r
+broom::tidy(lm_find)
+```
+
+```
+## # A tibble: 51 x 5
+##    term                 estimate std.error statistic   p.value
+##    &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 (Intercept)           0.121     0.00313    38.6   4.13e-267
+##  2 state_abbreviationAK  0.0873    0.00539    16.2   8.82e- 57
+##  3 state_abbreviationAL  0.0792    0.00428    18.5   7.99e- 73
+##  4 state_abbreviationAR  0.0834    0.00417    20.0   9.75e- 84
+##  5 state_abbreviationAZ  0.0435    0.00678     6.42  1.61e- 10
+##  6 state_abbreviationCO  0.0222    0.00432     5.14  2.84e-  7
+##  7 state_abbreviationCT -0.00110   0.00860    -0.128 8.98e-  1
+##  8 state_abbreviationDC  0.0389    0.0173      2.25  2.46e-  2
+##  9 state_abbreviationDE  0.0422    0.0124      3.40  6.94e-  4
+## 10 state_abbreviationFL  0.0707    0.00428    16.5   7.02e- 59
+## # ... with 41 more rows
+```
+
+
+---
+
+![](analysis_of_variance_update_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+# Breaking Down A One-way ANOVA
+
+- **One-way ANOVA** is when we have an IV that has multiple levels (3+)
+  - **NOTE** if you were to go on to SPSS and run a one-way ANOVA with the `sex` variable you would get the same answer
+  - Essentially the same test being run
+
+- Similar to a t-test, this also has within- and between-subjects designs
+
+- Now instead of a t-table, we will be using a F-table
+
+---
+
+# We Are Now Working With Modeling
+
+- There's just one problem. We have to work with ANOVA modeling
+
+- **ANOVA** is a parametric procedure for dterming whether significant differences occur in an experiment containing two or more sample means
+
+`$$X_{ij} = \mu + \gamma_{j} + \epsilon_{ij}$$`
+
+- mu is the grand mean
+- gamma is the specific treatment effect for group j (which group you are interested in looking at)
+- epsilon if the error/residual of a specific individual (how much an individual deviates from the group's mean)
+
+---
+
+# Assumptions
+
+- **homogeneity of variance** is the assumption that each population has the same variance
+
+`$$\sigma^2_{1} = \sigma^2_{2} = \sigma^2_{3} = ...$$`
+
+- **error variance** variance unrelated to any treatment differences
+
+- **heterogeneity of variance** is when populations have different variances
+
+- **normality** DV values are normally distributed
+
+- **independence** observations are independent of one another
+  - it really is that the residual/error is independent but for now we'll keep it as observations are different from one another
+
+- The `n` in each level doesn't have to be exactly the same but they should not be drastically different
+
+---
+
+# Controlling Experiment-Wise Error Rate
+
+- I had mentioned this previously that multiple independent-samples t-tests could do the same thing as a one-way ANOVA
+
+- **experiment-wise error rate** is the probability of making a Type I error when comparing all means in an experiment
+
+- with an F-test we are less likely to commit a type I error because we are not running all the tests possible
+
+---
+
+# Example
+
+
+```r
+jp &lt;- rio::import(here::here("jp_thesis_1.sav")) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  rowid_to_column() %&gt;% 
+  rename(sex = ccc_gender)
+```
+
+---
+
+![](analysis_of_variance_update_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+bmi_aov &lt;- aov(ccc_bmi ~ factor(sex), data = jp)
+summary(bmi_aov)
+```
+
+```
+##              Df Sum Sq Mean Sq F value Pr(&gt;F)
+## factor(sex)   1      3   2.515   0.086  0.769
+## Residuals   370  10793  29.169
+```
+
+```r
+TukeyHSD(bmi_aov)
+```
+
+```
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = ccc_bmi ~ factor(sex), data = jp)
+## 
+## $`factor(sex)`
+##           diff       lwr      upr     p adj
+## 2-1 -0.1775135 -1.366163 1.011136 0.7691805
+```
+
+---
+
+
+```r
+t.test(ccc_bmi ~ factor(sex), data = jp, var.equal = TRUE)
+```
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  ccc_bmi by factor(sex)
+## t = 0.29366, df = 370, p-value = 0.7692
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.011136  1.366163
+## sample estimates:
+## mean in group 1 mean in group 2 
+##        26.32931        26.15180
+```
+
+---
+
+# Steps to Conduct ANOVA
+
+- Hypotheses
+  - Similar to the independent-samples t-test, a one-way ANOVA's null hypothesis states that there is no difference between the levels/conditions
+  - We just have more levels in a one-way ANOVA. 
+  
+- our null hypothesis would be
+
+`$$H0: \mu_1 = \mu_2 = \mu_3$$`
+
+`$$H1: not\;all\;\mu\;are\;equal$$`
+
+- our alternative/research hypothesis is not that all groups would be significantly different from one another
+
+- **JP Note** another option is to state that one group will be significantly different from the other groups
+
+---
+
+# F statistic
+
+- Steps to ANOVA
+
+1. Compute a F-statistic
+
+2. Conduct a post-hoc test
+
+---
+
+# F-statistic
+
+- we compute a F-statistic to see if any means are different
+  - Significant F-statistic then there are differences somewhere between the multiple levels
+  - Non-significant F-statistic means there are no differences between any levels
+
+- The F-statistic only tells us whether or not a significant difference is found between any of the levels
+
+- F-obtained is compared to a F-critical value to find statistical significance
+
+---
+
+# Post-hoc Tests OR Planned Comparisons
+
+- Post-hoc often refers to after the fact
+
+- Post-hoc tests are often considered after finding a statistically significant F-statistic
+
+- like t-tests when comparing all combinations of each levels to see if there differences between two specific levels
+
+- Planned comparisons are when you are interested in having a specific levels being different from the other levels
+
+---
+
+# Post-hoc Tests
+
+- only look at post-hoc findings if there is a significant F-statistic
+
+- no post-hoc tests are run when you only have two levels
+
+---
+
+# Different Types of Post-hoc Tests
+
+- **Tukey Test or Tukey's HSD (Honestly Significant Difference)**
+
+- Fisher's Least Significant Difference (LSD) Procedure
+
+- Newman-Keuls Test
+
+- Scheffe Test
+
+- Dunnett's Test
+
+- Benjamini-Hochberg Test
+
+- **Bonferroni Test/Correction**
+  - whatever alpha you are using, you then divide by the number of tests you conduct
+  - alpha = .05, and you run 20 tests
+  
+--
+
+- We'll get to these in the upcoming weeks (if only shortly)
+
+---
+
+# Bonferroni Correction Examples
+
+- Alpha = .05, number of tests = 20
+  -new p-value should be .0025
+
+
+```r
+.05/20
+```
+
+```
+## [1] 0.0025
+```
+
+- alpha = .05, number of tests = 10
+  - new p-value = _____
+
+---
+
+# Contrasts
+
+- **a priori comparison** or before data is collected
+  - also called **contrasts**
+
+- **post hoc comparison** after data has been collected, looked at descriptive statistics, and somtimes...
+  - they've looked at their test results
+  
+- gets complicated with the type of contrast chosen
+  - linear contrasts
+  - orthogonal contrasts
+
+---
+
+# Unequal Sample Sizes
+
+- ANOVA is robust to slightly unequal sample sizes
+  - like the example we did in SPSS
+  
+- **balanced designs** are when each level has the same amount of participants
+
+- formula corrections are needed for unequal samples (see below)
+
+- another option to make sure your levels are all equal in number of observations (n) is to fill in potential missing data
+  - old-school methods include changing missing values to the mean or median
+  - new-school methods include things like full-information maximum likelihood or multiple imputation (real fancy stuff)
+
+---
+
+# Componenets of ANOVA
+
+`$$S^2_{x} = \frac{\Sigma(X - \overline{X})^2}{N - 1}$$`
+
+`$$S^2_{X} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$`
+
+`$$S^2_{x} = \frac{Sum\;of\;Squares\;(SS)}{Degrees\;of\;Freedom\;(df)}$$`
+
+---
+
+# Terminology
+
+- Sum of Squares is broken down into three different categories
+  - Sum of Squares Total
+  - Sum of Squares Between/Treatment
+  - Sum of Squares Within/Error
+  
+`$$SS_{total}$$`
+`$$SS_{bn} = SS_{treat}$$`
+
+`$$SS_{wn} = SS_{error}$$`
+  
+---
+
+- `Sum of squares (SS)`/`degrees of freedom (df)` is equal to `mean square`
+
+- `mean square` is often seen as `MS`
+
+- when referring to ANOVA, `sum of the squared deviations` is called `sum of squares`
+
+- this calculation of sum of squares divided by the degrees of freedom is called `mean square` or `MS`
+
+- so our variance calculation is really our mean square in ANOVA
+  - this is because we are calculating the `mean square within groups` and `mean square between groups`
+  
+---
+
+# Formulas for Sum of Squares
+
+`$$SS_{total} = \Sigma(X_{ij} - \overline{X})^2$$`
+
+- This means that every value (i) within each level/group/condition (j) is put into this equation and then subtracting the `grand mean`
+
+- **the grand mean** is the mean of all the observations of each level or the mean of each level's mean
+
+`$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$`
+
+`$$SS_{error} = SS_{total} - SS_{treat}$$`
+
+- Sum of squares error is actually the sum of each score within each level minus the mean for that level and then added all together to get the final value
+
+---
+
+`$$SS_{error} = \Sigma(X_{ij} - \overline{X_{j}})^2$$`
+
+`$$SS_{wn\;level1} = \Sigma((first\;observation - level\;1\;mean)^2 + (second\;observation - level\;1\;mean)^2 + ...$$`
+
+---
+
+# Unequal Sample Size Correction
+
+`$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$`
+
+will become 
+
+`$$SS_{treat} = \Sigma[n_{j}(\overline{X_{j}} - \overline{X})^2]$$`
+
+so this would then include the n for each group/level/condition
+
+---
+
+# Mean Square Within Groups
+
+- **MS within groups** describes the variability in scores within the conditions/levels of an experiment
+
+`$$MS_{wn}$$`
+
+- we find differences among values in each level/condition and "pool" them together
+
+- **MS within groups** is the "average" variability of scores within each level
+
+- it is essentially a measure of variability of individual scores
+
+---
+
+# Mean Square Between Groups
+
+- **MS between groups** is the differences between the means of each condition/level in a factor/IV
+
+`$$MS_{bn}$$`
+
+- measure difference between the means by treating them as scores, with an "average" amount they deviate from their mean, which in this case is the overall mean of the experiment
+
+- similar to how scores deviate from a mean, this is a measure of the deviations of sample means from the overall mean
+
+---
+
+# The F-ratio
+
+- MS between groups tells us whether or not the levels differ from one another and support our null/alternative hypotheses
+
+- MS within groups estimates variability of individual scores
+
+- if working with one population, our MS between should equal our MS within
+
+- so if our null is true the MS between should be the same answer as the MS within
+
+- **F-ratio** is a fraction consisting of MS between divided by the MS within or
+
+`$$F_{obt} = \frac{MS_{bn}}{MS_{wn}}$$`
+
+---
+
+# F-ratio
+
+- while it is unlikely that an exact value of 1 would be a F-obtained value, a value around 1 should be supportive of the null hypothesis
+
+- the larger the F-ratio the more likely that the result is from sampling error or from the IV
+
+- if our F-obtained value is larger than the F-critical value then we reject the null and accept the alternative/research hypothesis
+
+---
+
+# Performing an ANOVA
+
+- before beginning, its important to note that for many of the calculations symbols will be similar like `MS` but it is important to note the subscripts
+
+`$$MS_{bn} \neq MS_{wn}$$`
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+SS_{bn}\\
+SS_{wn}\\
+SS_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+df_{bn}\\
+df_{wn}\\
+df_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Computing for a F-obtained value
+
+Steps for getting the F-obtained value
+
+1. Calculate the sum of squares
+
+2. Calculate the degrees of freedom
+
+3. Calculate the mean squares
+
+4. Calculate the F-obtained value
+
+---
+
+
+```r
+difficulty &lt;- data.frame(easy = c(9, 12, 4, 8, 7),
+                         medium = c(4, 6, 8, 2, 10),
+                         hard = c(1, 3, 4, 5, 2))
+```
+
+---
+
+
+```r
+easy_sum = 9+12+4+8+7
+med_sum = 4+6+8+2+10
+hard_sum = 1+3+4+5+2
+
+easy_sum
+```
+
+```
+## [1] 40
+```
+
+```r
+med_sum
+```
+
+```
+## [1] 30
+```
+
+```r
+hard_sum
+```
+
+```
+## [1] 15
+```
+
+---
+
+
+```r
+easy_sum2 = 9^2+12^2+4^2+8^2+7^2
+med_sum2 = 4^2+6^2+8^2+2^2+10^2
+hard_sum2 = 1^2+3^2+4^2+5^2+2^2
+
+easy_sum2
+```
+
+```
+## [1] 354
+```
+
+```r
+med_sum2
+```
+
+```
+## [1] 220
+```
+
+```r
+hard_sum2
+```
+
+```
+## [1] 55
+```
+
+---
+
+
+```r
+easy_n = 5
+med_n = 5
+hard_n = 5
+
+easy_mean = easy_sum/easy_n
+med_mean = med_sum/med_n
+hard_mean = hard_sum/hard_n
+
+easy_mean
+```
+
+```
+## [1] 8
+```
+
+```r
+med_mean
+```
+
+```
+## [1] 6
+```
+
+```r
+hard_mean
+```
+
+```
+## [1] 3
+```
+
+---
+
+# Total Sum of all the Values
+
+
+```r
+total_sum = easy_sum + med_sum + hard_sum
+total_sum
+```
+
+```
+## [1] 85
+```
+
+---
+
+# Total Sum of all the Squared Values
+
+
+```r
+total_sum2 = easy_sum2 + med_sum2 + hard_sum2
+total_sum2
+```
+
+```
+## [1] 629
+```
+
+---
+
+# Total N
+
+
+```r
+total_n = easy_n + med_n + hard_n
+total_n
+```
+
+```
+## [1] 15
+```
+
+---
+
+# k or the number of levels/conditions
+
+
+```r
+k = 3
+k
+```
+
+```
+## [1] 3
+```
+
+---
+
+# Computing the Sums of Squares Total
+
+`$$SS_{total} = \Sigma X^2_{total} - \frac{(\Sigma X_{total})^2}{N}$$`
+
+`$$SS_{total} = 629 - \frac{(85)^2}{15}$$`
+
+---
+
+
+```r
+85^2
+```
+
+```
+## [1] 7225
+```
+
+`$$SS_{total} = 629 - \frac{7225}{15}$$`
+
+---
+
+
+```r
+7225/15
+```
+
+```
+## [1] 481.6667
+```
+
+
+`$$SS_{total} = 629 - 481.67$$`
+
+---
+
+
+```r
+629 - 481.67
+```
+
+```
+## [1] 147.33
+```
+
+`$$SS_{total} = 147.33$$`
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+SS_{bn}\\
+SS_{wn}\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+df_{bn}\\
+df_{wn}\\
+df_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Sums of Squares Between
+
+`$$SS_{bn} = \Sigma(\frac{(\Sigma X\;in\;each\;column)^2}{n\;in\;each\;column}) - \frac{(\Sigma X_{total})^2}{N}$$`
+
+`$$SS_{bn} = \Sigma(\frac{(40)^2}{5} + \frac{(30)^2}{5} + \frac{(15)^2}{5}) - \frac{(85)^2}{15}$$`
+
+---
+
+
+```r
+40^2
+```
+
+```
+## [1] 1600
+```
+
+```r
+30^2
+```
+
+```
+## [1] 900
+```
+
+```r
+15^2
+```
+
+```
+## [1] 225
+```
+
+```r
+85^2
+```
+
+```
+## [1] 7225
+```
+
+`$$SS_{bn} = \Sigma(\frac{1600}{5} + \frac{900}{5} + \frac{225}{5}) - \frac{7225}{15}$$`
+
+---
+
+
+```r
+1600/5
+```
+
+```
+## [1] 320
+```
+
+```r
+900/5
+```
+
+```
+## [1] 180
+```
+
+```r
+225/5
+```
+
+```
+## [1] 45
+```
+
+```r
+7225/15
+```
+
+```
+## [1] 481.6667
+```
+
+`$$SS_{bn} = (320 + 180 + 45) - 481.67$$`
+
+---
+
+
+```r
+(320 + 180 + 45) - 481.67
+```
+
+```
+## [1] 63.33
+```
+
+
+`$$SS_{bn} = 63.33$$`
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+SS_{wn}\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+df_{bn}\\
+df_{wn}\\
+df_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Sum of Squares Within Groups
+
+`$$SS_{wn} = SS_{total} - SS_{bn}$$`
+
+
+```r
+147.33 - 63.33
+```
+
+```
+## [1] 84
+```
+
+---
+
+# Using the other way
+
+`$$SS_{total} = \Sigma(X_{ij} - \overline{X})^2$$`
+
+`$$SS_{treat} = n \Sigma(\overline{X_{j}} - \overline{X})^2$$`
+
+`$$SS_{error} = SS_{total} - SS_{treat}$$`
+
+---
+
+
+```r
+difficulty
+```
+
+```
+##   easy medium hard
+## 1    9      4    1
+## 2   12      6    3
+## 3    4      8    4
+## 4    8      2    5
+## 5    7     10    2
+```
+
+```r
+grand_mean = (9 + 12 + 4 + 8 + 7 + 4 + 6 + 8 + 2 + 10 + 1 + 3 + 4 + 5 + 2)/total_n
+grand_mean
+```
+
+```
+## [1] 5.666667
+```
+
+```r
+(easy_mean + med_mean + hard_mean)/3
+```
+
+```
+## [1] 5.666667
+```
+
+---
+
+
+```r
+ss_total = (9 - grand_mean)^2 + (12 - grand_mean)^2 + (4 - grand_mean)^2 + (8 - grand_mean)^2 + (7 - grand_mean)^2 +
+  (4 - grand_mean)^2 + (6 - grand_mean)^2 + (8 - grand_mean)^2 + (2 - grand_mean)^2 + (10 - grand_mean)^2 +
+  (1 - grand_mean)^2 + (3 - grand_mean)^2 + (4 - grand_mean)^2 + (5 - grand_mean)^2 + (2 - grand_mean)^2
+
+ss_total
+```
+
+```
+## [1] 147.3333
+```
+
+---
+
+
+```r
+ss_treat = 5*((easy_mean - grand_mean)^2 + (med_mean - grand_mean)^2 + (hard_mean - grand_mean)^2)
+
+ss_treat
+```
+
+```
+## [1] 63.33333
+```
+
+---
+
+
+```r
+ss_error = ss_total - ss_treat
+
+ss_error
+```
+
+```
+## [1] 84
+```
+
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+df_{bn}\\
+df_{wn}\\
+df_{total}\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Calculating degrees of freedom
+
+- df between groups is simply the number of `groups/levels/conditions - 1`
+
+`$$df_{bn} = k - 1$$`
+
+
+```r
+3 - 1
+```
+
+```
+## [1] 2
+```
+
+- df within groups is `N - k`
+
+
+```r
+15 - 3
+```
+
+```
+## [1] 12
+```
+
+- df total is still `N - 1`
+
+
+```r
+15 - 1
+```
+
+```
+## [1] 14
+```
+
+
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+2\\
+12\\
+14\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+MS_{bn}\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Computing the Mean Squares
+
+`$$MS_{bn} = \frac{SS_{bn}}{df_{bn}}$$`
+
+`$$MS_{bn} = \frac{63.33}{2}$$`
+
+---
+
+
+```r
+63.33/2
+```
+
+```
+## [1] 31.665
+```
+
+
+`$$MS_{bn} = 31.67$$`
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+2\\
+12\\
+14\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+31.67\\
+MS_{wn}\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Computing the Mean Square within Groups
+
+`$$MS_{wn} = \frac{SS_{wn}}{df_{wn}}$$`
+
+`$$MS_{wn} = \frac{84}{12}$$`
+
+---
+
+
+```r
+84/12
+```
+
+```
+## [1] 7
+```
+
+`$$MS_{wn} = 7$$`
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+2\\
+12\\
+14\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+31.67\\
+7\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+F_{obt}\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Calculating the F-statistic
+
+`$$F_{obt} = \frac{MS_{bn}}{MS_{wn}}$$`
+
+`$$F_{obt} = \frac{31.67}{7}$$`
+
+---
+
+
+```r
+31.67/7
+```
+
+```
+## [1] 4.524286
+```
+
+`$$F_{obt} =4.52$$`
+
+---
+
+# Filling in the Table
+
+`$$\left[\begin{array}{cc} 
+Source\\
+Between\\
+Within\\
+Total
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Sum\;of\;Squares\\
+63.33\\
+84\\
+147.33\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+df\\
+2\\
+12\\
+14\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Mean Square\\
+31.67\\
+7\\
+\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+F-ratio\\
+4.52\\
+\\
+\\
+\end{array}\right]$$`
+
+---
+
+# Interpreting the F-obtained value
+
+- **F-distribution** is the sampling distribution with values of F to represent when H0 is true and all conditions represent one population (no differences between groups/levels)
+
+- F cannot be less than zero
+
+- There is no limit to how large an F-obtained value can be
+
+- the mean of the F-distribution is 1
+
+- F-distribution shape also depends on the df
+
+---
+
+# F-table
+
+- uses alpha, df within, df between
+
+- line up the df within with the df between and choose the value based on the alpha decided on
+
+- the F-table only tells us one thing, `is there a statistically significant difference between the means of the three groups/conditions/levels`
+
+- in order to see which specific group comparisons are significantly different from one another, we will rely on post-hoc tests or examination of the contrasts
+
+---
+
+# Writing up Findings
+
+- when reporting, you would first include the test that you ran and the context
+  - how many groups, your IV, your DV
+
+- you would then report the F statistic
+  - F(df between, df within) = F obtained value, p value
+
+- then you would report the post-hoc tests, which would include the group/level means that were statistically significant from one another
+
+- lastly you would report the effect size/eta squared (we'll get to this next week)
+
+---
+
+# Next Class
+
+- We'll talk about:
+  - effect sizes
+  - calculations for post-hoc tests
+  - proportions of variance accounted for
+  - slight introduction to what an ANCOVA is
+  
+---
+
+Practice Problems
+
+You are interested in ways your class (N = 30) can increase their happiness. You are testing two methods to improve happiness and one control group. Your groups are: 1 = having plants to take care of (n = 10), 2 = support animal (n = 10), 3 = control (n = 10). You are interested in there is a significant difference between these three groups on your students happiness. 
+
+---
+
+
+```r
+set.seed(101421)
+
+plants &lt;- rnorm(10, mean = 80, sd = 11)
+animal &lt;- rnorm(10, mean = 40, sd = 8.4)
+control &lt;- rnorm(10, mean = 50, sd = 2.1)
+
+happy &lt;- data.frame(plants,
+                   animal,
+                   control)
+
+happy
+```
+
+```
+##       plants   animal  control
+## 1   90.71611 49.36230 46.56667
+## 2   62.01473 34.80282 48.64966
+## 3   71.23168 38.74386 48.14495
+## 4   78.82846 43.41543 50.64383
+## 5   60.72292 33.21453 49.84474
+## 6  107.16287 36.53926 50.35684
+## 7   67.26932 32.73007 50.33949
+## 8   79.73614 47.87016 49.10797
+## 9   84.54266 22.45582 51.92304
+## 10  86.23949 31.74746 53.10834
+```
+
+---
+
+You are having a movie marathon of all your favorite spooky movies to watch. You decide to make a competition between you and your friends by seeing whose method of staying away longer will allow you to watch more movies in a weekend. You decide that you and some others (n = 5) are going to drink two pots of coffee each day to stay away all weekend. Another group (n = 5) decide that they are going to drink energy drinks to stay up. Your last group of friends (n = 5) are going to rely on each other to stay up by shaking each other awaken. You are interested in what group will stay up the latest. 
+
+---
+
+
+```r
+set.seed(101421)
+
+coffee &lt;- rnorm(5, mean = 20, sd = 4.5)
+energy &lt;- rnorm(5, mean = 43, sd = 1.2)
+support &lt;- rnorm(5, mean = 10, sd = .5)
+
+spooky &lt;- data.frame(coffee,
+                     energy,
+                     support)
+
+spooky
+```
+
+```
+##     coffee   energy   support
+## 1 24.38386 45.96322 10.557279
+## 2 12.64239 41.61120  9.690644
+## 3 16.41296 42.97121  9.925230
+## 4 19.52073 43.49556 10.203300
+## 5 12.11392 43.68067  9.596103
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

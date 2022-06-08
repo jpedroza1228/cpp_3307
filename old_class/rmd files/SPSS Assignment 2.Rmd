@@ -1,0 +1,149 @@
+---
+title: "SPSS Assignment 2"
+author: "JP"
+date: "10/26/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Context (20 points)
+
+You are interested in whether there are differences in snack eating between different racial/ethnic groups. You think there will be differences between the racial/ethnic groups but you're not sure which group will have a higher score. Your hypothesis should revolve around that Latino group. Your tasks will be to create hypotheses, conduct both descriptive and inferential statistics, and visualizations for descriptive and inferential statistics. You will submit your answers to anything that is not SPSS specific (hypotheses, t critical value, write up) on this **word document and will turn in this document** as well as your **SPSS output file**. Email me if you have any questions about submitting both documents. 
+
+## Create a `null` and `alternative` hypothesis (in words) (2 points)
+
+H0:
+
+H1: 
+
+## Recode `ccc_ethnicity` into `race_ethnicity` (2 point)
+
+- put your initials after your newly created variable
+
+```{r}
+library(tidyverse)
+
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column()
+```
+
+```{r}
+jp <- jp %>% 
+  mutate(snack = (ffq_cake_portion + ffq_saltysnacks_portion + ffq_chocolate_portion + ffq_icecream_portion)/4,
+         race = case_when(ccc_ethnicity == 0 ~ 1,
+                          ccc_ethnicity == 1 ~ 1,
+                          ccc_ethnicity == 2 ~ 2,
+                          ccc_ethnicity == 3 ~ 3,
+                          ccc_ethnicity == 4 ~ 4,
+                          ccc_ethnicity == 5 ~ 1,
+                          ccc_ethnicity == 6 ~ 1))
+```
+
+
+- please provide values in the `variable view`
+
+## Make changes to race/ethnicity to (you can choose what you name your variable):
+
+0 --> 1: other
+1 --> other
+2 --> black/african american
+3 --> white/caucasian
+4 --> latino
+5 --> other
+6 --> other
+
+## Get a composite average score for `snack_foods` (2 points)
+
+- there are 4 variables (`cake portion`, `saltysnacks portion`, `chocolate portion`, `icecream portion`) that will make up the composite score
+
+## Conduct descriptive statistics for the following variables (2 points)
+
+- please write out what the mean and standard deviation for the composite score to get full credit
+
+- make sure to include your initials after the composite score
+
+- `race_ethnicity`
+- `cake portion`
+- `saltysnacks portion`
+- `chocolate portion`
+- `icecream portion`
+- `snack food avg variable`
+
+
+```{r}
+jp %>% 
+  summarize(mean = mean(snack),
+            sd = sd(snack))
+```
+
+```{r}
+jp %>% 
+  ggplot(aes(snack)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 15)
+```
+
+```{r}
+jp %>% 
+  ggplot(aes(race)) + 
+  geom_bar()
+```
+
+```{r}
+jp %>% 
+  group_by(race) %>% 
+  summarize(n = n()) %>% 
+```
+
+
+## Get a descriptive visual for the composite score (1 point)
+
+- is the skewness acceptable for the composite score
+
+- is the distribution "normal" enough
+
+## Conduct inferential statistic (one-way ANOVA) (1 point)
+
+```{r}
+aov_find <- aov(snack ~ factor(race), data = jp)
+summary(aov_find)
+TukeyHSD(aov_find)
+```
+
+- report the correct inferential statistics in the form of a F-statistic; e.g., *F*(df between, df within) = F value, p value 
+
+F(3, 368) = 2.67, p = .048
+
+## Tell me what groups are significantly different from one another (2 points)
+
+## Tell me whether or not your finding (F statistic) is statistically significant (1 point)
+
+## find the F-critical value for a two-tailed test (2 points)
+
+- look at your F table to see the F critical value for your test
+
+## Show some type of visualization that shows the difference in the racial/ethnic groups on stress levels (could be line plot or boxplot) (2 points)
+
+```{r}
+jp %>% 
+  ggplot(aes(factor(race), snack)) + 
+  geom_boxplot(aes(fill = factor(race)))
+```
+
+## Reject/Retain the Null Hypothesis? (1 point)
+
+## Write up on your findings (only the comparisons between the Latino group with the other racial/ethnic groups) (2 points)
+
+A one-way anova was run comparing race/ethnicity in their snacking outcome. The F test was statistically significant showing that there was differences between race/ethnicities in how many snacks they were eating; F(3, 368) = 2.67, p = .048. Specifically, there was a significant difference in the amount of snacks eaten between the Latino group and the Black/African American group (p = .025). There were no significant differences between the Latino group and the other group and the Latino group and the White group. 
+
+```{r}
+jp %>% 
+  group_by(race) %>% 
+  summarize(mean = mean(snack),
+            sd = sd(snack)) %>% 
+  ungroup()
+```
+

@@ -1,0 +1,90 @@
+---
+title: "All formulas You'll Need To Know... And More"
+author: "Jonathan A. Pedroza, PhD"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+# Beginning
+
+### The Mean
+$$\overline{X} = \frac{\displaystyle \sum_{i = 1}^n x_{i}}{N}$$
+
+### Deviance
+
+$$deviance = x_{i} - \overline{x}$$
+
+### Total Deviance
+
+$$total\;deviance = \displaystyle \sum_{i = 1}^n(x_{i} - \overline{x})$$
+
+### Sum of Squared Errors
+
+$$SS = \displaystyle \sum_{i = 1}^n(x_{i} - \overline{x})^2$$
+
+### Variance
+
+$$s^2 = \frac{SS}{N - 1}$$
+
+$$s^2 = \frac{\displaystyle \sum_{i = 1}^n(x_{i} - \overline{x})^2}{N - 1}$$
+
+### Standard Deviation
+
+$$s = \sqrt{\frac{\displaystyle \sum_{i = 1}^n(x_{i} - \overline{x})^2}{N - 1}}$$
+
+### z transformation
+
+$$z = \frac{X - \overline{X}}{s}$$
+
+### Mean Squared Error
+
+$$mean\;sqaured\;error = \frac{SS}{df}$$
+
+$$mean\;sqaured\;error = \frac{\displaystyle \sum_{i = 1}^n(x_{i} - \overline{x})^2}{N - 1}$$
+
+### Standard Error of the Mean
+
+$$\sigma_{\overline{X}} = \frac{s}{\sqrt{N}}$$
+
+### Confidence Intervals (CI)
+
+- Lower CI
+
+$$lower\;CI = \overline{X} - (z_{\frac{1 - p}{2}} X\;SE)$$
+
+- Upper CI
+
+$$upper\;CI = \overline{X} + (z_{\frac{1 - p}{2}} X\;SE)$$
+
+### p critical value
+
+$$P_{crit} = \frac{\alpha}{k}$$
+
+### Cohen's d
+
+$$\hat{d} = \frac{\overline{X_{1}} - \overline{X_{2}}}{s}$$
+
+$$d = \frac{\overline{\mu_{1}} - \overline{\mu_{2}}}{\sigma}$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

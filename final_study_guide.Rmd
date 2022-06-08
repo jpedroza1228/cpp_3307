@@ -1,0 +1,104 @@
+---
+title: "Final Study Guide"
+author: "Jonathan A. Pedroza, PhD"
+date: '2022-05-03'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Know what the difference between a correlation and a regression
+
+2. Know the difference between a correlation coefficient and a regression coefficient
+
+3. Know how categorical predictors are included in a regression
+
+4. Know how a two-way ANOVA and a moderation analysis are different and the same
+
+5. Know the different types of moderation analyses.
+
+6. Know what centering is
+
+7. Know how to interpret $b$ values
+
+8. Know how to interpret $\beta$ values
+
+9. Know the difference between $b$ values and $\beta$ values
+
+10. Know what simple slopes analyses are.
+
+11. Know what the intercept is with various amounts of variation in predictors (e.g., multiple predictors including both continuous and categorical predictors)
+
+12. Know the differences between predicted and actual values/scores
+
+13. Know the difference between a simple linear regression and a multiple linear regression
+
+14. Know what a residual is
+
+15. Know how to assess goodness of fit; including the use of sum of squares values and $R^2$ values
+
+16. Know the assumptions for a linear regression, including but not limited to: linearity, independence of residuals, homoscedasticity, normally distributed errors, non-zero variance, external variables, and multicollinearity
+
+17. Know what test is used for significance testing for both correlation and regression
+
+18. Know how to check for bias in regression models
+
+19. Know which of the residuals is the better option and know which is the worse
+
+20. Know the general rules for using measures of distance to assess influential cases
+
+21. Know how many participants should be available for each predictor in a regression model
+
+22. Know the difference between a hierarchical regression, a simultaneous regression, and an automated regression
+
+23. Know what a nested model is.
+
+24. Know how to assess whether a finding is statistically significant or not
+
+25. Know the differences between each factorial design
+
+26. Know the difference between a one-way ANOVA and a two-way ANOVA
+
+27. Know what dummy coding is.
+
+28. Know which groups are compared when running a two-way ANOVA with an interaction between two categorical independent variables/predictors
+
+29. Know how many F tests are present when running a two-way ANOVA
+
+30. Know how to interpret F tests
+
+31. Know what *type* of test an F test is
+
+32. Know what the differences is between a main effect and an interaction
+
+33. Know how to report each test (e.g., correlation, two-way ANOVA, and regression)
+
+34. Know the differences between covariance and correlation
+
+35. Know the range of correlation
+
+36. Know what corss-product deviations
+
+37. Know how to calculate the covariance
+
+38. Know what standardization is
+
+39. Know the difference between the correlation coefficients
+
+40. Know the issues that arise from using correlation or regression techniques
+
+41. Know the difference between correlation coefficient and a coefficient of determination
+
+42. Know the difference between point-biserial and biserial correlation coefficients
+
+43. Know what a partial correlation is
+
+44. Know how partial correlations are related to regression models
+
+45. Know the difference between a partial and semi-partial correlation
+
+46. Know the effect sizes for tests
+
+47. Know how to report correlation coefficients

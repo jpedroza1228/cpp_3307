@@ -1,0 +1,158 @@
+---
+title: "SPSS Assignment 3 Answers"
+author: "JP"
+date: "11/15/2021"
+output: word_document  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+
+theme_set(theme_minimal())
+```
+
+# Context (20 points)
+
+You are interested in looking at depression levels in a sample of college students. You were originally interested in the relationship between body mass index (BMI) categories and depression levels. Specifically, that there would be differences between normal BMI (< 25.1), overweight (25.1 - 30), and obese (> 30) categories. You then became interested in whether these differences in BMI categories was dependent on if one's race/ethnicity was Latino or not a Latino. You hypothesize that there would be a significant interaction between BMI categories and race/ethnicity on depression levels. Conduct the test that would be used to answer your hypothesis. 
+
+1. What test will you be running? (1 point)
+
+2. Create a depression composite score (2 points)
+
+- include your initials for full credit in the variable name
+
+3. Create caetegories for BMI (2 points)
+
+- Normal = BMI < 25.1
+- Overweight = BMI > 25 and BMI < 30.1
+- Obese = BMI > 30
+
+4. Create categories for Race/ethnicity (2 points)
+
+- 4 --> 1 (latino group)
+- every other category  (0, 1, 2, 3, 5, 6) --> 2 (not latino group)
+
+5. Run descriptives statistics (2 points)
+
+- report the mean and SD for the composite score
+
+- run descriptive statistics on all the depression items, bmi (continuous), bmi (categorical), and race/ethnicity (latino and not latino)
+
+6. Get descriptive visual for the composite score (1 point)
+
+- is the skewness acceptable
+
+- is it "normal" enough
+
+7. Conduct the inferential statistic for the test you decided to run (2 points)
+
+8. Report all the F statistics (2 main effects & 1 interaction; 3 points)
+
+- should look like this: F(#, #) = F value, p value
+
+9. Show a visualization of the interaction (3 points)
+
+10. Look at the simple effects and tell me what groups are significantly different from one another (1 points)
+
+11. Write up your findings. (1 point)
+
+
+```{r, include = FALSE}
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  rename(sex = ccc_gender) %>% 
+  mutate(bmi = ccc_bmi,
+         depression = (dass_depress_q1 + dass_depress_q2 + dass_depress_q3 + dass_depress_q4 + dass_depress_q5 + dass_depress_q6 + dass_depress_q7)/7,
+         bmi_cat = case_when(bmi > 30 ~ "obese",
+                         bmi < 30.1 & bmi > 25 ~ "overweight",
+                         bmi < 25.1 ~ "normal"),
+         race = case_when(ccc_ethnicity != 4 ~ "not_latino",
+                          ccc_ethnicity == 4 ~ "latino")) 
+
+jp %>% 
+  group_by(bmi_cat, race) %>% 
+  mutate(mean_depress = mean(depression),
+            sd_depress = sd(depression)) %>% 
+  ungroup() %>% 
+  ggplot(aes(fct_reorder(bmi_cat, bmi), mean_depress, group = race)) + 
+  geom_line(aes(color = race)) + 
+  geom_point(aes(color = race))
+
+two_way <- aov(depression ~ bmi_cat*race, data = jp)
+summary(two_way)
+TukeyHSD(two_way)
+em_means <- emmeans::emmeans(two_way, ~ bmi_cat | race)
+em_means
+
+emmeans::contrast(em_means, "revpairwise", by = "race", adjust = "none")
+
+latino <- jp %>% 
+  filter(race == "latino")
+
+not_latino <- jp %>% 
+  filter(race == "not_latino")
+
+latino_aov <- aov(depression ~ bmi_cat, data = latino)
+summary(latino_aov)
+TukeyHSD(latino_aov)
+
+not_latino_aov <- aov(depression ~ bmi_cat, data = not_latino)
+summary(not_latino_aov)
+TukeyHSD(not_latino_aov)
+
+```
+
+```{r, include = FALSE}
+
+interaction_lm <- lm(depression ~ bmi_cat*race, data = jp)
+summary(interaction_lm)
+
+jp %>% 
+  group_by(bmi_cat, race) %>% 
+  summarize(mean = mean(depression)) %>% 
+  ungroup() %>% 
+  ggplot(aes(bmi_cat, mean, group = race)) + 
+  geom_line(aes(color = race)) + 
+  geom_point(aes(color = race)) 
+
+latino_lm <- lm(depression ~ bmi_cat, data = latino)
+summary(latino_lm)
+
+latino %>% 
+  group_by(bmi_cat) %>% 
+  summarize(mean = mean(depression)) %>% 
+  ungroup() %>% 
+  ggplot(aes(bmi_cat, mean)) + 
+  geom_point()
+
+nest_latino <- latino %>% 
+  group_by(bmi_cat) %>% 
+  nest() %>% 
+  mutate(lm_find = map(data, ~lm(depression ~ 1, data = .x)))
+
+nest_latino$lm_find
+
+not_latino_lm <- lm(depression ~ bmi_cat, data = not_latino)
+summary(not_latino_lm)
+
+not_latino %>% 
+  group_by(bmi_cat) %>% 
+  summarize(mean = mean(depression)) %>% 
+  ungroup() %>% 
+  ggplot(aes(bmi_cat, mean)) + 
+  geom_point()
+
+nest_not_latino <- not_latino %>% 
+  group_by(bmi_cat) %>% 
+  nest() %>% 
+  mutate(lm_find = map(data, ~lm(depression ~ 1, data = .x)))
+
+nest_not_latino$lm_find
+
+```
+

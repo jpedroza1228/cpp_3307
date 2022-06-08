@@ -1,0 +1,82 @@
+---
+title: "Problem Set Example 6"
+author: "JP"
+date: '2022-03-10'
+output: word_document
+---
+
+```{r}
+compare <- data.frame(group1 = c(4, 8, 9, 10, 9),
+                      group2 = c(3, 2, 2, 4, 1))
+compare
+```
+
+## What are our two hypotheses
+
+H0:
+H1:
+
+## Get the means for both groups
+
+
+## Get the n for both groups
+
+
+## Get the df and sum of squares values for both groups
+
+$$
+SS = \sum(X - \overline{X})^2
+$$
+
+
+## What are the variance and standard deviation values for both groups
+
+$$
+S^2 = \frac{SS}{df}
+$$
+
+$$
+S = \sqrt{\frac{SS}{df}}
+$$
+
+## calculate the standard error for both groups
+
+$$
+S_{\overline{X}} = \frac{S}{\sqrt{n}} \;\;OR\;\;S_{\overline{X}} = \frac{S^2}{n}
+$$
+
+$$
+S_{\overline{X}} = \frac{S^2}{n}
+$$
+
+## Get the standard error of the differences between groups
+
+$$
+S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}}
+$$
+
+## If those groups are different, remember to correct for different n sizes in each group
+
+$$
+S^2_{p} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{n_{1} + n_{2} - 2}
+$$
+
+$$
+S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{\frac{S^2_{p}}{n_{1}} + \frac{S^2_{p}}{n_{2}}}
+$$
+
+## What are the degrees of freedom to use for our t-table
+
+$$
+df = (n_{1} - 1) + (n_{2} - 1)
+$$
+
+
+## what is our t-obtained value
+
+$$
+t_{obt} = \frac{\overline{X}_{1} - \overline{X}_{2}}{\sqrt{\frac{S^2_{p}}{n_{1}} + \frac{S^2_{p}}{n_{2}}}}
+$$
+
+
+## Is it significant?

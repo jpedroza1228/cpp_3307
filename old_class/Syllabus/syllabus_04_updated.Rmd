@@ -1,0 +1,211 @@
+---
+title: "Fall 2021 Course Syllabus"
+subtitle: "PSY 3307-04/3307A-04: Statistics for Psychology"
+author: "Jonathan Pedroza, PhD"
+date: "11/1/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Meeting Time
+### Lecture: 8:30am-9:45am
+### Activity: 10am-10:50am
+
+-----------------------------------
+
+### Instructor: Jonathan A. Pedroza, MS, MA
+### Office: Virtual
+### Office Hours: Tues 12pm-2pm; Thurs 5pm-6pm
+### Email: japedroza@cpp.edu
+### Secondary Email: cpppedroza@gmail.com
+### Required Text: [Behavioral Sciences Stat Student Edition by Gary W. Heiman; ISBN:9781285458144](https://www.google.com/search?q=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&rlz=1C1CHBF_enUS926US926&sxsrf=ALeKk03IvchvrQPLaZyhZSEVrWwitWGGbw%3A1628892091107&ei=u-sWYfrkBbnd1sQP352cQA&oq=Behavioral+Sciences+Stat+Student+Edition+edition+2+2015&gs_lcp=Cgdnd3Mtd2l6EAMyBQghEKABMgUIIRCgAToFCCEQqwI6CAghEBYQHRAeOgcIIRAKEKABSgQIQRgAUPfmAViSqgJgpawCaABwAngBgAGtAYgB_Q-SAQQ1LjEzmAEAoAECoAEBwAEB&sclient=gws-wiz&ved=0ahUKEwi6rt7z_67yAhW5rpUCHd8OBwgQ4dUDCA4&uact=5)
+## Corequisites: PSY 3307 & PSY 3307A
+## Prerequisites: STA 1200 & PSY 2204
+## Required Materials: Basic scientific Calculator
+## Optional Materials: [CRAN R for calculations](https://ftp.osuosl.org/pub/cran/)
+## Zoom Information: https://cpp.zoom.us/j/85752742161
+### Meeting ID: 857 5274 2161
+### Passcode: 3307
+
+-----------------------------------
+
+# Course Description
+
+Correlational techniques and inferential statistics useful to behavioral scientists. Product moment and rank order correlation coefficients, t-ratios, introduction to analysis of variance, selected non-parametric statistics. Selection, application, and interpretation of appropriate statistics for analysis of behavioral data.
+
+-----------------------------------
+
+# Course Structure
+
+This course will be conducted online (i.e., no face-to-face meetings) in a synchronous format (i.e., lectures and activities scheduled at specific times). Course content will be provided via Canvas. Lectures and activities will be conducted via Zoom. Lectures will include presentations with worked example problems, followed by practice problems. Recordings of each presentation portion will be posted on Canvas. Activities will include problem set discussion, practice problems, and SPSS tutorials. 
+
+-----------------------------------
+
+# Course Objectives
+
+Upon completion of this course, students will be able to: 
+
+* Understand and calculate descriptive statistics
+* Understand and calculate inferential statistics
+* Use SPSS to compute statistics
+* Read and interpret basic statistics used in the psychology literature
+* Develop a foundation for success in higher level statistics and research methods courses
+
+-----------------------------------
+
+# Grading Policy
+
+**Overview**: 
+A total of 500 points will be available for this course based on 3 exams, 12 problem sets/quizzes, and 4 SPSS assignments.
+
+```{r, include = FALSE}
+table <- tibble::tibble(Assignments_Tests = c("Exam", "Problem Set/Quiz", "SPSS Assignments", "Total Class Points"),
+                        Amount = c("3", "12", "4", ""),
+                        Points_Each = c("100",  "10", "20", ""),
+                        Total_Points = c("300", "120", "80", "500"))
+
+library(tidyverse)
+library(kableExtra)
+
+```
+ 
+```{r}
+kbl(table) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                position = "center")
+```
+ 
+**Final Grade:** 
+Your final grade will be the same for the lecture and activity based on the following scale: 
+
+```{r, include = FALSE}
+table2 <- tibble::tibble(Letter_Grade = c("A", "A-",
+                                          "B+", "B", "B-",
+                                          "C+", "C", "C-",
+                                          "D+", "D", "D-",
+                                          "F"),
+                         Points = c("457.5 - 500", "447.5-457",
+                                    "437.5-447", "407.5-437", "397.5-407",
+                                    "387.5-397", "357.5-387", "347.5-357",
+                                    "337.5-347", "307.5-337", "297.5-307",
+                                    "0-297.5"),
+                         Percentages = c("91.5-100", "89.5-91.4",
+                                    "87.5-89.4", "81.5-87.4", "79.5-81.4",
+                                    "77.5-79.4", "71.5-77.4", "69.5-71.4",
+                                    "67.5-69.4", "61.5-67.4", "59.5-61.4",
+                                    "0-59.5"))
+```
+
+```{r}
+kbl(table2) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                position = "center")
+```
+
+-----------------------------------
+
+# **Assignments**
+
+## **Exams:** 
+There will be `3` take-home exams, each worth up to `100 points`. Exams will contain vignettes and statistical problems to solve. To earn full credit, you must show all steps taken in a problem to arrive at your answer (either by hand with attached photos or by providing an R script). Exams will be open-book/open-note but must be completed individually. Each exam will be on Blackboard and will have a 34-hour time window from when it becomes available until it is due. No late exams will be accepted. 
+
+## **Problem Sets/Quizzes:** 
+There will be `12` problem sets/quizzes, each worth `10 points`. These problem sets can be submitted by either completing the problems by hand and attaching photos of your work on Blackboard or by submitting a R script. Completed assignments will be awarded full credit. The first 10 minutes of class following a due problem set/quiz will go over the answers. Answer keys with descriptions will be available following the class period that discusses the problem set/quiz. No late problem sets/quizzes will be accepted.   
+
+## **SPSS Assignments:** 
+There will be `4` SPSS assignments, each worth up to `20 points`. `3 points` of extra credit will be awarded for completing the assignment in **SPSS and R**. Collaboration is encouraged; however, every student must turn in their own assignment. Each assignment will consist of:
+
+1. Research Question & Hypothesis (2 points)
+2. Recoding Variables (2 points)
+3. Descriptive Statistics (2 points)
+4. Descriptive Visualization (3 points)
+5. Inferential Statistic (4 points)
+6. Visualization of Statistic Finding (3 points)
+7. Write-up of Inferential Statistic (4 points)
+
+SPSS can be accessed on your personal computer by using the CPP virtual lab (https://www.cpp.edu/it/virtual-software-lab/index.shtml), downloading the free 14-day trial from IBM (https://www.ibm.com/analytics/spss-trials), or purchasing the Standard GradPack 26 6-mo rental (https://cpp.onthehub.com/). Answer keys with descriptions the day after the submission. No late SPSS assignments will be accepted. 
+
+-----------------------------------
+
+# **Other Policies**
+
+## **Academic Integrity:** 
+Students are expected to adhere to the University’s Student Conduct Code (https://www.cpp.edu/studentconduct/student-conduct-code.shtml). Academic integrity violations, including, but not limited to, cheating and plagiarism, may result in a 0 for an assignment or exam and will be reported to the Office of Student Conduct & Integrity.
+
+## **Accommodations:** 
+Reasonable accommodations will be provided for students with learning, physical, or other disabilities. Accommodations approved through the Disability Resource Center (909-869-3333) should be discussed with the instructor early in the semester to ensure appropriate implementation. 
+
+## **Distribution of Course Materials:** 
+Do not copy/screenshot or retain any exam questions. Violation of this policy is grounds for disciplinary action. Distribution of other course materials, including slides, video lectures, SPSS assignments, and problem sets/quizzes, is allowable. 
+
+## **Mandatory Reporting:**
+Please note two executive orders from the CSU’s Office of the Chancellor that limit what information faculty members can keep confidential. **Executive Order 1083 relates to reporting of child abuse** and **Executive Order 1096 relates to reporting of campus sexual assaults**. CSU faculty members are considered mandatory reporters. Once we are made aware of such incidents, we are required to report the incident to our Title IX officer on campus, regardless of whether the student wants the information reported.
+
+## **Student Health & Well-being:**
+Students experiencing emotional distress may seek services through [Counseling & Psychological Services](https://www.cpp.edu/caps/index.shtml). Additionally, there is the [Student Health & Wellbeing](https://www.cpp.edu/health/student-health-services.shtml) for other health issues. 
+
+-----------------------------------
+
+# Still In a Pandemic
+
+## Cameras
+If you feel comfortable please turn on your camera. However, I understand that you may be in a situation where you may not be able to have your camera on. I would like to see your faces, simply because I want to gauge understanding. This is much easier by seeing the looks on your faces.
+
+## Participation
+Please interrupt at any time if you do not understand anything...and I mean ANYTHING. This class includes the essentials for a lot of research and practical applications in both the social and biological sciences. It is important to understand as much as possible regarding the statistical tests that we will learn during this semester. Communication is key for this class. I will also offer office hours to discuss class assignments. **Please email me if the office hours do not work for you.**
+
+## Pandemic-related Accomodations
+We are still in a pandemic so please communicate with me if you are not able to meet the requirements of this class. While no late assignments will be accepted, accommodations due to pandemic-related issues will be honored. If there is no prior communication about not being able to meet the requirements for an assignment, a zero for that assignment will be assigned. 
+
+## Classes Will Be Recorded
+All classes will be recorded with automated closed captions and a full automated transcription of each lecture. Please email me if you have any concerns regarding the lecture being recorded to see if there are any accomodations that can be made.
+
+-----------------------------------
+
+# **Tenative Course Schedule**
+
+{{< bootstrap-table "table table-hover" >}}
+
+| **Week** | **Dates** | **Lecture Topics** | **Readings** | **Due Dates (@ 11:59pm)**                                                    |
+| :----------------------- | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------- |
+| Week 1b | 08/19/21 | Learn about using R as a calculator | No readings |  |
+| Week 2a | 08/24/21 | Introduction & Review  | Ch.1 |  |
+| Week 2b | 08/26/21 | Frequency & Central Tendency *Problem Set 1* | Ch.2 & Ch.3 |  |
+| Week 3a | 08/31/21 | Variability & z-scores | Ch.4 & Ch.5 | Problem set 1 |
+| Week 3b | 09/02/21 | Variability & z-scores *Problem Set 2* | Ch.4 & Ch.5 |  |
+| Week 4a | 09/07/21 | Probability & Sampling Distributions | Ch.6 | Problem set 2 |
+| Week 4b | 09/09/21 | Probability & Sampling Distributions *Problem Set 3* | Ch.6 | Study Guide (JP)|
+| Week 5a | 09/14/21 | Sampling Distributions, Hypothesis Testing & the z-test | Ch. 7 | Problem set 3 |
+| Week 5b | 09/16/21 | Study Session | Ch.1-6 |  |
+| Week 6a | 09/21/21 | Exam 1 | Ch.1-6 | |
+| Week 6b | 09/23/21 | Sampling Distributions, Hypothesis Testing & the z-test *Problem Set 4* | Ch.7 | |
+| Week 7a | 09/28/21 | Single sample t-test *Problem Set 5* | Ch.8 |  |
+| Week 7b | 09/30/21 | Independent Samples t-Test *SPSS Assignment 1* | Ch.9 | Problem sets 4 & 5 |
+| Week 8a | 10/05/21 | Independent Samples t-Test *Problem Set 6* | Ch.9 |  |
+| Week 8b | 10/07/21 | Paired t-Test | Ch.9 | Problem set 6 |
+| Week 9a | 10/12/21 | Paired t-Test *Problem Set 7* | Ch.9 | SPSS Assignment 1 & Study Guide (JP) |
+| Week 9b | 10/14/21 | Study Session | Ch.7-9 |  Problem set 7 |
+| Week 10a | 10/19/21 | Exam 2 | Ch.7-9 | |
+| Week 10b | 10/21/21 | One-way ANOVA *Problem Set 8* | Ch.11 |  |
+| Week 11a | 10/26/21 | ANOVA & Post-hoc tests *SPSS Assignment 2* | Ch.11 |  |
+| Week 11b | 10/28/21 | TWo-way ANOVA *Problem Set 9* | Ch.12 | Problem set 8 |
+| Week 12a | 11/02/21 | TWo-way ANOVA *SPSS Assignment 3* | Ch.12 |  |
+| Week 12b | 11/04/21 | Two-way ANOVA *Problem Set 10* | Ch.12 | Problem set 9 & SPSS Assignment 2 |
+| Week 13a | 11/09/21 | Repeated-measures ANOVA | Ch.11 |  |
+| Week 13b | 11/11/21 | Repeated-measures ANOVA *Problem Set 11* | Ch.11 | Problem set 10 & SPSS Assignment 3 |
+| Week 14a | 11/16/21 | Correlation | Ch.10 |  |
+| Week 14b | 11/18/21 | Correlation *Problem Set 12* | Ch.10 | Problem set 11 |
+| Week 15a | 11/23/21 | Regression *SPSS Assignment 4* | Ch.10 |  |
+| Week 15b | 11/25/21 | Thanksgiving |  |  |
+| Week 16a | 11/30/21 | Regression | Ch.13 | Problem set 12 & Study Guide (JP) |
+| Week 16b | 12/02/21 | Study Session | Ch.8-13@ | SPSS Assignment 4 |
+| Finals Week | 12/6-10/21 | Exam 3 | Ch.8-13@ |  |
+
+{{< /bootstrap-table >}}

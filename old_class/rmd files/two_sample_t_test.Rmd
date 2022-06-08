@@ -1,0 +1,609 @@
+---
+title: "PSY 3307"
+subtitle: "Two Sample t-test"
+author: "Jonathan A. Pedroza, MS, MA"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(ggridges)
+library(psych)
+library(nFactors)
+
+```
+
+# Agenda
+
+- Review terms
+  - one-sample t test, t-distribution, df, confidence intervals
+- Understanding a two-sample study
+- Between & Within Designs
+- Independent-samples t-test
+- Performing an independent samples t-test
+- Effect Size
+
+---
+
+# Review
+
+- One-sample t-test
+
+- t-distribution
+
+- df
+
+- confidence intervals
+
+---
+
+# Between & Within Designs
+
+- Experiments can be broken down into two different types of designs
+
+- **Between-subject/group** design is when you are interested in comparing two (for now) or more groups on an outcome variable
+
+- **Within-subject/group** design is when you have the same participants but you test them twice (either with two different variables or two different time points)
+
+---
+
+# Two tests we are talking about
+
+- **independent samples t-test** is when there are two groups of participants are separated into two different conditions to compare based on that condition
+	- comparing the physical activity levels (DV) of sexes (Condition 1 = Male, Condition 2 = Female)
+	- parametric test
+
+- **paired-samples t-test** is when there are two experimental conditions that the same participants take part in
+	- interested in two variables in the same sample of participants
+	- can be the same variable and two different time points
+	- bmi levels before an experiment and after the experiment for all participants
+	- parametric test
+
+---
+
+# Independent Samples t-test
+
+- JP note: probably the most often used t-test
+
+- because it is a parametric test, it has assumptions
+
+- Assumptions are
+  - DV is normally distributed interval/ratio scores
+  - populations have homogeneous variance
+  - not a true assumption but something important to note is that your groups should be equal in `n` (condition) size
+  
+---
+
+# Homogeneity of Variance
+
+- **homogeneity of variance** is when the variances of the populations represented in a study have "equal" variances
+
+- in order to test that the variances are equal, we can look at it through visuals
+  - however, a better option is to use the Levene's test
+
+---
+
+# Independent samples t-test
+
+- hypotheses are now focused on the differences between the two groups/conditions
+
+$$H0: \mu_{1} - \mu_{2} = 0$$
+H0: There will be no difference in DV scores between group 1 and group 2.
+  - both samples/groups represent the population
+
+$$H1: \mu_{1} - \mu_{2} \neq 0$$
+
+H1: There will be differences in DV scores between group 1 and group 2.
+  - the groups represent a different population or don't represent the current population
+
+---
+
+# t-distribution for independent samples t-test
+
+- we are interested in the difference between our group/sample means
+
+- we have two samples from one raw score population 
+
+- **sampling distribution of differences between means** show all differences between two means that occur when random samples are drawn from a population of scores
+
+- the mean of the sampling distribution is zero because both sample means will equal the population mean of the raw score population
+
+---
+
+# Independent samples t-test
+
+- determines the probability of obtaining our difference between our means when H0 is true
+
+- Term changes
+  - N is now the full sample size
+  - n is the size of each group/sample
+    * so for each group/sample, we have an n
+    
+---
+
+# Performing the indepdendent samples t-test
+
+$$s^2_{x} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+```{r}
+male_scores = c(4, 6, 2, 3, 5, 1, 2, 4, 3, 5)
+female_scores = c(4, 6, 9, 6, 5, 8, 2, 5, 3, 7)
+
+male_scores
+female_scores
+```
+
+---
+
+First we'll calculate the variance
+
+```{r}
+# male sum
+4+6+2+3+5+1+2+4+3+5
+# sum is 35
+```
+
+$$\;s^2_{x_{1}} = \frac{\Sigma X^2 - \frac{(35)^2}{N}}{N - 1}$$
+
+---
+
+```{r}
+
+# female sum
+4+6+9+6+5+8+2+5+3+7
+# sum 55
+```
+
+$$\;s^2_{x_{2}} = \frac{\Sigma X^2 - \frac{(55)^2}{N}}{N - 1}$$
+
+---
+
+```{r}
+35/10
+# male mean 3.5
+```
+
+
+```{r}
+55/10
+# female mean 5.5
+```
+
+---
+
+```{r}
+# male sum of squared Xs
+4^2+6^2+2^2+3^2+5^2+1^2+2^2+4^2+3^2+5^2
+# 145 
+```
+
+$$\;s^2_{x_{1}} = \frac{145 - \frac{(35)^2}{10}}{10 - 1}$$
+
+---
+
+```{r}
+# female sum of squared Xs
+4^2+6^2+9^2+6^2+5^2+8^2+2^2+5^2+3^2+7^2
+# female 345
+```
+
+$$\;s^2_{x_{2}} = \frac{345 - \frac{(55)^2}{10}}{10 - 1}$$
+
+---
+
+```{r}
+# male sum of X squared and divided by N
+35^2
+1225/10
+# 122.5
+```
+
+$$\;s^2_{x_{1}} = \frac{145 - \frac{1225}{10}}{10 - 1}$$
+
+---
+
+```{r}
+# female sum of X squared and divided by N
+55^2
+3025/10
+# 302.5
+```
+
+$$\;s^2_{x_{2}} = \frac{345 - \frac{302.5}{10}}{10 - 1}$$
+
+---
+
+```{r}
+# male variance calculations
+(145 - 122.5)/(10-1)
+# variance is 2.5
+```
+
+$$\;s^2_{x_{1}} = \frac{145 - 122.5}{10 - 1}$$
+
+---
+
+```{r}
+# female variance calculations
+(345 - 302.5)/(10 - 1)
+# variance is 4.72
+
+```
+
+$$\;s^2_{x_{2}} = \frac{345 - 302.5}{10 - 1}$$
+---
+
+```{r}
+sd(male_scores)^2
+sd(female_scores)^2
+```
+
+---
+
+# New Terms
+
+- **pooled variance** is the weighted average variance of the groups'/samples' variances in a independent samples t-test
+
+- **standard error of the difference** is the estimated standard deviation of the sampling distribution of differences between the means
+
+---
+
+Now we can calculate the pooled variance
+n1 = 10
+n2 = 10
+variance of group 1 = 2.5
+variance of group 2 = 4.72
+
+$$S^2_{pool} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{(n_{1} - 1) + (n_{2} - 1)}$$
+
+---
+
+```{r}
+# start with the numerator
+(10 - 1)*2.5 + (10 - 1)*4.72
+# numerator is 64.98
+
+# denominator
+(10 - 1) + (10 - 1)
+# denominator is 18
+```
+
+$$S^2_{pool} = \frac{(10 - 1)2.5 + (10 - 1)4.72}{(10 - 1) + (10 - 1)}$$
+
+---
+
+```{r}
+9*2.5 + 9*4.72
+# 64.98
+
+9+9
+# 18
+```
+
+$$S^2_{pool} = \frac{(9)2.5 + (9)4.72}{9 + 9}$$
+
+---
+
+```{r}
+64.98/18
+# pooled variance is 3.61
+```
+
+$$S^2_{pool} = \frac{64.98}{18}$$
+
+---
+
+Let's calculate for the standard error of the difference
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(S^2_{pool})(\frac{1}{n_{1}} + \frac{1}{n_{2}})}$$
+
+---
+
+```{r}
+1/10
+
+3.61*(.1 + .1)
+
+sqrt(.72)
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(3.61)(\frac{1}{10} + \frac{1}{10})}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(3.61)(.1 + .1)}$$
+---
+
+```{r}
+3.61*(.1+.1)
+# se is .72
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{.72}$$
+
+---
+
+```{r}
+sqrt(.72)
+# se of the difference is .85
+```
+ 
+---
+
+Now we can calculate the independent samples t-test obtained value
+
+**Note** the population mean 1 minus the population mean 2 is what is specified in the null hypothesis, so it will be zero
+
+```{r}
+((3.5 - 5.5) - 0)/.85
+# t obtained value is -2.35
+```
+
+$$t_{obt} = \frac{(3.5 - 5.5) - 0}{.85}$$
+
+---
+
+Let's now calculate the degrees of freedom
+
+$$df = (n_{1} - 1) + (n_{2} - 1)$$
+---
+
+```{r}
+(10 - 1) + (10 - 1)
+# df is 18
+
+# t critical is +-2.101
+```
+
+$$df = (10 - 1) + (10 - 1)$$
+
+---
+
+So we get a value of -2.35 and the t-critical value is -2.101
+
+Is there a statistically significant difference between the two groups?
+
+--
+
+-2.35 > -2.101
+
+---
+
+Now let's get confidence intervals
+
+```{r}
+# group 1 mean = 3.5
+# group 2 mean = 5.5
+# t critical value is 2.101
+# n1 = 10
+# n2 = 10
+# variance of group 1 = 2.5
+# variance of group 2 = 4.72
+
+# lower
+(3.5 - 5.5) - 2.101 * sqrt((2.5/10) + (4.72/10))
+# -3.79
+
+# upper
+(3.5 - 5.5) + 2.101 * sqrt((2.5/10) + (4.72/10))
+# -.21
+```
+
+---
+
+# Effect Sizes
+
+- Reminder: r effect sizes are .1 = small, .3 = medium, .5 = large
+
+- Reminder: cohen's d effect sizes are .2 = small, .5 = medium, .8 = large
+
+- these are both measures of the strength of a relationship
+  - better than simply using p value alone
+
+- cohen's d can never be negative so the value you get is the absolute value (.e.g., its always positive)
+  
+---
+
+$$\hat{d} = \frac{(\overline{X_{1}} - \overline{X_{2}})}{S_{2}}$$
+
+---
+
+```{r}
+(3.5 - 5.5)/sqrt(4.72)
+
+# each step below
+3.5 - 5.5
+
+-2/sqrt(4.72)
+
+# cohen's d is .92 or the number of standard deviations between the means
+```
+
+$$\hat{d} = \frac{(3.5 - 5.5)}{\sqrt{4.72}}$$
+
+---
+
+```{r}
+(-2.78)^2
+(-2.78)^2 + 18
+sqrt(7.73/25.73)
+# r value of .55
+```
+
+---
+
+# Steps for independent samples t-test
+
+1. Get the means of both groups/samples
+
+2. Get the variances of both groups/samples
+
+3. Get the group/sample sizes (n)
+
+4. Get the pooled variance by getting the groups'/samples' variances averaged
+
+5. Get the standard error of the differences
+
+6. Calculate the t-obtained value
+
+7. Get the degrees of freedom
+
+8. Calculate the confidence intervals
+
+9. Get the effect size
+
+---
+
+# Independent samples t-test Example
+
+```{r, eval = TRUE, echo = FALSE}
+set.seed(093021)
+
+df <- data.frame(
+  sex=factor(rep(c("F", "M"), each=200)),
+  weight=round(c(rnorm(200, mean=55, sd=5),
+                 rnorm(200, mean=65, sd=5)))
+  )
+
+describeBy(df$weight, df$sex, na.rm = TRUE)
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+df %>% 
+  ggplot(aes(weight, color = sex, fill = sex)) +
+  geom_density(alpha = .5) +
+  geom_vline(xintercept = 54.7, color = "#d74122", size = 1.25) +
+  geom_vline(xintercept = 65.36, color = "#387448", size = 1.25) +
+  scale_fill_manual(values = c("#d74122", "#387448")) +
+  scale_color_manual(values = c("#d74122", "#387448")) +
+  theme_minimal()
+
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+car::leveneTest(weight ~ sex, data = df)
+
+t.test(weight ~ sex, data = df, var.equal = TRUE)
+```
+
+---
+
+# Real life independent samples t-test
+
+```{r, eval = TRUE, echo = FALSE}
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names()
+
+jp <- jp %>% 
+  mutate(stress_avg = (dass_stress_q1 + dass_stress_q2 + dass_stress_q3 + dass_stress_q4 + dass_stress_q5 + dass_stress_q6 + dass_stress_q7)/7,
+         exercise_avg = (cpaq_light_exercise + cpaq_moderate_exercise + cpaq_vigorous_exercise + cpaq_muscle_exercise)/4,
+         depression_avg = (dass_depress_q1 + dass_depress_q2 + dass_depress_q3 + dass_depress_q4 + dass_depress_q5 + dass_depress_q6 + dass_depress_q7)/7,
+         unhealthy_snacks_avg = (ffq_cake_portion + ffq_saltysnacks_portion + ffq_chocolate_portion + ffq_icecream_portion)/4,
+         games = (mtuas_videogaming_q1 + mtuas_videogaming_q2 + mtuas_videogaming_q3)/3,
+         gender = ccc_gender,
+         gender = factor(gender),
+         class_standing = ccc_class_standing,
+         bmi = ccc_bmi)
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+jp %>% 
+  group_by(gender) %>% 
+  summarize(games = mean(games))
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+jp %>% 
+  ggplot(aes(games)) + 
+  geom_density(aes(color = gender, fill = gender), alpha = .3) +
+  theme_minimal()
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+jp %>% 
+  mutate(gender = recode(gender, "1" = "Male",
+                         "2" = "Female")) %>% 
+  ggplot(aes(games, gender)) + 
+  geom_density_ridges(aes(fill = gender), alpha = .7, scale = 1) +
+  geom_vline(xintercept = 4.23, color = "#d74122", size = 1.25) +
+  geom_vline(xintercept = 3.3, color = "#387448", size = 1.25) +
+  scale_fill_manual(values = c("#d74122", "#387448")) +
+  labs(x = "Average Time Spent Playing Video Games",
+       y = "") +
+  theme_minimal()
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+car::leveneTest(games ~ gender, data = jp)
+
+t.test(games ~ gender, data = jp, var.equal = TRUE)
+```
+
+---
+
+```{r, eval = TRUE, echo = FALSE}
+describe(jp$games, na.rm = TRUE)
+```
+
+---
+
+# Practice Time
+
+```{r}
+set.seed(093021)
+
+mistakes_made_tutor = rnorm(10, mean = 1.5, sd = 1.4)
+mistakes_made_control = rnorm(8, mean = 4.1, sd = 1)
+
+mistakes_made_tutor
+mistakes_made_control
+
+```
+
+---
+
+```{r}
+set.seed(093021)
+
+translating_native_speaker = rnorm(9, mean = 20, sd = 4.7)
+translating_non_native = rnorm(14, mean = 10, sd = .99)
+
+translating_native_speaker
+translating_non_native
+```
+
+---
+
+```{r}
+set.seed(093021)
+
+first_gen_bmi = rnorm(6, mean = 22, sd = 2.2)
+second_gen_bmi = rnorm(9, mean = 28, sd = 5)
+
+first_gen_bmi
+second_gen_bmi
+```
+

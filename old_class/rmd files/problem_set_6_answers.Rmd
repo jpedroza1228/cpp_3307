@@ -1,0 +1,546 @@
+---
+title: "Problem Set 6 answers"
+author: "JP"
+date: "10/8/2021"
+output: word_document
+---
+
+# Independent-samples t-test
+
+1. Get the means of both groups/samples
+
+2. Get the variances of both groups/samples
+
+3. Get the group/sample sizes (n)
+
+4. Get the pooled variance by getting the groups'/samples' variances averaged
+
+5. Get the standard error of the differences
+
+6. Calculate the t-obtained value
+
+7. Get the degrees of freedom
+
+8. Get the effect size
+
+9. Find out if the t-obtained value is statistically significant 
+
+10. Report the t-test statistic finding. Remember to include the means and standard deviations for the two groups. 
+
+# Formulas
+
+$$S^2_{x} = \frac{\Sigma(X - \overline{X})^2}{N - 1}$$
+
+$$S^2_{x} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+$$S^2_{pool} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{(n_{1} - 1) + (n_{2} - 1)}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(S^2_{pool})(\frac{1}{n_{1}} + \frac{1}{n_{2}})}$$
+
+$$df = (n_{1} - 1) + (n_{2} - 1)$$
+
+$$t_{obt} = \frac{(\overline{X_{1}} - \overline{X_{2}}) - (\mu_{1} - \mu_{2})}{S_{\overline{X_{1}} - \overline{X_{2}}}}$$
+
+$$d = \frac{(\overline{X_{1}} - \overline{X_{2}})}{\sqrt{S^2_{pool}}}$$
+
+
+
+You are conducting an experiment where you are interested in typing errors in adults. You are specifically interested in whether using a child's typing game will help reduce the number of typing errors. You decide to split your participants into two groups, with one group getting the child's typing game and the other getting no help typing. You decide to test these groups to see which group had less typing errors at the end of the experiment. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+child_game <- rnorm(9, mean = 10, sd = 4.7)
+no_help <- rnorm(12, mean = 30, sd = .99)
+
+child_game <- round(child_game, 2)
+no_help <- round(no_help, 2)
+
+child_game
+no_help
+
+```
+
+1. Get the means of both groups/samples
+
+$$\overline{X}_{GAME} = \frac{\Sigma X}{n}$$
+
+```{r}
+sum(child_game)
+
+103.39/9
+```
+
+
+$$\overline{X}_{GAME} = \frac{103.39}{9}$$
+
+$$\overline{X}_{GAME} = 11.49$$
+
+
+$$\overline{X}_{NO\;HELP} = \frac{\Sigma X}{n}$$
+```{r}
+sum(no_help)
+
+364.32/12
+```
+
+
+$$\overline{X}_{NO\;HELP} = \frac{364.32}{12}$$
+
+$$\overline{X}_{NO\;HELP} = 30.36$$
+
+```{r}
+mean(child_game)
+mean(no_help)
+```
+
+
+2. Get the variances of both groups/samples
+
+$$S^2_{GAME} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+```{r}
+15.20^2 +7.63^2 +12.35^2  +6.34^2 + 9.61^2 +12.36^2 +11.06^2 +13.32^2 +15.52^2
+```
+
+$$S^2_{GAME} = \frac{1267.71 - \frac{(103.39)^2}{9}}{9 - 1}$$
+
+```{r}
+103.39^2
+
+9-1
+```
+
+$$S^2_{GAME} = \frac{1267.71 - \frac{10689.49}{9}}{8}$$
+
+```{r}
+10689.49/9
+```
+
+$$S^2_{GAME} = \frac{1267.71 - 1187.72}{8}$$
+
+```{r}
+1267.71 - 1187.72
+```
+
+$$S^2_{GAME} = \frac{79.99}{8}$$
+
+```{r}
+79.99/8
+```
+
+$$S^2_{GAME} = 10$$
+
+$$S^2_{NO\;HELP} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+```{r}
+29.70^2 +31.24^2 +29.86^2 +30.96^2 +29.89^2 +30.84^2 +28.90^2 +30.90^2 +31.29^2 +29.10^2 +32.60^2 +29.04^2
+
+```
+
+$$S^2_{NO\;HELP} = \frac{11074.66 - \frac{(364.32)^2}{12}}{12 - 1}$$
+
+```{r}
+364.32^2
+
+12-1
+```
+
+$$S^2_{NO\;HELP} = \frac{11074.66 - \frac{132729.10}{12}}{11}$$
+
+```{r}
+132729.1/12
+```
+
+$$S^2_{NO\;HELP} = \frac{11074.66 - 11060.76}{11}$$
+
+```{r}
+11074.66 - 11060.76
+```
+
+$$S^2_{NO\;HELP} = \frac{13.9}{11}$$
+
+```{r}
+13.9/11
+```
+
+$$S^2_{NO\;HELP} = 1.26$$
+
+```{r}
+sd(child_game)^2
+sd(child_game)
+
+sd(no_help)^2
+sd(no_help)
+```
+
+3. Get the group/sample sizes (n)
+
+child_game = 9
+no_help = 12
+
+4. Get the pooled variance by getting the groups'/samples' variances averaged
+
+$$S^2_{pool} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{(n_{1} - 1) + (n_{2} - 1)}$$
+
+```{r}
+# numerator
+(9 - 1)*10 + (12 - 1)*1.26
+
+# denominator
+(9 - 1) + (12-1)
+```
+
+$$S^2_{pool} = \frac{(9-1)10 + (12 - 1)1.26}{(9 - 1) + (12 - 1)}$$
+
+```{r}
+93.86/19
+```
+
+$$S^2_{pool} = \frac{93.86}{19}$$
+
+$$S^2_{pool} = 4.94$$
+
+5. Get the standard error of the differences
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(S^2_{pool})(\frac{1}{n_{1}} + \frac{1}{n_{2}})}$$
+
+```{r}
+1/9
+1/12
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(4.94)(.11 + .08)}$$
+```{r}
+(4.94)*(.11 + .08)
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(4.94)(.19)}$$
+
+```{r}
+sqrt(.94)
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{.94}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = .97$$
+
+6. Calculate the t-obtained value
+
+$$t_{obt} = \frac{(\overline{X_{1}} - \overline{X_{2}}) - (\mu_{1} - \mu_{2})}{S_{\overline{X_{1}} - \overline{X_{2}}}}$$
+
+```{r}
+(11.49 - 30.36) - 0
+```
+
+$$t_{obt} = \frac{(11.49 - 30.36) - 0}{.97}$$
+
+```{r}
+-18.87/.97
+```
+
+$$t_{obt} = \frac{-18.87}{.97}$$
+
+$$t_{obt} = -19.45$$
+
+7. Get the degrees of freedom
+
+$$df = (n_{1} - 1) + (n_{2} - 1)$$
+
+```{r}
+(9 - 1) + (12 - 1)
+```
+
+$$df = 19$$
+
+8. Get the effect size
+
+$$d = \frac{(\overline{X_{1}} - \overline{X_{2}})}{\sqrt{S^2_{pool}}}$$
+
+```{r}
+11.49 - 30.36
+
+sqrt(4.94)
+
+```
+
+$$d = \frac{(11.49 - 30.36)}{\sqrt{4.94}}$$
+
+```{r}
+-18.87/sqrt(4.94)
+```
+
+
+$$d = \frac{-18.87}{\sqrt{4.94}}$$
+
+$$d = -8.49$$
+$$d = 8.49$$
+
+9. Find out if the t-obtained value is statistically significant 
+
+-19.45 > # 
+
+10. Report the t-test statistic finding. Remember to include the means and standard deviations for the two groups. 
+
+An independent-samples t-test was conducted to see if the experiment of using a child's typing game (*M* = 11.49, *SD* = 3.16) was different than getting no assistance (*M* = 30.36, *SD* = 1.12) in reducing the number of typing errors. There was a significant difference in the number of typing errors made with the group with no assistance making more typing errors; *t*(19) = -19.45, *p* < .05. 
+
+You are conducting an experiment where you are interested in how many useless Disney facts participants can state. You are interested in whether going to Disneyland for a day will help with Disney knowledge. You decide one group gets to go to Disneyland and the other can look online for an hour. You decide to test these groups at the end of the day to see who knows more about Disney. What test are you running and is the difference statistically significant?
+
+```{r}
+set.seed(093021)
+
+land <- rnorm(6, mean = 16, sd = 2.2)
+google <- rnorm(9, mean = 18, sd = 5)
+
+land <- round(land, 2)
+google <- round(google, 2)
+
+land
+google
+
+```
+
+1. Get the means of both groups/samples
+
+Disneyland Group
+
+$$\overline{X}_{land} = \frac{\Sigma X}{n}$$
+
+```{r}
+18.44 +14.89 +17.10 +14.29 +15.82 +17.11
+```
+
+
+$$\overline{X}_{land} = \frac{97.65}{6}$$
+
+```{r}
+97.65/6
+```
+
+$$\overline{X}_{land} = 16.28$$
+Google Group
+
+$$\overline{X}_{google} = \frac{\Sigma X}{n}$$
+
+```{r}
+19.13 +21.53 +23.87 +16.46 +24.24 +17.31 +22.86 +17.43 +22.23
+```
+
+$$\overline{X}_{google} = \frac{185.06}{9}$$
+
+```{r}
+185.06/9
+```
+
+
+$$\overline{X}_{google} = 20.56$$
+
+2. Get the variances of both groups/samples
+
+Disneyland Group
+
+$$S^2_{land} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+```{r}
+18.44^2+ 14.89^2+ 17.10^2+ 14.29^2+ 15.82^2+ 17.11^2
+```
+
+
+$$S^2_{land} = \frac{1601.38 - \frac{(97.65)^2}{6}}{6 - 1}$$
+
+```{r}
+97.65^2
+```
+
+
+$$S^2_{land} = \frac{1601.38 - \frac{9535.52}{6}}{6 - 1}$$
+
+
+```{r}
+9535.52/6
+```
+
+$$S^2_{land} = \frac{1601.38 - 1589.25}{5}$$
+
+```{r}
+1601.38 - 1589.25
+```
+
+$$S^2_{land} = \frac{12.13}{5}$$
+
+```{r}
+12.13/5
+```
+
+$$S^2_{land} = 2.43$$
+
+Google Group
+
+$$S^2_{google} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}$$
+
+```{r}
+19.13^2+ 21.53^2+ 23.87^2+ 16.46^2+ 24.24^2+ 17.31^2+ 22.86^2+ 17.43^2+ 22.23^2
+```
+
+$$S^2_{google} = \frac{3877.98 - \frac{(185.06)^2}{9}}{9 - 1}$$
+
+```{r}
+185.06^2
+```
+
+$$S^2_{google} = \frac{3877.98 - \frac{34247.2}{9}}{9 - 1}$$
+
+```{r}
+34247.2/9
+```
+
+$$S^2_{google} = \frac{3877.98 - 3805.24}{9 - 1}$$
+
+```{r}
+3877.98-3805.24
+
+9-1
+```
+
+$$S^2_{google} = \frac{72.74}{8}$$
+
+```{r}
+72.74/8
+```
+
+$$S^2_{google} = 9.09$$
+
+3. Get the group/sample sizes (n)
+
+disneyland = 6
+google = 9
+
+4. Get the pooled variance by getting the groups'/samples' variances averaged
+
+$$S^2_{pool} = \frac{(n_{land} - 1)S^2_{land} + (n_{google} - 1)S^2_{google}}{(n_{land} - 1) + (n_{google} - 1)}$$
+
+$$S^2_{pool} = \frac{(6 - 1)2.43 + (9 - 1)9.09}{(6 - 1) + (9 - 1)}$$
+
+```{r}
+# numerator
+(6 - 1)*2.43 + (9 - 1)*9.09
+
+# denominator
+(6 - 1) + (9 - 1)
+```
+
+$$S^2_{pool} = \frac{94.87}{13}$$
+
+```{r}
+94.87/13
+```
+
+$$S^2_{pool} = 7.30$$
+
+5. Get the standard error of the differences
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(S^2_{pool})(\frac{1}{n_{land}} + \frac{1}{n_{google}})}$$
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(7.30)(\frac{1}{6} + \frac{1}{9})}$$
+
+```{r}
+1/6
+
+
+1/9
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(7.30)(.17 + .11)}$$
+
+```{r}
+.17+.11
+```
+
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{(7.30)(.28)}$$
+
+```{r}
+7.30*.28
+```
+
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{2.04}$$
+
+```{r}
+sqrt(2.04)
+```
+
+$$S_{\overline{X_{1}} - \overline{X_{2}}} = 1.43$$
+
+
+6. Calculate the t-obtained value
+
+$$t_{obt} = \frac{(\overline{X_{land}} - \overline{X_{google}}) - (\mu_{land} - \mu_{google})}{S_{\overline{X_{land}} - \overline{X_{google}}}}$$
+
+$$t_{obt} = \frac{(16.28 - 20.56) - 0}{1.43}$$
+
+```{r}
+16.28-20.56
+```
+
+$$t_{obt} = \frac{-4.28}{1.43}$$
+
+```{r}
+-4.28/1.43
+```
+
+$$t_{obt} = -2.99$$
+
+7. Get the degrees of freedom
+
+$$df = (n_{land} - 1) + (n_{google} - 1)$$
+
+$$df = (6 - 1) + (9 - 1)$$
+
+```{r}
+(6-1) + (9-1)
+```
+
+$$df = 13$$
+
+
+8. Get the effect size
+
+$$d = \frac{(\overline{X_{land}} - \overline{X_{google}})}{\sqrt{S^2_{pool}}}$$
+
+$$d = \frac{(16.28 - 20.56)}{\sqrt{7.30}}$$
+
+```{r}
+16.28 - 20.56
+```
+
+$$d = \frac{-4.28}{\sqrt{7.30}}$$
+
+```{r}
+-4.28/sqrt(7.30)
+```
+
+$$d = |-1.58|$$
+
+9. Find out if the t-obtained value is statistically significant 
+
+t-critical value & t-obtained value, statistically significant
+
+-2.16 < -2.99
+
+10. Report the t-test statistic finding. Remember to include the means and standard deviations for the two groups. 
+
+```{r}
+sqrt(2.43)
+sqrt(9.09)
+```
+
+$$S_{land} = sqrt(S^2_{land})$$
+
+$$S_{land} = 1.56$$
+
+$$S_{google} = sqrt(S^2_{google})$$
+
+$$S_{google} = 3.01$$
+
+An independent samples t-test was conducted comparing the amount of Disney facts between two groups; one group went to Disneyland to learn about Disney facts while the second group googled disney facts for an hour. There was a statistically significant difference in the amount of Disney facts that the two groups knew (*t*(13) = -2.99, *p* < .05), with the group that googled Disney facts knowing more facts (*M* = 20.56, *SD* = 3.01) compared to the group that went to Disneyland for the day (*M* = 16.28, *SD* = 1.56). 

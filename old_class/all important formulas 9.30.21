@@ -1,0 +1,58 @@
+---
+title: "All Important Formulas"
+author: "JP"
+date: "9/30/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Variance (with unbiased estimators)
+
+$$ s^2_{x} = \frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1} $$
+
+# Standard Deviation (with unbiased estimators)
+
+$$ s_{x} = \sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{N}}{N - 1}} $$
+
+# z-score for individual participants
+
+$$ z = \frac{X - \overline{X}}{S_{X}} $$
+
+# Raw Score From z-Score
+
+$$ X = (z)(S_{X}) + \overline{X} $$
+
+# Standard Error for z-test
+
+$$ \sigma_{\overline{X}} = \frac{\sigma_{X}}{\sqrt{N}} $$
+
+# z-score for z-test
+
+$$ z_{obt} = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}} $$
+
+# Standard Error for one sample t-test
+
+$$ S_{\overline{X}} = \frac{S_{X}}{\sqrt{N}} $$
+
+# one sample t-test
+
+$$ t_{obt} = \frac{\overline{X} - \mu}{S_{\overline{X}}} $$
+
+# Standard Error change
+
+$$ S_{\overline{X}} = \sqrt{\frac{S^2_{x}}{N}} $$
+
+
+# Confidence Interval Calculations
+
+$$ (s_{\overline{x}})(-t_{crit}) + \overline{X} \; \leq \;  \mu \; \leq \; (s_{\overline{x}})(t_{crit}) + \overline{X} $$
+
+# Independent Samples t-test
+
+$$ H0: \mu_{1} - \mu_{2} = 0 $$
+
+$$ H1: \mu_{1} - \mu_{2} \neq 0 $$
+

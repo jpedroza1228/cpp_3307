@@ -1,0 +1,178 @@
+---
+title: "Study Guide - Midterm 1"
+author: "JP"
+date: '2022-02-23'
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Concepts to Know
+
+variable
+
+relationship
+
+  - types of relationships
+  
+desriptive and inferential statistics
+
+qualitative and quantitative
+
+IVs and DVs
+
+Conditions
+
+Levels of measurement
+
+  - categorical and continuous
+  
+  - types of each
+  
+Measurement error
+
+Know your greek letters
+
+Research Question
+
+  - how to formulate a rq
+  
+Theory
+
+Hypothesis
+
+Reliability and validity
+
+  - types of both
+  
+Experimental and correlational designs
+
+Issues with both designs
+
+Cross sectional and longitudinal
+
+between- and within-designs
+
+types of variation
+
+randomization
+
+practice effects
+
+counterbalancing
+
+frequencies
+
+different distributions
+
+normal distribution
+
+skewed distributions
+
+kurtosis
+
+bimodal and multimodal distributions
+
+measures of central tendency
+
+  - mean
+  
+  - mode
+  
+  - median
+  
+know when to use any of them
+
+measures od dispersion
+
+  - range
+  
+  - variance
+  
+  - standard deviation
+  
+quartiles
+
+deviance
+
+sum of errors/deviance
+
+sum of squared errors/squares
+
+z-score for a single participant
+
+z-score for a sample
+
+standardized scores
+
+percentages/proportions of distribution using z-scores
+
+use of z-table
+
+central limit theorem
+
+sample and population differences in terms
+
+fit
+
+samples and populations
+
+estimating parameters
+
+error
+
+degrees of freedom
+
+mean squared error
+
+Ordinary Least Squares
+
+making predictions
+
+standard error
+
+sampling variation/variability
+
+difference between probability and odds
+
+confidence intervals
+
+criterion
+
+critical values
+
+critical value for z-scores
+
+NHST
+
+probabilities
+
+p values
+
+types of hypotheses
+
+hypotheses for one- and two-tailed tests
+
+error types
+
+inflated error rates
+
+bonferroni correction
+
+statistical power
+
+effect sizes
+
+z-test
+
+one-sample t-test
+
+differences z-test and one-sample t-test
+
+z-table
+
+t-table

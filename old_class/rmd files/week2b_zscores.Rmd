@@ -1,0 +1,26 @@
+---
+title: "Week 2 - z-Scores"
+subtitle: "PSY 3307"
+author: "Jonathan A. Pedroza, PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(xaringanthemer)
+style_duo(primary_color = '#009E73', secondary_color = '#F0E442')
+```
+
+# Agenda
+

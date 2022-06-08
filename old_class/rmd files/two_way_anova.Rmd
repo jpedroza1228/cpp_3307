@@ -1,0 +1,417 @@
+---
+title: "PSY 3307"
+subtitle: "Two-Way Analysis of Variance"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(effectsize)
+```
+
+# Agenda
+
+- Go over the problem set
+- Talk about two-way ANOVA
+- Talk about how to do one-way ANOVA in SPSS
+  - small introduction into two-way ANOVA
+
+---
+
+```{r}
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  mutate(sex = ccc_gender,
+         sex = recode(sex, "1" = "Male",
+                      "2" = "Female"),
+         sex = factor(sex),
+         race = recode(ccc_ethnicity, "0" = "other", 
+                       "1" = "other", 
+                       "2" = "black",
+                       "3" = "white",
+                       "4" = "latino",
+                       "5" = "other",
+                       "6" = "other"),
+         race = factor(race),
+         bmi = ccc_bmi,
+         games_avg = (mtuas_videogaming_q1 + mtuas_videogaming_q2 + mtuas_videogaming_q3)/3,
+         tv_avg = (mtuas_tv_q1 + mtuas_tv_q2)/2,
+         race = relevel(race, ref = "white"),
+         sex = relevel(sex, ref = "Male"))
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(sex, games_avg)) + 
+  geom_boxplot(aes(fill = race)) +
+  labs(x = "",
+       y = "Video Games") +
+  theme_minimal()
+```
+
+---
+
+```{r}
+games_aov <- aov(games_avg ~ sex*race, data = jp)
+summary(games_aov)
+```
+
+---
+
+```{r}
+TukeyHSD(games_aov)
+```
+
+---
+
+```{r}
+effectsize::eta_squared(games_aov, alternative = "two.sided", ci = .95)
+```
+
+
+---
+
+```{r}
+games_lm <- lm(games_avg ~ sex*race, data = jp)
+summary(games_lm)
+```
+
+---
+
+```{r}
+effectsize::eta_squared(games_lm, alternative = "two.sided", ci = .95)
+```
+
+---
+
+```{r}
+effectsize::eta_squared(games_aov, alternative = "two.sided", ci = .95)
+.03 + .02 + 6.93e-03
+
+summary(games_lm)$r.squared
+```
+
+
+---
+
+```{r}
+games_lm2 <- lm(games_avg ~ tv_avg*sex, data = jp)
+summary(games_lm2)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(tv_avg, games_avg)) + 
+  geom_jitter(alpha = .7, color = "gray70") + 
+  geom_smooth(method = "lm", se = FALSE, color = "#116DA9") + 
+  theme_minimal()
+```
+
+---
+
+
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(tv_avg, games_avg)) + 
+  geom_jitter(alpha = .7, color = "gray70") + 
+  geom_smooth(method = "lm", se = FALSE, aes(color = sex)) + 
+  scale_color_manual(values = c("#A91151", "#116DA9")) + 
+  theme_minimal()
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(tv_avg, games_avg)) + 
+  geom_jitter(alpha = .7, color = "gray70") + 
+  geom_smooth(method = "lm", se = FALSE, aes(color = sex)) + 
+  scale_color_manual(values = c("#A91151", "#116DA9")) +
+  xlim(8, 10) + 
+  ylim(2.25, 5) + 
+  theme_minimal()
+```
+
+---
+
+```{r, warning = FALSE}
+interactions::probe_interaction(games_lm2, pred = tv_avg, modx = sex)
+```
+
+
+---
+
+$$\left[\begin{array}{cc}
+-\\
+Male\\
+Female\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+White\\
+Male\;White\\
+Female\;White\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Black\\
+Male\;Black\\
+Female\;Black\\
+\end{array}\right] 
+\left[\begin{array}{cc} 
+Latino\\
+Male\;Latino\\
+Female\;Latina\\
+\end{array}\right]
+\left[\begin{array}{cc} 
+Other\\
+Male\;Other\\
+Female\;Other\\
+\end{array}\right]$$
+
+---
+
+```{r}
+set.seed(102621)
+
+table <- data.frame(sex = c("male", "male", "male", "female", "female", "female"),
+                    white = rnorm(6, 10, 1.5),
+                     black = rnorm(6, 5, 2.4),
+                     latino = rnorm(6, 15, 3.1),
+                    other = rnorm(6, 12, 5))
+
+table
+```
+
+---
+
+# Two-way ANOVA
+
+- **two-way ANOVA** is a parametric ANOVA test that involves two IVs
+	- one-way ANOVA is with one IV
+
+- we will be covering a **two-way between-subjects ANOVA**, or two IVs that involve independent samples 
+
+- we will come back to within-subjects ANOVA
+	- repeated measures ANOVA
+	- **two-way within-subjects ANOVA** is when every participant receives the same two IVs
+
+- lastly, we will cover **two-way mixed-design ANOVA**, which is when one IV is between-subjects and the other IV is within-subjects
+
+---
+
+# Two-way ANOVA
+
+- to understand two-way ANOVAs we will refer to the amount of levels each variable has
+	- Ex: Variable 1: Sex (Male and Female) & Variable 2: Generation (baby boomers, generation X, millennials)
+	- The design is a 3 x 2 (3 by 2) ANOVA, is also a 2 x 3 ANOVA (just know which variable has each number of levels)
+
+- our two-way ANOVAs are not the same thing as an ANCOVA because we are interested in the **interaction** of our two IVs
+
+- in a two-way ANOVA, we need to think about the **cells**, or the conbination of the two factors/IVs' levels
+	- the columns are one IV
+	- the rows are the other IV
+	
+---
+
+# Two-way ANOVA
+
+- when each level of both IVs are combined, this is seen as a factorial design
+
+- assumptions of a two-way ANOVA
+	- pretty much exactly the same assumptions as a one-way ANOVA
+	
+		+ homogenous variance
+		+ interval/ratio DV
+		+ normally distributed
+		
+---
+
+# Main Effects
+
+- JP Note: Just because it states it is a main effect, it is not automatically cause --> effect
+	- this is just a term
+
+- the main effect is the association between one IV and the DV
+	- we have been doing this with one-one ANOVA
+
+- In a two-way ANOVA, we get the mean for each IV
+	- this is referred to as **collapsing**, where we average the scores from each level in one factor to calculate the main effect mean for the other factor
+	
+---
+
+# Main Effects
+
+- a **main effect mean** is the mean of the level of one factor after collapsing the other factor
+
+- *to see a main effect, look at how the main effect means change as the levels of the factor change*
+
+- simply, when we are interested in one IV and the association with the DV, we either look at our data horizontally or vertically
+
+---
+
+# Interactions
+
+- the difference between a one-way ANCOVA and a two-way ANOVA is the inclusion of an interaction
+
+- two IVs combined and teh influence of both on the DV is referred to as a two-way interaction
+	- less common is a three-way interaction, which is three variables together
+
+- rather than collapsing, we look at the cell means
+	- **cell means** are the means of the scores from one cell
+	
+---
+
+```{r}
+set.seed(102621)
+
+table <- data.frame(sex = c("male", "male", "male", "female", "female", "female"),
+                    white = rnorm(6, 10, 1.5),
+                     black = rnorm(6, 5, 2.4),
+                     latino = rnorm(6, 15, 3.1))
+
+table
+```
+	
+---
+
+# Interactions
+
+- Ex: we would look at the average for white males, black males, latino males and white females, black females, latina females
+
+- For our main effects, we compare the level means, for the interaction, we look at the cell means
+
+- **two-way interaction effect** is when a IV-DV relationship is dependent on the other IV values
+
+- the book has a mention of an interaction with one value going up as the other goes down
+	- **but** there are times where the visual looks like an interaction but the interaction is cancelled out (I'll show an example)
+
+- when including an interaction, the order of caring is:
+	- is the interaction is significant, good
+	- if not, then look at the main effects
+
+---
+
+# Recap
+
+- In a two-way between-subjects ANOVA we have
+	- the first main effect (IV 1 and its association with DV)
+	- the second main effect (IV 2 and its association with DV)
+	- the interaction effect (IV 1 x IV2 and this association with DV)
+
+- this means that we are essentially running three different F tests 
+	- we'll show this in SPSS
+	- one for the first main effect
+	- another for the second main effect
+	- a third for the interaction
+	- then whatever is leftover in the error/within
+
+- look at the interaction first, then the main effects
+
+---
+
+# Looking at Main Effects
+
+$$HSD = (q_{k})(\sqrt{\frac{MS_{wn}}{n}})$$
+
+- we need the `k`, `df_wn`, `MS_wn`, and the `n`
+	- make sure to remember that the n may be different for groups
+
+$$\eta^2 = \frac{SS_{bn}}{SS_{total}}$$
+
+---
+
+# Looking at the Interaction
+
+- along with working out the calculations, we will also visualize the interaction
+
+- you can visualize it several different ways
+	- line graph
+	- boxplots
+	-bar graphs
+
+- I'll show all of these in SPSS
+
+- parallel lines in a visualization indicates there is no interaction
+
+---
+
+# Tukey for Interaction
+
+- can be used to see what specific cell means are significantly different
+
+- it is slightly different for SPSS
+
+- we don't compare every single cell mean though
+
+- **counfounded comparisons** are comparisons between two cells that differ along more than one factor
+
+- **unconfounded comparisons** are comparisons that differ along only one factor
+  - this is the preferred way of looking at comparisons 
+  - we'll only look at vertical or horizontal comparisons
+
+- because we're not looking at all comparisons, we'll examine adjusted k
+
+---
+
+```{r}
+set.seed(102621)
+
+table <- data.frame(sex = c("male", "male", "male", "female", "female", "female"),
+                    white = rnorm(6, 10, 1.5),
+                     black = rnorm(6, 5, 2.4),
+                     latino = rnorm(6, 15, 3.1))
+
+table
+```
+
+---
+
+# Interpreting Two-way ANOVA
+
+- We'll look at the interaction first
+
+- Then look at each main effect if there is a nonsignificant interaction
+
+1. look at the F tests
+
+2. look at post-hoc comparisons
+
+3. look at effect size of each component of the model (main effects and interaction)
+
+---
+
+# Final Note
+
+Because we're talking about generalized linear models, we will begin to talk about parameter estimates and what they mean
+
+- Something super important to note is how to interpret single associations
+
+- we will have more exposure to this in regression, but it is super helpful for interpretation
+
+For example, if we see a significant association between sex and our outcome, we would interpret it as:
+
+For a one point increase in X, there is a ____ increase/decrease in Y (continuous)
+
+For a one point difference Between Males and Females, there is a ____ increase/decrease in Y (categorical)
+
+
+
+

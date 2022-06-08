@@ -1,0 +1,200 @@
+---
+title: "PSY 3307"
+subtitle: "Two-Way ANOVA cont."
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(effectsize)
+```
+
+# Agenda
+
+- Go over two-way ANOVA
+- Answer any questions about the exam
+- Conduct a two-way ANOVA together for upcoming problem set & SPSS assignment
+
+---
+
+```{r, include = FALSE}
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/analytic_data/county20.csv") %>% 
+  janitor::clean_names()
+
+data <- data %>% 
+  filter(state == "CA" |
+           state == "AL" |
+           state == "MO") %>% 
+  mutate(crime_amount = case_when(county_crime >= 248.69 ~ "high_crime",
+                               county_crime < 248.69 ~ "low_crime"),
+         state = case_when(state == "CA" ~ "California",
+                           state == "AL" ~ "Alabama",
+                           state == "MO" ~ "Missouri"),
+         state = factor(state),
+         income_split = case_when(median_house_income >= 46633 ~ "high_income",
+                                  median_house_income < 46633 ~ "low_income"),
+         income_split = factor(income_split),
+         income_split = relevel(income_split, ref = "low_income"),
+         state = relevel(state, ref = "California"))
+
+theme_set(theme_minimal())
+```
+
+```{r, echo = FALSE, eval = TRUE}
+data %>% 
+  group_by(income_split) %>% 
+  summarize(inactivity_avg = mean(inactivity)) %>% 
+  ungroup() %>% 
+  ggplot(aes(fct_reorder(income_split, inactivity_avg), inactivity_avg)) + 
+  geom_col(aes(fill = income_split)) +
+  theme(legend.position = "none") +
+  labs(x = "Level of Crime",
+       y = "Inactivity")
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+data %>% 
+  group_by(income_split) %>% 
+  mutate(inactivity_avg = mean(inactivity)) %>% 
+  ungroup() %>% 
+  ggplot(aes(fct_reorder(income_split, inactivity_avg), inactivity)) + 
+  geom_jitter(aes(color = income_split)) + 
+  geom_hline(yintercept = .25, color = "dodgerblue", size = 1.25) + 
+  geom_hline(yintercept = .31, color = "red", size = 1.25) + 
+  theme(legend.position = "none") +
+  labs(x = "Level of Crime",
+       y = "Inactivity")
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+income_find <- aov(inactivity ~ income_split, data = data)
+summary(income_find)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+TukeyHSD(income_find)
+
+psych::describeBy(data$inactivity, data$income_split)
+```
+
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+summary(lm(inactivity ~ income_split, data = data))
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+data %>% 
+  group_by(state) %>% 
+  summarize(inactivity_avg = mean(inactivity)) %>% 
+  ungroup() %>% 
+  ggplot(aes(fct_reorder(state, inactivity_avg), inactivity_avg)) + 
+  geom_col(aes(fill = state)) +
+  theme(legend.position = "none") +
+  labs(x = "",
+       y = "Inactivity")
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+state_find <- aov(inactivity ~ state, data = data)
+summary(state_find)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+TukeyHSD(state_find)
+psych::describeBy(data$inactivity, data$state)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+arm::display(lm(inactivity ~ state, data = data))
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+data %>% 
+  drop_na(income_split) %>% 
+  group_by(state, income_split) %>% 
+  mutate(inactivity_avg = mean(inactivity)) %>% 
+  ungroup() %>% 
+  ggplot(aes(fct_reorder(state, inactivity_avg), inactivity_avg, group = income_split)) + 
+  geom_line(aes(color = income_split), size = 2) +
+  geom_point(color = "black", size = 2) + 
+  labs(x = "",
+       y = "Inactivity") +
+  theme(legend.title = element_blank())
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+inter_find <- aov(inactivity ~ state*income_split, data = data)
+summary(inter_find)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+TukeyHSD(inter_find)$state
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+TukeyHSD(inter_find)$income_split
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+TukeyHSD(inter_find)$`state:income_split`
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+arm::display(lm(inactivity ~ state*income_split, data = data))
+```
+
+---
+
+# Recap on Main Effects & Interaction
+
+- We have three F tests
+  - one for the first IV on DV
+  - second for the second IV on DV
+  - third the interaction on DV
+
+- Interpret the interaction first
+  - then the main effects
+
+

@@ -1,0 +1,64 @@
+---
+title: "Study Guide"
+author: "JP"
+date: "10/21/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Things to Know
+
+- all the formulas for z-test, one-sample t-test, independent-samples t-test, paired-samples t-test, one-way anova
+- know how to calculate for all the different statistical tests above (except post-hoc tests for ANOVA)
+- know how to use all of the tables covered so far (z, t, F, q)
+- know how to interpret statistically significant/nonsignificant findings
+- know what test to calculate given some context
+- know what statistically significant/nonsignificant findings mean
+- what is an inferential statistic
+- know what the assumptions are for the tests we've covered (normally distributed DV, interval/ratio score)
+- know difference between nonparametric test and parametric test
+- know how to formulate a null and research/alternative hypothesis
+- know the difference between the two hypotheses
+- know what a one-tailed and two-tailed test are
+- from a given hypothesis, tell me whether it would be a one-tailed or two-tailed test
+- know alphas that correspond to a one-tailed or two-tailed test
+- know what regions of rejection, critical values, and alphas are
+- know the critical values for a z-test
+- know what type I and type II errors are and the difference between the two
+- know what power is and how to improve it
+- know the differences between a z-test and a one-sample t-test
+- know the difference between all the different t-tests, especially paired-samples and independent-samples t-tests
+- know the differences between all the different distributions covered so far (z, t, F, sampling, differences between means, raw)
+- know what confidence intervals are (I won't ask for CI calculations though)
+- know what point estimations are
+- know what interval estimations are
+- be familiar with what bootstrapping is
+- know how to write out each test statistic finding (z, t, F)
+- know the differences between between-subjects/group design and within-subjects/group design
+- know what homogeneity of variance is
+- know what test we use to check for homogeneity of variance
+	- know the difference between a typical t-test (student's t-test) and a Welsh t-test
+- know what pooled variance is and what test it is used for
+- know what the standard error of the difference is
+- know what effect sizes are 
+- know the magnitudes of effect size
+- know how to calculate effect sizes for t- and F-tests (cohen's d, hedges' g, proportion of variance [for F-test])
+- know how to calculate degrees of freedom
+- know the different types of paired-samples t-test
+- know what a factor and a level are
+	- expect examples of a factor with several levels where you will state which are which
+- know what k is
+- know the difference between an independent samples t-test and a one-way ANOVA
+- know what the assumptions of an ANOVA are
+- know why it is not okay to run several t-tests compared to an ANOVA
+- know null and alternative/research hypotheses for ANOVA
+- know how to calculate a Bonferroni Correction
+- know the correction for unequal sample sizes
+- know what and how to calculate sum of squares, mean squares, degrees of freedom, F statistic for ANOVA
+- know what the grand mean is 
+- know what a F-statistic tells us and what it doesn't tell us
+- know what Tukey HSD is
+- know what eta squared is

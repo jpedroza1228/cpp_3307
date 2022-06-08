@@ -372,23 +372,23 @@ All classes will be recorded with automated closed captions and a full automated
 | Week 2b | 02/03/22 | z-scores | Frequencies, measures of central tendency, and variability | Ch.1 | Problem Set 2 |
 | Week 3a | 02/08/22 | Modeling, populations, samples, and the standard error | Frequencies, measures of central tendency, and variability | Ch.2  | *Problem Sets 1 and 2 due* |
 | Week 3b | 02/10/22 | Modeling, populations, samples, and the standard error | sampling calculations | Ch.2 | Problem Set 3 |
-| Week 4a | 02/15/22 | Null-hypothesis significance testing | z-test and one-sample t-test | Ch.2 | *Problem Set 3 due* |
+| Week 4a | 02/15/22 | Modeling, populations, samples, and the standard error | z-test and one-sample t-test | Ch.2 | *Problem Set 3 due* |
 | Week 4b | 02/17/22 | Null-hypothesis significance testing | z-test and one-sample t-test | Ch.2 | Problem Set 4 |
 | Week 5a | 02/22/22 | Study session | Study Session | No readings | *Problem Set 4 due* |
 | Week 5b | 02/24/22 | Exam 1 | Exam 1 | No readings |  |
 | Week 6a | 03/01/22 | Examining Bias | SPSS Assumptions Practice | Ch.6 |  |
-| Week 6b | 03/03/22 | Examining Bias | SPSS Assumptions Practice | Ch.6 | Problem Set 5 |
-| Week 7a | 03/08/22 | Independent-samples t-test | t-test calculations | Ch.10 | *Problem Set 5 due* |
-| Week 7b | 03/10/22 | Independent-samples t-test | SPSS t-test Practice | Ch.10 | Problem Set 6/SPSS Assignment 1 |
-| Week 8a | 03/15/22 | Paired-samples t-test | t-test calculations | Ch.10 | *Problem Set 6 due* |
-| Week 8b | 03/17/22 | Paired-samples t-test | SPSS t-test Practice | Ch.10 | Problem Set 7 |
-| Week 9a | 03/22/22 | One-way ANOVA | ANOVA calculations | Ch.12 | *Problem Set 7 and SPSS Assignment 1 due* |
-| Week 9b | 03/24/22 | One-way ANOVA | ANOVA calculations/SPSS ANOVA Practice | Ch.12 | Problem Set 8 |
-| Week 10a | 03/29/22 | One-way ANOVA | SPSS ANOVA Practice | Ch.12 | *Problem Set 8 due* Problem Set 9/SPSS Assignment 2 |
-| Week 10b | 03/31/22 | Study session | Study session | No readings | |
-| Week 11a | 04/05/22 | Exam 2 | Exam 2 | No readings | *Problem Set 9 due* |
-| Week 11b | 04/07/22 | Two-way ANOVA | ANOVA calculations | Ch.14 |  |
-| Week 12a | 04/12/22 | Two-way ANOVA | ANOVA calculations/SPSS ANOVA Practice | Ch.14 | SPSS Assignment 3/*SPSS Assignment 2 due* |
+| Week 6b | 03/03/22 | Examining Bias | SPSS Assumptions Practice | Ch.6 |  |
+| Week 7a | 03/08/22 | Examining Bias | SPSS Assumptions Practice | Ch.6 | Problem Set 5 |
+| Week 7b | 03/10/22 | Independent-samples t-test | t-test calculations | Ch.10 | Problem Set 6 |
+| Week 8a | 03/15/22 | Independent-samples t-test | SPSS t-test Practice | Ch.10 | *Problem Sets 5 & 6 due*/SPSS Assignment 1 |
+| Week 8b | 03/17/22 | Paired-samples t-test | t-test calculations | Ch.10 | Problem Set 7 |
+| Week 9a | 03/22/22 | One-way ANOVA | ANOVA calculations | Ch.12 | *Problem Set 7 and SPSS Assignment 1 due*/Problem Set 8 |
+| Week 9b | 03/24/22 | One-way ANOVA | ANOVA calculations/SPSS ANOVA Practice | Ch.12 | Problem Set 9/SPSS Assignment 2 |
+| Week 10a | 03/29/22 | Spring Break | Study Guide Provided |  |  |
+| Week 10b | 03/31/22 | Spring Break |  |  | |
+| Week 11a | 04/05/22 | Exam 2 | Exam 2 | No readings | *Problem Set 8 & 9 due* |
+| Week 11b | 04/07/22 | Two-way ANOVA | ANOVA calculations | Ch.14 | *SPSS Assignment 2 due* |
+| Week 12a | 04/12/22 | Two-way ANOVA | ANOVA calculations/SPSS ANOVA Practice | Ch.14 | SPSS Assignment 3 |
 | Week 12b | 04/14/22 | Two-way ANOVA/Repeated Measures | SPSS ANOVA Practice | Ch.14 and Ch.15  |  |
 | Week 13a | 04/19/22 | Repeated Measures & Mixed-design ANOVA | ANOVA Calculations | Ch.15 and Ch.16 |  |
 | Week 13b | 04/21/22 | Repeated Measures & Mixed-design ANOVA | SPSS ANOVA Practice | Ch.15 and Ch.16 | Problem Set 10/*SPSS Assignment 3 due* |

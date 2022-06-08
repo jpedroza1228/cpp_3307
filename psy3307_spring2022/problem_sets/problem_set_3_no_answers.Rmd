@@ -1,0 +1,72 @@
+---
+title: "Problem Set 3"
+author: "JP"
+date: '2022-02-18'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this assignment, you will be measuring your participants' happiness level. It is on a scale from 1-10. Give me the following information. In addition to that, you'll fit a "model" with your own prediction of what would happen at your own choosing of happiness. For example, if you are interested in how the model fits with 10 on the happiness scale, you would include 10 to calculate the sum of squares/sum of squared errors. **If working with R/RStudio, make sure to copy everything below from the word `data` to the word `data`.**
+
+```{r}
+
+data <- data.frame(happiness = c(10, 9, 9, 7, 5,
+                                 2, 3, 1, 6, 7),
+                   mean = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   deviance = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   dev_squared = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   first_predict = c('', '', '', '', '',
+                            '', '', '', '', ''),
+                   predict_dev_squared = c('', '', '', '', '',
+                            '', '', '', '', ''))
+
+data
+```
+
+1. What is the number of participants?
+
+2. What is the mean happiness score?
+
+3. What is the deviance between participants' scores and the mean happiness score?
+
+$$(X_{i} - \overline{X})$$
+
+4. Calculate the sum of errors/total deviation.
+
+$$\sum_{i = 1}^n(X_{i} - \overline{X})$$
+
+5. Calculate the deviance squared for each participant. 
+
+$$(X_{i} - \overline{X})^2$$
+
+6. Calculate the sum of squared errors/sum of squares.
+
+$$\sum_{i = 1}^n(X_{i} - \overline{X})^2$$
+
+7. Calculate the degrees of freedom.
+
+$$df = n - 1$$
+
+8. Calculate the variance/mean squared error for your model.
+
+$$S^2 = \frac{\sum_{i = 1}^n(X_{i} - \overline{X})^2}{N - 1}$$
+
+9. Calculate the standard deviation for your sample. 
+
+$$S = \sqrt{\frac{\sum_{i = 1}^n(X_{i} - \overline{X})^2}{N - 1}}$$
+
+10. Make your prediction. You can include deviance, sum of errors, deviance squared values, and sum of squared errors calculations. 
+
+11. Calculate the standard error from your calculations using the mean.
+
+$$\sigma_{\overline{X}} = \frac{S}{\sqrt{N}}$$
+
+12. Calculate confidence intervals using a 95% z-score distribution. 
+
+13. What does the 95% confidence intervals tell us about the average happiness value we calculated? 

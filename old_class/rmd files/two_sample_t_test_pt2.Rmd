@@ -1,0 +1,677 @@
+---
+title: "PSY 3307"
+subtitle: "Two Sample t-test Pt2"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(ggridges)
+library(psych)
+library(nFactors)
+
+```
+
+# Agenda
+
+- Review terms
+  - independent samples t-test, homogeneity of variance, pooled variance, standard error of the difference
+- Between & Within Designs
+- One Tailed Independent Samples t-test
+- Paired Sample t-test
+- Performing a Paired Sample t-test
+- Effect Size
+
+---
+
+# One Sample t-test
+
+- used when we are confident that the direction of the relationship
+
+- if you think one group will have a higher score/value then you would make that statement in your alternative hypothesis
+
+---
+
+# Steps for one-tailed test
+
+- Variable(Groups) = Intervention(Got Intervention/Control)
+- Outcome = Fruit & Vegetable Intake
+
+1. decide which sample/group score you think will be larger
+  - I think that the intervention group will eat more fruits and vegetables
+
+2. decide which condition/group to subtract from the other
+  - `intervention group - control group`
+
+3. decide whether the difference will be positive or negative
+  - a positive value should be returned from the previous equation
+  
+---
+
+4. create hypotheses
+  - The intervention group will eat the same or less fruits and vegetables than the control group
+    - H0: mu(intervention group) - mu(control group) ≤ 0
+  - The intervention group will eat more fruits and vegetables than the control group
+    - H1: mu(intervention group) - mu(control group) > 0
+    
+---
+
+5. locate regions of rejection
+  - since we are interested in a positive difference in our hypothesis, we'll only be looking at the upper tail of the distribution
+
+6. conduct your independent samples t-test
+  - make sure your groups/samples are subtracted the same way as your hypotheses
+    - `intervention group - control group`
+
+---
+
+# Paired Samples t-test
+
+- within-subjects/groups design
+
+- also called related-samples t-test
+  - each participant gets measured in each condition
+
+- an example would be an intervention for weight loss where everyone's weight is measured before (first time point to measure) the intervention and after (second time point to measure)
+
+- **matched-samples design** is when a participant in one condition is matched with a participant in the other condition
+
+- **repeated-measures design** is when each participant gets measured twice
+  - can be more for more rigorous statistics, but not the ones we'll learn about in this class
+
+---
+
+# Why we use paired-samples t-tests
+
+- pretest/posttest design
+  - before everyone gets the intervention/experiment (pretest or first time point) and then after the intervention/experiment (posttest or second time point)
+
+---
+
+- we subtract every person's before/after score from the before/score score to get a `difference` score
+
+- you can subtract whatever score you want from the other (before - after or after - before)
+
+- **mean differences** the mean of the differences between the paired scores
+  - repesented as dbar
+
+- add all the values of differences for before/after to get a sum and then divide by the number of participants (each person has a before and after score or the number of difference scores)
+
+$$ Sample\;mean\;difference = \overline{D} $$
+
+$$population\;mean\;difference = \mu_{D} $$
+
+- now because we have a sample mean from a sample, we can now perform a one-sample t-test
+
+---
+
+# Hypotheses
+
+- our null hypothesis is that there will be no change in scores on both occasions so there should be a difference of zero
+
+$$H_0: \mu_{D} = 0$$
+
+- our alternative hypothesis is that either our before or after scores should be higher
+  - our hypothesis supports either a positive or negative change
+
+$$H_1: \mu_{D} \neq 0$$
+
+- similar to the independent samples t-test, our sampling distribution is of mean differences
+
+---
+
+# Steps to paired-samples t-test
+
+Calculate the estimated variance of the difference scores
+
+$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+**Note** the notation changes from X to D because we are working with differences in scores and not means
+
+---
+
+Calculate the standard error of the mean differences
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+---
+
+Find the obtained t-value
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+The population difference will be zero unless you are testing for a nonzero difference
+
+---
+
+Calculate the degrees of freedom
+
+$$df = N - 1$$
+
+---
+
+Calculate effect size
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+OR
+
+$$r^2_{pb} = \sqrt{\frac{(t_{obt})^2}{(t_{obt})^2 + df}}$$
+---
+
+Discuss Significance
+
+- Is the difference between time point 1 and time point 2 statistically significant?
+
+---
+
+# Example
+
+```{r}
+set.seed(100521)
+t1 = rnorm(10, mean = 10, sd = 1.5)
+
+t2 = rnorm(10, mean = 5.8, sd = 4)
+
+df <- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+```
+
+---
+
+```{r}
+df
+```
+
+
+---
+
+```{r}
+df$t2
+
+df$t1
+```
+
+---
+
+```{r, include = FALSE}
+df2 <- df %>% 
+  mutate(score_difference = t2 - t1,
+         score_difference_squared = score_difference^2)
+
+df2 %>% 
+  summarize(mean = mean(score_difference),
+            variance = sd(score_difference)^2,
+            sd = sd(score_difference))
+```
+
+---
+
+```{r}
+12.75 - 8.32
+10.54 - 13.96
+7.51 - 8.17
+```
+
+---
+
+```{r}
+4.32 - 8.40
+9.95 - 8.90
+3.64 - 7.58
+```
+
+---
+
+```{r}
+6.45 - 9.67
+3.40 - 11.51
+3.43 - 10.13 
+13.77 - 11.49
+```
+
+---
+
+To get your dataframe to include the numbers you just included, you need to run this again. Then it should fill in the blanks with the numbers you provided. 
+
+```{r}
+
+df <- data.frame(participant = 1:10,
+  t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c(4.43, -3.42, -.66, -4.08, 1.05, -3.94, -3.22, -8.11, -6.7, 2.28),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+```
+
+---
+
+```{r}
+df$score_difference
+```
+
+---
+
+```{r}
+(4.43)^2
+(-3.42)^2
+(-.66)^2
+```
+
+---
+
+```{r}
+(-4.08)^2
+(1.05)^2
+(-3.94)^2
+```
+
+---
+
+```{r}
+(-3.22)^2
+(-8.11)^2
+(-6.7)^2
+(2.28)^2
+```
+
+---
+
+```{r}
+df <- data.frame(participant = 1:10,
+  t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c(4.43, -3.42, -.66, -4.08, 1.05, -3.94, -3.22, -8.11, -6.7, 2.28),
+                 score_difference_squared = c(19.62, 11.70, .44, 16.64, 1.10, 15.52, 10.37, 65.77, 44.89, 5.20))
+
+df
+```
+
+---
+
+```{r}
+df$score_difference
+
+4.43 + (-3.42) + (-0.66) + (-4.08) + 1.05 + (-3.94) + (-3.22) + (-8.11) + (-6.70) + 2.28
+# sum difference is -22.37
+
+-22.37/10
+# mean difference is -2.24
+```
+
+---
+
+## Calculate the estimated variance of the difference scores
+
+$$s^2_{D} = \frac{\Sigma D^2 - \frac{(\Sigma D)^2}{N}}{N - 1}$$
+
+$$s^2_{D} = \frac{\Sigma D^2 - \frac{(-22.37)^2}{10}}{10 - 1}$$
+
+---
+
+```{r}
+19.62+ 11.70+ .44+ 16.64+ 1.10+ 15.52+ 10.37+ 65.77+ 44.89+ 5.20
+```
+
+$$s^2_{D} = \frac{191.25 - \frac{(-22.37)^2}{10}}{10 - 1}$$
+
+---
+
+```{r}
+(-22.37)^2
+```
+
+$$s^2_{D} = \frac{191.25 - \frac{500.42}{10}}{10 - 1}$$
+
+---
+
+```{r}
+500.42/10
+```
+
+$$s^2_{D} = \frac{191.25 - 50.04}{9}$$
+
+---
+
+```{r}
+191.25 - 50.04
+```
+
+$$s^2_{D} = \frac{141.21}{9}$$
+
+---
+
+```{r}
+141.21/9
+```
+
+$$s^2_{D} = 15.69$$
+
+---
+
+## Calculate the standard error of the mean differences
+
+$$S_{\overline{D}} = \sqrt{\frac{S^2_{D}}{N}}$$
+
+$$S_{\overline{D}} = \sqrt{\frac{15.69}{10}}$$
+
+---
+
+```{r}
+15.69/10
+```
+
+$$S_{\overline{D}} = \sqrt{1.57}$$
+
+---
+
+```{r}
+sqrt(1.57)
+```
+
+$$S_{\overline{D}} = 1.25$$
+
+---
+
+## Find the obtained t-value
+
+$$t_{obt} = \frac{\overline{D} - \mu_{D}}{S_{\overline{D}}}$$
+
+$$t_{obt} = \frac{-2.24 - 0}{1.25}$$
+
+---
+
+```{r}
+-2.24 - 0
+```
+
+$$t_{obt} = \frac{-2.24}{1.25}$$
+
+---
+
+```{r}
+-2.24/1.25
+```
+
+$$t_{obt} = -1.79$$
+
+---
+
+## Calculate the degrees of freedom
+
+$$df = N - 1$$
+
+```{r}
+10 - 1
+```
+
+$$df = 9$$
+
+---
+
+## Calculate effect size
+
+$$d = \frac{\overline{D}}{\sqrt{S^2_{D}}}$$
+
+---
+
+```{r}
+mean(df$score_difference)
+sd(df$score_difference)^2
+
+
+-2.24
+15.69
+
+```
+
+$$d = \frac{-2.24}{\sqrt{15.69}}$$
+
+---
+
+```{r}
+sqrt(15.69)
+sd(df$score_difference)
+```
+
+$$d = \frac{-2.24}{3.96}$$
+
+---
+
+```{r}
+-2.24/3.96
+```
+
+$$d = -.57$$
+
+so really this means
+
+$$d = .57$$
+
+---
+
+$$r^2_{pb} = \sqrt{\frac{(t_{obt})^2}{(t_{obt})^2 + df}}$$
+
+$$r^2_{pb} = \sqrt{\frac{(-1.79)^2}{(-1.79)^2 + df}}$$
+
+---
+
+```{r}
+(-1.79)^2
+```
+
+$$r^2_{pb} = \sqrt{\frac{3.20}{3.20 + 9}}$$
+
+---
+
+```{r}
+3.20 + 9
+```
+
+$$r^2_{pb} = \sqrt{\frac{3.20}{12.20}}$$
+
+---
+
+```{r}
+3.2/12.2
+```
+
+$$r^2_{pb} = \sqrt{.26}$$
+
+---
+
+```{r}
+sqrt(.26)
+```
+
+$$r^2_{pb} = .51$$
+
+---
+
+## Discuss Significance
+
+t-obtained value of -1.79
+
+t-critical value of 
+
+---
+
+# One-tailed paired-samples t-test
+
+- choose whether you think your `after` score would be lower/higher than the `before` score
+
+- have your hypotheses reflect that
+
+- if you think after scores should be higher than before (learning intervention) then the difference scores should be positive
+  - because you subtracted before scores from after scores
+
+$$H_{a}: \mu_{D} > 0$$
+
+$$H_{0}: \mu_{D} \leq 0$$
+
+---
+
+# Reporting
+
+- report in a similar style to all other t-test
+  - t(df) = t value, p value
+  
+- you'll also report the means of the before and after scores
+  - you won't report the difference between the two means
+  
+---
+
+# Effect Sizes
+
+- **effect size** is the amount of influence that changing the conditions of the IV has on the DV
+
+- **cohen's d** is a measure of effect size in two-sample studies that reflects the magnitude of difference
+
+  - small = .2
+  
+  - medium = .5
+  
+  - large = .8
+
+- larger effect size means stronger the strength of the association/relationship between the IV and DV
+
+---
+
+# Effect Size using Proportion of Variance Accounted For
+
+- used to determine how consistently scores change
+
+- **proportion of variance accounted for** is the proportion of differences in DV scores assocaited with changing the conditions of the IV
+  - effect size using **squared point-biserial correlation coefficient**, which indicates the proprotion of variance in DV scores that is accounted fro by IV variable in two-sample studies, are below
+  
+    - small = .09
+    
+    - moderate = .10-.25
+    
+    - large = .25
+
+---
+
+# Practice Time
+
+```{r}
+set.seed(093021)
+
+mistakes_made_tutor = rnorm(10, mean = 1.5, sd = 1.4)
+mistakes_made_control = rnorm(8, mean = 4.1, sd = 1)
+
+mistakes_made_tutor
+mistakes_made_control
+
+```
+
+---
+
+```{r}
+set.seed(093021)
+
+translating_native_speaker = rnorm(9, mean = 20, sd = 4.7)
+translating_non_native = rnorm(14, mean = 10, sd = .99)
+
+translating_native_speaker
+translating_non_native
+```
+
+---
+
+```{r}
+set.seed(093021)
+
+first_gen_bmi = rnorm(6, mean = 22, sd = 2.2)
+second_gen_bmi = rnorm(9, mean = 28, sd = 5)
+
+first_gen_bmi
+second_gen_bmi
+```
+
+---
+
+```{r}
+set.seed(100521)
+t1 = rnorm(10, mean = 15, sd = 2.7)
+
+t2 = rnorm(10, mean = 12, sd = 2.1)
+
+df1 <- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+df1$t2
+df1$t1
+```
+
+---
+
+```{r}
+set.seed(100521)
+t1 = rnorm(10, mean = 8, sd = 1.2)
+
+t2 = rnorm(10, mean = 10.5, sd = 4.8)
+
+df11 <- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+df11$t2
+df11$t1
+```
+
+---
+
+```{r}
+set.seed(100521)
+t1 = rnorm(10, mean = 15, sd = 5.6)
+
+t2 = rnorm(10, mean = 4.3, sd = 5)
+
+df111 <- data.frame(participant = 1:10,
+                 t1 = round(t1, 2),
+                 t2 = round(t2, 2),
+                 score_difference = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"),
+                 score_difference_squared = c("_____________", "_____________", "_____________", "_____________", "_____________",
+                                     "_____________", "_____________", "_____________", "_____________", "_____________"))
+
+df111$t2
+df111$t1
+```
+
+
+
+
+
+
+

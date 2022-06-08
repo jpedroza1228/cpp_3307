@@ -1,0 +1,205 @@
+---
+title: "Problem Set 6"
+author: "JP"
+date: '2022-03-15'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+You are interested in knowing whether there are differences between males and females in how many questions they got correct on an exam. Tell me if there were differences between the two sexes on the exam. 
+
+```{r}
+compare <- data.frame(male = c(3, 2, 3, 4, 7),
+                      female = c(8, 6, 1, 1, 5))
+compare
+```
+
+## What are our two hypotheses
+
+H0:
+H1:
+
+## Get the means for both groups
+
+```{r}
+# male
+(3 + 2 + 3 + 4 + 7)/5
+
+# female
+(8 + 6 + 1 + 1 + 5)/5
+
+mean(compare$male)
+mean(compare$female)
+```
+
+## Get the n for both groups
+
+- 5 participants in both groups
+
+
+## Get the df and sum of squares values for both groups
+
+$$
+SS = \sum(X - \overline{X})^2
+$$
+
+```{r}
+# male
+(3 - 3.8)^2 + 
+(2 - 3.8)^2 + 
+(3 - 3.8)^2 + 
+(4 - 3.8)^2 + 
+(7 - 3.8)^2
+```
+
+```{r}
+# female
+(8 - 4.2)^2 + 
+(6 - 4.2)^2 + 
+(1 - 4.2)^2 + 
+(1 - 4.2)^2 + 
+(5 - 4.2)^2  
+```
+
+male = 14.8
+female = 38.8
+
+## What are the variance and standard deviation values for both groups
+
+$$
+S^2 = \frac{SS}{df}
+$$
+```{r}
+# male
+14.8/4
+
+# female
+38.8/4
+```
+
+male variance = 3.7
+female variance = 9.7
+
+$$
+S = \sqrt{\frac{SS}{df}}
+$$
+```{r}
+# male
+sqrt(3.7)
+
+# female
+sqrt(9.7)
+```
+
+male sd = 1.92
+female sd = 3.11
+
+## calculate the standard error for both groups
+
+$$
+S_{\overline{X}} = \frac{S}{\sqrt{n}} \;\;OR\;\;S_{\overline{X}} = \frac{S^2}{n}
+$$
+
+$$
+S_{\overline{X}} = \frac{S^2}{n}
+$$
+
+```{r}
+# male
+3.7/5
+
+# female
+9.7/5
+
+```
+
+male se = 0.74
+female se = 1.94
+
+## Get the standard error of the differences between groups
+
+$$
+S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}}
+$$
+
+```{r}
+0.74 + 1.94
+
+sqrt(2.68)
+```
+
+se is 1.64
+
+## If those groups are different, remember to correct for different n sizes in each group
+
+$$
+S^2_{p} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{n_{1} + n_{2} - 2}
+$$
+
+$$
+S^2_{p} = \frac{(4)3.7 + (4)9.7}{8}
+$$
+
+```{r}
+4*3.7
+
+4*9.7
+
+14.8 + 38.8
+
+53.6/8
+
+```
+
+$$
+S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{\frac{S^2_{p}}{n_{1}} + \frac{S^2_{p}}{n_{2}}}
+$$
+
+```{r}
+6.7/5
+
+6.7/5
+
+1.34 + 1.34
+
+sqrt(2.68)
+```
+
+se is 1.64
+
+## What are the degrees of freedom to use for our t-table
+
+$$
+df = (n_{1} - 1) + (n_{2} - 1)
+$$
+
+df is 8
+
+```{r}
+(5 - 1) + (5 - 1)
+```
+
+
+## what is our t-obtained value
+
+$$
+t_{obt} = \frac{\overline{X}_{1} - \overline{X}_{2}}{\sqrt{\frac{S^2_{p}}{n_{1}} + \frac{S^2_{p}}{n_{2}}}}
+$$
+
+```{r}
+3.8 - 4.2
+
+-.4/1.64
+
+```
+
+t-obtained value of -0.24
+
+No differences between groups
+
+## Is it significant?
+
+No.

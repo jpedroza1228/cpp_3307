@@ -1,0 +1,259 @@
+---
+title: "Moderation Analyses"
+author: Jonathan A. Pedroza, PhD
+format: beamer
+editor: visual
+---
+
+## Conceptual Model
+
+-   conceptually the term is moderation, but its an interaction in statistical terms
+
+    -   still the multiplied effect between two IVs
+
+-   moderation models allow us to see if there are differences between your predictor and your outcome by a second predictor (**moderator variable**)
+
+    -   the moderator affects the relationship between your IV and your DV
+
+        -   Ex: you can examine the differences in depression ($DV$) between BMI categories ($IV_1$) and whether they differ based on race/ethnicity ($IV_2$)
+
+        -   Ex: you can examine if there are differences by BMI category ($IV_2$) on the relationship between smartphone use ($IV_1$) and depression ($DV$)
+
+        -   Ex: you can examine if there are differences in the relationship between smartphone use ($IV_1$) and depression ($DV$) by level of email use ($IV_2$)
+
+## Conceptual Model
+
+![](images/paste-C822A196.png)
+
+## Conceptual Model
+
+-   when we have two continuous variables, we are looking at the relationship between the predictor and your outcome based on chosen levels of your moderator
+
+    -   it tends to be +1 and -1 SD for low and high levels of your moderator
+
+-   when we look at a continuous predictor and a categorical moderator, we will look at the relationship between the predictor and the outcome compared by groups
+
+## Conceptual Model
+
+![](images/paste-9C38DC32.png)
+
+## Conceptual Model
+
+![](images/paste-A4420A8A.png)
+
+## Statistical Model
+
+![](images/paste-F19A0418.png)
+
+## Statistical Model
+
+$$
+Y_i = (b_0 + b_1X_{1i} + b_2X_{2i} + b_3X_{3i} + b_nX_{ni}) + \epsilon_i 
+$$
+
+$$
+Stress_i = (b_0 + b_1Smartphone_i + b_2Email_i) + \epsilon_i
+$$
+
+$$
+Stress_i = (b_0 + b_1Smartphone_i + b_2Email_i + b_3SmartphoneXEmail_i) + \epsilon_i
+$$
+
+## Centering Variables
+
+-   $b$ values represent the slope and should be different from zero in order to reject the null hypothesis
+
+-   sometimes the interpretation of your predictors would not make sense at a value of zero
+
+    -   Book: you can't have zero heart rate
+
+-   Centering is used to redefine the zero point
+
+    -   also called **grand mean centering**, because centering is often subtracting the mean from your variable
+
+    -   shifts the scale over but retains the unit interpretation
+
+    -   the slope won't change between predictor and outcome
+
+## Centering Variables
+
+$$
+Email_{center} = Email - \overline{X}_{Email}
+$$
+
+-   centered values are centered on zero but are slightly different from z-scores
+
+    -   centered values are not expressed as standard deviation units (like z-scores)
+
+-   centering won't really affect interpretation of the interaction
+
+    -   it does affect interpretation of "main effects" relationships between predictors and outcome
+
+    -   these relationships are no longer the $b$ values when the other variable(s) are zero
+
+        -   they are now the relationship when the other variable(s) are at their mean
+
+-   Ex: $b_1$ would be the relationship between smartphone use and stress when emailing is at its average
+
+## Centering Variables
+
+-   centering with an interaction makes "main effects" more interpretable, especially with non-significant interactions
+
+-   two interpretations are possible for the "main effects"
+
+    -   the effect of that predictor at the mean value of the sample
+
+    -   the average effect of that predictor across the range of scores for the other predictors
+
+## Creating Interaction Variables
+
+-   categorical variables will need dummy coding
+
+-   continuous variables could be centered
+
+-   then you create a term that multiples the two variables of interest
+
+    -   for continuous and categorical variable interactions and categorical and categorical interactions --> you will use each dummy coded variable to make interactions
+
+## Simple Slopes Analyses
+
+-   if you have a significant interaction then you must conduct simple slopes analyses
+
+    -   significant interactions only tell us at differing levels of our moderator, there is a significant relationship between predictor and outcome
+
+-   we may be interested in the relationship between our predictor and outcome at **high levels** and **low levels** of your moderator
+
+    -   this is often at +1 and -1 standard deviations from the centered mean
+
+        -   you could use more meaningful values for your moderator, these are just the norm
+
+        -   you could also run the interaction at all the varying levels of the moderator rather than just two points
+
+        -   **Johnson-Neyman intervals**
+
+## Statistical Model
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+theme_set(theme_classic())
+
+ggplot(data = penguins,
+       aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(alpha = .5) + 
+  geom_smooth(method = 'lm',
+              se = FALSE)
+```
+
+## Statistical Model
+
+```{r}
+ggplot(data = penguins,
+       aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(alpha = .5,
+             aes(color = species))
+```
+
+## Statistical Model
+
+```{r}
+ggplot(data = penguins, aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(aes(color = species),
+             alpha = .5) + 
+  geom_smooth(method = 'lm',
+              se = FALSE,
+              aes(color = species),
+              size = 1.25)
+```
+
+## Statistical Model
+
+```{r}
+ggplot(data = penguins, aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(aes(color = species),
+             alpha = .5) + 
+  geom_smooth(method = 'lm',
+              se = FALSE,
+              aes(color = species),
+              size = 1.25) +
+  facet_wrap(vars(species)) +
+  theme(legend.position = 'none')
+```
+
+## Statistical Model
+
+![](images/paste-A23301C9.png)
+
+## Statistical Model
+
+![](images/paste-B2B1800F.png)
+
+## Statistical Model
+
+![](images/paste-552B3EF3.png)
+
+## Statistical Model - Adelie
+
+```{r}
+simple_slope <- penguins %>% 
+  group_by(species) %>% 
+  nest() %>% 
+  mutate(
+    model = map(
+      data,
+      ~lm(body_mass_g ~ flipper_length_mm, data = .x)
+    ),
+    model_sum = map(
+      model, ~summary(.x)
+      )
+    )
+```
+
+![](images/paste-1862EC95.png)
+
+## Statistical Model - Gentoo
+
+![](images/paste-07E9A61B.png)
+
+## Statistical Model - Chinstrap
+
+![](images/paste-16D1539A.png)
+
+## Statistical Model
+
+```{r}
+ggplot(data = penguins,
+       aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(alpha = .5) + 
+  geom_smooth(method = 'lm',
+              se = FALSE,
+              aes(color = cut(bill_depth_mm, 3)),
+              size = 1.25)
+```
+
+## Statistical Model
+
+```{r}
+model_find <- lm(body_mass_g ~ flipper_length_mm*bill_depth_mm,
+                data = penguins)
+```
+
+![](images/paste-ACA46F5E.png)
+
+## Statistical Model
+
+```{r}
+interactions::interact_plot(model_find,
+                            pred = flipper_length_mm,
+                            modx = bill_depth_mm,
+                            plot.points = TRUE) +
+  geom_point(alpha = .5)
+```
+
+## Statistical Model
+
+![](images/paste-7B4B74E7.png)
+
+## Statistical Model
+
+![](images/paste-8ABB61D9.png)

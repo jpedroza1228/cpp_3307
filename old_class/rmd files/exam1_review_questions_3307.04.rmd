@@ -1,0 +1,49 @@
+---
+title: "Exam 1 Review"
+subtitle: "PSY 3307-04/3307A-04: Statistics for Psychology"
+author: "Jonathan Pedroza, MS, MA"
+date: "9/27/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+```{r}
+exam <- read_csv("C:/Users/cpppe/Desktop/github_projects/cpp_3307/notes for class/psy_3307.04_exam1.csv") %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column()
+```
+
+```{r}
+exam %>% 
+  group_by(question_id) %>% 
+  mutate(avg_correct = mean(correct_student_count)) %>% 
+  ungroup() %>% 
+  ggplot(aes(factor(question_id), avg_correct)) +
+  geom_point() +
+  coord_flip()
+```
+
+```{r}
+long_exam <- exam %>% 
+  pivot_longer(cols = c("correct_student_count", "wrong_student_count"), names_to = "right_wrong", values_to = "student_count")
+
+
+long_exam %>% 
+  ggplot(aes(factor(rowid), student_count)) + 
+  geom_col(aes(fill = right_wrong), color = "white") +
+  coord_flip() +
+  scale_fill_manual(values = c("#1BBF1E", "#DB1616")) +
+  geom_hline(yintercept = 13, color = "#5611A9", size = 1.25) +
+  theme_minimal()
+  
+```
+

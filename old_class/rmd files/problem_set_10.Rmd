@@ -1,0 +1,268 @@
+---
+title: "problem_set_10"
+author: "JP"
+date: "11/16/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+tired <- data.frame(time1 = c(1, 2, 4, 3, 2),
+                     time2 = c(4, 5, 6, 4, 3),
+                     time3 = c(9, 6, 8, 7, 10))
+tired
+```
+
+1. Get the sum for each participant (adding up all of their time points)
+
+```{r}
+# participants
+1+4+9
+2+5+6
+4+6+8
+3+4+7
+2+3+10
+```
+
+
+2. Get the sum of each level of our IV/factor
+
+```{r}
+time1_sum = sum(tired$time1)
+time1_sum
+time2_sum = sum(tired$time2)
+time2_sum
+time3_sum = sum(tired$time3)
+time3_sum
+```
+
+
+3. Get the total sum of values
+
+```{r}
+total_sum = time1_sum + time2_sum + time3_sum
+total_sum
+```
+
+
+4. Get the squared sum of each level of our IV/factor
+
+```{r}
+t1_square = 1^2 + 2^2 + 4^2 + 3^2 + 2^2
+t1_square
+t2_square = 4^2 + 5^2 + 6^2 + 4^2 + 3^2
+t2_square
+t3_square = 9^2 + 6^2 + 8^2 + 7^2 + 10^2
+t3_square
+```
+
+
+5. Get the total sum of squared values
+
+```{r}
+total_square = t1_square + t2_square + t3_square
+total_square
+```
+
+
+6. Get the means of each condition/level
+
+```{r}
+t1_m = mean(tired$time1)
+t2_m = mean(tired$time2)
+t3_m = mean(tired$time3)
+
+t1_m
+t2_m
+t3_m
+```
+
+
+7. Get the n, the N, and the k
+
+```{r}
+total_n = 15
+k = 3
+
+total_n 
+k
+```
+
+8. Get the sum of squares total
+
+$$SS_{total} = \Sigma X^2_{total} - (\frac{(\Sigma X_{total})^2}{N})$$
+
+$$SS_{total} = 466 - (\frac{(74)^2}{15})$$
+
+```{r}
+74^2
+```
+
+$$SS_{total} = 466 - (\frac{5476}{15})$$
+
+```{r}
+5476/15
+```
+
+$$SS_{total} = 466 - 365.07$$
+
+```{r}
+466-365.07
+```
+
+$$SS_{total} = 100.93$$
+
+9. Get Sum of Squares Between Groups 
+
+$$SS_{time} = \Sigma(\frac{(\Sigma X\;in\;each\;column)^2}{n\;in\;each\;column}) - (\frac{(\Sigma X_{total})^2}{N})$$
+
+$$SS_{time} = \Sigma(\frac{12^2}{5} + \frac{22^2}{5} + \frac{40^2}{5}) - 365.07$$
+
+```{r}
+12^2
+22^2
+40^2
+```
+
+$$SS_{time} = \Sigma(\frac{144}{5} + \frac{484}{5} + \frac{1600}{5}) - 365.07$$
+
+```{r}
+144/5
+484/5
+1600/5
+```
+
+$$SS_{time} = (28.8 + 96.8 + 320) - 365.07$$
+
+```{r}
+28.8+96.8+320
+```
+
+$$SS_{time} = 445.6 - 365.07$$
+
+```{r}
+445.6 - 365.07
+```
+
+$$SS_{time} = 80.53$$
+
+10. Get the Sum of Squares for the participants
+
+$$SS_{subj} = \frac{(\Sigma X_{subj\;1}^2 + \Sigma X_{subj\;2}^2 + \Sigma X_{subj\;3}^2 + \Sigma X_{subj\;4}^2 + \Sigma X_{subj\;5}^2)}{k_{A}} - (\frac{(\Sigma X_{total})^2}{N})$$
+
+$$SS_{subj} = \frac{(14^2 + 13^2 + 18^2 + 14^2 + 15^2)}{3} - 365.07$$
+
+```{r}
+14*14
+13*13
+18*18
+14*14
+15*15
+```
+
+$$SS_{subj} = \frac{(196 + 169 + 324 + 196 + 225)}{3} - 365.07$$
+
+```{r}
+196 + 169 + 324 + 196 + 225
+```
+
+$$SS_{subj} = \frac{(1110)}{3} - 365.07$$
+
+```{r}
+1110/3
+```
+
+$$SS_{subj} = 370 - 365.07$$
+
+```{r}
+370-365.07
+```
+
+$$SS_{subj} = 4.93$$
+
+11. Get the error of our factor by participants
+
+$$SS_{error} = SS_{total} - SS_{time} - SS_{subj}$$
+
+$$SS_{error} = 100.93 - 80.53 - 4.93$$
+
+```{r}
+100.93 - 80.53 - 4.93
+```
+
+$$SS_{error} = 15.47$$
+
+12. Get the Degrees of Freedom Between Groups
+
+$$df_{time} = k_{time} - 1$$
+
+$$df_{time} = 3 - 1$$
+
+```{r}
+3 - 1
+```
+
+
+$$df_{time} = 2$$
+
+13. Get the Degrees of Freedom For the Error (this is a combination of the df for between groups and for subjects/participants)
+
+$$df_{error} = (k_{time} - 1)(k_{subj} - 1)$$
+
+$$df_{error} = (3 - 1)(5 - 1)$$
+
+```{r}
+3-1
+5-1
+```
+
+$$df_{error} = (2)(4)$$
+
+```{r}
+2*4
+```
+
+$$df_{error} = 8$$
+
+14. Get the Mean Square for The Factor/IV
+
+$$MS_{time} = \frac{SS_{time}}{df_{time}}$$
+
+$$MS_{time} = \frac{80.53}{2}$$
+
+```{r}
+80.53/2
+```
+
+$$MS_{time} = 40.27$$
+
+15. Get the Mean Square of the Error of the Factor by the Participants
+
+$$MS_{error} = \frac{SS_{error}}{df_{error}}$$
+
+$$MS_{error} = \frac{15.47}{8}$$
+
+```{r}
+15.47/8
+```
+
+$$MS_{error} = 1.93$$
+
+
+16. Within-Subjects F-statistic
+
+$$F_{obt} = \frac{MS_{time}}{MS_{error}}$$
+
+$$F_{obt} = \frac{40.27}{1.93}$$
+
+```{r}
+40.27/1.93
+```
+
+$$F_{obt} = 20.87$$
+
+Is your finding statistically significant?

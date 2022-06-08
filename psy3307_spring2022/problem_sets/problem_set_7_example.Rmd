@@ -1,0 +1,56 @@
+---
+title: "problem_set_7_example"
+author: "Jonathan A. Pedroza, PhD"
+date: '2022-03-17'
+output: word_document
+---
+
+```{r}
+times <- data.frame(participants = c(1, 2, 3, 4, 5, 6),
+                    t1 = c(3, 3, 4, 2, 1, 1),
+                    t2 = c(6, 8, 9, 9, 10, 7))
+times
+```
+
+
+## Paired Samples t-test Equation
+
+$$
+t = \frac{\overline{D} - \mu_{D}}{\sigma_{\overline{D}}}
+$$
+
+$$
+t = \frac{\overline{D}}{\sigma_{\overline{D}}}
+$$
+
+$$
+t = \frac{\overline{D}}{\sigma_{\overline{D}}} = \frac{\overline{D}}{\frac{S_{D}}{\sqrt{N}}}
+$$
+
+## Get the means, variances, and standard deviations for both time points
+
+### Mean - Time Point 1
+
+### Mean - Time Point 2
+
+### Variance - Time Point 1
+
+### Variance - Time Point 2
+
+### SD - Time Point 1
+
+### SD - Time Point 2
+
+## Get the differences between the two time points
+
+## Get the average difference 
+
+## Get the sum of squares for the difference
+
+## Get the df for the difference
+
+## Calculate the paired-samples t-test
+
+## Is your finding statistically significant?
+
+## Interpretation

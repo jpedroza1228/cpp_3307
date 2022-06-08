@@ -1,0 +1,76 @@
+---
+title: "PSY 3307"
+subtitle: "Mixed Design ANOVA"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(rstatix)
+```
+
+# Mixed Design ANOVA
+
+- this is the combination of a between-subjects ANOVA and within-subjects design ANOVA
+	- combination of repeated measures and one-way ANOVA
+	- this is referred to as a mixed design ANOVA
+
+		- do not mixed this up with mixed-effect modeling (that is fancy statistics)
+
+- we will only work with one repeated measures outcome and one between-subjects variable
+	- you can have multiple repeated measures outcomes as well as multiple between-subjects variables
+
+---
+
+# Assumptions
+
+- homogeneity of variance (equal variance)
+	- between-subjects concern
+
+- sphericity
+	- within-subjects concern
+	- level of dependence between conditions/time points is roughly equal
+	- variances across conditions/time points are equal (not statistically significant)
+	- only becomes a problem when we have three conditions/time points
+
+- normality in DV
+
+- outliers
+
+---
+
+# Sphericity
+
+- Mauchly's test
+	- the within-subjects "equivalent" to the Levene's test
+	- tests to see if the variances between conditions/time points are equal
+
+	- if the test is significant, the assumption of sphericity is not met and there are differences in variances among the conditions/time points
+
+- corrections can be made if sphericity is not met (when Mauchly's test is statistically significant)
+	- this is by adjusting the degrees of freedom, but we won't get into this
+
+---
+
+# Corrections for Sphericity Violations
+
+- One adjustment is the **Greenhouse-Geisser estimate**, adjusts for the violation in repeated measures designs
+	- however, has been stated that when the sphericity estimate is > .75, the correction is too conservation
+
+- Another adjustment is the **Huynh-Feldt estimate**, which is recommended when the sphericity estimate is > than .75
+
+- another option is to correct for the model by doing a **Multivariate Analysis of Variance** or MANOVA

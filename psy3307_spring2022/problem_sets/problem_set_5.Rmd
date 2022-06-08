@@ -1,0 +1,47 @@
+---
+title: "Problem Set 5"
+author: "JP"
+date: '2022-03-09'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+You'll be using the SPSS file of jp_thesis_1.sav. Your submission can either be the output file that you can save on your OneDrive with an additional word document or you can screenshot the tables and figures and put them on a word document. 
+
+1. Compute an average stress score. There should be 7 variables that make up the stress variable. Give it a name that is relevant.
+
+
+
+2. Get the descriptive statistics (Mean, Median, Variance, SD, Min, Max, Skewness, Kurtosis) for your new stress variable.
+
+
+
+3. Get a histogram of your stress variable. Is your distribution for the stress variable normal?
+
+
+
+4. Get a P-P plot of your stress variable. Does your P-P plot violate the assumption of normality?
+
+
+
+5. Look for outliers in a boxplot for all participants. Do we have any outliers in the data?
+
+
+
+6. Conduct a Q-Q plot and normality tests. Based on the visual and statistical tests, what do these tests tell us? Are they reaching the same conclusion? 
+
+
+
+7. Now, let's look at the stress levels for both sexes (Male = 1, Female = 2). The variable is wrongly coded as **ccc_gender**. The first thing we will do is conduct a Levene's test to see if the variance is equal for both groups in their stress levels. You'll want to check the *untransformed* option for the test. Does the test tell you that the groups' variances are similar? 
+
+
+
+8. Look for outliers in a boxplot for your two groups. Do we have any outliers in the data for males or females?
+
+
+
+9. Conduct a Q-Q plot and normality tests for your groups. Based on the visual and statistical tests, what do these tests tell us? Are they reaching the same conclusion?  
+

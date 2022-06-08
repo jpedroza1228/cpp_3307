@@ -1,0 +1,103 @@
+---
+title: "spss_assignment_4"
+author: "JP"
+date: "11/16/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+
+theme_set(theme_minimal())
+```
+
+```{r, include = FALSE}
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  rename(sex = ccc_gender) %>% 
+  mutate(bmi = ccc_bmi,
+         stress = (dass_stress_q1 + dass_stress_q2 + dass_stress_q3 + dass_stress_q4 + dass_stress_q5 + dass_stress_q6 + dass_stress_q7)/7,
+         email = (mtuas_email_q1 + mtuas_email_q2 + mtuas_email_q3 + mtuas_email_q4)/4,
+         smartphone = (mtuas_smartphone_q1 + mtuas_smartphone_q2 + mtuas_smartphone_q3 + mtuas_smartphone_q4 + mtuas_smartphone_q5 + mtuas_smartphone_q6 + mtuas_smartphone_q7 + mtuas_smartphone_q8 + mtuas_smartphone_q9)/9) 
+
+summary(lm(stress ~ smartphone, data = jp))
+
+summary(lm(stress ~ email + smartphone, data = jp))
+```
+
+# Context (20 points)
+
+You are interested in looking at stress levels in a sample of college students. You are interested in two variables and the role that they may have on stress. First, you are interested in the role that smartphone use has on college students' stress levels. Secondly, you are interested in the relationship between email and stress levels. You will be conducting both a simple linear regression (IV --> DV) as well as a multiple linear regression (IV1 + IV2 --> DV). (**You'll use the JP Thesis Dataset**). Save the output and include it in canvas in addition to the word document. You will be submitting the output; this means you won't be screenshotting or sharing the output with me. Please reach out if you have questions. 
+
+1. List the null and alternative hypotheses for both relationships you are testing. (2 points)
+
+H0 (smartphone use): 
+
+H1 (smartphone use): 
+
+H0 (email):
+
+H1 (email):
+
+2. Create a composite score for stress (2 points)
+
+- include initials for full credit
+
+3. Create a composite score for smartphone use (2 points)
+
+- include initials for full credit
+
+4. Create a composite score for email (2 points)
+
+- include initials for full credit
+
+5. Run descriptive statistics for stress, smartphone use, and email (all composite scores; 2 points)
+
+- report the means and SD for all composite scores
+
+6. Get descriptive visuals for all composite scores (1 point)
+
+- is the skewness acceptable
+
+- is it "normal" enough
+
+7a. Conduct a simple linear regression (smartphone --> stress) (1 point)
+
+7b. Conduct a multiple linear regression (smartphone + email --> stress) (1 point)
+
+8. Report the F statistic for the multiple regression (1 point)
+
+F(#, #) = F value, p value
+
+9. Report the R Squared Value for the multiple regression (the amount of variance accounted for; 1 point)
+
+R2 = %
+
+15 points so far
+
+10. Report the unstandardized and standardized regression coefficients for the multiple regression (2 points)
+
+- copy beta values for standardized regression coefficient
+
+$$\beta$$
+
+smartphone (b = #, beta = #, p = )
+email (b = #, beta = #, p = )
+
+11. Tell me what the unstandardized regression coefficients are and the interpretation for the multiple regression (2 points)
+
+For a one point increase in _____, there is a (increase/decrease) in ______.
+For a one point increase in _____, there is a (increase/decrease) in ______.
+
+12. Write up your findings for the multiple regression (1 point)
+
+A ____ was conducted examining the associations between _______, ________, and _______. Overall, the model was (significant/non-significant) F(#, #) = F value, p value and accounted for ____% in stress levels. There was a (significant/non-significant) association between ______ and ______ (b = #, beta = #, p = ). For a one point increase in _____, there is a (increase/decrease) in ______ (only if significant). There was also a (significant/non-significant) association between ______ and ______ (b = #, beta = #, p = ). For a one point increase in _____, there is a (increase/decrease) in ______ (only if significant). 
+
+
+
+

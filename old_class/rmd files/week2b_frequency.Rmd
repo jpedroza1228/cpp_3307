@@ -1,0 +1,357 @@
+---
+title: "PSY 3307"
+subtitle: "Frequency Distributions"
+author: "Jonathan A. Pedroza, MS, MA"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(xaringanthemer)
+style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")
+
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+
+coffee <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv') %>% 
+  mutate(species = as.factor(species),
+         process = recode(processing_method, "Washed / Wet" = "washed",
+                          "Semi-washed / Semi-pulped" = "not_washed",
+                          "Pulped natural / honey" = "not_washed",
+                          "Other" = "not_washed",
+                          "Natural / Dry" = "not_washed",
+                          "NA" = NA_character_),
+         process = as.factor(process),
+         species = as.factor(species),
+         country_of_origin = as.factor(country_of_origin),
+         variety = as.factor(variety)) %>% 
+  drop_na(process, color)
+
+options(scipen = 999)
+theme_set(theme_minimal())
+```
+
+# Straight into Terms
+
+* **raw score** is the score given to a participant
+
+* **Frequency** denoted as f; number of times a score occurs/is counted
+
+*Note.* Not F, that is something completely different. 
+
+* **Frequency Distribution** is a distribution of each score and the number of times the score has occurred/is counted
+
+---
+
+# Example
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE}
+coffee %>% 
+  group_by(species) %>% 
+  summarize(n = n()) %>% 
+  kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover")) %>% 
+  kable_minimal() %>% 
+  row_spec(0, bold = TRUE, color = "black", background = "white")
+```
+
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, out.width = "300px"}
+coffee %>% 
+  mutate(bag_weight = as.factor(species)) %>% 
+  group_by(species) %>% 
+  summarize(n = n()) %>%
+  ungroup() %>% 
+ggplot(aes(fct_reorder(species, n), n)) + 
+  geom_col(fill = "dodgerblue", color = "white", position = "dodge2") + 
+  geom_text(aes(label = n), vjust = -.5) +
+  theme_classic()
+
+```
+]
+
+---
+
+# Visualizing Frequencies
+
+* Best way of visualizing frequencies is by using a bar graph
+
+* **Bar graph** graph with vertical bar over each nominal/ordinal category
+
+* **Side Note** A pie graph will always be inferior to a bar graph/any other visual
+
+* **Histogram** is a frequency graph used for interval or ratio scores
+
+* **Frequency Polygon** similar to a histogram, which shows data points connected with straight lines 
+
+* **Grouped Distributions** put continuous data into categories
+- The next slide has data ranging from 6-10 in coffee uniformity; I could lump them as anything below a perfect 10 (6-9) and then 10 as a different category
+
+---
+
+# Bar Graph ≠ Histogram
+
+```{r, echo = FALSE, eval = TRUE}
+bar1 <- coffee %>% 
+  group_by(species) %>% 
+  summarize(n = n()) %>%
+  ungroup() %>% 
+ggplot(aes(as.factor(species), n)) + 
+  geom_col(fill = "dodgerblue", color = "white", position = "dodge2") + 
+  geom_text(aes(label = n), vjust = -.5) +
+  theme_classic()
+
+histo1 <- coffee %>% 
+  ggplot(aes(uniformity)) + 
+  geom_histogram(fill = "dodgerblue", color = "white", bins = 10) + 
+  theme_minimal()
+
+group_plot <- coffee %>% 
+  mutate(uniformity_bi = case_when(uniformity < 10 ~ 1,
+                                   uniformity == 10 ~ 2),
+         uniformity_bi = as.factor(uniformity_bi)) %>% 
+  ggplot(aes(uniformity_bi)) + 
+  geom_bar(fill = "dodgerblue") + 
+  theme_minimal()
+
+ggarrange(bar1, histo1, group_plot, nrow = 1)
+```
+
+---
+
+# "Normal" Distribution
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE, out.width = "300px"}
+ggplot(data = coffee, aes(x = total_cup_points)) + 
+  geom_histogram(fill = "dodgerblue", color = "white", aes(y=..density.., fill=..count..), bins = 20) +
+  stat_function(fun = dnorm, n = 1000,
+                args = list(mean = mean(coffee$total_cup_points), sd = sd(coffee$total_cup_points)),
+                color = "red", size = 1.25) +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+![paranormal distribution](https://jech.bmj.com/sites/default/files/highwire/jech/60/1/6/embed/graphic-1.gif)
+]
+
+---
+
+# Why Is It a Normal Distribution?
+
+* **Normal curve** is often called the bell-shaped curve; is symmetrical
+
+* **Normal Distribution** same thing as normal curve; represents the population because if you have enough data you will get a normal distribution (central limit theorem); if your data looks like this in a histogram, you're in good shape
+
+* **Distribution Tail** has two tails; these will be more important for statistics
+
+---
+
+# Skewed Distributions
+
+* **Negative Skew** is like a finger pointing left; not normal and is asymmetrical; indicates higher frequency of middle and higher scores; no low frequency in higher scores
+
+* **Positive Skew** is like a finger pointing right; not normal and is asymmetrical; indicates higher frequency of low and middle scores; no low frequency in lower scores
+
+* Some thresholds are that if you have a skewness value of +-2 or +-3 then you're good to use that variable like it is.
+
+* **Kurtosis** is when your frequency are really skinny and tall or really flat and wide
+---
+
+```{r, include = FALSE}
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/ca_county.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-x1, -x) %>% 
+  filter(release_year == 2018 & 
+           county_name != "california")
+```
+
+```{r, echo = FALSE, eval = TRUE}
+data %>% 
+  ggplot(aes(median_household_income)) +
+  geom_histogram(fill = "dodgerblue", color = "white", bins = 30) + 
+  theme_minimal() +
+  labs(title = "This is a clear example of Positively Skewed Data")
+
+psych::describe(data$median_household_income, na.rm = TRUE)[("skew")]
+```
+
+---
+
+# Bimodal Distribution
+
+* **Bimodal Distribution** is when your distribution has two humps with a valley in the middle; high frequencies both below and above the middle of the plot
+
+---
+
+![bimodal](https://www.statology.org/wp-content/uploads/2020/06/bimodal6.png)
+
+---
+
+# Some Notes From JP
+
+Deciding what is positively and negatively skewed from visuals alone is not good enough
+
+You'll want to look into your descriptive statistics and look at skewness and kurtosis to make sure they are within +-3
+
+Some statistics can handle some skewness and kurtosis
+
+Other times you'll have to transform the variable using fancy methods that we will not talk about in this class.
+
+
+---
+
+# Example of Transformations
+
+```{r, echo = FALSE, eval = TRUE}
+
+money1 <- data %>% 
+  ggplot(aes(median_household_income)) +
+  geom_histogram(fill = "dodgerblue", color = "white", bins = 15) + 
+  theme_minimal()
+
+money2 <- data %>% 
+  mutate(log_money = log(median_household_income)) %>%
+  ggplot(aes(log_money)) +
+  geom_histogram(fill = "dodgerblue", color = "white", bins = 15) + 
+  theme_minimal()
+
+ggarrange(money1, money2)
+
+```
+
+---
+
+# Relative Frequency
+
+* **Relative Frequency** the proportion of times a score occures/is counted in the distribution
+
+$$ Relative\;frequency = f/N$$
+
+Here, f is the frequency of one category of a nominal variable. N is the total number of observations for all the categories of that variable. 
+
+```{r, echo = TRUE, eval = TRUE}
+f = 37
+N = 2000
+
+relative_frequency = f/N
+relative_frequency
+
+percent = relative_frequency*100
+percent
+```
+
+---
+
+# Can Also Calculate Simple Frequency
+
+```{r, echo = TRUE, eval = TRUE}
+simple_frequency = relative_frequency*N
+simple_frequency
+
+```
+
+
+---
+
+# Let's Use Some Real Data
+
+```{r, echo = FALSE, eval = TRUE}
+coffee %>% 
+  rowid_to_column() %>% 
+  group_by(species) %>% 
+  summarize(n = n(),
+            total = 1071,
+            rel_freq = n/total,
+            percent = rel_freq*100) %>% 
+  ungroup() %>%
+  kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover")) %>% 
+  kable_minimal() %>% 
+  row_spec(0, bold = TRUE, color = "black", background = "white")
+```
+
+---
+
+# Relative Frequency Using Normal Curve
+
+![normal curve](https://miro.medium.com/max/1200/1*IdGgdrY_n_9_YfkaCh-dag.png)
+
+---
+
+# Relative Frequency Using Normal Curve
+
+* **Proportion of Area under the Curve** is the proportion of total area under the normal curve
+
+* **Percentile** is the percentage of all scores in the sample below a particular score
+
+* **Cumulative Frequency** is the number of scores in the data at or below a particular score
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+set.seed(082421)
+ggplot(data = coffee, aes(x = total_cup_points)) + 
+  geom_histogram(fill = "dodgerblue", color = "white", aes(y=..density.., fill=..count..), bins = 20) +
+  stat_function(fun = dnorm, n = 1000,
+                args = list(mean = mean(coffee$total_cup_points), sd = sd(coffee$total_cup_points)),
+                color = "red", size = 1.25) +
+  theme_minimal()
+```
+
+---
+
+```{r}
+psych::describe(coffee$total_cup_points, na.rm = TRUE)
+
+sd_plus1 = 82.03 + 2.67
+sd_plus1
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+set.seed(082421)
+ggplot(data = coffee, aes(x = total_cup_points)) + 
+  geom_histogram(fill = "dodgerblue", color = "white", aes(y=..density.., fill=..count..), bins = 20) +
+  stat_function(fun = dnorm, n = 1000,
+                args = list(mean = mean(coffee$total_cup_points), sd = sd(coffee$total_cup_points)),
+                color = "red", size = 1.25) +
+  geom_vline(xintercept = 82.03, color = "red", linetype = 2, size = 1) + 
+  geom_vline(xintercept = sd_plus1, color = "black", linetype = 2, size = 1) + 
+  theme_minimal()
+```
+
+---
+
+```{r}
+coffee %>% 
+  filter(total_cup_points < 84.7) %>% 
+  count()
+
+cummulative_freq = 994/1071
+cummulative_freq
+
+percentile = cummulative_freq*100
+percentile
+
+```
+
+

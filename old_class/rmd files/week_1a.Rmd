@@ -1,0 +1,191 @@
+---
+title: "Welcome to PSY 3307"
+subtitle: "Let's Make Stats Enjoyable"
+author: "Jonathan A. Pedroza, MS, MA"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(xaringanthemer)
+style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")
+```
+
+# Agenda
+
+* Steps of Statistics
+* Differences in Population & Sample
+* Variables & Relationships
+* Descriptive & Inferential Statistics
+* Statistics & Parameters
+* Experimental & Correlational Designs
+* Experiments
+* Correlational Studies
+* Measurement Scales
+* Continuous & Discrete Variables
+
+---------------------------
+
+# Steps of Statistics
+
+1. Organize Data
+2. Summarize Data
+3. Communicate Data
+4. Interpret Data
+
+---------------------------
+
+# What does this mean?
+
+1. Organize Data
+```{r}
+library(tidyverse)
+
+options(scipen = 999)
+theme_set(theme_minimal())
+
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/ca_county.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-x1, -x) %>% 
+  filter(release_year == 2018 & 
+           county_name != "california")
+
+ggplot(data = data, aes(x = physical_inactivity)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 20)
+
+```
+
+---------------------------
+
+2. Summarize Data
+```{r}
+psych::describe(data$physical_inactivity, na.rm = TRUE)
+```
+
+---------------------------
+
+3. Communicate Data
+```{r}
+t.test(physical_inactivity ~ drinking_water_violations, data = data)
+```
+
+---------------------------
+
+4. Interpret Data
+```{r}
+data %>% 
+  mutate(drinking_water_violations = as.factor(drinking_water_violations)) %>% 
+  group_by(drinking_water_violations) %>% 
+  summarize(avg_inactivity = mean(physical_inactivity),
+            sd_inactivity = sd(physical_inactivity)) %>% 
+  ggplot(aes(x = drinking_water_violations, y = avg_inactivity)) + 
+  geom_col(aes(fill = drinking_water_violations)) +
+  geom_text(aes(label = avg_inactivity), vjust = -.5) +
+  theme(legend.position = "none")
+```
+
+"Based on the findings from the statistical test, there were no differences in physical inactivity between counties that had drinking water violations and the counties that did not have drinking water violations. 
+
+---------------------------
+
+# Differences in Population & Sample
+
+* **Population** is a large group of individuals, which a law of nature applies
+
+* **Sample** is a group of a given population intended to represent that population
+
+* A sample is *supposed to generalize* a given population
+
+
+---------------------------
+
+# Real World Examples
+
+Tell me whether or not the examples are a population or a sample. If it is a sample then tell me whether or not it is a representative sample.
+
+1. All adults in the United States
+2. All students in PSY 3307-04
+3. All female students in PSY representing all students in PSY
+4. All adults in California representing adults in the United States
+5. 
+
+
+
+---------------------------
+
+
+
+
+
+---------------------------
+
+
+
+
+
+---------------------------
+
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+
+---------------------------
+
+
+
+
+---------------------------
+
+
+---------------------------
+
+# Variables
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+---------------------------
+
+
+
+
+---------------------------

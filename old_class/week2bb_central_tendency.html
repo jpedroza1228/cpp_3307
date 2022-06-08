@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSY 3307</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan A. Pedroza, MS, MA" />
+    <meta name="date" content="2021-08-26" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# PSY 3307
+## Central Tendency
+### Jonathan A. Pedroza, MS, MA
+### Cal Poly Pomona
+### 2021-08-26
+
+---
+
+
+
+
+
+# Agenda
+
+* Greek Terms
+* Central Tendency
+* Measures of Central Tendency
+* The Mode
+* The Median
+* The Mean
+* When to Use Each Measure
+* Using The Mean in Research
+  - Deviation
+* Describing Population Mean
+
+---
+
+# Greek Terms
+
+$$ \Sigma = Sum of scores  $$
+
+
+```r
+21+ 21+ 25+ 23+ 24+ 23+ 20+ 19+ 24+ 25+ 21+ 21+ 26+ 22+ 22+ 24+ 20+ 19+ 19+ 20+ 20+ 23+ 21+ 21+ 37+ 23+ 19+ 26+ 34+ 33
+```
+
+```
+## [1] 696
+```
+
+
+$$ \Sigma\;X = Sum\;Of\;X   $$
+
+```r
+x &lt;- c(21, 21, 25, 23, 24, 23, 20, 19, 24, 25, 21, 21, 26, 22, 22, 24, 20, 19, 19, 20, 20, 23, 21, 21, 37, 23, 19, 26, 34, 33)
+
+sum(x)
+```
+
+```
+## [1] 696
+```
+
+* Both of these are stating that we are adding all of the data points together.
+
+* **Sum of X** is the sum of the scores in a sample
+  - X is just another way to say all the data points for the variable.
+
+---
+
+# Central Tendency
+
+* Concept that as statisticians every person is just a data point
+
+* We are interested in the central score
+  - We are interested in how much a person is away from that central score
+  - But when it comes to statistics we like to group together our participants' scores/values
+  
+* **Measures of Central Tendency** are statistics that summarize the location of a distribution on a variable by indicating where the center is
+
+* A Normal distribution will have the central point right down the center
+
+* A skewed distribution will have the central point where the frequency of scores is the highest
+
+---
+
+# Normal Distribution Example
+
+
+
+
+```
+##           mean   sd median
+## normal   -0.01 1.01  -0.03
+## pos_skew  0.29 0.16   0.26
+## neg_skew  0.71 0.16   0.74
+```
+
+.pull-left[
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Positively Skewed Data
+
+
+```
+##           mean   sd median
+## normal   -0.01 1.01  -0.03
+## pos_skew  0.29 0.16   0.26
+## neg_skew  0.71 0.16   0.74
+```
+
+.pull-left[
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Negatively Skewed Data
+
+
+```
+##           mean   sd median
+## normal   -0.01 1.01  -0.03
+## pos_skew  0.29 0.16   0.26
+## neg_skew  0.71 0.16   0.74
+```
+
+.pull-left[
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+]
+
+.pull-right[
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# The Mode
+
+.pull-left[
+![](https://i.imgflip.com/prj6o.jpg)
+]
+
+.pull-right[
+* Value/score with the highest frequency
+
+* Essentially useless in statistics
+
+* **Unimodal distributions** distribution with only one hump; one value is the mode
+
+* **Bimodal distributions** distribution with two humps; two values with the highest frequency; two modes
+
+
+```
+## x
+## 19 20 21 22 23 24 25 26 33 34 37 
+##  4  4  6  2  4  3  2  2  1  1  1
+```
+]
+
+---
+
+# The Median
+
+.pull-left[
+![](https://i.kym-cdn.com/entries/icons/original/000/033/395/Thumbnail_expert_micro.png)
+]
+
+.pull-right[
+* **Median** is the middle value/score; the 50th percentile
+
+* Unlike the mode, it will always be close to the middle of a distribution
+
+* You'll only ever have one median
+
+* The symbol is:
+`$$Mdn = Median$$`
+]
+
+---
+
+# The Median
+
+* Preferred for ordinal/ordered data
+
+* Not the best option for normally distributed interval &amp; ratio scores
+
+* Is more reliable when dealing with skewed data
+
+* *Important Note* If you have an even number of scores/values, then you will add the two middle values and divide by 2
+
+---
+
+
+```r
+odd &lt;- c(1, 6, 3, 8, 9, 8, 3)
+even &lt;- c(1, 6, 3, 4, 9, 8, 5, 6)
+
+sort(odd)
+```
+
+```
+## [1] 1 3 3 6 8 8 9
+```
+
+```r
+sort(even)
+```
+
+```
+## [1] 1 3 4 5 6 6 8 9
+```
+
+```r
+get_median &lt;- (5+6)/2
+get_median
+```
+
+```
+## [1] 5.5
+```
+
+```r
+median(odd)
+```
+
+```
+## [1] 6
+```
+
+```r
+median(even)
+```
+
+```
+## [1] 5.5
+```
+
+---
+
+# The Mean/Average
+
+* **Mean** is the score located at the `mathematical` center of a distribution
+
+* Xbar is often used for the mean
+  - $$ \overline{X} $$ 
+
+* $$\overline{X} = \frac{\Sigma\;X}{N} $$ is the formula to calculate the mean.
+  - Xbar is the Sum of X/Scores divided by the total number of observations/scores/values
+
+* Calculate the mean for interval and ratio scales
+  - The mean of ordinal/ordered data makes no sense
+  
+* Basis for most `inferential statistics`
+
+---
+
+
+```r
+x &lt;- c(21, 21, 25, 23, 24, 23, 20, 19, 24, 25, 21, 21, 26, 22, 22, 24, 20, 19, 19, 20, 20, 23, 21, 21, 37, 23, 19, 26, 34, 33)
+
+sigma_x &lt;-  sum(x)
+N &lt;-  30
+
+x_bar &lt;- sigma_x/N
+
+x_bar
+```
+
+```
+## [1] 23.2
+```
+
+```r
+mean(x)
+```
+
+```
+## [1] 23.2
+```
+
+---
+
+# When to Use Each Measure
+
+* The Median more accurately describes/summarizes skewed data compared to the mean
+  - The mean will be pulled toward the extreme tail of the distribution
+  
+* Normal distribution then use the mean as the best measure to describe/summarize data
+
+---
+
+# The Mean in Research
+
+* Most statistics revolve around the mean
+
+* Can't just trust descriptive statistics like the mean
+
+---
+
+# Descriptive Statistics Are Never Enough
+
+
+```
+## Warning: package 'datasauRus' was built under R version 4.0.5
+```
+
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+---
+
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+---
+
+# Deviation
+
+* The distance a participant's score/value is from the mean/average
+
+* Deviations can be positive or negative
+  - participants can score lower (negative) than the mean and higher (positive) than the mean
+  
+* To get the deviation, you subtract the mean from each participant's score
+
+* $$ X - \overline{X} $$
+
+* The larger the value the farther away from the mean the score/value is
+
+* **Sum of the deviations around the mean** is the sum of all differences between the scores and the mean
+
+---
+
+# Example
+
+
+```r
+x
+```
+
+```
+##  [1] 21 21 25 23 24 23 20 19 24 25 21 21 26 22 22 24 20 19 19 20 20 23 21 21 37
+## [26] 23 19 26 34 33
+```
+
+```r
+one_part &lt;- 37
+another_part &lt;- 19
+
+x_bar
+```
+
+```
+## [1] 23.2
+```
+
+```r
+one_part - x_bar
+```
+
+```
+## [1] 13.8
+```
+
+```r
+another_part - x_bar
+```
+
+```
+## [1] -4.2
+```
+
+---
+
+
+```r
+all_deviations &lt;- x - x_bar
+all_deviations
+```
+
+```
+##  [1] -2.2 -2.2  1.8 -0.2  0.8 -0.2 -3.2 -4.2  0.8  1.8 -2.2 -2.2  2.8 -1.2 -1.2
+## [16]  0.8 -3.2 -4.2 -4.2 -3.2 -3.2 -0.2 -2.2 -2.2 13.8 -0.2 -4.2  2.8 10.8  9.8
+```
+
+```r
+sum_deviations &lt;- sum(all_deviations)
+sum_deviations
+```
+
+```
+## [1] 0.00000000000002131628
+```
+
+---
+
+# Looking to the Future
+
+* Deviations is the start for upcoming lectures and statistical tests, especially the sum of the deviations
+
+* $$ \Sigma(X - \overline{X}) $$
+
+* If the sum of the deviations is 0 then that means your math is good
+
+* Deviation of each score/value from the mean is often referred to as error/residual in statistical tests
+
+* Correlational designs use the mean of IV and the mean of DV to look for a relationship between the two variables
+
+* Experiments compare the two or more groups (IV) and the relationship with the mean value/score of the DV
+
+---
+
+# Visuals
+
+* Line Graphs are good for showing progress or change in time
+
+* To show group differences (nominal or ordinal IV), bar graphs are the norm
+
+* Scatterplots are best for continuous IV and continuous DV (interval or ratio)
+
+---
+
+
+```
+## `summarise()` has grouped output by 'release_year'. You can override using the `.groups` argument.
+```
+
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+---
+
+
+```
+## `summarise()` has grouped output by 'release_year'. You can override using the `.groups` argument.
+```
+
+![](week2bb_central_tendency_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
+
+# Describing the Population Mean
+
+* $$ \mu = Population\;Mean $$
+
+* If you test a population then you would use mu instead of xbar
+
+* $$ \mu = \frac{\Sigma\;X}{N} $$
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

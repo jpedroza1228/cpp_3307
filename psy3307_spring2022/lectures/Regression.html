@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.2.468">
+  <meta name="author" content="Jonathan A. Pedroza, PhD">
+  <title>Regression</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="Regression_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Regression_files/libs/revealjs/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="Regression_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+
+  <script src="Regression_files/libs/clipboard/clipboard.min.js"></script>
+  <script src="Regression_files/libs/quarto-html/tabby.min.js"></script>
+  <script src="Regression_files/libs/quarto-html/popper.min.js"></script>
+  <script src="Regression_files/libs/quarto-html/tippy.umd.min.js"></script>
+  <link href="Regression_files/libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="Regression_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet">
+  <link href="Regression_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <link href="Regression_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Regression_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Regression_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Regression_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal-references {
+      display: none;
+    }
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal #title-slide.center,
+    .reveal .title-slide.center,
+    .reveal .controls .navigate-left .controls-arrow,
+    .reveal .controls .navigate-right .controls-arrow {
+      margin-top: -15px;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Regression</h1>
+  <p class="author">Jonathan A. Pedroza, PhD</p>
+</section>
+
+<section id="regression" class="slide level2">
+<h2>Regression</h2>
+
+<img data-src="https://media.giphy.com/media/3ohzAu2U1tOafteBa0/giphy.gif" class="r-stretch"></section>
+<section id="regression-1" class="slide level2">
+<h2>Regression</h2>
+
+<img data-src="https://media.giphy.com/media/jm4nsAWdCV4Lm/giphy.gif" class="r-stretch"></section>
+<section id="regression-2" class="slide level2">
+<h2>Regression</h2>
+
+<img data-src="https://media.giphy.com/media/YO62cd6CtmlKE/giphy.gif" class="r-stretch"></section>
+<section id="regression-3" class="slide level2">
+<h2>Regression</h2>
+
+<img data-src="https://media.giphy.com/media/UvOcKPHrkKSLm/giphy.gif" class="r-stretch"></section>
+<section id="regression-4" class="slide level2">
+<h2>Regression</h2>
+
+<img data-src="https://media.giphy.com/media/YMzav2NVcDnyNSiLDy/giphy.gif" class="r-stretch"></section>
+<section id="regression-5" class="slide level2">
+<h2>Regression</h2>
+<ul>
+<li>Okay, I’m done…</li>
+</ul>
+
+<img data-src="https://media.giphy.com/media/3oxOCdmfrrnkNacsJa/giphy.gif" class="r-stretch quarto-figure-center"><p class="caption">just one more</p></section>
+<section id="regression-6" class="slide level2">
+<h2>Regression</h2>
+<ul>
+<li><p>The reason I’m excited is because regression is one of the most important, useful, and powerful tools you can learn</p></li>
+<li><p>It can pretty much do everything we have covered so far</p>
+<ul>
+<li><p>comparing two groups –&gt; t-test</p>
+<ul>
+<li><p>it can do this by dummy coding a variable into a reference group and the other group and will compare them</p></li>
+<li><p>the test in the regression is actually a t-test comparing if there was a difference between your group and zero (no change)</p></li>
+</ul></li>
+<li><p>comparing multiple groups –&gt; ANOVA</p>
+<ul>
+<li>dummy coding and comparing one group (reference group) to the other groups</li>
+</ul></li>
+<li><p>interactions –&gt; factorial ANOVA</p>
+<ul>
+<li>it can do that with some dummy coding and then <strong>splitting groups by the second variable (moderator) to then run the analyses separately for reach group (simple effects)</strong></li>
+</ul></li>
+<li><p>interactions with continuous variables –&gt; regression</p></li>
+<li><p>interactions with continuous and categorical variables –&gt; regression</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="difference-between-correlation-and-regression" class="slide level2">
+<h2>Difference between Correlation and Regression</h2>
+<ul>
+<li><p>Both focus on relationships</p>
+<ul>
+<li><p>regression focused more on the direction of a relationship</p>
+<ul>
+<li>which is the IV and which is the DV</li>
+</ul></li>
+</ul></li>
+<li><p>correlation only states if the two variables are positively or negatively related</p>
+<ul>
+<li>“there is a relationship present”</li>
+</ul></li>
+<li><p>regression is scale dependent</p>
+<ul>
+<li><p>coefficients are expected change on average in your outcome given a one-point/one-unit increase in your predictor</p>
+<ul>
+<li>“For a one point increase in horsepower, there is a ______ average increase/decrease in MPG”</li>
+</ul></li>
+</ul></li>
+<li><p>a <strong>standardized</strong> regression coefficient in a simple linear regression is the same thing as a correlation coefficient</p></li>
+</ul>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<div class="cell">
+<div class="cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  mtcars$hp and mtcars$mpg
+t = -6.7424, df = 30, p-value = 1.788e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.8852686 -0.5860994
+sample estimates:
+       cor 
+-0.7761684 </code></pre>
+</div>
+</div>
+</section>
+<section id="example-1" class="slide level2">
+<h2>Example</h2>
+<div class="cell">
+<div class="cell-output-stdout">
+<pre><code>lm(formula = mpg ~ hp, data = mtcars)
+            coef.est coef.se t value Pr(&gt;|t|)
+(Intercept) 30.10     1.63   18.42    0.00   
+hp          -0.07     0.01   -6.74    0.00   
+---
+n = 32, k = 2
+residual sd = 3.86, R-Squared = 0.60</code></pre>
+</div>
+<div class="cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ hp, data = mtcars)
+
+Standardized Coefficients::
+(Intercept)          hp 
+  0.0000000  -0.7761684 </code></pre>
+</div>
+</div>
+</section>
+<section id="variety-of-regressions" class="slide level2">
+<h2>Variety of Regressions</h2>
+<ul>
+<li><p>linear regression</p></li>
+<li><p>logistic regression (binary/dichotomous outcome)</p></li>
+<li><p>multinomial regression (several levels/categories in outcome)</p></li>
+<li><p>spatial regression (takes into account the spatial nature of what you are testing)</p></li>
+<li><p>poisson regression (count/ordinal variable as your outcome)</p></li>
+<li><p>structural equation modeling (super duper regression… with theory)</p></li>
+<li><p>mixed-effect/multi-level/hierarchical modeling (takes into account those <strong>random</strong> variables)</p>
+<ul>
+<li>nested data: Ex: students within schools within districts within states</li>
+</ul></li>
+</ul>
+</section>
+<section id="variety-of-regression" class="slide level2">
+<h2>Variety of Regression</h2>
+<p>![](https://media.giphy.com/media/12x7cOJs8WV5aE/giphy.gif)</p>
+</section>
+<section id="back-to-basics" class="slide level2">
+<h2>Back to Basics</h2>
+<ul>
+<li>lets get back to our model equation</li>
+</ul>
+<p><span class="math display">\[
+outcome_i = (b_1X_i) + error_i
+\]</span></p>
+<p><span class="math display">\[
+outcome_i = (b_0 + b_1X_i) + error_i
+\]</span></p>
+<p><span class="math display">\[
+Y_i = (b_0 + b_1X_i) + \epsilon_i
+\]</span></p>
+<ul>
+<li><p>still looking at our outcome <span class="math inline">\(Y_i\)</span>, our <span class="math inline">\(X_i\)</span> as our predictor, and <span class="math inline">\(b_i\)</span> as the parameter that quantifies the relationship with the outcome</p>
+<ul>
+<li>the <span class="math inline">\(b_i\)</span> value is also an unstandardized measure of the relationship between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(b_0\)</span> or our intercept, now tells us the average value of our outcome when the predictor is at <strong>zero</strong></p>
+<ul>
+<li>no longer is it the average value of the outcome</li>
+</ul></li>
+<li><p>What is <span class="math inline">\(b_1\)</span> now in this relationship?</p></li>
+</ul>
+<p><span class="math display">\[
+outcome_i = mx + b
+\]</span></p>
+</section>
+<section id="back-to-basics-1" class="slide level2">
+<h2>Back to Basics</h2>
+
+<img data-src="Regression_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="back-to-basics-2" class="slide level2">
+<h2>Back to Basics</h2>
+<div class="cell">
+<div class="cell-output-stdout">
+<pre><code>lm(formula = mpg ~ hp, data = mtcars)
+            coef.est coef.se t value Pr(&gt;|t|)
+(Intercept) 30.10     1.63   18.42    0.00   
+hp          -0.07     0.01   -6.74    0.00   
+---
+n = 32, k = 2
+residual sd = 3.86, R-Squared = 0.60</code></pre>
+</div>
+</div>
+</section>
+<section id="back-to-basics-3" class="slide level2">
+<h2>Back to Basics</h2>
+<ul>
+<li><p>the <span class="math inline">\(b\)</span> values are referred to as regression coefficients</p>
+<ul>
+<li>can also be callled unstandardized coefficients</li>
+</ul></li>
+<li><p>let’s look at our example between a car’s <strong>horsepower</strong> and <strong>miles per gallon</strong></p></li>
+</ul>
+</section>
+<section id="regression-example" class="slide level2">
+<h2>Regression Example</h2>
+<p><span class="math display">\[
+MPG_i = b_0 + b_1HP_i + \epsilon_i
+\]</span></p>
+<ul>
+<li>with the estimation of our <span class="math inline">\(b\)</span> values above, we would be able to make a prediction about MPG by replacing the value of HP with a new value</li>
+</ul>
+<p><span class="math display">\[
+MPG_i = 30.10 + (-0.07*200) + \epsilon_i
+\]</span></p>
+<p><span class="math display">\[
+MPG_i = 30.10 + (-14) + \epsilon_i
+\]</span></p>
+<p><span class="math display">\[
+MPG_i = 16.1 + \epsilon_i
+\]</span></p>
+<ul>
+<li><p>so if we had a car with 200 HP, then the MPG for the car would be 16.1</p>
+<ul>
+<li><p>which is pretty bad for a car</p></li>
+<li><p>this value is now our <strong>predicted value,</strong> or what we predicted from examining a specific value</p></li>
+</ul></li>
+<li><p>the error value <span class="math inline">\(\epsilon\)</span> is left in because this prediction is properly not the most accurate</p></li>
+</ul>
+</section>
+<section id="linear-model-with-several-predictors" class="slide level2">
+<h2>Linear Model with Several Predictors</h2>
+<ul>
+<li><p>the best part about linear regression is when you include all your predictors that are empirically (past literature) and/or theoretically relevant (theory testing)</p>
+<ul>
+<li>this makes the linear regression –&gt; multiple (linear) regression</li>
+</ul></li>
+</ul>
+<p>![](https://media.giphy.com/media/OOVHM28Moh2N697sjB/giphy.gif)</p>
+</section>
+<section id="linear-model-with-several-predictors-1" class="slide level2">
+<h2>Linear Model with Several Predictors</h2>
+<p><span class="math display">\[
+Y_i = (b_0 + b_1X_{1i} + b_2X_{2i}) + \epsilon_i
+\]</span></p>
+<p><span class="math display">\[
+Y_i = (b_0 + b_1HP_i + b_2Disp_i) + \epsilon_i
+\]</span></p>
+</section>
+<section id="linear-model-with-several-predictors-2" class="slide level2">
+<h2>Linear Model with Several Predictors</h2>
+
+<img data-src="images/paste-E9D4AD53.png" class="r-stretch"></section>
+<section id="linear-model-with-several-predictors-3" class="slide level2">
+<h2>Linear Model with Several Predictors</h2>
+<ul>
+<li><p>the new model now has the b values for both the variables included in the model</p>
+<ul>
+<li>and the intercept</li>
+</ul></li>
+<li><p>the difference in distance between the regression plane (orange) and the blue points is the residuals, or the error, of the model</p></li>
+<li><p>JP: not the biggest fan of 3D visuals and it is really only helpful for models with 2 variables</p>
+<ul>
+<li>any more variables and it gets difficult to visualize</li>
+</ul></li>
+</ul>
+</section>
+<section id="linear-model-with-several-predictors-4" class="slide level2">
+<h2>Linear Model with Several Predictors</h2>
+<div class="cell">
+<div class="cell-output-stdout">
+<pre><code>lm(formula = mpg ~ hp + disp, data = mtcars)
+            coef.est coef.se t value Pr(&gt;|t|)
+(Intercept) 30.74     1.33   23.08    0.00   
+hp          -0.02     0.01   -1.86    0.07   
+disp        -0.03     0.01   -4.10    0.00   
+---
+n = 32, k = 3
+residual sd = 3.13, R-Squared = 0.75</code></pre>
+</div>
+</div>
+</section>
+<section id="linear-model-with-several-predictors-5" class="slide level2">
+<h2>Linear Model with Several Predictors</h2>
+<div class="cell">
+<div class="cell-output-stdout">
+<pre><code>lm(formula = mpg ~ hp + disp + as.factor(cyl), data = mtcars)
+                coef.est coef.se t value Pr(&gt;|t|)
+(Intercept)     31.15     1.77   17.63    0.00   
+hp              -0.02     0.01   -1.49    0.15   
+disp            -0.03     0.01   -2.50    0.02   
+as.factor(cyl)6 -4.05     1.69   -2.40    0.02   
+as.factor(cyl)8 -2.43     3.24   -0.75    0.46   
+---
+n = 32, k = 5
+residual sd = 2.89, R-Squared = 0.80</code></pre>
+</div>
+</div>
+</section>
+<section id="terminology" class="slide level2">
+<h2>Terminology</h2>
+<ul>
+<li><p>outcome = dependent variable</p></li>
+<li><p>predictor = independent variable</p></li>
+<li><p>when a model only has one predictor, then it is a <strong>simple linear regression</strong></p></li>
+<li><p>when a model has 2+ predictors, it is a <strong>multiple regression</strong></p></li>
+</ul>
+</section>
+<section id="regression-coefficient-values" class="slide level2">
+<h2>Regression Coefficient Values</h2>
+<ul>
+<li><p>in both simple and multiple linear regressions, you have actual scores and predicted scores</p>
+<ul>
+<li><p><strong>actual scores</strong> are the values that are provided by participants in your study</p></li>
+<li><p><strong>predicted scores</strong> are the values that are predicted by the regression line</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="estimating-the-model" class="slide level2">
+<h2>Estimating the Model</h2>
+
+<img data-src="Regression_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="estimating-the-model-1" class="slide level2">
+<h2>Estimating the Model</h2>
+<ul>
+<li><p>remember that we estimated the model previously by looking at the deviations between the model and the data collected</p></li>
+<li><p>with regressions, we can do the same thing</p></li>
+<li><p>the distance between the predicted line and the data points are called residuals</p>
+<ul>
+<li>they are the same thing as <strong>deviations</strong> when we look at the mean</li>
+</ul></li>
+<li><p>when we squared the differences between the observed values and the outcome and the predicted values that come from the model, we can get the <strong>total error in the model</strong></p></li>
+</ul>
+<p><span class="math display">\[
+total\;error = \sum^n_{i = 1}(observed_i - model_i)^2
+\]</span></p>
+<ul>
+<li><p>similar to when we assessed the fit of the mean using the variance, we used the sum of squared errors/sum of squares, we can do the same thing with the residuals to get the <strong>sum of squared residuals</strong> or the <strong>residual sum of squares</strong></p>
+<ul>
+<li><p>similar to the ANOVA</p></li>
+<li><p>this is what is left over that our model does not account for/predict</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="assessing-goodness-of-fit" class="slide level2">
+<h2>Assessing Goodness of Fit</h2>
+<ul>
+<li><p><strong>goodness of fit</strong> is a term for how well our model fits the data</p>
+<ul>
+<li>you can have a model that has significant relationships but it can still have a horrible fit</li>
+</ul></li>
+<li><p>in order to assess the goodness of fit, we must first fit a baseline model then compare it to the model with our predictors included</p>
+<ul>
+<li><p>we then calculate the <span class="math inline">\(SS_R\)</span> and the new model should have significantly less error within it than the baseline model</p></li>
+<li><p>this assesses the inaccuracy of our regression model</p></li>
+</ul></li>
+<li><p>our baseline model will be the average outcome variable</p>
+<ul>
+<li>essentially a model with only the intercept included in the model</li>
+</ul></li>
+<li><p>the sum of squared differences or <strong>total sum of squares</strong> (<span class="math inline">\(SS_T\)</span>) represents how well the mean as a model is</p></li>
+<li><p><strong>model sum of squares</strong> is what our model accounts for</p>
+<ul>
+<li>the improvement our model makes over the baseline model</li>
+</ul></li>
+<li><p><span class="math inline">\(R^2\)</span> still tells us how much of the variation is “explained’ with our predictor(s)</p></li>
+<li><p>still use the mean squares values to get the averages for our model and residual</p></li>
+</ul>
+<p><span class="math display">\[
+MS_M = \frac{SS_M}{k}
+\]</span></p>
+<p><span class="math display">\[
+MS_R = \frac{SS_R}{N - k - 1}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(k\)</span> is now the number of predictors in our model</p></li>
+<li><p><span class="math inline">\(N\)</span> is still the sample size/number of observations</p></li>
+</ul>
+<p><span class="math display">\[
+F = \frac{MS_M}{MS_R}
+\]</span></p>
+<ul>
+<li><p>our F test will still be calculated the same way</p></li>
+<li><p>we can also use the F test to calculate the significance of our <span class="math inline">\(R^2\)</span> value</p></li>
+</ul>
+<p><span class="math display">\[
+F = \frac{(N - k - 1)R^2}{k(1 - R^2)}
+\]</span></p>
+</section>
+<section id="assumptions-of-the-linear-model" class="slide level2">
+<h2>Assumptions of the Linear Model</h2>
+<ul>
+<li><p>linearity</p>
+<ul>
+<li>is the assessment that the relationship between your predictor and outcome is a linear relationship</li>
+</ul></li>
+<li><p>independent Errors</p>
+<ul>
+<li><p>your residuals should be uncorrelated, often this is referred to as <strong>autocorrelation</strong></p></li>
+<li><p>Durbin-Watson test can test for this assumption</p>
+<ul>
+<li><p>checks to make sure your residuals are not correlated with one another</p></li>
+<li><p>the test has a range of 0-4, with a value of 2 meaning that the residuals are uncorrelated</p></li>
+<li><p>greater than 2 indicates a negative correlation</p></li>
+<li><p>value below 2 indicates a positive correlation</p></li>
+</ul></li>
+</ul></li>
+<li><p>homoscedasticity</p>
+<ul>
+<li><p>the variation of the residual terms should be constant</p></li>
+<li><p>the amount of actual scores should be roughly the same around the regression line</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="assumptions-of-the-linear-model-1" class="slide level2">
+<h2>Assumptions of the Linear Model</h2>
+<ul>
+<li><p>normally distributed errors</p>
+<ul>
+<li><p>your residuals should show a normal distribution if plotted with a histogram</p></li>
+<li><p>if you have issues with this, you can bootstrap your confidence intervals and ignore this assumption</p></li>
+</ul></li>
+<li><p>predictors are uncorrelated with <em>external variables</em></p>
+<ul>
+<li><p><strong>external variables</strong> are variables that haven’t been included in the model and can influence the outcome variable</p>
+<ul>
+<li>confounding variables</li>
+</ul></li>
+<li><p>variables that are relevant should be included in the model</p>
+<ul>
+<li>used to control/adjust for these variables and get the best understanding of the unique relationships between your predictor of interest and your outcome</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="assumptions-of-the-linear-model-2" class="slide level2">
+<h2>Assumptions of the Linear Model</h2>
+<ul>
+<li><p>variable types</p>
+<ul>
+<li>make sure your categorical variables are dummy coded to be included in the model</li>
+</ul></li>
+<li><p>no perfect <strong>multicollinearity</strong></p>
+<ul>
+<li><p>your predictors that are included in the model should not have perfect (or near perfect correlations) with other predictors in the model</p>
+<ul>
+<li>threshold is ~.7 or somtimes .9</li>
+</ul></li>
+</ul></li>
+<li><p>non-zero variance</p>
+<ul>
+<li><p>make sure there is variation in your variables</p></li>
+<li><p>not everyone has the same score</p></li>
+</ul></li>
+</ul>
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="Regression_files/libs/revealjs/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="Regression_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Regression_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        setTimeout(function() {
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+<div class="reveal-references"></div></body></html>

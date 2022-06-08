@@ -1,0 +1,101 @@
+---
+title: "PSY 3307"
+subtitle: "We're Jumping Ship! Correlation And Linear (Multiple) Regression!"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+theme_set(theme_classic())
+
+library(tidyverse)
+library(ggridges)
+library(psych)
+library(nFactors)
+
+```
+
+
+# Agenda
+
+- Why Are We Moving Forward to Correlation And Regression
+- 
+
+---
+
+# Why Are We Moving Forward to Correlation And Regression
+
+- Because I'm the instructor
+
+--
+
+- Because this is much more important than ANOVA
+
+--
+
+- Most importantly
+
+--
+
+- Regression can do everything ANOVA can
+
+![](https://tenor.com/Opt7.gif)
+
+--
+
+- because its the same exact statistical test
+
+---
+
+# Proof
+
+- Let's compare an independent samples t-test finding to a linear regression
+
+```{r}
+data <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  mutate(video_games = (mtuas_videogaming_q1 + mtuas_videogaming_q2 + mtuas_videogaming_q3)/3,
+         sex = recode(ccc_gender, "1" = "Male",
+                      "2" = "Female"))
+```
+
+```{r}
+data %>% 
+  ggplot(aes(sex, video_games)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "dodgerblue", size = 1.25)
+
+data %>% 
+  mutate(game_avg = mean(video_games)) %>%  
+  ggplot(aes(x = sex, y = game_avg)) + 
+  geom_col()
+```
+
+```{r}
+t_test_finding <- t.test(video_games ~ sex, data = data, var.equal = TRUE)
+welsh_finding <- t.test(video_games ~ sex, data = data, var.equal = FALSE)
+
+lm_finding <- lm(video_games ~ sex, data = data)
+
+```
+
+```{r}
+t_test_finding
+welsh_finding
+summary(lm_finding)
+```
+ 
+

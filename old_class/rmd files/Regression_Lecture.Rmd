@@ -1,0 +1,996 @@
+---
+title: "PSY 3307"
+subtitle: "Regressions"
+author: "Jonathan A. Pedroza PhD"
+institute: "Cal Poly Pomona"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(scipen = 99999)
+
+library(tidyverse)
+library(ggpubr)
+
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  rename(sex = ccc_gender) %>% 
+  mutate(bmi = ccc_bmi,
+         depression = (dass_depress_q1 + dass_depress_q2 + dass_depress_q3 + dass_depress_q4 + dass_depress_q5 + dass_depress_q6 + dass_depress_q7)/7,
+         tv = (mtuas_tv_q1 + mtuas_tv_q2)/2,
+         smartphone = (mtuas_smartphone_q1 + mtuas_smartphone_q2 + mtuas_smartphone_q3 + mtuas_smartphone_q4 + mtuas_smartphone_q5 + mtuas_smartphone_q6 +
+                         mtuas_smartphone_q7 + mtuas_smartphone_q8 + mtuas_smartphone_q9)/9,
+         video_game = (mtuas_videogaming_q1 + mtuas_videogaming_q2 + mtuas_videogaming_q3)/3,
+         pa = (cpaq_light_exercise + cpaq_moderate_exercise + cpaq_vigorous_exercise + cpaq_muscle_exercise)/4,
+         snacks = (ffq_cake_portion + ffq_saltysnacks_portion + ffq_chocolate_portion + ffq_icecream_portion)/4,
+         stress = (dass_stress_q1 + dass_stress_q2 + dass_stress_q3 + dass_stress_q4 + dass_stress_q5 + dass_stress_q6 + dass_stress_q7)/7,
+         race = case_when(ccc_ethnicity == 0 ~ 0,
+                          ccc_ethnicity == 1 ~ 0,
+                          ccc_ethnicity == 2 ~ 0,
+                          ccc_ethnicity == 3 ~ 0,
+                          ccc_ethnicity == 4 ~ 1,
+                          ccc_ethnicity == 5 ~ 0,
+                          ccc_ethnicity == 6 ~ 0)) 
+
+theme_set(theme_minimal())
+
+set.seed(11112021)
+data <- data.frame(participant = 1:20,
+                   test_score = rnorm(20, 70, 10),
+                   study_hour = rnorm(20, 20, 5))
+
+long_data <- data %>% 
+  pivot_longer(c(test_score, study_hour), names_to = "variables", values_to = "values")
+
+
+simple_lm <- lm(tv ~ smartphone, data = jp)
+two_int <- lm(tv ~ smartphone + bmi, data = jp)
+
+```
+
+# We're at the Finish Line
+
+.pull-left[
+![crying school boy](https://media.giphy.com/media/FeeShV3yKc8P6/giphy.gif)
+]
+
+.pull-right[
+![sad spongebob](https://media.giphy.com/media/j1ywOobEJlqQo/giphy.gif)
+]
+
+---
+
+# Agenda (1/2)
+
+- The difference between correlation and regression
+- The linear model
+- Basic linear regression
+- Assessing fit
+- Assessing individual predictors
+- Bias in regression
+- Assumptions in linear regression
+- Sample size in regression
+- Simple regression in SPSS
+- Interpretation of the overall model
+  - Model parameters
+
+---
+
+# Agenda (2/2)
+
+- Multiple linear regression
+  - hierarchical regression (not hierarchical modeling)
+  - stepwise methods/forced entry
+- Comparing models
+- Multicollinearity 
+- Multiple regression in SPSS
+- Robust regression (Bootstrapping)
+- Interpretation of multiple regression
+- How to report multiple regression
+
+---
+
+# There are a variety of different regression techniques
+
+- linear regression
+- logistic regression
+- negative-binomial regression
+- multinomial regression
+- ridge regression
+- lasso regression
+- elastic net regression
+- spatial regression
+- quantile regression
+- poisson regression
+- structural equation modeling
+- mixed effect model/multi-level model
+
+- these also all have different estimation types (which we are not getting into)
+
+---
+
+.pull-left[
+![sound of music](https://media.giphy.com/media/12x7cOJs8WV5aE/giphy.gif)
+]
+
+.pull-right[
+# For this class
+
+- we are only focusing on (multiple) linear regression
+
+- if we can get to it (interactions in linear regression)
+]
+
+---
+
+# Holy Smokes!
+
+- the book only covers linear regression in 3 pages!
+
+![holy smokes](https://media.giphy.com/media/hLnRU79qfaAn111cG2/giphy.gif)
+
+---
+
+# Difference between Correlation and Regression
+
+- Both focus on the strength of a relationship
+  - regression focuses more on the direction of the relationship
+  
+- correlation only states if the two variables are positively or negatively related
+  - there is a relationship present
+
+- regression is scale dependent in that coefficients are the expected change on average in y given a one-point/unit increase in X
+  - for a one point increase in X, there is a _____ increase/decrease in Y
+  
+- That being said, a standardized regression coefficient in a simple linear regression is the same thing as a correlation coefficient
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+cor.test(jp$tv, jp$smartphone)
+
+simple_lm <- lm(tv ~ smartphone, data = jp)
+arm::display(simple_lm, detail = TRUE)
+```
+
+---
+
+![ha ha](https://media.giphy.com/media/cO39srN2EUIRaVqaVq/giphy.gif)
+
+---
+
+```{r, echo = FALSE, eval = TRUE}
+cor.test(jp$tv, jp$smartphone)
+
+lm.beta::lm.beta(simple_lm)
+```
+
+---
+
+# Simple Linear Model
+
+- while these models are similar in that we are looking at one IV and one DV, there are some additional components to a linear regression
+  - we must note that the regression includes the *unstandardized* measure of the relationship
+
+- we are looking at the relationship between X and Y with a parameter (`b1`) that quantifies the relationship between X and Y
+
+- additionally, we also have b0 (**the intercept**), which is the value of the outcome when your IV is at zero
+
+---
+
+# Simple Linear Model
+
+$$Y_{i} = mx + b$$
+
+$$Y_{i} = a + bX_{i} + \epsilon$$
+
+- the equation is the equation of a straight line
+
+- the straight line can be defined as two things
+  - the slope of the line (b1)
+  - the point at which the line crosses the vertical (y) axis of the graph (b0 or intercept)
+
+---
+
+# Simple Linear Regression
+
+$$Y_{i} = b_{0} + b_{1}X_{i} + \epsilon_{i}$$
+
+- IV = predictor variable/indicator variable
+  - `X` in the equation
+
+- DV = outcome variable/criterion variable
+  - `Y` in the equation
+  
+- `b0` is the y-intercept (we'll get to this shortly)
+
+- `b1` is the slope of the association between X and Y
+
+- `e` is the error/residual of what is unexplained in our model
+
+---
+
+# Regression Scores
+
+- in simple and multiple linear regressions, you will have actual scores and predicted scores
+  - **actual scores** are values that participants answered in your study/survey/experiment
+  - **predicted values** are values that are predicted on the regression line
+    
+    - values that fall on the regression line
+    
+---
+
+# Actual Values
+
+$$Y = actual\;scores$$
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE}
+set.seed(112221)
+
+jp %>% 
+  sample_frac(.1) %>% 
+  ggplot(aes(rowid, tv)) + 
+  geom_point() +
+  geom_hline(yintercept = mean(jp$tv), color = "dodgerblue") +
+    annotate("text",
+           label = "Mean",
+           x = 100,
+           y = 5.5,
+           color = "dodgerblue",
+           size = 10)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE}
+jp %>% 
+  ggplot(aes(tv)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 15) +
+  geom_vline(xintercept = mean(jp$tv), color = "black", size = 1.25)
+```
+]
+
+---
+
+# More Actual Values
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_point(data = jp[13:18, ],
+             color = "red",
+             size = 2) +
+  labs(title = "Regression of Smartphone Use and TV Usage",
+       x = "Smartphone Use",
+       y = "TV Usage",
+       caption = "Red indicates actual X and Y values for selected participant")
+```
+
+---
+
+# Predicted Values
+
+.pull-left[
+$$\prime{Y} = predicted\;scores$$
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+simple_lm <- lm(tv ~ smartphone, data = jp)
+jp$predictions <- predict(simple_lm)
+
+jp %>% 
+  ggplot(aes(smartphone, predictions)) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  geom_point(color = "dodgerblue", size = 2)
+```
+]
+
+---
+
+# Deviation & Residuals
+
+- when estimating the model, there is always some error left
+  - in regressions, the difference between what the model predicts and what the actual scores are is referred to as our **residual**
+  
+- this is similar when we looked at the mean and we saw that participants deviated from the mean
+
+---
+
+# Examples of Deviation & Residuals
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+set.seed(112221)
+
+jp %>% 
+  sample_frac(.1) %>% 
+  ggplot(aes(rowid, tv)) + 
+  geom_point() +
+  geom_hline(yintercept = mean(jp$tv), color = "dodgerblue") +
+    annotate("text",
+           label = "Mean",
+           x = 100,
+           y = 5.5,
+           color = "dodgerblue",
+           size = 10)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+]
+
+---
+
+# What is Left in Our Model
+
+$$Total\;Error = \Sigma(observed_{i} - model_{i})^2$$
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "darkgreen", size = 1) +
+  geom_point(data = jp[13, ],
+             color = "red") +
+  annotate("text",
+           label = "Regression",
+           x = 4,
+           y = 3.5,
+           angle = 15,
+           color = "darkgreen") +
+  geom_segment(x = 8.11,
+               y = 5.7,
+               xend = 8.11,
+               yend = 7.5,
+               linetype = 2,
+               color = "red")
+```
+
+---
+
+# Residuals in Regression
+
+- to assess how much error/residual/unknown in our regression model, we use a sum of squared errors
+  - in the regression framework, we refer to this as **sum of squared residuals** or **residual sum of squares**
+
+- this tells us how well our regression line fits the data
+  - larger sum of squared residuals = regression not representative of the data
+  - smaller sum of squared residuals = more representative regression
+  
+- the method of least squares to estimate the parameters where the sum of squared residuals is lowest is known as **ordinary least squares (OLS)** regression
+  
+---
+
+# Goodness of Fit & R2
+
+- **total sum of squares** is the sum of squared differences
+  - it uses the differences between the observed/actual data and the mean value of your outcome
+  
+- **sum of squared residuals** shows the differences between the observed/actual data and the regression line
+
+- **model sum of squares** shows the differences between the mean value of your outcome and the regression line
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+set.seed(112221)
+
+jp %>%
+  sample_frac(.1) %>% 
+  ggplot(aes(1, tv)) + 
+  geom_jitter() + 
+  geom_hline(yintercept = mean(jp$tv), size = 1.25, color = "dodgerblue")
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "darkgreen", size = 1) +
+  geom_point(data = jp[13, ],
+             color = "red") +
+  geom_hline(yintercept = mean(jp$tv), color = "dodgerblue", size = 1) +
+  annotate("text",
+           label = "Mean",
+           x = 3.5,
+           y = 5.4,
+           color = "dodgerblue") +
+  annotate("text",
+           label = "Regression",
+           x = 4,
+           y = 3.5,
+           angle = 15,
+           color = "darkgreen") +
+  geom_segment(x = 8.11,
+               y = 5.7,
+               xend = 8.11,
+               yend = 7.5,
+               linetype = 2,
+               color = "red")
+```
+
+---
+
+# Goodness of Fit & R2
+
+- similar to ANOVA, we can then get the amount of variation accounted for by our model using the model sum of squares 
+
+$$R^2 = \frac{model\;sum\;of\;squares}{total\;sum\;of\;squares}$$
+
+$$R^2 = \frac{SS_{M}}{SS_{T}}$$
+
+---
+
+# Goodness of Fit & R2
+
+- our F statistic is based on the improvement in our model and the difference between the model and the observed/actual data
+  - because our sum of squares values depend on the number of differences we have added up, we rely on our meqan squares values
+  
+- the **F-ratio** is the measure of how much the model has improved in the relationship/association/prediction of the outcome compared to how inaccurate your model was
+
+$$F = \frac{MS_{M}}{MS_{R}}$$
+
+---
+
+# Goodness of Fit & R2
+
+- if you wanted to know if your R2 value was statistically significant, then you use the following formula, where:
+  - `N - k - 1` is your degrees of freedom
+  - `k` is the number of predictors/IVs
+  
+$$F = \frac{(N - k - 1)R^2}{k(1 - R^2)}$$
+
+---
+
+# Assessing Individual Predictors
+
+- every variable has its own slope (`b`)
+
+- hypothesis testing is in the form of a t-statistic
+
+![no clue what I'm doing](https://media.giphy.com/media/VXCPgZwEP7f1e/giphy-downsized-large.gif)
+
+---
+
+# Individual Predictors
+
+- t-statistic tests whether the value of b is different from zero
+  - H0: b is zero
+  - H1: b is significantly different from zero
+  
+$$t = \frac{b_{observed} - b_{expected}}{SE_{b}}$$
+
+- since our null of our expected b is zero the formula then becomes
+
+$$t = \frac{b_{observed}}{SE_{b}}$$
+
+- df is `N - k - 1` for multiple regression, simple regression is `N - 2`
+
+---
+
+# Individual Predictors
+
+- while we use unstandardized regression coefficients to explain the association/relationship between IV and DV
+  - **standardized regression coefficients** are useful for seeing the strength of the association
+  - they are not however true values for effect size
+  - they are z-transformed so their values should range from 0-1 but if you have IVs that are severely correlated your standardized regression coefficients can be over 1
+  
+- additionally, remember that R2 is the amount of variance accounted for in your outcome by your IV(s)
+
+---
+
+# Bias in Regression Models
+
+- we want to make sure our data can be generalizable to other samples
+  - we'll do this by making sure our data is not biased by unusual cases and by diagnosing our model
+  
+---
+
+# Linearity
+
+- you should have a linear relationship between every IV and your DV
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2, raw = TRUE), se = FALSE)
+```
+]
+
+---
+
+# Linearity pt 2
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(bmi, tv)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(bmi, tv)) + 
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2, raw = TRUE), se = FALSE)
+```
+]
+
+---
+
+# Outliers
+
+- can detect univariate (one variable at a time) outliers using histograms/boxplots
+- can detect bivariate (two variables at a time) outliers with scatterplots
+
+- if there are severe outliers think about either deleting them
+- using Cook's distance is influence of cases on the model
+  - some state over |1| could be influential
+  
+- Leverage is the influence of observed value on the outcome across the predicted values
+  - influential is a value 2-3x grater than the average value
+  
+- Mahalanobis distance
+  - distance from the mean (highest = bad)
+  
+---
+
+# Outliers
+
+- could delete extreme 5% of tails of the scores
+- could delete values +-3 SD from mean
+- "Winsorizing" replace the outlier with +-3 SD value
+
+- JP Note: don't touch it if it could be a valid case
+  - or run the model with the outliers and without the outliers to see if they are influential
+  
+---
+
+# Homoscedasticity
+
+- **homoscedasticity** is when the error has constant variance across the values of the IVs
+
+- **heteroscedasticity** is when variance changes across values of the IVs
+
+- you can put some trust in the Levene's test, which we want to be nonsignificant
+  - states that the variance is equal across the values of the IVs
+
+
+---
+
+# Independence
+
+- residual terms should not be related to one another
+
+- can also be tested through the **Durbin-Watson test**
+  - examines if adjacent residuals are correlated
+  
+- if you violate independence, which could be easily violated with the same variables collected over multiple years
+  - multi-level modeling or include a control variable, such as year may remove the violation
+
+---
+
+# Independence of Residual Errors
+
+- expect to see no relationship between our fitted values (predictions) and our residuals (distance away from the regression line)
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+fit_lm <- fortify(simple_lm)
+
+fit_lm %>% 
+  ggplot(aes(.fitted, .resid)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+---
+
+# Normality 
+
+- histograms of residuals 
+- p-p plots (probability - probability)
+- q-q plots (quantile - quantile)
+
+- normality test statistics
+  - Kolmogorov-Smirnov
+  - Shapiro-Wilk
+
+- if non-normal --> transform
+  - makes it more difficult to interpret
+  
+---
+# Noramlity (Univariate)
+
+.pull-left[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 15)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(tv)) + 
+  geom_histogram(color = "white", fill = "dodgerblue", bins = 15)
+```
+]
+
+---
+
+# Residuals
+
+- **unstandardized** are in the original measurement units of the outcome
+  - difficult to use when comparing across models
+
+- **standardized** are unit free residuals because they are z-scores
+  - can compare across models (>3 is problematic)
+  - in standard deviation units
+  - assumes equal variance across values of IVs
+
+- **studentized** are unit free residuals which are unstandardized residuals divided by an estimate of its SD that varies from point-to-point
+  - doesn't assume equal variances across values of IVs
+  - often the best option
+
+---
+
+# Sample Size in Regression
+
+- bigger sample will always be better
+
+- be aware of how many IVs you include in your model
+  - you should have at least 20 (preferably more) participants per IV included in your model
+  - realistically you should have much more for your sample size, this is the bare minimum
+
+---
+
+# Multiple Linear Regression
+
+$$Y_{i} = b_{0} + b_{1}X_{1i} + b_{2}X_{2i} + \epsilon_{i}$$
+
+- in addition to everything from our simple linear regression
+
+- `b2` is the slope of our second IV
+
+- `X2` is the second variable in our model
+
+- useful for controlling for other variables and examining the unique association/relationship between your IV of interest and DV
+
+---
+
+# More Complex Linear Regression 
+
+$$Y_{i} = b_{0} + b_{1}X_{1i} + b_{2}X_{2i} + b_{n}X_{ni} + \epsilon_{i}$$
+
+---
+
+# Different Types of Multiple Regression
+
+- hierarchical (sequential)
+  - IVs are entered in steps/blocks based on theoretical knowledge
+  - could also be in the form of block 1: control variables, block 2: IVs of interest, block 3: possible interactions
+
+- simultaneous (standard)
+  - all IVs are entered together
+  
+- automated regression
+  - let the computers do everything for you in choosing IVs
+  - **do not use** because there is no theory with this method
+  - simplistic way of predictive modeling/machine learning/simply put...
+  
+---
+
+# Skynet
+
+![skynet](https://media.giphy.com/media/3d8mZpR1z4NFy6gIBA/giphy.gif)
+
+---
+
+# Model Comparisons
+
+- we may be interested in comparing two multiple regression models
+  - these models must be nested
+  
+- to put it simply **nested** models are when models contain all the same variables, with the second model containing additional variables
+
+- good way to see if adding additional variables made your model better/account for more variation in your outcome
+
+- compares model by using ANOVA
+
+---
+
+# Model Comparisons
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+anova(simple_lm, two_int)
+summary(two_int)$r.squared - summary(simple_lm)$r.squared
+```
+
+- the finding tells us that the model with bmi and smartphone use is a significantly better fitting model than the model with only smartphone use
+
+- similarly, we can see the corresponding change in R2 values
+  - the addition of BMI helped account for .02 or 2% more variability in TV viewing
+  
+---
+
+# Akaike Information Criteria
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+AIC(simple_lm)
+AIC(two_int)
+
+AIC(two_int) - AIC(simple_lm)
+```
+
+- complicated fit criteria but to keep it simple, lower AIC = better fitting model
+  - penalizes model for having more variables
+
+- comparing these AIC values is interpretable
+  - Recommendations by Burnham and Anderson (2002)
+
+---
+
+# Multicollinearity, VIF, & Tolerance
+
+- **multicollinearity** is when one IV correlates strongly with another IV (r > .7)
+
+- **variance inflation factor (VIF)** is when an IV has a strong linear relationship with one or more IV(s)
+  - VIF > 10 = concern in the model, diagnose it for multicollinearity
+  - average VIF > 1 there may be bias in model
+  
+- **tolerance** is similar to VIF in that tolerance = 1/VIF
+  - tolerance below .1 is a serious problem
+  - tolerance below .2 may indicate bias in model
+
+---
+
+# Simple Linear Regression w/ Categorical IV
+
+$$Y_{i} = b_{0} + b_{1}X_{i} + \epsilon_{i}$$
+
+$$tv = b_{0} + b_{1}(male) + \epsilon_{i}$$
+
+- comparing males and females in their tv scores is the equivalent of a one-way ANOVA
+  - IV = sex
+    - levels (male/female)
+  - DV = tv scores
+  
+---
+
+# Example
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp <- jp %>% 
+  mutate(sex = recode(sex, "1" = "Male",
+                      "2" = "Female"),
+         race = recode(race, "1" = "Latino",
+                       "0" = "Non-Latino"),
+         sex = factor(sex),
+         male = if_else(sex == "Male", 1, 0),
+         latino = if_else(race == "Latino", 1, 0))
+
+jp %>% 
+  ggplot(aes(sex, tv)) + 
+  geom_boxplot(aes(fill = sex))
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+cat_lm <- lm(tv ~ male, data = jp)
+arm::display(cat_lm, detail = TRUE)
+```
+
+- the intercept is the average tv value for female participants
+  - the average tv viewing score was 5.03 for female participants
+  
+- the slope is the difference in tv values comparing males to females
+  - the average tv viewing score for males compared to females 
+  
+---
+
+# Simple Linear Regression with Continuous IV
+
+$$Y_{i} = a + bX_{i} + \epsilon$$
+
+$$tv = b_{0} + b_{1}(smartphone) + \epsilon_{i}$$
+
+---
+
+# Example
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, tv)) + 
+  geom_point(color = "dodgerblue") + 
+  geom_smooth(method = "lm", se = FALSE, color = "black", size = 1.25) +
+  xlim(0, 10)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+arm::display(simple_lm, detail = TRUE)
+```
+
+- the intercept (`b0`) is 1.88 or the point at which the regression line hits the y axis
+  - the average TV value when smartphone use is at zero/is held constant
+
+- the slope of the association between smartphone use and tv (`b1`) is 0.46
+
+---
+
+# Predictions - by hand
+
+$$tv = 1.88 + 0.46*smartphone$$
+
+- this is the prediction/association/relationship for any one participant
+
+- if a participant used their smartphone all the time (`10 on the MTUAS scale`), what would we expect for their TV usage
+
+$$tv = 1.88 + 0.46*10$$
+
+```{r}
+.46*10
+```
+
+$$tv = 1.88 + 4.6$$
+
+```{r}
+4.6 + 1.88
+```
+
+$$tv = 6.48$$
+
+---
+
+# Predictions - through R or SPSS
+
+- From this, we can get the predictions from our model
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp$predictions <- predict(simple_lm)
+
+head(jp$predictions)
+```
+
+---
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+jp %>% 
+  ggplot(aes(smartphone, predictions)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_hline(yintercept = 6.48, color = "red", linetype = 2) + 
+  geom_vline(xintercept = 10, color = "red", linetype = 2)
+```
+
+---
+
+# Several combinations of Multiple Regressions
+
+1. all continuous IVs
+
+2. all categorical IVs
+
+3. continuous and categorical IVs
+
+---
+
+# Multiple continuous IVs
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+two_int <- lm(tv ~ smartphone + bmi, data = jp)
+arm::display(two_int, detail = TRUE)
+```
+
+---
+
+$$Y_{i} = a + b_{1}X_{1i} + b_{2}X_{2i} + \epsilon$$
+
+$$tv = b_{0} + b_{1}(smartphone) + b_{2}(BMI) + \epsilon_{i}$$
+
+---
+
+- the intercept (`b0`) is 0.31 or the point at which the regression line hits the y axis
+  - the average TV value when smartphone use and BMI are both at zero/are held constant
+
+- the slope of the association between smartphone use and tv (`b1`) is 0.45 when BMI is zero/held constant
+  - a one unit increase in smartphone use is associated with a 0.45 average increase in tv viewing when BMI is zero/held constant
+
+- the slope of the association between BMI and tv (`b2`) is 0.06 when smartphone use is zero/held constant
+  - a one unit increase in BMI is associated with a 0.06 increase in tv viewing when smartphone use is zero/held constant
+
+---
+
+# Multiple categorical IVs
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+two_cat <- lm(tv ~ male + latino, data = jp)
+arm::display(two_cat, detail = TRUE)
+```
+
+---
+
+$$Y_{i} = a + b_{1}X_{1i} + b_{2}X_{2i} + \epsilon$$
+
+$$tv = b_{0} + b_{1}(male) + b_{2}(Latino) + \epsilon_{i}$$
+
+---
+
+- the intercept is 5.32 or the point at which the regression line hits the y axis
+  - the average tv value when sex is female and race is non-Latino
+  
+- the slope is the difference in tv values comparing males to females when holding race constant
+  - males watch 0.22 more tv than females when holding race constant
+  
+- the slope is the difference in tv values comparing Latinos and non-Latinos when holding sex constant
+  - Latinos watch 0.50 less tv than non-Latinos when holding sex constant
+  
+---
+
+# Continuous and Categorical IVs
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE}
+mixed <- lm(tv ~ smartphone + male, data = jp)
+arm::display(mixed, detail = TRUE)
+```
+
+---
+
+$$Y_{i} = a + b_{1}X_{1i} + b_{2}X_{2i} + \epsilon$$
+
+$$tv = b_{0} + b_{1}(smartphone) + b_{2}(male) + \epsilon_{i}$$
+
+---
+
+- the intercept is 1.53 or the point at which the regression line hits the y axis
+  - the average tv value when smartphone use is zero and sex is female
+  
+- the slope of the association between smartphone use and tv (`b1`) is 0.49 when sex is male/held constant
+  - a one unit increase in smartphone use is associated with a 0.49 average increase in tv viewing when sex is male/held constant
+  
+- the slope is the difference in tv values comparing males to females when holding smartphone use is zero/held constant
+  - males watch 0.48 more tv than females when smartphone use was zero/held constant

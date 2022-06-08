@@ -1,0 +1,697 @@
+---
+title: "Final Exam"
+author: "Jonathan A. Pedroza, PhD"
+date: "11/29/2021"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+---
+
+```{css my-header-colors, echo = FALSE}
+.page-header {
+  color: #FAE9A0;
+  text-align: center;
+  background-color: #005C55;
+  background-image: linear-gradient(120deg, #7DA37B, #005C55);
+}
+
+a {
+  color: #F1C40F; #color of linked inline code
+  font-weight: bold;
+  text-decoration: none;
+}
+  a:hover {
+    text-decoration: underline;
+    }
+
+.main-content {
+  word-wrap: break-word; }
+  .main-content :first-child {
+    margin-top: 0; }
+  @media screen and (min-width: 64em) {
+    .main-content {
+      max-width: 64rem;
+      padding: 2rem 6rem;
+      margin: 0 auto;
+      font-size: 1.1rem; } }
+  @media screen and (min-width: 42em) and (max-width: 64em) {
+    .main-content {
+      padding: 2rem 4rem;
+      font-size: 1.1rem; } }
+  @media screen and (max-width: 42em) {
+    .main-content {
+      padding: 2rem 1rem;
+      font-size: 1rem; } }
+  .main-content img {
+    max-width: 100%; }
+  .main-content h1,
+  .main-content h2,
+  .main-content h3,
+  .main-content h4,
+  .main-content h5,
+  .main-content h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    color: #3F7F68; } # header color
+  .main-content p {
+    margin-bottom: 1em; }
+  .main-content code {
+    padding: 2px 4px;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.9rem;
+    color: #005C55; #package color/whatever is in `` brackets
+    background-color: #7DA37B; #background color of ``brackets
+    border-radius: 0.3rem; }
+  .main-content pre {
+    padding: 0.8rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    color: #567482;
+    word-wrap: normal;
+    background-color: #f3f6fa; #background color of code chunks
+    border: solid 1px #005C55; #this is the border of the r code chunks
+    border-radius: 0.3rem; }
+    .main-content pre > code {
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+      color: #5D6D7E;
+      word-break: normal;
+      white-space: pre;
+      background: transparent;
+      border: 0; }
+  .main-content .highlight {
+    margin-bottom: 1rem; }
+    .main-content .highlight pre {
+      margin-bottom: 0;
+      word-break: normal; }
+  .main-content .highlight pre,
+  .main-content pre {
+    padding: 0.8rem;
+    overflow: auto;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    border-radius: 0.3rem;
+    -webkit-overflow-scrolling: touch; }
+  .main-content pre code,
+  .main-content pre tt {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0; }
+    .main-content pre code:before, .main-content pre code:after,
+    .main-content pre tt:before,
+    .main-content pre tt:after {
+      content: normal; }
+  .main-content ul,
+  .main-content ol {
+    margin-top: 0; }
+  .main-content blockquote {
+    padding: 0 1rem;
+    margin-left: 0;
+    color: #819198;
+    border-left: 0.3rem solid #dce6f0; }
+    .main-content blockquote > :first-child {
+      margin-top: 0; }
+    .main-content blockquote > :last-child {
+      margin-bottom: 0; }
+  .main-content table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all;
+    -webkit-overflow-scrolling: touch; }
+    .main-content table th {
+      font-weight: bold; }
+    .main-content table th,
+    .main-content table td {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e9ebec; }
+  .main-content dl {
+    padding: 0; }
+    .main-content dl dt {
+      padding: 0;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: bold; }
+    .main-content dl dd {
+      padding: 0;
+      margin-bottom: 1rem; }
+  .main-content hr {
+    height: 2px;
+    padding: 0;
+    margin: 1rem 0;
+    background-color: #5E9171; #line to break up sections
+    border: 0;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+2 points - What assumption is examined when you need to have a linear relationship between your IV and your DV?
+
+A. Independence of residuals
+
+B. Normality
+
+C. Homoscedasticity
+
+**D. Linearity**
+
+2 points - What test accounts for the violation in independence of residuals assumption?
+
+**A. Repeated Measures ANOVA**
+
+B. Linear Regression
+
+C. Correlation
+
+D. Two-Way ANOVA
+
+2 points - The standardized regression coefficient will result in the same value as a Pearson's correlation coefficient in a multiple linear regression
+
+A. True
+
+**B. False**
+
+2 points - In a simple linear regression, a beta/standardized regression coefficient of .34 would be a __________ effect size.
+
+A. Small
+
+**B. Medium**
+
+C. Large
+
+D. Super-sized
+
+2 points - What can be interpreted from a standardized regression coefficient in a multiple linear regression?
+
+A. The effect size of the relationship
+
+**B. The strength of the relationship**
+
+C. The amount of variance accounted for in Y by X
+
+D. The amount of change in Y for a one-unit increase in X
+
+2 points - What is the difference between correlation and regression?
+
+A. Correlation is scale dependent
+
+B. Both focus on the strength of a linear relationship
+
+C. Nothing, they are the same test
+
+**D. Regression focuses on the direction of the relationship and can often include both categorical and continuous independent variables**
+
+2 points - In the regression model, which of the values is the residual/error variance?
+
+y = b0 + b1X + e
+
+A. b0
+
+B. b1
+
+C. the y-intercept
+
+**D. e**
+
+E. y
+
+
+**Not sure on the amount of points** - Match the distinction to the correct inferential statistic 
+
+One-way ANOVA - one categorical independent variable and one continuous dependent variable
+
+ANCOVA - two categorical independent variables, one continuous dependent variable, but no interaction between the two independent variables
+
+Linear Regression - either one or many categorical or continuous independent variables/predictors and one continuous dependent variable
+
+Two-way ANOVA - two categorical independent variables, one continuous dependent variable, and an interaction between the two independent variables
+
+MANOVA - Who cares. Its not very useful.
+
+Mixed-design ANOVA - two categorical variables, with one being a between-subjects design and the other being a within-subjects design
+
+Bivariate Correlation - two continuous variables, none of which is explicitly stated to be an independent or dependent variable
+
+Repeated Measures ANOVA - one or more within-subjects categorical variables with multiple conditions/time points; has a potential interaction between the variables (if more than one variable included)
+
+
+2 points - In the following ANOVA, how many variables are included in the ANOVA? 
+
+3 x 4 x 2 ANOVA
+
+**A. 3**
+
+B. 4
+
+C. 2
+
+D. 1
+
+**Fill in the Blank Answer**
+
+2 points - r = .35 is a stronger correlation than -.67
+
+A. True
+
+**B. False**
+
+2 points - Sphericity is an issue only when you have two time points.
+
+A. True
+
+**B. False**
+
+2 points - What assumption is when you want to make sure that your residuals are independent of one another? 
+
+**A. Independence**
+
+B. Linearity
+
+C. Homogeneity of Variance
+
+D. Normality
+
+2 points - What is the difference between between-subjects ANOVA designs and within-subjects ANOVA designs?
+
+A. In within-subjects designs, participants are separated into different levels/conditions
+
+B. In between-subjects designs, every participant gets each condition
+
+C. Between-subjects ANOVA designs are useful when you are looking at the same measure over time
+
+**D. None of these are correct**
+
+2 points - What test is used for longitudinal designs?
+
+A. One-way ANOVA
+
+B. Linear Regression
+
+C. Correlation
+
+**D. Repeated Measures ANOVA**
+
+2 points - What is a potential problematic Cook's distance in your data?
+
+**A. 3.45** 
+
+B. 0.6
+
+C. 0.3
+
+D. 0.1
+
+2 points - How does a repeated measures/mixed design ANOVA account for the lack of independence?
+
+A. Collapsing
+
+**B. Partitioning**
+
+C. Interactions
+
+D. It does not account for a lack of independence
+
+2 points - Which choices below are instances that a repeated measures/mixed design ANOVA would not be the appropriate analysis for longitudinal data? (multiple answers)
+
+**A. Missing data in the outcome**
+
+**B. Time is treated as a continuous variable**
+
+**C. Covariates vary by each time point**
+
+**D. The outcome is dichotomous/categorical**
+
+2 points - In a two-way ANOVA, what would be the order in which we look at our findings?
+
+**A. Interaction, main effects, multiple comparisons and simple effects**
+
+B. Main effects, multiple comparisons and simple effects, interaction
+
+C. Main effects, interaction, multiple comparisons and simple effects
+
+D. Just examine the multiple comparisons and simple effects
+
+2 points - A main effect is when a relationship between an IV and DV is dependent on the other IV values in a two-way ANOVA
+
+A. True
+
+**B. False**
+
+2 points - You can have a significant interaction but then nonsignificant simple effects/multiple comparisons
+
+**A. True**
+
+B. False
+
+2 points - In a two-way ANOVA, if your interaction is nonsignificant you should stop looking at your findings.
+
+A. True
+
+**B. False**
+
+2 points - Which is a relationship that when one variable increases the other variable increases?
+
+A. no relationship
+
+B. Negative relationship
+
+C. Inverse relationship
+
+**D. Positive relationship**
+
+2 points - A cross-production deviation is...
+
+A. Covariance
+
+**B. The multiplied deviations of two variables**
+
+C. The average combined deviations
+
+D. Another term for variance
+
+2 points - Covariance is a standardized measurement of the relationship between two continuous variables
+
+A. True
+
+**B. False**
+
+2 points - You are interested in the relationship between time spent studying (x) and exam scores (y). Below is the raw data and the deviations from the mean. The **mean for time spent studying is 7**, while the **average exam score was 86.8**. Calculate the covariance between the two variables and choose the correct answer below.
+
+```{r}
+test_scores <- data.frame(x = c(5, 4, 7, 9, 10),
+                          y = c(80, 94, 75, 100, 85))
+
+test_scores %>% 
+  mutate(x_deviations = x - mean(x),
+         y_deviations = y - mean(y))
+```
+
+```{r, include = FALSE}
+cov(test_scores$x, test_scores$y)
+```
+
+**A. 3.25**
+
+B. 1.96
+
+C. 3.14
+
+D. 7.45
+
+2 points - Can you use a covariance value as an effect size?
+
+A. Yes
+
+**B. No**
+
+2 points - A standardized value is in ____ units?
+
+**A. Standard deviation**
+
+B. Variance
+
+C. Correlation
+
+D. Covariance
+
+2 points - Which is an impossible correlation coefficient?
+
+A. 0
+
+B. -1 
+
+C. -.9
+
+**D. 1.1**
+
+1 point - For this problem you are interested in the cells used for an interaction between race/ethnicity and education level. The education levels are high school graduates, college graduates, and trade school graduates. The races/ethnicities are Black/African American, Latina/o/x, and White. For the data below, we are interested in the average depression score of Black/African American college graduates. What numbers from the cell of interest would we use to get the average score? 
+
+```{r}
+race_class <- data.frame(education = c("hs_grad", "hs_grad", "hs_grad",
+                                       "college_grad", "college_grad", "college_grad",
+                                       "trade_school_grad", "trade_school_grad", "trade_school_grad"),
+                         black_african_american = c(5, 7, 9, 8, 4, 2, 1, 9, 2),
+                         latino = c(5, 4, 8, 7, 6, 2, 4, 6, 7),
+                         white = c(0, 2, 1, 6, 7, 5, 8, 9, 1))
+
+race_class
+```
+
+A. 6, 7, 5
+
+**B. 8, 4, 2**
+
+C. 1, 9, 2
+
+D. 5, 7, 9, 8, 4, 2, 1, 9, 2
+
+1 point - What is the average for our Black/African American college graduates?
+
+Note. Please round your final answer to two decimal points. An example would be: 7.54, not 7.536
+
+```{r}
+(8 + 4 + 2)/3
+```
+
+**Answer: 4.67**
+
+2 points - For the table above, What does the unstandardized regression coefficient for the relationship between BMI category 2/overweight (bmi_cat=2.0) compared to the reference group(BMI category 1/normal & underweight)?
+
+A. That overweight participants have a 5.53 higher BMI on average when compared to normal and underweight participants.
+
+**B. That overweight participants have a 5.53 higher BMI when compared to normal and underweight participants on average when holding an obese BMI, exercise levels, tv viewing levels, and phone call levels constant**
+
+C. That normal and underweight participants have a BMI that is 5.53 points higher than overweight participants on average.
+
+D. That normal and underweight participants have on average a 12.27 lower BMI than obese participants.
+
+2 points - For the table above, what findings are statistically significant?
+
+**A. BMI category = 2(overweight), BMI category = 3(obese), tv viewing**
+
+B. exercise and phone call
+
+C. tv only
+
+D. all the relationships are statistically significant
+
+2 points - In the table above, all the predictors are included in the model together. What type of linear regression was conducted?
+
+A. Sequential
+
+**B. Simultaneous/Standard**
+
+C. Hierarchical
+
+D. Automated
+
+2 points - In the screenshot, what assumption is being violated in this visualization of the residuals?
+
+**A. Independence**
+
+B. Homogeneity
+
+C. Outliers
+
+D. Normality
+
+2 points - An actual score is...
+
+**A. a score that a participant answered in the survey/experiment**
+
+B. a score that is on the regression line
+
+C. a residual
+
+D. the score they thought of in their head
+
+2 points - If you have multicollinearity between two predictors in your regression model, it means that you have...
+
+A. your model is simply wrong
+
+B. to increase your sample size
+
+C. too many predictors in your model
+
+**D. predictors that are too similar and you should probably remove one from the model**
+
+2 points - Partial-correlation is used to examine the unique relationship between an IV and a DV while controlling for one or more other variables.
+
+**A. True**
+
+B. False
+
+2 points - What is the difference between Spearman's correlation coefficient and Pearson's correlation coefficient?
+
+A. Pearson's correlation coefficient is a nonparametric test
+
+B. Spearman's correlation coefficient is a parametric test
+
+**C. Spearman's correlation coefficient examines the relationship between variables that represent ranked data**
+
+D. Pearson's correlation coefficient is written out with a rho greek symbol
+
+2 points - Eta squared and R squared are both measures of the amount of variation accounted for in your outcome. The only difference is eta squared is often used for ANOVA and R squared is more commonly used with regression.
+
+**A. True**
+
+B. False
+
+2 points - What is the distance between a participant's actual score and the regression line called?
+
+**A. residual**
+
+B. error variance
+
+C. intercept
+
+D. regression
+
+2 points - What is k in a regression?
+
+A. Number of conditions/levels
+
+**B. Number of predictors/IVs**
+
+C. a measure of model fit
+
+D. There is no k in regression
+
+2 points - What is used to compare predictors in the strength of their relationship/association with the outcome in your regression?
+
+A. Studentized residual
+
+B. The intercept
+
+C. Unstandardized regression coefficient
+
+**D. Standardized regression coefficient/beta**
+
+2 points - A unstandardized residual is how far a participant's score is from the regression model in the original units
+
+**A. True**
+
+B. False
+
+2 points - What is needed to compare two regression models?
+
+A. One should be a regression and the other should be an ANOVA
+
+B. They must have the same predictors but different outcomes
+
+C. They must have different predictors
+
+**D. They must be nested**
+
+1 point - 
+
+Below is some data examining four different time points where the researchers are interested in stats knowledge on a 1-5 scale before taking a stats class, during the class, after the class, and a year after taking the class. Answer the following questions about these students.
+
+```{r}
+knowledge <- data.frame(pre = c(1, 1, 2, 1),
+                        during = c(2, 2, 2, 4),
+                        post = c(4, 5, 3, 5),
+                        follow_up = c(3, 4, 2, 1))
+knowledge
+```
+
+```{r, include = FALSE}
+
+ss_total <- function(total_sq, total, n){
+  total_sq - (((total)^2)/n)
+}
+
+ss_between <- function(pre_val, dur_val, post_val, follow_val, n_per_group, total, n){
+ (((pre_val)^2)/n_per_group + ((dur_val)^2)/n_per_group + ((post_val)^2)/n_per_group + ((follow_val)^2)/n_per_group) - (((total)^2)/n)
+}
+
+ss_subject <- function(p1, p2, p3, p4, k, total, n){
+  (((p1^2 + p2^2 + p3^2 + p4^2))/k) - (((total)^2)/n)
+}
+
+knowledge %>% 
+  summarize(total_sum = (1 + 1 + 2 + 1 +
+                           2 + 2 + 2 + 4 + 
+                           4 + 5 + 3 + 5 + 
+                           3 + 4 + 2 + 1),
+            pre_mean = mean(pre),
+            dur_mean = mean(during),
+            post_mean = mean(post),
+            fol_mean = mean(follow_up),
+            pre_sum = 1 + 1 + 2 + 1,
+            dur_sum = 2 + 2 + 2 + 4,
+            post_sum = 4 + 5 + 3 + 5,
+            fol_sum = 3 + 4 + 2 + 1,
+            p1_sum = 1 + 2 + 4 + 3,
+            p2_sum = 1 + 2 + 5 + 4,
+            p3_sum = 2 + 2 + 3 + 2,
+            p4_sum = 1 + 4 + 5 + 1,
+            pre_sq = 1^2 + 1^2 + 2^2 + 1^2,
+            dur_sq = 2^2 + 2^2 + 2^2 + 4^2,
+            post_sq = 4^2 + 5^2 + 3^2 + 5^2,
+            fol_sq = 3^2 + 4^2 + 2^2 + 1^2,
+            total_sq = pre_sq + dur_sq + post_sq + fol_sq,
+            k = 4,
+            n_per = 4,
+            total_n = 16,
+            ss_t = ss_total(total_sq = total_sq, total = total_sum, n = total_n),
+            ss_b = ss_between(pre_val = pre_sum, dur_val = dur_sum, post_val = post_sum, follow_val = fol_sum, n_per_group = 4, total = total_sum, n = total_n),
+            ss_s = ss_subject(p1 = p1_sum, p2 = p2_sum, p3 = p3_sum, p4 = p4_sum, k = k, total = total_sum, n = total_n),
+            ss_e = ss_t - ss_b - ss_s,
+            df_b = k - 1,
+            df_e = (k - 1)*(4 - 1),
+            ms_b = ss_b/df_b,
+            ms_e = ss_e/df_e,
+            f_obt = ms_b/ms_e,
+            f_crit = 3.8625
+            )
+
+```
+
+2 points - What test will you be running
+
+A. Correlation
+
+**B. Repeated-measures ANOVA**
+
+C. Mixed-design ANOVA
+
+D. Two-way ANOVA
+
+1 point - Get the sum of squares total
+
+1 point - Get the sum of squares between groups
+
+1 point - Get the sum of squares for the participants
+
+1 point - What is the F critical value (check the F table; you should have two degrees of freedom for both within/error and between)
+
+1 point - What is your F obtained value
+
+2 points - Is your test statistically significant?
+
+A. Yes
+
+B. No
+
+
+
+

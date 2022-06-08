@@ -1,0 +1,437 @@
+---
+title: "Exam 2"
+author: "Jonathan A. Pedroza, PhD"
+date: "11/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. A repeated measures design (with two time points) is an example of a...
+
+A. one-way ANOVA
+
+B. Variance
+
+**C.** paired-samples t-test
+
+D. independent-samples t-test
+
+2. To calculate a bonferroni correction...
+
+**A.** you decide on an alpha and divide by the number of tests you ran
+
+B. you divide your alpha by the number of participants you have in each group/level
+
+C. you just decide on a value smaller than your current alpha
+
+D. you multiply your alpha by the number of tests you ran
+
+3. A nonsignificant finding can be just as important as a statistically significant finding.
+
+**A.** TRUE
+
+B. FALSE
+
+4. Which distribution's shape depends on the degrees of freedom?
+
+A. raw distribution
+
+B. sampling distribution
+
+**C.** t-distribution
+
+D. z-distribution
+
+5. Which is not an effect size?
+
+A. Cohen's d
+
+B. Eta Squared
+
+**C.** Kenny's g
+
+D. squared point biserial correlation coefficient
+
+6. What does the following formula correspond to?
+
+**A.** t obtained for independent samples t-test
+
+B. t obtained for one sample t-test
+
+C. sum of squares total
+
+D. standard error of the mean
+
+7. What does the following formula correspond to?
+
+**A.** sum of squares between/treatment
+
+B. sum of squares total
+
+C. F statistic
+
+D. mean
+
+8. What does the following formula correspond to?
+
+A. Eta squared
+
+**B.** Tukey HSD
+
+C. Cohen's d
+
+D. z-obtained value
+
+9. What does the following formula correspond to?
+
+A. mean squares within
+
+B. mean squares between
+
+**C.** sum of squares error/within
+
+D. Tukey HSD
+
+10. What does the following formula correspond to?
+
+A. F statistic
+
+B. pooled variance
+
+C. variance
+
+**D.** standard error of the difference
+
+11. Answer what type of statistical test you would conduct based on the prompt below.
+
+You are interested in knowing more about college satisfaction levels. You ask a small sample to rate their experiences on a scale of 1 (being not at all satisfied) to 10 (as satisfied as possible). You decide to sample 10 students to compare to the rest of the university to see if your sample is any different. You know that the average satisfaction rating is 7.4 for the whole university. Knowing this, you are interested in knowing whether your sample is more or less satisfied with their college experience.
+
+Below is the information if using R.
+
+q11_values = c(10, 5, 7, 6, 3, 9, 7, 8, 4, 5)
+q11_values
+
+If doing this by hand, the values are:
+
+10, 5, 7, 6, 3, 9, 7, 8, 4, 5
+
+A. independent-samples t-test
+
+B. paired-samples t-test
+
+C. one-way ANOVA
+
+D. z-test
+
+**E.** one-sample t-test
+
+12. Calculate the sample mean for the test chosen above.
+
+13. Calculate the variance for the test chosen above.
+
+14. Calculate the standard error for the test chosen above.
+
+15. Calculate the test statistic for the test chosen above.
+
+16. The finding is statistically significant.
+
+A. TRUE 
+
+**B.** FALSE
+
+17. Answer what type of statistical test you would conduct based on the prompt below.
+
+You are interested in comfort levels of different types of footwear. You have 4 different types of footwear that you are interested in testing; flip flops, sneakers, heavy rain boots, and slippers. In addition to the four different types of footwear, you also have a control group that is barefoot. You have all your participants go about their normal day but no matter what they do they must only use the type of footwear they have been assigned. At the end of your experiment, you give out a short survey from your participants about their comfort levels. Below is the information they provide. You are especially interested in how the barefoot group did compared to the other groups. Questions 17-25 are all related to this question.
+
+If using R, below is what you can run.
+
+footwear <- data.frame(flip_flops = c(6, 6, 7, 4, 6, 5),
+                    shoes = c(8, 9, 6, 7, 7, 8),
+                    boots = c(1, 1, 1, 2, 4, 3),
+                    slippers = c(3, 3, 3, 2, 5, 4),
+                    barefoot = c(2, 4, 1, 1, 3, 2))
+
+footwear
+
+If by hand, this screenshot should help in giving values to each group.
+
+A. independent-samples t-test
+
+B. paired-samples t-test
+
+**C.** one-way ANOVA
+
+D. z-test
+
+E. one-sample t-test
+
+18. What is the total sum based on the information above?
+
+19. What is the sum of squares total based on the information above?
+
+20. What is the sum of squares between/treatment based on the information above?
+
+21. What is the sum of squares within/error based on the information above?
+
+22. What is the mean squares between value based on the information above?
+
+23. What is the mean squares within value based on the information above?
+
+24. What is the F-obtained value? 
+
+25. The finding is statistically significant. 
+
+**A.** TRUE
+
+B. FALSE
+
+26. The effect size of our F statistic tells us...
+
+A. how much of our outcome is NOT accounted for by our IV
+
+B. how to calculate Cohen's d
+
+C. how much our means differ from one another
+
+**D.** how much our model accounts for variance in the outcome
+
+27. You are conducting a two-tailed z-test with an alpha of .05. From your test, you get a z-obtained value of 2.18. Is your test statistically significant? 
+
+**A.** Yes
+
+B. No
+
+28. Which choice is incorrect regarding parametric tests and nonparametric tests?
+
+A. parametric tests use the mean
+
+B. nonparametric tests are for severely skewed data
+
+C. parametric tests have stringent assumptions
+
+**D.** nonparametric tests are not inferential statistics
+
+29. What choice below is not a research/alternative hypothesis?
+
+A. One group will do better than the other group.
+
+**B.** There will be no change in scores between the two time points.
+
+C. One group will do better or worse than the other groups.
+
+D. The sample will do better or worse than the population.
+
+30. Which choice below is an example of a one-tailed alternative/research hypothesis?
+
+A. There will be no differences in test scores between males and females
+
+B. Males will have better or worse test scores than females
+
+C. Females and males will not differ in test scores
+
+**D.** Females will have better test scores than males
+
+31. Write out a research/alternative hypothesis with your IV = Type of Animal (Dog, Cat), DV = Friendliness
+
+32. When an obtained test statistic value is greater than the critical value, this suggests that the test is statistically significant at the given alpha level.
+
+**A.** TRUE
+
+B. FALSE
+
+33. What is the main difference between a one-sample t-test and a z-test?
+
+A. a one-sample t-test only compares one sample to the population when a z-test compares two samples to a population
+
+B. a z-test is used more for behavioral research
+
+**C.** a one-sample t-test has an estimated population standard deviation rather than a known population standard deviation
+
+D. they are the same test, it just depends whether you want to use a z-table or a t-table
+
+34. A statistically significant finding tells us that there is proof our IV caused the DV to change.
+
+A. TRUE
+
+**B.** FALSE
+
+35. When we make a false positive decision, or we think a statistically significant difference is present when it actually isn't, we are making a...
+
+A. Type II error
+
+**B.** Type I error
+
+C. Typo error
+
+D. Type III error
+
+36. One reason Type I errors are made is because 
+
+A. because researchers do not have enough power
+
+B. researchers state something is nonsignificant when it actually is significant
+
+C. researchers don't know how to interpret significant findings
+
+**D.** researchers run too many tests without using a Bonferroni correction
+
+37. You have an alpha of .05 and a degrees of freedom of 15 for a two-tailed t-test, what is your critical value?
+
+**A.** 2.13
+
+B. 1.75
+
+C. 2.60
+
+D. 1.96
+
+38. You have an alpha of .05, a degrees of freedom within/error of 15 and a degrees of freedom between/treatment of 3 for your F statistic. What is your critical value?
+
+A. 8.70
+
+B. 3.48
+
+**C.** 3.29
+
+D. 2.85
+
+39. When we say that we are 95% (or 99%) confident that our value falls within a range of values. We are referring to...
+
+**A.** our confidence intervals 
+
+B. our point estimation
+
+C. our interval estimation
+
+D. our standard deviation
+
+40. T(18) = 6.45, p < .05
+
+What is wrong with the information above when reporting the t-statistic, according to APA guidelines?
+
+A. the t should not be italicized
+
+**B.** the t should be lowercase
+
+C. there should be a gap between the t and the degrees of freedom
+
+D. there shouldn't be a comma between the test statistic and the p value
+
+41. An independent samples t-test is a within-subjects/group design.
+
+A. TRUE
+
+**B.** FALSE
+
+42. If your Levene's test is statistically significant, you should...
+
+**A.** assume variances are not equal (not homogenous) and use a Welsh's t-test 
+
+B. assume variances are equal and use a normal student's t-test
+
+C. use a one-way ANOVA
+
+D. use a z-test
+
+43. Pooled variance is the weighted average variance of the two groups in your independent samples t-test
+
+**A.** TRUE
+
+B. FALSE
+
+44. A cohen's d effect size of .8 would be considered...
+
+A. Small
+
+B. Medium/Moderate
+
+C. Large
+
+45. A level is just another name in the ANOVA framework of...
+
+**A.** group/condition
+
+B. independent variable
+
+C. group size
+
+D. outcome/DV
+
+46. It would not be wise to run several independent samples t-tests when you could run one ANOVA to compare several groups because
+
+A. it would take too much time
+
+B. t-tests only compare two groups
+
+**C.** running several t-tests could fall victim to Type I error
+
+47. Our F statistic tells us specifically what groups are different from one another.
+
+A. TRUE
+
+**B.** FALSE
+
+48. The worst post-hoc test to run is
+
+**A.** Fisher's Least Significant Difference Procedure
+
+B. Scheffe Test
+
+C. Tukey Honestly Significant Difference Test
+
+D. Bonferroni Test
+
+49. The mean square within value in our F statistic is the variability...
+
+A. in scores between in level/group
+
+**B.** in the scores of each level/group
+
+C. in total scores
+
+D. between only two groups
+
+50. A F obtained value in our F distribution 
+
+A. can be a negative value
+
+B. can be too large to fit on the distribution
+
+**C.** cannot be less than zero 
+
+D. is really a t-value in disguise
+
+51. You have a sum of squares between/treatment of 54.17 and a sum of squares total of 119.57. What is your eta squared in proportions (not percentage)? 
+
+52. Based on your answer from Q51, what does this state about the association between your IV and DV?
+
+**A.** Your model accounted for a little under half of your DV, so pretty good.
+
+B. Your model did little to nothing explaining the variance in your DV
+
+C. that effect sizes are lies
+
+53. Calculate the bonferroni correction with an alpha of .05 and you ran 5 tests.
+
+54. If you wanted to, could you run a one-way ANOVA to get the same answer as an independent samples t-test if you were examining mean differences between two groups?
+
+**A.** Yes
+
+B. No
+
+55. What is one thing ANOVA can do that regression cannot do?
+
+A. examine categorical variables
+
+**B.** Nothing, they are essentially the same test
+
+C. examine continuous variables
+
+56. Statistically significant is the same thing as meaningful regarding your study's findings.
+
+A. TRUE
+
+**B.** FALSE

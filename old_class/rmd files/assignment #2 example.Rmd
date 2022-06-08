@@ -1,0 +1,190 @@
+---
+title: "SPSS Assignments"
+author: "JP"
+date: "8/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages, eval = TRUE, echo = FALSE}
+library(tidyverse)
+
+options(scipen = 999)
+theme_set(theme_minimal())
+
+data <- read_csv("https://raw.githubusercontent.com/jpedroza1228/dissertation/master/final_data/ca_county.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-x1, -x) %>% 
+  filter(release_year == 2018 &
+           county_name != "california")
+  
+```
+
+# What Each Assignment Will Look Like
+
+## Create a research question and a hypothesis.
+
+RQ: Will there be a difference in air pollution between California counties with drinking water violations and those without drinking water violations?
+
+H: California counties with drinking water violations will have significantly higher air pollution particulate matter levels than California counties without drinking water violations. 
+
+## Recode Variables
+
+For this assignment, you will first need to recode the variable `county_name` to create a new variable that separates Southern California and Northern California. This new variable will be called `south_north`. Below are the counties that will be in Southern California and Northern California.
+
+Southern California:
+
+- san_diego_county
+- imperial_county
+- riverside_county
+- orange_county
+- los_angeles_county
+- san_bernardino_county
+- kern_county
+- ventura_county
+- santa_barbara_county
+- san_luis_obispo_county
+
+Central California:
+
+- inyo_county
+- tulare_county
+- kings_county
+- monterey_county
+- fresno_county
+- san_benito_county
+- mono_county
+- madera_county
+- mariposa_county
+- merced_county
+- santa_clara_county
+- santa_cruz_county
+- stanislaus_county
+- tuolumne_county
+- alpine_county
+- calaveras_county
+- amador_county
+- san_joaquin_county
+
+Northern California:
+
+- sonoma_county
+- colusa_county
+- sutter_county
+- yuba_county
+- sierra_county
+- nevada_county
+- placer_county
+- el_dorado_county
+- yolo_county
+- sacramento_county
+- solano_county
+- napa_county
+- marin_county
+- alameda_county
+- contra_costa_county
+- san_mateo_county
+- san_francisco_county
+
+Practically Oregon California: 
+
+- del_norte_county
+- siskiyou_county
+- modoc_county
+- humboldt_county
+- trinity_county
+- shasta_county
+- lassen_county
+- plumas_county
+- tehama_county
+- butte_county
+- glenn_county
+- lake_county
+- mendocino_county
+
+
+```{r, include = TRUE}
+
+data <- data %>% 
+  filter(drinking_water_violations == 0 |
+           drinking_water_violations == 1) %>% 
+  mutate(drinking_water_violations = as.factor(drinking_water_violations),
+         high_low_pop = case_when(population < 183254 ~ 0,
+                                  population >= 183254 ~ 1),
+         high_low_pop = as.factor(high_low_pop))
+```
+
+## Conduct some descriptive statistics
+
+Next, you will collect the mean and median for the outcome variable that we are interested in. For this assignment, the outcome will be
+
+```{r, include = TRUE}
+psych::describe(data$median_household_income, na.rm = TRUE)
+
+psych::describeBy(data$median_household_income, data$drinking_water_violations, na.rm = TRUE)
+psych::describeBy(data$median_household_income, data$high_low_pop, na.rm = TRUE)
+```
+
+```{r}
+aov_table <- data %>% group_by(high_low_pop, drinking_water_violations) %>% 
+  summarize(count = n(),
+            mean_income = mean(median_household_income),
+            sd_income = sd(median_household_income)) %>% 
+  ungroup()
+
+kableExtra::kbl(aov_table) %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),
+                position = "center")
+```
+
+## Test Assumptions
+
+```{r}
+
+```
+
+
+## Conduct inferential statistic for the tutorial
+
+```{r, include = TRUE}
+library(car)
+
+two_way <- aov(median_household_income ~ high_low_pop*drinking_water_violations, data = data)
+
+summary(two_way)
+Anova(two_way, type = "III")
+TukeyHSD(two_way, conf.level = .95)
+```
+
+## Show some type of visualization to get the point across of the data
+
+```{r}
+data %>% 
+  group_by(drinking_water_violations, high_low_pop) %>% 
+  summarize(avg_income = mean(median_household_income),
+            sd_income = sd(median_household_income)) %>% 
+  ungroup() %>% 
+  ggplot(aes(drinking_water_violations, avg_income)) + 
+  geom_col(aes(fill = drinking_water_violations), position = "dodge2", alpha = .3) +
+  geom_errorbar(aes(ymin = avg_income - sd_income,
+                    ymax = avg_income + sd_income), size = 1.25) +
+  facet_wrap(~high_low_pop)
+
+data %>% 
+  ggplot(aes(drinking_water_violations, median_household_income)) +
+  geom_boxplot(aes(fill = drinking_water_violations), alpha = .5) +
+    geom_jitter(color = "red", alpha = .5) +
+  facet_wrap(~high_low_pop)
+
+```
+
+## Write up on your findings
+
+California counties with drinking water violations (*M* = 8.84, *SD* = 2.84) did not have significantly higher pollution particulate matter levels compared to California counties without drinking water violations (*M* = 7.93, *SD* = 1.16); *t*(56) = -1.12, *p* = .266. 
+
+```{r, include = TRUE}
+broom::tidy(two_way)
+```

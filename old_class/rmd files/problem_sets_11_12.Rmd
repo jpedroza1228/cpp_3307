@@ -1,0 +1,71 @@
+---
+title: "problem_set_11_and_12"
+author: "JP"
+date: "11/16/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+Problem Set 11
+
+1. What are the three types of relationships?
+
+2. If one variable deviates above its mean and another variable deviates above its mean, what is the direction of the relationship?
+
+3. Is covariance a standardized measure?
+
+4. What can a correlation coefficient value range from?
+
+5. What are the effect sizes of r for small, medium, and large?
+
+6. What would an effect size of r = .15 be?
+
+7. What is the difference between a bivariate and partial correlation?
+
+8. What are the two issues of correlational designs that cannot show cause and effect?
+
+9. Draw what a partial correlation looks like. 
+
+
+
+Problem Set 12
+
+1. Create a composite score of smartphone use
+
+2. Create a composite score of stress
+
+3. Conduct a correlation between bmi and smartphone use
+
+4. Report the correlation in writing.
+
+There was a (significant/nonsignificant) relationship between ______ and ______ (r = #, p = #). 
+
+5. Conduct a Spearman's correlation between stress levels and `mtuas_anxiety_q1`
+
+6. Report the correlation in writing.
+
+There was a (significant/nonsignificant) relationship between ______ and ______ (rho = #, p = #). 
+
+$$\rho$$
+
+```{r, include = FALSE}
+jp <- rio::import(here::here("jp_thesis_1.sav")) %>% 
+  janitor::clean_names() %>% 
+  rowid_to_column() %>% 
+  rename(sex = ccc_gender) %>% 
+  mutate(bmi = ccc_bmi,
+         stress = (dass_stress_q1 + dass_stress_q2 + dass_stress_q3 + dass_stress_q4 + dass_stress_q5 + dass_stress_q6 + dass_stress_q7)/7,
+         email = (mtuas_email_q1 + mtuas_email_q2 + mtuas_email_q3 + mtuas_email_q4)/4,
+         smartphone = (mtuas_smartphone_q1 + mtuas_smartphone_q2 + mtuas_smartphone_q3 + mtuas_smartphone_q4 + mtuas_smartphone_q5 + mtuas_smartphone_q6 + mtuas_smartphone_q7 + mtuas_smartphone_q8 + mtuas_smartphone_q9)/9) 
+
+cor.test(jp$bmi, jp$smartphone)
+
+cor.test(jp$stress, jp$mtuas_anxiety_q1, method = "spearman")
+```
+
+

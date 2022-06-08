@@ -1,0 +1,139 @@
+---
+title: "Final Study Guide"
+author: "JP"
+date: "11/29/2021"
+output: word_document
+---
+
+# What You Need to Know
+
+Assumptions of all tests
+
+Differences between correlation and regression
+
+Interpretation of unstandardized regression coefficients
+
+Know what standardized regression coefficients represent in a simple linear regression
+
+Know the difference between a simple linear regression and a multiple linear regression
+
+What is the intercept in a linear regression
+
+Know the correct linear regression equation
+
+Differences between actual scores and predicted scores
+
+Know what residuals are in a linear regression
+
+Know what parts of the Sum of Squares in ANOVA framework are similar to the Sum of Squres in Regression Framework
+
+Know how well your regression line fits the data
+
+Similarities and differences between R Squared and Eta Squared
+
+Know what the F statistic measures (ANOVA and Regression)
+
+Know about the test statistics for both correlation and regression
+
+Differences between standardized and unstandardized regression coefficients
+
+Know the assumptions of regression, what they mean, and how to diagnose them
+
+  - Linearity
+  - Outliers
+  - Homoscedasticity
+  - Independence
+  - Normality
+  - Sample Size
+  
+Know how people address for outliers
+
+Know differences in types of residuals you can get from SPSS
+
+Know appropriate sample size for (multiple) linear regression
+
+Understand what controlling/adjusting for
+
+Differences in types of multiple regression
+
+  - Sequential
+  - Standard
+  - Automated
+  
+Model Comparisons
+
+Multicollinearity, Variance Inflation Factor, Tolerance
+
+Interpretation of coefficients (simple and multiple linear regression) with continuous variables, categorical variables, or both
+
+Types of relationships
+
+Cross-production deviation
+
+Variance
+
+Covariance
+
+Know calculations for covariance
+
+know what covariance means and the direction
+
+Standardization of covariance
+
+Correlation
+
+Know Pearson's Correlation Coefficient, Spearman's Correlation Coefficient, and Kendall's Tau and differences between them
+
+Know strengths of correlation coefficients
+
+Types of relationships based on correlation coefficient
+
+Differences between bivariate, zero-order, and partial correlation
+
+Test statistic for correlation
+
+Hypotheses for all tests (ANOVA [one-way, two-way], repeated measures, mixed design, correlation, regression)
+
+Causality and correlation/regression designs
+
+Biserial & Point-Biserial Correlations
+
+Partial Correlation
+
+Know what partial correlation is
+
+Know what zero-order correlation is
+
+Semi-partial correlation
+
+Know about correlation coefficients and effect sizes
+
+Know how to report correlation coefficients
+
+know differences between types of ANOVA (one-way, two-way, repeated measures, mixed design)
+
+know assumptions for all types of ANOVA
+
+Know difference between ANOVA, ANCOVA, and two-way ANOVA
+
+Differences between two-way between-subjects, within-subjects, mixed-design ANOVAs
+
+know what is beting examined for the main effects and interactions of two-way ANOVAs
+
+Collapsing in two-way ANOVA
+
+Know about interactions
+
+Know what to examine first in two-way ANOVA (main effects or interaction)
+
+Differences between paired-samples t-test and repeated measures ANOVA
+
+Know what is a repeated measures design
+
+Know what a longitudinal design is
+
+Know what assumption is not accounted for by using repeated measures ANOVA
+
+Know when repeated measures ANOVA won't work
+
+Know how to do the calculations for repeated measures ANOVA (F statistic only)
