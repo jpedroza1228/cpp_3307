@@ -1,0 +1,154 @@
+---
+title: "Two-Way ANOVA Pt2"
+author: "Jonathan A. Pedroza, PhD"
+format: beamer
+editor: visual
+---
+
+## Interpretation of Findings
+
+-   we're going to talk about what the findings mean for your factorial design
+
+-   we will have three things to check
+
+    -   main effect (relationship) between your first IV/factor and your DV (while ignoring everything else)
+
+        -   this will also be in the F test for this one IV
+
+    -   main effect 2 (relationship 2) between your second IV/factor and your DV (while ignoring everything else)
+
+        -   this will also be in the F test for this one IV
+
+    -   interaction (combination of IV1 and IV2) between your IVs on your DV (while ignoring the main effects)
+
+        -   this will also be in the F test for the interaction
+
+## Main Effect 1 Interpretation
+
+-   the F value for this main effect will tell us if there is a significant relationship between your first IV and your outcome
+
+    -   essentially is there a difference between the levels/conditions/groups in your first IV in their average outcome values
+
+    -   Ex: Is there a significant difference in average depression levels of your 3 BMI categories/groups?
+
+-   It is important to note that we are only looking at the relationship between BMI category and depression WHILE ignoring/controlling/adjusting for your second IV
+
+    -   Ex: There is a significant relationship between BMI category and depression while adjusting for race/ethnicity
+
+    -   Ex: There are differences in depression levels between BMI categories while adjusting for race/ethnicity
+
+## Main Effect 2 Interpretation
+
+-   same thing as the first main effect but now with your second IV
+
+-   F value tells you if there are differences in the levels/conditions of your second IV in its relationship with the DV
+
+    -   Ex: Are there differences in average depression levels between your participants based on their identified racial/ethnic groups?
+
+-   Similar here, we are ignoring/adjusting/controlling for IV1 and only talking about the unique relationship between IV2 and the DV
+
+## Interaction Interpretation
+
+-   this is what makes this a two-way ANOVA rather than a one-way ANOVA (one variable) or a ANCOVA (one variable and covariates \[variables being controlled\])
+
+-   we look at the relationship between IV1 and DV based on a specific condition/group from IV2
+
+    -   Ex:
+
+```{r}
+library(tidyverse)
+small_cars <- mtcars %>% 
+  filter(cyl != 8) %>% 
+  mutate(cyl = recode(cyl,
+                      '4' = '0',
+                      '6' = '1')) %>% 
+  select(mpg, cyl, am)
+```
+
+## Interaction Interpretation
+
+```{r}
+psych::describe(small_cars$mpg)
+```
+
+## Interaction Interpretation
+
+```{r}
+arm::display(lm(mpg ~ as.factor(cyl)*as.factor(am),
+           data = small_cars), detail = TRUE)
+```
+
+## Interaction Interpretation
+
+```{r}
+small_cars %>%
+  mutate(cyl = as.factor(cyl),
+         am = as.factor(am),
+         cyl = recode(cyl, '0' = '4-cyl',
+                      '1' = '6-cyl'),
+         am = recode(am, '0' = 'automatic',
+                     '1' = 'manual')) %>% 
+  group_by(cyl, am) %>% 
+  summarize(mean_mpg = mean(mpg),
+            sd_mpg = sd(mpg)) %>% 
+  ungroup() 
+```
+
+## Interaction Interpretation
+
+```{r}
+small_cars %>%
+  mutate(cyl = as.factor(cyl),
+         am = as.factor(am),
+         cyl = recode(cyl, '0' = '4-cyl',
+                      '1' = '6-cyl'),
+         am = recode(am, '0' = 'automatic',
+                     '1' = 'manual')) %>% 
+  group_by(cyl, am) %>% 
+  summarize(mean_mpg = mean(mpg),
+            sd_mpg = sd(mpg)) %>% 
+  ungroup() %>% 
+  drop_na(cyl, am, mean_mpg, sd_mpg) %>% 
+  ggplot(aes(cyl, mean_mpg, group = am)) + 
+  geom_point(aes(color = am), size = 3) + 
+  annotate(geom = 'text',
+           label = '4-cyl mean = 26.7',
+           color = 'darkgreen',
+           x = 1,
+           y = 26.7) + 
+  annotate(geom = 'text',
+           label = '6-cyl mean = 19.7',
+           color = 'darkgreen',
+           x = 2,
+           y = 19.7) + 
+  geom_line(aes(color = am)) + 
+  geom_hline(yintercept = 23.97, color = 'red',
+             linetype = 2) + 
+  theme_light()
+```
+
+## Reporting Findings
+
+-   We first talk about the interaction
+
+    -   There was a significant interaction found between number of cylinders and transmission type on MPG; F(1, 14) = 1.22, p = XX
+
+    -   There was no evidence of a significant interaction between number of cylinders and transmission type on MPG; F(1, 14) = 1.22, p = .29
+
+-   Then the main effects
+
+    -   There was evidence of a significant main effect of number of cylinders on MPG; F(1, 14) = 18.62, p \< .001
+
+    -   There was no evidence of a significant main effect of transmission type on MPG; F(1, 14) = 4.42, p = .05
+
+## Reporting Findings
+
+-   Post-hoc tests
+
+    -   A Tukey HSD test was run and found significant differences between some groups. For instance, there was a significant difference between XX and XX (p = XX)
+
+-   Simple-effects analysis
+
+    -   Simple effects analysis revealed that only in the 4-cylinder group, manual transmissions had higher average MPG than automatic transmissions; F(XX, XX) = XX, p = XX
+
+        -   if more than two groups, you'd talk to each of these differences

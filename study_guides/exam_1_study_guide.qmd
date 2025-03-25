@@ -1,0 +1,175 @@
+---
+title: "Study Guide - Midterm 1"
+author: Jonathan A. Pedroza, PhD
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Concepts to Know
+
+- Variable
+
+- Relationship
+
+  - Types of relationships
+  
+- Desriptive and inferential statistics
+
+- Qualitative and quantitative
+
+- IVs and DVs
+
+- Conditions
+
+- Levels of measurement
+
+  - Categorical and continuous
+  
+  - Types of each
+  
+- Measurement error
+
+- Know your greek letters
+
+- Research Question
+
+  - How to formulate a rq
+  
+- Theory
+
+- Hypothesis
+
+- Reliability and validity
+
+  - Types of both
+  
+- Experimental and correlational designs
+
+- Issues with both designs
+
+- Cross sectional and longitudinal
+
+- Between- and within-designs
+
+- Types of variation
+
+- Randomization
+
+- Practice effects
+
+- Counterbalancing
+
+- Frequencies
+
+- Different distributions
+
+- Normal distribution
+
+- Skewed distributions
+
+- Kurtosis
+
+- Bimodal and multimodal distributions
+
+- Measures of central tendency
+
+  - Mean
+  
+  - Mode
+  
+  - Median
+  
+- Know when to use any of them
+
+- Measures od dispersion
+
+  - Range
+  
+  - Variance
+  
+  - Standard deviation
+  
+- Quartiles
+
+- Deviance
+
+- Sum of errors/deviance
+
+- Sum of squared errors/squares
+
+- z-score for a single participant
+
+- z-score for a sample
+
+- Standardized scores
+
+- Percentages/proportions of distribution using z-scores
+
+- Use of z-table
+
+- Central limit theorem
+
+- Sample and population differences in terms
+
+- Fit
+
+- Samples and populations
+
+- Estimating parameters
+
+- Error
+
+- Degrees of freedom
+
+- Mean squared error
+
+- Ordinary Least Squares
+
+- Making predictions
+
+- Standard error
+
+- Sampling variation/variability
+
+- Difference between probability and odds
+
+- Confidence intervals
+
+- Criterion
+
+- Critical values
+
+- Critical value for z-scores
+
+- NHST
+
+- Probabilities
+
+- p values
+
+- Types of hypotheses
+
+- Hypotheses for one- and two-tailed tests
+
+- Error types
+
+- Inflated error rates
+
+- Bonferroni correction
+
+- Statistical power
+
+- Effect sizes
+
+- z-test
+
+- One-sample t-test
+
+- Differences z-test and one-sample t-test
+
+- z-table
+
+- t-table

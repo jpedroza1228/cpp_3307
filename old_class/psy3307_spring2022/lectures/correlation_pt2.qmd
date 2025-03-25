@@ -1,0 +1,104 @@
+---
+title: "correlation_pt2"
+author: "Jonathan A. Pedroza, PhD"
+format: beamer
+editor: visual
+---
+
+## Partial & Semi-Partial Correlation
+
+-   remember that when we look at the variance "explained" by one variable on the second variable (DV), we are talking about $R^2$
+
+-   however, sometimes we want to look at the influence of several variables on your DV
+
+    -   from this, we may want to see how much unique influence each variable has on your DV
+
+    -   unique variance of one IV with your DV
+
+        -   can see the unique variance of each relationship
+
+    -   there is still the total variance of all your IVs with your DV
+
+## Partial Correlation
+
+-   a **partial correlation** is when we are looking at the unique relationship between a IV and a DV while other included variables are held constant
+
+    -   this is somewhat like multiple regression (which we'll get to in the next set of slides)
+
+    -   holding constant is another way of controlling for or adjusting for
+
+-   **zero-order correlation** is a pearson correlation coefficient without controlling for any other variable
+
+## Semi-Partial (or Part) Correlation
+
+-   also referred to as **part correlation**
+
+-   partial correlation is the unique relationship between two variables when controlling for a third variable
+
+    -   that means we are controlling for the effect of the third variable on both variables
+
+-   **semi-partial** correlation only controls for the effect that the third variable has on one of the variables in the correlation
+
+## Comparing Independent and Dependent $r$s
+
+-   independent $r$s
+
+    -   you can compare correlation coefficients for different groups to see if the correlation coefficients are significantly different from one another
+
+        -   correlation between depression and BMI between males and females
+
+    -   transform them into z values and then compare the converted scores using a z-test to see if the differences are significantly different from one another
+
+-   dependent $r$s
+
+    -   to compare dependent conditions/levels, you would use a t-test to see differences between two dependent correlations
+
+        -   if 3 conditions, you would test every correlation and compare each correlation to another
+
+## Calculating Effect Sizes
+
+-   correlation coefficients are effect sizes
+
+-   $r$ = effect size because it is standardized (0 to +-1)
+
+-   to get the proportion of variance you would square the correlation coefficient
+
+$$
+R^2 = r^2
+$$
+
+-   $R^2$ can be used for other correlation coefficients other than Pearson's (Spearman's)
+
+    -   for Spearman's the calculation is the same, however the interpretation is the proportion of variance in the ranks between the two variables
+
+-   Kendall's $\tau$ is not comparable to the other two coefficients
+
+    -   $\tau$ can be used as an effect size but it is not comparable to Pearson's or Spearman's correlation coefficients and should not be squared
+
+## Reporting Correlation Coefficients
+
+-   reporting correlation coefficients includes the two variables that you conducted a correlation of
+
+    -   there was a significant association/relationship between X and Y
+
+    -   there was no evidence of a statistically significant relationship/association between X and Y
+
+-   It is best practice to not state that **there was no significant association**
+
+    -   this is supporting your null hypothesis and by the rules of probability, we are not sure whether or not we found a true relationship
+
+        -   we can only say that in our sample, there was either evidence of a statistically significant relationship or no evidence of a significant relationship
+
+## Reporting Correlation Coefficients
+
+-   There was a statistically significant relationship between depression levels and body mass index; *r* = .23, *p* = .015.
+
+    -   can also report the statistic as *r* = .23 (*p* = .015)
+
+-   There was no evidence of a significant relationship between depression levels and test scores (*r* = .03, *p* = .425).
+
+## Reporting Correlation Coefficients
+
+```{r, echo = TRUE, eval = TRUE}
+cor.test(mtcars$disp, mtcars$hp)
+```

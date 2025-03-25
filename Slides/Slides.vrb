@@ -1,0 +1,17 @@
+\frametitle{Nerdy Stuff}
+\phantomsection\label{nerdy-stuff}
+\begin{itemize}
+\tightlist
+\item
+  Passion/Nerdy Topics:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I love creating data visualizations in \texttt{R}
+  \item
+    health inequities in communities of color
+  \item
+    examining environmental variables that influence health behaviors
+  \end{itemize}
+\end{itemize}

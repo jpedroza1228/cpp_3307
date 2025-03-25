@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="Slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Slides_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="Slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Slides_files/libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.41">
+
+  <meta name="author" content="Jonathan A. Pedroza, PhD">
+  <title>PSY 3307 Slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="Slides_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Slides_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="Slides_files/libs/revealjs/dist/theme/quarto-2f366650f320edcfcf53d73c80250a32.css">
+  <link href="Slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">PSY 3307 Slides</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jonathan A. Pedroza, PhD 
+</div>
+</div>
+</div>
+
+</section>
+<section id="week-1---introduction-review" class="title-slide slide level1 center">
+<h1>Week 1 - Introduction &amp; Review</h1>
+
+</section>
+
+<section id="agenda" class="title-slide slide level1 center">
+<h1>Agenda</h1>
+<ul>
+<li>Introductions</li>
+<li>Syllabus</li>
+<li>Review</li>
+<li>Types of Research</li>
+<li>Steps of Conducting Statistics Within the Research Process</li>
+<li>Levels of Measurement
+<ul>
+<li>Measurement Error</li>
+</ul></li>
+<li>Measurement Scales</li>
+</ul>
+</section>
+
+<section id="about-me" class="title-slide slide level1 center">
+<h1>About Me</h1>
+<ul>
+<li>My name is Jonathan A. Pedroza (he/him)
+<ul>
+<li>please refer to me as JP or Jon</li>
+</ul></li>
+<li>First-generation Graduate
+<ul>
+<li>CPP Alumni (2014)</li>
+<li>CSUDH (2017)</li>
+<li>University of Oregon (2021)</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="about-me-1" class="title-slide slide level1 center">
+<h1>About Me</h1>
+
+<img data-src="../additional_resources/uo_grad.jpg" class="r-stretch"></section>
+
+<section id="about-me-2" class="title-slide slide level1 center">
+<h1>About Me</h1>
+
+<img data-src="../additional_resources/hike.jpg" class="r-stretch"></section>
+
+<section id="about-me-3" class="title-slide slide level1 center">
+<h1>About Me</h1>
+<p><img data-src="../additional_resources/lucy.jpg" height="700"></p>
+</section>
+
+<section id="nerdy-stuff" class="title-slide slide level1 center">
+<h1>Nerdy Stuff</h1>
+<ul>
+<li>Passion/Nerdy Topics:
+<ul>
+<li>I love creating data visualizations in <code>R</code></li>
+<li>health inequities in communities of color</li>
+<li>examining environmental variables that influence health behaviors</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="nerdy-stuff-1" class="title-slide slide level1 center">
+<h1>Nerdy Stuff</h1>
+
+<img data-src="../additional_resources/non_passing_rate_visualization.png" class="r-stretch"></section>
+
+<section id="break-out-rooms---tell-me-about-yourself" class="title-slide slide level1 center">
+<h1>Break-out Rooms - Tell Me About Yourself</h1>
+<ul>
+<li><p>Name &amp; pronouns</p></li>
+<li><p>What do you want to do after you graduate?</p></li>
+<li><p>What is your experience with statistics?</p></li>
+<li><p>What is your experience with SPSS?</p></li>
+<li><p>Something that you are passionate/nerdy about</p></li>
+</ul>
+</section>
+
+<section id="learning-objectives" class="title-slide slide level1 center">
+<h1>Learning Objectives</h1>
+<ul>
+<li><p>Use SPSS to compute statistics</p></li>
+<li><p>Read/Interpret Descriptive &amp; Inferential Statistics</p></li>
+<li><p>Understand &amp; Solve Formulas for Statistical Tests</p></li>
+<li><p>Understand Sampling, Statistical Null Hypothesis Testing, Effect Sizes, Confidence Intervals</p></li>
+<li><p>Demonstrate ability to apply these skills to test hypotheses using real data</p></li>
+</ul>
+</section>
+
+<section id="topics-covered" class="title-slide slide level1 center">
+<h1>Topics Covered</h1>
+<ul>
+<li>Descriptive Statistics</li>
+<li>Probability</li>
+<li>Random Selection</li>
+<li>Normal Curve &amp; Sampling Distribution</li>
+<li>Hypothesis Testing</li>
+<li>Rules for Statistical Decisions (Types I and II Errors)</li>
+<li>Sample Size Importance (One- vs Two-tailed Tests)</li>
+<li>Z-scores, z-ratio, and t-ratio (single group, independent-samples t-test, paired)</li>
+<li>Analysis of Variance (One-way, Two-way, Repeated-measure, mixed)</li>
+<li>Confidence Intervals/Error bars in plots</li>
+<li>Most common plots (histograms, boxplots, scatterplots)</li>
+<li>Correlation &amp; Regression Analysis</li>
+<li>Chi-square (One-way, Two-way)</li>
+<li>Non-parametric statistics</li>
+</ul>
+</section>
+
+<section id="you-might-be-feeling-like" class="title-slide slide level1 center">
+<h1>You Might be Feeling Like…</h1>
+
+<img data-src="https://media.giphy.com/media/yJ1dPF1ZZOduE/giphy.gif" class="r-stretch quarto-figure-center"><p class="caption">spongebob running</p></section>
+
+<section id="what-i-need-from-you" class="title-slide slide level1 center">
+<h1>What I Need From You</h1>
+<ul>
+<li><p>Cameras are optional</p>
+<ul>
+<li>It helps me see if you are confused</li>
+</ul></li>
+<li><p>Unmute yourself and interrupt me</p></li>
+<li><p>put in the chat that you are confused</p></li>
+<li><p>private message me in the chat that you are confused</p></li>
+</ul>
+</section>
+
+<section id="week-1---research-methods" class="title-slide slide level1 center">
+<h1>Week 1 - Research Methods</h1>
+
+</section>
+
+<section id="designs" class="title-slide slide level1 center">
+<h1>Designs</h1>
+<ul>
+<li><p><strong>Design</strong> is how a study is organized</p></li>
+<li><p>Experimental (manipulate your independent variable to see what effect it has on the dependent variable)</p>
+<ul>
+<li>True Experiment</li>
+<li>Quasi Experiment</li>
+<li>Natural Experiment</li>
+</ul></li>
+<li><p>Correlational (don’t manipulate anything; just look at the relationship between two variables)</p>
+<ul>
+<li>Correlation</li>
+<li>Regression</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="differences-in-population-sample" class="title-slide slide level1 center">
+<h1>Differences in Population &amp; Sample</h1>
+<ul>
+<li><p><strong>Population</strong> is a large group of individuals, which a law of nature applies</p></li>
+<li><p><strong>Sample</strong> is a group of a given population intended to represent that population</p></li>
+<li><p><strong>Participants</strong> are those measured in a sample. Participants always refers to individuals (e.g., students, children, prisoners)</p></li>
+<li><p>A sample is <em>supposed to generalize</em> to a given population</p></li>
+<li><p>We never use subjects in the social sciences anymore, they are participants</p></li>
+</ul>
+</section>
+
+<section id="statistics-vs-parameters" class="title-slide slide level1 center">
+<h1>Statistics vs Parameters</h1>
+<ul>
+<li><p><strong>Statistics</strong> use English letters to get values for a sample</p></li>
+<li><p><strong>Parameter</strong> use greek letters for values of a population</p></li>
+</ul>
+<p>Statistic = Sample</p>
+<p>Parameter = Population</p>
+</section>
+
+<section id="straight-into-terms" class="title-slide slide level1 center">
+<h1>Straight into Terms</h1>
+<ul>
+<li><p><strong>raw score</strong> is the score given to a participant</p></li>
+<li><p><strong>Frequency</strong> denoted as f; number of times a score occurs/is counted</p></li>
+</ul>
+<p><em>Note.</em> Not F, that is something completely different.</p>
+<ul>
+<li><strong>Frequency Distribution</strong> is a distribution of each score and the number of times the score has occurred/is counted</li>
+</ul>
+</section>
+
+<section id="visualizing-frequencies" class="title-slide slide level1 center">
+<h1>Visualizing Frequencies</h1>
+<ul>
+<li><p>Best way of visualizing frequencies is by using a bar graph</p></li>
+<li><p><strong>Bar graph</strong> graph with vertical bar over each nominal/ordinal category</p></li>
+<li><p><strong>Side Note</strong> A pie graph will always be inferior to a bar graph/any other visual</p></li>
+<li><p><strong>Histogram</strong> is a frequency graph used for interval or ratio scores</p></li>
+<li><p><strong>Frequency Polygon</strong> similar to a histogram, which shows data points connected with straight lines</p></li>
+<li><p><strong>Grouped Distributions</strong> put continuous data into categories</p>
+<ul>
+<li>The next slide has data ranging from 6-10 in coffee uniformity; I could lump them as anything below a perfect 10 (6-9) and then 10 as a different category</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="normal-distribution" class="title-slide slide level1 center">
+<h1>Normal Distribution</h1>
+
+<img data-src="https://jech.bmj.com/sites/default/files/highwire/jech/60/1/6/embed/graphic-1.gif" class="r-stretch quarto-figure-center"><p class="caption">paranormal distribution</p></section>
+
+<section id="why-is-it-a-normal-distribution" class="title-slide slide level1 center">
+<h1>Why Is It a Normal Distribution?</h1>
+<ul>
+<li><p><strong>Normal curve</strong> is often called the bell-shaped curve; is symmetrical</p></li>
+<li><p><strong>Normal Distribution</strong> same thing as normal curve; represents the population because if you have enough data you will get a normal distribution (central limit theorem); if your data looks like this in a histogram, you’re in good shape</p></li>
+<li><p><strong>Distribution Tail</strong> has two tails; these will be more important for statistics</p></li>
+</ul>
+</section>
+
+<section id="skewed-distributions" class="title-slide slide level1 center">
+<h1>Skewed Distributions</h1>
+<ul>
+<li><p><strong>Negative Skew</strong> is like a finger pointing left; not normal and is asymmetrical; indicates higher frequency of middle and higher scores; no low frequency in higher scores</p></li>
+<li><p><strong>Positive Skew</strong> is like a finger pointing right; not normal and is asymmetrical; indicates higher frequency of low and middle scores; no low frequency in lower scores</p></li>
+<li><p>Some thresholds are that if you have a skewness value of +-2 or +-3 then you’re good to use that variable like it is.</p></li>
+<li><p><strong>Kurtosis</strong> is when your frequency are really skinny and tall or really flat and wide</p></li>
+</ul>
+</section>
+
+<section id="bimodal-distribution" class="title-slide slide level1 center">
+<h1>Bimodal Distribution</h1>
+<ul>
+<li><strong>Bimodal Distribution</strong> is when your distribution has two humps with a valley in the middle; high frequencies both below and above the middle of the plot</li>
+</ul>
+</section>
+
+<section id="some-notes-from-jp" class="title-slide slide level1 center">
+<h1>Some Notes From JP</h1>
+<p>Deciding what is positively and negatively skewed from visuals alone is not good enough</p>
+<p>You’ll want to look into your descriptive statistics and look at skewness and kurtosis to make sure they are within +-3</p>
+<p>Some statistics can handle some skewness and kurtosis</p>
+<p>Other times you’ll have to transform the variable using fancy methods that we will not talk about in this class.</p>
+</section>
+
+<section id="relative-frequency" class="title-slide slide level1 center">
+<h1>Relative Frequency</h1>
+<ul>
+<li><strong>Relative Frequency</strong> the proportion of times a score occures/is counted in the distribution</li>
+</ul>
+<p><span class="math display">\[ Relative\;frequency = f/N\]</span></p>
+<p>Here, f is the frequency of one category of a nominal variable. N is the total number of observations for all the categories of that variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>f <span class="ot">=</span> <span class="dv">37</span></span>
+<span id="cb1-2"><a href=""></a>N <span class="ot">=</span> <span class="dv">2000</span></span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a>relative_frequency <span class="ot">=</span> f<span class="sc">/</span>N</span>
+<span id="cb1-5"><a href=""></a>relative_frequency</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0185</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>percent <span class="ot">=</span> relative_frequency<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb3-2"><a href=""></a>percent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.85</code></pre>
+</div>
+</div>
+</section>
+
+<section id="relative-frequency-using-normal-curve" class="title-slide slide level1 center">
+<h1>Relative Frequency Using Normal Curve</h1>
+<ul>
+<li><p><strong>Proportion of Area under the Curve</strong> is the proportion of total area under the normal curve</p></li>
+<li><p><strong>Percentile</strong> is the percentage of all scores in the sample below a particular score</p></li>
+<li><p><strong>Cumulative Frequency</strong> is the number of scores in the data at or below a particular score</p></li>
+</ul>
+</section>
+
+<section id="greek-terms" class="title-slide slide level1 center">
+<h1>Greek Terms</h1>
+<p><span class="math display">\[\Sigma = Sum\;of\;scores\]</span></p>
+<p><span class="math display">\[\Sigma\;X = Sum\;Of\;X\]</span></p>
+</section>
+
+<section id="greek-terms-1" class="title-slide slide level1 center">
+<h1>Greek Terms</h1>
+<ul>
+<li><p>Both of these are stating that we are adding all of the data points together.</p></li>
+<li><p><strong>Sum of X</strong> is the sum of the scores in a sample</p>
+<ul>
+<li>X is just another way to say all the data points for the variable.</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="central-tendency" class="title-slide slide level1 center">
+<h1>Central Tendency</h1>
+<ul>
+<li><p>Concept that as statisticians every person is just a data point</p></li>
+<li><p>We are interested in the central score</p>
+<ul>
+<li>We are interested in how much a person is away from that central score</li>
+<li>But when it comes to statistics we like to group together our participants’ scores/values</li>
+</ul></li>
+<li><p><strong>Measures of Central Tendency</strong> are statistics that summarize the location of a distribution on a variable by indicating where the center is</p></li>
+<li><p>A Normal distribution will have the central point right down the center</p></li>
+<li><p>A skewed distribution will have the central point where the frequency of scores is the highest</p></li>
+</ul>
+</section>
+
+<section id="the-mode" class="title-slide slide level1 center">
+<h1>The Mode</h1>
+<p>.pull-left[ <img data-src="https://i.imgflip.com/prj6o.jpg">]</p>
+<p>.pull-right[ * Value/score with the highest frequency</p>
+<ul>
+<li><p>Essentially useless in statistics</p></li>
+<li><p><strong>Unimodal distributions</strong> distribution with only one hump; one value is the mode</p></li>
+<li><p><strong>Bimodal distributions</strong> distribution with two humps; two values with the highest frequency; two modes ]</p></li>
+</ul>
+</section>
+
+<section id="the-median" class="title-slide slide level1 center">
+<h1>The Median</h1>
+<p>.pull-left[ <img data-src="https://i.kym-cdn.com/entries/icons/original/000/033/395/Thumbnail_expert_micro.png">]</p>
+<p>.pull-right[ * <strong>Median</strong> is the middle value/score; the 50th percentile</p>
+<ul>
+<li><p>Unlike the mode, it will always be close to the middle of a distribution</p></li>
+<li><p>You’ll only ever have one median</p></li>
+<li><p>The symbol is: <span class="math display">\[Mdn = Median\]</span> ]</p></li>
+</ul>
+</section>
+
+<section id="the-median-1" class="title-slide slide level1 center">
+<h1>The Median</h1>
+<ul>
+<li><p>Preferred for ordinal/ordered data</p></li>
+<li><p>Not the best option for normally distributed interval &amp; ratio scores</p></li>
+<li><p>Is more reliable when dealing with skewed data</p></li>
+<li><p><em>Important Note</em> If you have an even number of scores/values, then you will add the two middle values and divide by 2</p></li>
+</ul>
+</section>
+
+<section id="the-meanaverage" class="title-slide slide level1 center">
+<h1>The Mean/Average</h1>
+<ul>
+<li><p><strong>Mean</strong> is the score located at the <code>mathematical</code> center of a distribution</p></li>
+<li><p>Xbar is often used for the mean</p>
+<ul>
+<li><span class="math display">\[ \overline{X} \]</span></li>
+</ul></li>
+<li><p><span class="math display">\[\overline{X} = \frac{\Sigma\;X}{N} \]</span> is the formula to calculate the mean.</p>
+<ul>
+<li>Xbar is the Sum of X/Scores divided by the total number of observations/scores/values</li>
+</ul></li>
+<li><p>Calculate the mean for interval and ratio scales</p>
+<ul>
+<li>The mean of ordinal/ordered data makes no sense</li>
+</ul></li>
+<li><p>Basis for most <code>inferential statistics</code></p></li>
+</ul>
+</section>
+
+<section id="when-to-use-each-measure" class="title-slide slide level1 center">
+<h1>When to Use Each Measure</h1>
+<ul>
+<li>The Median more accurately describes/summarizes skewed data compared to the mean
+<ul>
+<li>The mean will be pulled toward the extreme tail of the distribution</li>
+</ul></li>
+<li>Normal distribution then use the mean as the best measure to describe/summarize data</li>
+</ul>
+</section>
+
+<section id="the-mean-in-research" class="title-slide slide level1 center">
+<h1>The Mean in Research</h1>
+<ul>
+<li><p>Most statistics revolve around the mean</p></li>
+<li><p>Can’t just trust descriptive statistics like the mean</p></li>
+</ul>
+</section>
+
+<section id="deviation" class="title-slide slide level1 center">
+<h1>Deviation</h1>
+<ul>
+<li><p>The distance a participant’s score/value is from the mean/average</p></li>
+<li><p>Deviations can be positive or negative</p>
+<ul>
+<li>participants can score lower (negative) than the mean and higher (positive) than the mean</li>
+</ul></li>
+<li><p>To get the deviation, you subtract the mean from each participant’s score</p></li>
+<li><p><span class="math display">\[ X - \overline{X} \]</span></p></li>
+<li><p>The larger the value the farther away from the mean the score/value is</p></li>
+<li><p><strong>Sum of the deviations around the mean</strong> is the sum of all differences between the scores and the mean</p></li>
+</ul>
+</section>
+
+<section id="looking-to-the-future" class="title-slide slide level1 center">
+<h1>Looking to the Future</h1>
+<ul>
+<li><p>Deviations is the start for upcoming lectures and statistical tests, especially the sum of the deviations</p></li>
+<li><p><span class="math display">\[ \Sigma(X - \overline{X}) \]</span></p></li>
+<li><p>If the sum of the deviations is 0 then that means your math is good</p></li>
+<li><p>Deviation of each score/value from the mean is often referred to as error/residual in statistical tests</p></li>
+<li><p>Correlational designs use the mean of IV and the mean of DV to look for a relationship between the two variables</p></li>
+<li><p>Experiments compare the two or more groups (IV) and the relationship with the mean value/score of the DV</p></li>
+</ul>
+</section>
+
+<section id="visuals" class="title-slide slide level1 center">
+<h1>Visuals</h1>
+<ul>
+<li><p>Line Graphs are good for showing progress or change in time</p></li>
+<li><p>To show group differences (nominal or ordinal IV), bar graphs are the norm</p></li>
+<li><p>Scatterplots are best for continuous IV and continuous DV (interval or ratio)</p></li>
+</ul>
+</section>
+
+<section id="describing-the-population-mean" class="title-slide slide level1 center">
+<h1>Describing the Population Mean</h1>
+<ul>
+<li><p><span class="math display">\[ \mu = Population\;Mean \]</span></p></li>
+<li><p>If you test a population then you would use mu instead of xbar</p></li>
+<li><p><span class="math display">\[ \mu = \frac{\Sigma\;X}{N} \]</span></p></li>
+</ul>
+</section>
+
+<section id="week-2---frequencies-measures-of-central-tendency-variability" class="title-slide slide level1 center">
+<h1>Week 2 - Frequencies, Measures of Central Tendency &amp; Variability</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">082521</span>)</span>
+<span id="cb5-2"><a href=""></a>normal <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb5-3"><a href=""></a>neg_skew <span class="ot">=</span> <span class="fu">rbeta</span>(<span class="dv">10000</span>, <span class="at">shape1 =</span> <span class="dv">40</span>, <span class="at">shape2 =</span> <span class="dv">2</span>)</span>
+<span id="cb5-4"><a href=""></a>pos_skew <span class="ot">=</span> <span class="fu">rbeta</span>(<span class="dv">10000</span>, <span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">40</span>)</span>
+<span id="cb5-5"><a href=""></a></span>
+<span id="cb5-6"><a href=""></a>skew <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(normal, </span>
+<span id="cb5-7"><a href=""></a>                       pos_skew,</span>
+<span id="cb5-8"><a href=""></a>                       neg_skew) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href=""></a>  <span class="fu">rowid_to_column</span>()</span>
+<span id="cb5-10"><a href=""></a></span>
+<span id="cb5-11"><a href=""></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb5-12"><a href=""></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="agenda-1" class="title-slide slide level1 center">
+<h1>Agenda</h1>
+<ul>
+<li>Frequencies</li>
+<li>Measures of Central Tendency
+<ul>
+<li>Mean</li>
+<li>Median</li>
+<li>Mode</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="quick-note" class="title-slide slide level1 center">
+<h1>Quick Note</h1>
+<p>The book goes over this kind of fast, so I’m going to use additional materials to hopefully better explain these topics</p>
+</section>
+
+<section id="frequencies" class="title-slide slide level1 center">
+<h1>Frequencies</h1>
+<ul>
+<li><p><strong>raw score</strong> is the score given to a participant</p></li>
+<li><p><strong>Frequency</strong> denoted as f; number of times a score occurs/is counted</p>
+<ul>
+<li><em>Note.</em> Not F, that is something completely different.</li>
+</ul></li>
+<li><p><strong>Frequency Distribution</strong> is a distribution of each score and the number of times the score has occurred/is counted</p>
+<ul>
+<li>often viewed through a <strong>histogram</strong>, or a plot that has the observations on the x-axis and the count/number of times a score has occurred on the y-axis</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="frequency-distributions" class="title-slide slide level1 center">
+<h1>Frequency Distributions</h1>
+<ul>
+<li>the most common frequency distribution is the <strong>normal distribution/normal curve</strong>
+<ul>
+<li>where the number of scores are equal on both sides if a line down the middle is drawn</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="normal-distribution-1" class="title-slide slide level1 center">
+<h1>Normal Distribution</h1>
+<p>.pull-left[ - <strong>Normal curve</strong> is often called the bell-shaped curve; is symmetrical</p>
+<ul>
+<li>represents the population because if you have enough data you will get a normal distribution (central limit theorem)
+<ul>
+<li>if your data looks like this in a histogram, you’re in good shape</li>
+</ul></li>
+<li><strong>Distribution Tail</strong> are the ends of a histogram/normal distribution
+<ul>
+<li>has two tails ]</li>
+</ul></li>
+</ul>
+<p>.pull-right[ <img data-src="https://jech.bmj.com/sites/default/files/highwire/jech/60/1/6/embed/graphic-1.gif" alt="paranormal distribution">]</p>
+</section>
+
+<section id="normal-distribution-2" class="title-slide slide level1 center">
+<h1>Normal Distribution</h1>
+
+<img data-src="Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><ul>
+<li>Skewed Distributions
+<ul>
+<li>Some thresholds are that if you have a skewness value of +-2 or +-3 then you’re good to use that variable like it is.</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="skewed-distributions-1" class="title-slide slide level1 center">
+<h1>Skewed Distributions</h1>
+<p>.pull-left[ - <strong>Negative Skew</strong> is like a finger pointing left - not normal and is asymmetrical - indicates higher frequency of middle and higher scores - no low frequency in higher scores]</p>
+<p>.pull-right[</p>
+
+<img data-src="Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"><p>]</p>
+</section>
+
+<section id="skewed-distributions-2" class="title-slide slide level1 center">
+<h1>Skewed Distributions</h1>
+<p>.pull-left[ - <strong>Positive Skew</strong> is like a finger pointing right - not normal and is asymmetrical - indicates higher frequency of low and middle scores - no low frequency in lower scores]</p>
+<p>.pull-right[</p>
+
+<img data-src="Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><p>]</p>
+</section>
+
+<section id="kurtosis" class="title-slide slide level1 center">
+<h1>Kurtosis</h1>
+<ul>
+<li><p><strong>Kurtosis</strong> can be thought of as the pointyness of your distribution</p></li>
+<li><p>a <strong>leptokurtic</strong> distribution is reflective of positive kurtosis</p>
+<ul>
+<li>extremely pointy</li>
+</ul></li>
+<li><p>a <strong>platykurtic</strong> distribution is reflective of negative kurtosis</p>
+<ul>
+<li>extremely flat</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="bimodal-distributions" class="title-slide slide level1 center">
+<h1>Bimodal Distributions</h1>
+<ul>
+<li><strong>Bimodal Distribution</strong> is when your distribution has two modes (two highest points on a plot)
+<ul>
+<li>means that there are two areas of your distribution with higher frequencies of scores</li>
+</ul></li>
+<li><strong>Multimodal Distributions</strong> are when your distribution has more than two modes (three or more highest points on a plot)
+<ul>
+<li>means that there are multiple areas of your distribution with higher frequencies of scores</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="distribution-examples" class="title-slide slide level1 center">
+<h1>Distribution Examples</h1>
+
+<img data-src="https://miro.medium.com/max/810/1*-jZA9f5l1RaEKvPoFMz5BQ.png" class="r-stretch quarto-figure-center"><p class="caption">distribution examples</p></section>
+
+<section id="some-notes-from-jp-1" class="title-slide slide level1 center">
+<h1>Some Notes From JP</h1>
+<ul>
+<li><p>Deciding what is positively and negatively skewed from visuals alone is not good enough</p></li>
+<li><p>You’ll want to look into your descriptive statistics and look at skewness and kurtosis to make sure they are within +-3</p></li>
+<li><p>Some statistics can handle some skewness and kurtosis</p></li>
+<li><p>Other times you’ll have to transform the variable using fancy methods that we will not talk about in this class.</p></li>
+</ul>
+</section>
+
+<section id="relative-frequency-1" class="title-slide slide level1 center">
+<h1>Relative Frequency</h1>
+<ul>
+<li><strong>Relative Frequency</strong> the proportion of times a score occurred/is counted in the distribution</li>
+</ul>
+<p><span class="math display">\[Relative\;frequency = f/N\]</span></p>
+<ul>
+<li><p><code>f</code> is the frequency of one category of a categorical variable. <code>N</code> is the total number of observations for all the categories of that variable.</p></li>
+<li><p><strong>cumulative frequency</strong> is the number of scores in the data at or below a particular score</p>
+<ul>
+<li>add up the frequencies that make up that part of the histogram</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="relative-frequency-2" class="title-slide slide level1 center">
+<h1>Relative Frequency</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 5 3 4 2 3</code></pre>
+</div>
+</div>
+<p><span class="math display">\[Count\;of\;3 = f/N\]</span></p>
+<p><span class="math display">\[Count\;of\;3 = 3/6\]</span></p>
+<p><span class="math display">\[Relative\;Frequency = 3/6 = .50\]</span></p>
+<p><span class="math display">\[Percentage = 3/6 = .50*100 = 50\%\]</span></p>
+</section>
+
+<section id="histogram-visual" class="title-slide slide level1 center">
+<h1>Histogram Visual</h1>
+
+<img data-src="Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+
+<section id="terminology" class="title-slide slide level1 center">
+<h1>Terminology</h1>
+<p><span class="math display">\[\Sigma = Sum\;of\;scores\]</span></p>
+<p><span class="math display">\[\Sigma X = Sum\;Of\;X\]</span></p>
+</section>
+
+<section id="measures-of-central-tendency" class="title-slide slide level1 center">
+<h1>Measures of Central Tendency</h1>
+<ul>
+<li><p><strong>Measures of Central Tendency</strong> are statistics that summarize the location of a distribution on a variable by indicating where the center is</p></li>
+<li><p>A Normal distribution will have the central point right down the center</p></li>
+<li><p>A skewed distribution will have the central point where the frequency of scores is the highest</p></li>
+</ul>
+</section>
+
+<section id="measures-of-central-tendency-1" class="title-slide slide level1 center">
+<h1>Measures of Central Tendency</h1>
+<ul>
+<li><strong>mean</strong>
+<ul>
+<li>an average score</li>
+<li>sum of the scores divided by the number of observations</li>
+</ul></li>
+<li><strong>median</strong>
+<ul>
+<li>middle value of a distribution when scores are ranked from lowest to highest</li>
+</ul></li>
+<li><strong>mode</strong>
+<ul>
+<li>value(s) with the highest frequency</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="mode" class="title-slide slide level1 center">
+<h1>Mode</h1>
+<p>.pull-left[ <img data-src="https://media.giphy.com/media/l46CyJmS9KUbokzsI/giphy.gif" alt="patrick mode">]</p>
+<p>.pull-right[ - Value/score with the highest frequency</p>
+<ul>
+<li><p>Not used in inferential statistics, mainly for descriptive statistics</p></li>
+<li><p>useful for telling whether a distribution is bimodal/multimodal or normal ]</p></li>
+</ul>
+</section>
+
+<section id="median" class="title-slide slide level1 center">
+<h1>Median</h1>
+<ul>
+<li><p>will be the middle of the distribution</p>
+<ul>
+<li>the 50% percentile</li>
+</ul></li>
+<li><p>median can be very useful for unusual data</p></li>
+<li><p>the symbol in literature is sometimes</p></li>
+<li><p><em>Important Note</em> If you have an even number of scores/values, then you will add the two middle values and divide by 2</p></li>
+</ul>
+<p><span class="math display">\[Mdn = Median\]</span></p>
+</section>
+
+<section>
+<section id="median-in-action" class="title-slide slide level1 center">
+<h1>Median in Action</h1>
+
+</section>
+<section class="slide level2">
+
+<h3 id="values">Values</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 5 4 2 1 6</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 5 4 2 1 6 4</code></pre>
+</div>
+</div>
+<h3 id="sorted-values">Sorted Values</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 2 3 4 5 6</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 2 3 4 4 5 6</code></pre>
+</div>
+</div>
+<h3 id="calculation-for-even-number-of-values">Calculation for Even Number of Values</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>(<span class="dv">3</span><span class="sc">+</span><span class="dv">4</span>)<span class="sc">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.5</code></pre>
+</div>
+</div>
+<p>Medians are 3 for odd numbers and 3.5 for even numbers in this example.</p>
+</section></section>
+<section id="mean" class="title-slide slide level1 center">
+<h1>Mean</h1>
+<ul>
+<li><p>is the score located at the <code>mathematical</code> center of a distribution</p></li>
+<li><p><code>Xbar</code> is often used for the mean</p></li>
+<li><p>two formula examples below</p></li>
+<li><p>Calculate the mean for interval and ratio scales</p>
+<ul>
+<li>The mean of ordinal/ordered data makes no sense</li>
+</ul></li>
+<li><p>Basis for most <code>inferential statistics</code></p></li>
+</ul>
+<p><span class="math display">\[\overline{X} = \frac{\sum_{i = 1}^{n}x_{i}}{n}\]</span></p>
+<p><span class="math display">\[\overline{X} = \frac{\Sigma X}{n}\]</span></p>
+</section>
+
+<section>
+<section id="using-the-mean" class="title-slide slide level1 center">
+<h1>Using the Mean</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  9.17  4.03  6.82  0.56  7.36  9.06  8.26  7.77  8.97 10.92</code></pre>
+</div>
+</div>
+<p><span class="math display">\[\overline{X} = \frac{\sum_{i = 1}^{n}x_{i}}{n}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p><span class="math display">\[\overline{X} = \frac{(9.17+4.03+6.82+0.56+7.36+9.06+8.26+7.77+8.97+10.92)}{10}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>(<span class="fl">9.17+4.03+6.82+0.56+7.36+9.06+8.26+7.77+8.97+10.92</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 72.92</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="co"># total is 72.92</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<p><span class="math display">\[\overline{X} = \frac{72.92}{10}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fl">72.92</span><span class="sc">/</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.292</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co"># mean is 7.29</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<p><span class="math display">\[\overline{X} = 7.29\]</span></p>
+</section></section>
+<section id="when-the-median-shines" class="title-slide slide level1 center">
+<h1>When The Median Shines</h1>
+<p>.pull-left[ <img data-src="https://media.giphy.com/media/qdBHt01vnl972/giphy.gif" alt="ugly and proud">]</p>
+<p>.pull-right[ - Preferred for ordinal/ordered data</p>
+<ul>
+<li><p>Not the best option for normally distributed interval &amp; ratio scores</p></li>
+<li><p>Is more reliable when dealing with skewed data</p>
+<ul>
+<li>The mean will be pulled toward the extreme tail of the distribution ]</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="the-mean-in-research-1" class="title-slide slide level1 center">
+<h1>The Mean in Research</h1>
+<ul>
+<li><p>Most statistics revolve around the mean</p></li>
+<li><p>Can’t just trust descriptive statistics like the mean</p></li>
+</ul>
+</section>
+
+<section id="week-2---frequencies-measures-of-central-tendency-variability-1" class="title-slide slide level1 center">
+<h1>Week 2 - Frequencies, Measures of Central Tendency &amp; Variability</h1>
+
+</section>
+
+<section>
+<section id="week-6---bias" class="title-slide slide level1 center">
+<h1>Week 6 - Bias</h1>
+
+</section>
+<section id="what-is-bias" class="slide level2">
+<h2>What is Bias?</h2>
+<ul>
+<li><p>first biased estimator we’ve focused on was using (N - 1) instead of N for variance and standard deviation</p></li>
+<li><p>three ways that statistical bias can enter the modeling process is from</p>
+<ul>
+<li><p>things biasing the parameter estimates</p></li>
+<li><p>things biasing SEs and CIs</p></li>
+<li><p>things biasing test statistics and p-values</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="outliers" class="slide level2">
+<h2>Outliers</h2>
+<ul>
+<li><p>an <strong>outlier</strong> is a score very different from the rest of the data</p></li>
+<li><p>when looking at bias in boxplots on SPSS, it will provide you with information on outliers and <em>influential</em> outliers</p></li>
+<li><p>researchers say that participants outside +-3SD are considered outliers</p></li>
+<li><p>outliers bias parameter estimates, but they have a greater impact on the error associated with teh estimate</p></li>
+</ul>
+</section>
+<section id="outliers-1" class="slide level2">
+<h2>Outliers</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.026948</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 38.17147</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.009781</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="outliers-2" class="slide level2">
+<h2>Outliers</h2>
+
+<img data-src="Slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section id="assumptions" class="slide level2">
+<h2>Assumptions</h2>
+<ul>
+<li><p>Good researchers will always check the following assumptions before conducting inferential statistics</p>
+<ul>
+<li><p>JP: I will warn you right now. <strong>There are no 100% correct answers to these questions</strong>.</p>
+<ul>
+<li>Statistics is about to get ugly</li>
+</ul></li>
+</ul></li>
+<li><p>If any of the assumptions are violated, your test statistic and corresponding p-value may not be correct</p></li>
+<li><p>each model you run will have assumptions that need to be checked</p>
+<ul>
+<li>we will talk about these every time we discuss a new test statistic</li>
+</ul></li>
+<li><p>The main assumptions are</p>
+<ul>
+<li><p>additivity and linearity</p></li>
+<li><p>normality</p></li>
+<li><p>homoscedasticity/homogeneity of variance</p></li>
+<li><p>independence</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="additivity-linearity" class="slide level2">
+<h2>Additivity &amp; Linearity</h2>
+<ul>
+<li><p>many of the models we’ll cover are based on linear relationships</p>
+<ul>
+<li>even those that are comparing conditions/groups (e.g., t-tests)</li>
+</ul></li>
+<li><p>This assumption is simply based on whether there is a line that fits the data <strong><em>well</em></strong></p>
+<ul>
+<li>very subjective</li>
+</ul></li>
+<li><p>Every other assumption falls on linearity because if you think you are looking at a linear relationship, you want to test it with a linear test</p></li>
+</ul>
+</section>
+<section id="additivity-linearity-1" class="slide level2">
+<h2>Additivity &amp; Linearity</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="normally-distributed" class="slide level2">
+<h2>Normally Distributed</h2>
+<ul>
+<li><p>many think that your data must be normally distributed</p>
+<ul>
+<li>not the case</li>
+</ul></li>
+<li><p>parameter estimates</p>
+<ul>
+<li><p>when we create a model, we have what we predicted in the model and the rest (error/deviance/residual)</p></li>
+<li><p>what should be normally distributed are the residuals for the model</p></li>
+</ul></li>
+<li><p>confidence intervals</p>
+<ul>
+<li>for confidence intervals to be accurate, your estimate (what you’re predicting in your model) should have a normal sampling distribution</li>
+</ul></li>
+<li><p>null-hypothesis significance testing</p>
+<ul>
+<li>if your parameter estimates are normal, then the test-statistic distribution should also be normally distributed, which would also make your alpha/p-value accurate</li>
+</ul></li>
+</ul>
+</section>
+<section id="central-limit-theorem" class="slide level2">
+<h2>Central Limit Theorem</h2>
+<ul>
+<li><p>populations should be normally distributed</p>
+<ul>
+<li>if you have enough observations, your population’s distribution will be normal</li>
+</ul></li>
+</ul>
+</section>
+<section id="assumption-of-normality" class="slide level2">
+<h2>Assumption of Normality</h2>
+<ul>
+<li><p>confidence intervals don’t need to be worried about too much for normality because if our parameter estimate is normal then so are our confidence intervals if the sample is large enough</p></li>
+<li><p>significant tests of models will be accurate if the sample is large enough thanks to the central limit theorem</p></li>
+<li><p>in estimates of model parameters, residuals of the population must be normally distributed</p></li>
+</ul>
+</section>
+<section id="homoscedasticityhomogeneity-of-variance" class="slide level2">
+<h2>Homoscedasticity/Homogeneity of Variance</h2>
+<ul>
+<li><p>homoscedasticity affects parameters and NHST</p>
+<ul>
+<li><p><strong>parameters</strong> using Ordinary Least Squares (OLS) estimation, we get the best model fit when variance of the DV is equal across different values of the IV</p>
+<ul>
+<li>variance is equal across our groups</li>
+</ul></li>
+</ul></li>
+<li><p><strong>null hypothesis significance testing</strong> assume variance of the outcome if equal across different values of the IV</p>
+<ul>
+<li>some tests (like t-tests) can account for the variance not being equal in groups</li>
+</ul></li>
+</ul>
+</section>
+<section id="what-is-homosceasticityhomogeneity-of-variance" class="slide level2">
+<h2>What is Homosceasticity/Homogeneity of Variance?</h2>
+<ul>
+<li><p><strong>homoscedasticity</strong> in correlational studies states that variance of the DV scores should be stable at all points of the IV</p>
+<ul>
+<li><strong>homogeneity of variance</strong> means that all the values should be fairly grouped together across each group/all points of the IV</li>
+</ul></li>
+<li><p><strong>heteroscedasticity</strong> is when the variance of the DV scores is different at different points of the IV or different amount groups</p>
+<ul>
+<li>if we were to use error bars (we’ll talk about this later), then we can see that the points would be spread out more across each group, also called <strong>heterogeneity of variance</strong></li>
+</ul></li>
+</ul>
+</section>
+<section id="when-does-it-matter" class="slide level2">
+<h2>When does it matter?</h2>
+<ul>
+<li><p>the best fitting model will have homoscedasticity</p>
+<ul>
+<li><p>OLS models will still show model fit, but it won’t be the best it could be</p></li>
+<li><p>other options can fit the model better like <strong>weighted least squares</strong>, which is when each participant is weighted by a function of its variance (adjusts each participant)</p></li>
+</ul></li>
+<li><p>heteroscedasticity can result in biased standard errors, which then affects confidence intervals, p values, and parameter estimates</p></li>
+</ul>
+</section>
+<section id="independence" class="slide level2">
+<h2>Independence</h2>
+<ul>
+<li><p>simply put, this means that your errors in your model are not related to one another</p></li>
+<li><p>JP: I like to work with spatial data, and that tends to have problems with independence</p>
+<ul>
+<li>Ex: if I am focusing on different counties, how different are LA county and Orange county</li>
+</ul></li>
+</ul>
+</section>
+<section id="spotting-outliers" class="slide level2">
+<h2>Spotting Outliers</h2>
+<ul>
+<li><p>Visuals are the best method to spot outliers easily</p>
+<ul>
+<li><p>histograms</p></li>
+<li><p>boxplots</p></li>
+</ul></li>
+<li><p>boxplots are extremely helpful in SPSS because they show outliers and influential outliers</p></li>
+<li><p>JP: I tend to run my analyses with both outliers included and dropped from the model</p>
+<ul>
+<li>just because they are an extreme case does not mean they are not a valid case</li>
+</ul></li>
+</ul>
+</section>
+<section id="spotting-normality" class="slide level2">
+<h2>Spotting Normality</h2>
+<ul>
+<li><p><strong>p-p plot</strong> (probability-probability plot) and <strong>q-q plot</strong> (quantile-quantile plot)</p>
+<ul>
+<li><p>p-p plots show the cumulative probability of a variable against the cumulative probability of a particular distribution</p></li>
+<li><p>q-q plots show quantiles as dots rather than individual points/participants</p>
+<ul>
+<li>essentially, what we want is for our dots to follow the line as close as possible for both</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="using-numbers-for-normality" class="slide level2">
+<h2>Using Numbers for Normality</h2>
+<ul>
+<li><p>we can use measures of central tendency and measures of variability to get a better understanding of our data</p>
+<ul>
+<li><p>we can look for minimum and maximum values (outliers)</p></li>
+<li><p>we can see if the SD is large, then there is a lot of dispersion/spread/distance between points</p></li>
+</ul></li>
+<li><p>JP: the visuals are just much easier to gather this information from</p>
+<ul>
+<li>afterward, you can check the numbers</li>
+</ul></li>
+<li><p>There are also tests to show normality in the data</p>
+<ul>
+<li><p><strong>Kolmogorov-Smirnov</strong> and <strong>Shapiro-Wilk</strong> tests compare the scores in a sample to a normally distributed set of scores with the same mean and SD</p></li>
+<li><p>if the test is significant, your data is not normal</p>
+<ul>
+<li>not really all that useful because large samples (N ~ 150+) can make them be statistically significant</li>
+</ul></li>
+</ul></li>
+<li><p>I’ll also cover how to get descriptive statistics for groups</p>
+<ul>
+<li>not entirely relevant because our test statistics will give us that information anyway</li>
+</ul></li>
+</ul>
+</section>
+<section id="spotting-linearity" class="slide level2">
+<h2>Spotting Linearity</h2>
+<ul>
+<li><p>in SPSS, spotting problems with linearity and homoscedasticity are related to using the residuals</p>
+<ul>
+<li>in SPSS, its sometimes referred to as the <em>zpred vs zresid.</em> if you transform your variables into z-scores</li>
+</ul></li>
+<li><p>JP: I like to look at the raw values in a scatterplot as well as the residuals</p></li>
+<li><p>points should always look like no general pattern is forming</p>
+<ul>
+<li><p>funnel/fanning= BAD</p></li>
+<li><p>non-linear pattern = BAD</p></li>
+<li><p>fanning &amp; non linear = BAD</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="spotting-heteroscedasticity" class="slide level2">
+<h2>Spotting Heteroscedasticity</h2>
+<ul>
+<li><p><strong>Levene’s test</strong> is a specific test to address whether the variance in your groups (categorical IVs) is equal (similar enough) to one another</p>
+<ul>
+<li>Ex: Are hours of sleep similar in males and females</li>
+</ul></li>
+<li><p>if this test is statistically significant then the assumption can be made that the groups are not equal and you have heteroscedasticity</p></li>
+<li><p><strong>Hartley’s Fmax</strong> or <strong>variance ratio</strong> is the ratio of the variances between the groups with the largest and smallest variances</p></li>
+<li><p>reporting Levene’s test is written as <em>F</em>(df1, df2) = F value, <em>p value</em></p>
+<ul>
+<li><em>F</em>(1, 124) = 3.17, <em>p</em> = .03</li>
+</ul></li>
+</ul>
+</section>
+<section id="reducing-bias" class="slide level2">
+<h2>Reducing Bias</h2>
+<ul>
+<li><p>trim the data</p>
+<ul>
+<li>delete cases</li>
+</ul></li>
+<li><p>winsorizing</p>
+<ul>
+<li>bring those same cases in a little with the most extreme <strong>okay</strong> value</li>
+</ul></li>
+<li><p>apply robust estimation method</p>
+<ul>
+<li>bootstrapping</li>
+</ul></li>
+<li><p>transform data</p>
+<ul>
+<li>apply mathematical function to scores to correct problem (we’ll cover one)</li>
+</ul></li>
+</ul>
+</section>
+<section id="trimming-data" class="slide level2">
+<h2>Trimming Data</h2>
+<ul>
+<li><p>JP: Don’t trim your data</p>
+<ul>
+<li><p>there are other options</p></li>
+<li><p>especially if they are valid cases</p></li>
+<li><p>check to see if they are valid, if not –&gt; deleted</p></li>
+</ul></li>
+<li><p><strong>trimmed mean</strong> is to get the mean of your now trimmed data</p>
+<ul>
+<li><strong>M-estimator</strong> trims your data through an empirical method</li>
+</ul></li>
+</ul>
+</section>
+<section id="winsorizing" class="slide level2">
+<h2>Winsorizing</h2>
+<ul>
+<li><p>replace the outliers with the next highest value that is <em>not</em> an outlier</p>
+<ul>
+<li><p>Ex: most grades are high, a few students got low scores that indicate they are outliers (24%, 30%, 31%), the next lowest grade not deemed an outlier is 42%</p>
+<ul>
+<li>change those three values to be 42%</li>
+</ul></li>
+</ul></li>
+<li><p>I’ll use this method only if my outliers are truly influential on my model findings</p></li>
+</ul>
+</section>
+<section id="robust-estimation-methods" class="slide level2">
+<h2>Robust Estimation Methods</h2>
+<ul>
+<li><p>when we don’t know how a sampling distribution looks like</p>
+<ul>
+<li><p>we essentially get around the problem by estimating the sampling distribution from sample data</p>
+<ul>
+<li><p>sample data is then treated as a “population” and the estimates from the sample data are now bootstrap samples</p></li>
+<li><p>if tested enough times, you follow the central limit theorem</p></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Bootstrapping</strong> is taking your data and making a ton (~1000 bootstrapped samples is the minimum) of smaller samples, but you should probably have much more (if the data is not too large)</p>
+<ul>
+<li>technically, you’ll have overlap in your bootstrapped samples</li>
+</ul></li>
+</ul>
+</section>
+<section id="transforming-data" class="slide level2">
+<h2>Transforming Data</h2>
+<ul>
+<li><p>transforming data can be useful for correcting distribution problems (skewness)</p>
+<ul>
+<li><p>Ex: income is always skewed</p></li>
+<li><p>changes the interpretation of your findings</p></li>
+</ul></li>
+<li><p>log transformation</p>
+<ul>
+<li><p>corrects positive skewness, lack of linearity, and unequal variances</p></li>
+<li><p>difficult to interpret and outside the scope of this class</p></li>
+</ul></li>
+<li><p>square root transformation</p></li>
+<li><p>reciprocal transformation</p></li>
+<li><p>reverse score transformation</p></li>
+</ul>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="Slides_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="Slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="Slides_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Slides_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

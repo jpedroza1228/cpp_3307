@@ -1,0 +1,270 @@
+---
+title: "One-way ANOVA"
+format: beamer
+editor: visual
+---
+
+## Let's Add Another Group
+
+-   **ANOVA** or **Analysis of Variance** is a statistical model taht is used when we want to compare more than two independent means
+
+    -   What test have we covered that examined mean differences for different groups?
+
+-   really, its just an extension to the linear model that we have been covering from the beginning
+
+-   one major difference is the inclusion of the *F* statistic and therefore, the *F* table
+
+## Technically Categorical Predictors in the Linear Model
+
+```{r, include = FALSE}
+library(tidyverse)
+mtcars2 <- mtcars %>% 
+  filter(cyl != 6)
+```
+
+```{r, echo = FALSE}
+mtcars2 %>% 
+  group_by(cyl) %>% 
+  summarize(mean_mpg = mean(mpg)) %>% 
+  ggplot(aes(as.factor(cyl), mean_mpg)) + 
+  geom_col(aes(fill = as.factor(cyl))) +
+  theme(legend.position = 'none')
+```
+
+## Linear Model to Compare Several Means
+
+-   the only difference now is that since we have multiple groups/samples to compare, we now have to incorporate dummy coding
+
+    -   binary variables can be handled by SPSS
+
+-   dummy coded variables will now represent the differences between means between the **reference group** and the other groups, this will be seen with our *b* values
+
+    -   Our example, we will be comparing 4 cylinder cars to the other cylinder cars(6- and 8-cyl cars)
+
+-   a one-way ANOVA with only two groups will give you the same answer as an independent-samples t-test
+
+## Linear Model to Compare Several Means
+
+-   our ANOVA will take two steps though
+
+    -   this is our first real instance of testing a linear model and the main points of what an ANOVA does
+
+        -   we get an F statistic that tells us there is a difference between our groups **generally**
+
+        -   then we make comparisons between the means of all of the groups to see which groups **specifically** differ from one another
+
+-   ANOVA is the same thing as Linear Regression
+
+    -   both are linear models
+
+    -   both can accept categorical IVs
+
+    -   both have continuous DVs
+
+    -   linear regression can also include continuous IVs
+
+-   linear regression can be useful for more complex issues, such as multiple predictors and unequal group sizes
+
+## Example
+
+```{r, echo = FALSE}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(mean_mpg = mean(mpg)) %>% 
+  ggplot(aes(as.factor(cyl), mean_mpg)) + 
+  geom_col(aes(fill = as.factor(cyl))) +
+  theme(legend.position = 'none')
+```
+
+## Example
+
+-   Hypotheses
+
+    -   H0: There will be no differences between the cylinder sizes in miles per gallon (MPG)
+
+    -   H1: There will be differences between the cylinder sizes in MPG
+
+    -   H1: 4-cylinder cars will differ in MPG from 6-cylinder and 8-cylinder cars
+
+    -   H1: 4-cylinder cars will have better MPG than 6-cylinder and 8-cylinder cars
+
+## Example
+
+```{r, echo = FALSE}
+psych::dummy.code(mtcars$cyl) %>% 
+  head()
+
+psych::describe(mtcars$mpg)
+```
+
+## Example
+
+```{r, echo = FALSE}
+psych::describeBy(mtcars$mpg, mtcars$cyl)
+```
+
+## Example
+
+$$
+outcome_{i} = (model) + error_{i}
+$$
+
+```{r, echo = FALSE}
+aov_find <- aov(mpg ~ as.factor(cyl), data = mtcars)
+summary(aov_find)
+```
+
+## Example
+
+```{r, echo = FALSE}
+TukeyHSD(aov_find)
+```
+
+## Example
+
+```{r, echo = FALSE}
+lm_find <- lm(mpg ~ as.factor(cyl), data = mtcars)
+arm::display(lm_find, detail = TRUE)
+```
+
+## Linear Model to Compare Several Means
+
+-   previously we used a dummy variable comparing 4-cylinder and 8-cylinder cars with one of the dummy variables included in the model
+
+$$
+outcome_{i} = (model) + error_{i}
+$$
+
+-   now because we have multiple groups, we will be including two dummy variables into our model
+
+    -   we will compare two groups to our reference group (which can be thought of as a control group)
+
+$$
+MPG_{i} = b_{0} + b1(6cyl_{i}) + b2(8cyl_{i}) + \epsilon_{i}
+$$
+
+## Linear Model to Compare Several Means
+
+-   so we can first look at the value for our reference group to get the intercept
+
+    -   because we dummy coded these variables, since we are only focused on the 4-cylinder group, we will include zeros for the other two groups
+
+$$
+MPG_{i} = b_{0} + b1(0) + b2(0)
+$$
+
+$$
+MPG_{i} = b_{0}
+$$
+
+$$
+X_{4cyl} = b_{0}
+$$
+
+## Linear Model to Compare Several Means
+
+-   now if we look at the 6-cylinder group, we can then change the dummy coding to reflect that group
+
+$$
+MPG_{i} = b_{0} + b1(1) + b2(0)
+$$
+
+$$
+MPG_{i} = b_{0} + b_{1}
+$$
+
+## Linear Model to Compare Several Means
+
+-   we can then get the expected value for a 6-cylinder car with the information we already know
+
+    -   we know that the intercept is now equal to average MPG for our reference group (4-cylinder)
+
+$$
+MPG_{i} = b_{0} + b_{1}
+$$
+
+$$
+X_{6cyl} = X_{4cyl} + b_{1}
+$$
+
+$$
+X_{6cyl} - X_{4cyl} = b_{1}
+$$
+
+## Linear Model to Compare Several Means
+
+-   now if we look at the 8-cylinder group, we can then change the dummy coding to reflect that group
+
+$$
+MPG_{i} = b_{0} + b1(0) + b2(1)
+$$
+
+$$
+MPG_{i} = b_{0} + b_{2}
+$$
+
+## Linear Model to Compare Several Means
+
+$$
+MPG_{i} = b_{0} + b_{2}
+$$
+
+$$
+X_{8cyl} = X_{4cyl} + b_{2}
+$$
+
+$$
+X_{8cyl} - X_{4cyl} = b_{2}
+$$
+
+## Linear Model to Compare Several Means
+
+-   by utilizing dummy coding, we can now have the differences in means between our three groups
+
+    -   you can do this with as many groups as you'd like but after so many comparisons, they begin to get meaningless
+
+    -   Ex: if you were to compare all 50 states in violent crime rates
+
+        -   what state would be your reference group
+
+        -   does it matter if you compare one state to the other 49
+
+-   we'll also cover contrast coding, which uses the dummy variables and the b values to represent differences between groups before collecting data and go along with your hypotheses
+
+    -   this is different from the common approach of using post-hoc analyses, which compares every single possible comparison, even if you did not hypothesize about a specific comparison
+
+## Linear Model to Compare Several Means
+
+-   from the example above, we will get a F statistic
+
+    -   within that, we will have the model fit
+
+    -   then the residual/error, which is the unknown from our tested model
+
+-   Additionally, we will have coefficients (*b*s) that are once again the differences between the reference group and the other group we are comparing to the reference group
+
+## Logic of the F-statistic
+
+-   the *F* statistic or *F* ratio is the overall fit of the linear model
+
+-   some guidelines for the *F* statistic
+
+    -   the model that represents "no effect/relationship" is a model where the predicted value of the outcome is always the grand mean (mean of the outcome variable)
+
+    -   a different model that is fit represents our alternative hypothesis
+
+        -   we compare the fits of the two models using the grand mean
+
+    -   intercept and additional parameters describe the model
+
+## Logic of the F-statistic
+
+-   parameters determine the shape of the model fit
+
+    -   bigger coefficients, larger deviation between model and the null model (grand mean)
+
+-   parameters (b) represent differences between group means
+
+-   if differences between group means are large enough, the model will fit better than the null model (grand mean)
+
+-   if this is the case, then our model of comparing group means is better than the null model (grand mean) and the group means are significantly different from the null

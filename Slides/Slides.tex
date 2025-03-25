@@ -1,0 +1,948 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={PSY 3307 Slides},
+  pdfauthor={Jonathan A. Pedroza, PhD},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{PSY 3307 Slides}
+\author{Jonathan A. Pedroza, PhD}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\renewcommand*\contentsname{Table of contents}
+\begin{frame}[allowframebreaks]
+  \frametitle{Table of contents}
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+\end{frame}
+
+\begin{frame}{Week 1 - Introduction \& Review}
+\phantomsection\label{week-1---introduction-review}
+\end{frame}
+
+\begin{frame}{Agenda}
+\phantomsection\label{agenda}
+\begin{itemize}
+\tightlist
+\item
+  Introductions
+\item
+  Syllabus
+\item
+  Review
+\item
+  Types of Research
+\item
+  Steps of Conducting Statistics Within the Research Process
+\item
+  Levels of Measurement
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Measurement Error
+  \end{itemize}
+\item
+  Measurement Scales
+\end{itemize}
+\end{frame}
+
+\begin{frame}{About Me}
+\phantomsection\label{about-me}
+\begin{itemize}
+\tightlist
+\item
+  My name is Jonathan A. Pedroza (he/him)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    please refer to me as \textbf{JP} or Jon
+  \end{itemize}
+\item
+  First-generation Graduate
+
+  \begin{itemize}
+  \tightlist
+  \item
+    CPP Alumni (2014)
+  \item
+    CSUDH (2017)
+  \item
+    University of Oregon (2021)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{About Me}
+\phantomsection\label{about-me-1}
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{../additional_resources/hike.jpg}}
+
+}
+
+\caption{uo grad}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{About Me}
+\phantomsection\label{about-me-2}
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{../additional_resources/hike.jpg}}
+
+}
+
+\caption{hiking}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{About Me}
+\phantomsection\label{about-me-3}
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{../additional_resources/lucy.jpg}}
+
+}
+
+\caption{lucy}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Nerdy Stuff}
+\phantomsection\label{nerdy-stuff}
+\begin{itemize}
+\tightlist
+\item
+  Passion/Nerdy Topics:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I love creating data visualizations in \texttt{R}
+  \item
+    health inequities in communities of color
+  \item
+    examining environmental variables that influence health behaviors
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Nerdy Stuff}
+\phantomsection\label{nerdy-stuff-1}
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{../additional_resources/non_passing_rate_visualization.png}}
+
+}
+
+\caption{non\_passing\_rate}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Break-out Rooms - Tell Me About Yourself}
+\phantomsection\label{break-out-rooms---tell-me-about-yourself}
+\begin{itemize}
+\item
+  Name \& pronouns
+\item
+  What do you want to do after you graduate?
+\item
+  What is your experience with statistics?
+\item
+  What is your experience with SPSS?
+\item
+  Something that you are passionate/nerdy about
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+\phantomsection\label{learning-objectives}
+\begin{itemize}
+\item
+  Use SPSS to compute statistics
+\item
+  Read/Interpret Descriptive \& Inferential Statistics
+\item
+  Understand \& Solve Formulas for Statistical Tests
+\item
+  Understand Sampling, Statistical Null Hypothesis Testing, Effect
+  Sizes, Confidence Intervals
+\item
+  Demonstrate ability to apply these skills to test hypotheses using
+  real data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Topics Covered}
+\phantomsection\label{topics-covered}
+\begin{itemize}
+\tightlist
+\item
+  Descriptive Statistics
+\item
+  Probability
+\item
+  Random Selection
+\item
+  Normal Curve \& Sampling Distribution
+\item
+  Hypothesis Testing
+\item
+  Rules for Statistical Decisions (Types I and II Errors)
+\item
+  Sample Size Importance (One- vs Two-tailed Tests)
+\item
+  Z-scores, z-ratio, and t-ratio (single group, independent-samples
+  t-test, paired)
+\item
+  Analysis of Variance (One-way, Two-way, Repeated-measure, mixed)
+\item
+  Confidence Intervals/Error bars in plots
+\item
+  Most common plots (histograms, boxplots, scatterplots)
+\item
+  Correlation \& Regression Analysis
+\item
+  Chi-square (One-way, Two-way)
+\item
+  Non-parametric statistics
+\end{itemize}
+\end{frame}
+
+\begin{frame}{You Might be Feeling Like\ldots{}}
+\phantomsection\label{you-might-be-feeling-like}
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{Slides_files/mediabag/giphy.gif}}
+
+}
+
+\caption{spongebob running}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{What I Need From You}
+\phantomsection\label{what-i-need-from-you}
+\begin{itemize}
+\item
+  Cameras are optional
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It helps me see if you are confused
+  \end{itemize}
+\item
+  Unmute yourself and interrupt me
+\item
+  put in the chat that you are confused
+\item
+  private message me in the chat that you are confused
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Week 1 - Research Methods}
+\phantomsection\label{week-1---research-methods}
+\end{frame}
+
+\begin{frame}{Designs}
+\phantomsection\label{designs}
+\begin{itemize}
+\item
+  \textbf{Design} is how a study is organized
+\item
+  Experimental (manipulate your independent variable to see what effect
+  it has on the dependent variable)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    True Experiment
+  \item
+    Quasi Experiment
+  \item
+    Natural Experiment
+  \end{itemize}
+\item
+  Correlational (don't manipulate anything; just look at the
+  relationship between two variables)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Correlation
+  \item
+    Regression
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Differences in Population \& Sample}
+\phantomsection\label{differences-in-population-sample}
+\begin{itemize}
+\item
+  \textbf{Population} is a large group of individuals, which a law of
+  nature applies
+\item
+  \textbf{Sample} is a group of a given population intended to represent
+  that population
+\item
+  \textbf{Participants} are those measured in a sample. Participants
+  always refers to individuals (e.g., students, children, prisoners)
+\item
+  A sample is \emph{supposed to generalize} to a given population
+\item
+  We never use subjects in the social sciences anymore, they are
+  participants
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Statistics vs Parameters}
+\phantomsection\label{statistics-vs-parameters}
+\begin{itemize}
+\item
+  \textbf{Statistics} use English letters to get values for a sample
+\item
+  \textbf{Parameter} use greek letters for values of a population
+\end{itemize}
+
+Statistic = Sample
+
+Parameter = Population
+\end{frame}
+
+\begin{frame}{Straight into Terms}
+\phantomsection\label{straight-into-terms}
+\begin{itemize}
+\item
+  \textbf{raw score} is the score given to a participant
+\item
+  \textbf{Frequency} denoted as f; number of times a score occurs/is
+  counted
+\end{itemize}
+
+\emph{Note.} Not F, that is something completely different.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Frequency Distribution} is a distribution of each score and
+  the number of times the score has occurred/is counted
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Visualizing Frequencies}
+\phantomsection\label{visualizing-frequencies}
+\begin{itemize}
+\item
+  Best way of visualizing frequencies is by using a bar graph
+\item
+  \textbf{Bar graph} graph with vertical bar over each nominal/ordinal
+  category
+\item
+  \textbf{Side Note} A pie graph will always be inferior to a bar
+  graph/any other visual
+\item
+  \textbf{Histogram} is a frequency graph used for interval or ratio
+  scores
+\item
+  \textbf{Frequency Polygon} similar to a histogram, which shows data
+  points connected with straight lines
+\item
+  \textbf{Grouped Distributions} put continuous data into categories
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The next slide has data ranging from 6-10 in coffee uniformity; I
+    could lump them as anything below a perfect 10 (6-9) and then 10 as
+    a different category
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Normal Distribution}
+\phantomsection\label{normal-distribution}
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{Slides_files/mediabag/graphic-1.gif}}
+
+}
+
+\caption{paranormal distribution}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Why Is It a Normal Distribution?}
+\phantomsection\label{why-is-it-a-normal-distribution}
+\begin{itemize}
+\item
+  \textbf{Normal curve} is often called the bell-shaped curve; is
+  symmetrical
+\item
+  \textbf{Normal Distribution} same thing as normal curve; represents
+  the population because if you have enough data you will get a normal
+  distribution (central limit theorem); if your data looks like this in
+  a histogram, you're in good shape
+\item
+  \textbf{Distribution Tail} has two tails; these will be more important
+  for statistics
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Skewed Distributions}
+\phantomsection\label{skewed-distributions}
+\begin{itemize}
+\item
+  \textbf{Negative Skew} is like a finger pointing left; not normal and
+  is asymmetrical; indicates higher frequency of middle and higher
+  scores; no low frequency in higher scores
+\item
+  \textbf{Positive Skew} is like a finger pointing right; not normal and
+  is asymmetrical; indicates higher frequency of low and middle scores;
+  no low frequency in lower scores
+\item
+  Some thresholds are that if you have a skewness value of +-2 or +-3
+  then you're good to use that variable like it is.
+\item
+  \textbf{Kurtosis} is when your frequency are really skinny and tall or
+  really flat and wide
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bimodal Distribution}
+\phantomsection\label{bimodal-distribution}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Bimodal Distribution} is when your distribution has two humps
+  with a valley in the middle; high frequencies both below and above the
+  middle of the plot
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Some Notes From JP}
+\phantomsection\label{some-notes-from-jp}
+Deciding what is positively and negatively skewed from visuals alone is
+not good enough
+
+You'll want to look into your descriptive statistics and look at
+skewness and kurtosis to make sure they are within +-3
+
+Some statistics can handle some skewness and kurtosis
+
+Other times you'll have to transform the variable using fancy methods
+that we will not talk about in this class.
+\end{frame}
+
+\begin{frame}[fragile]{Relative Frequency}
+\phantomsection\label{relative-frequency}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Relative Frequency} the proportion of times a score occures/is
+  counted in the distribution
+\end{itemize}
+
+\[ Relative\;frequency = f/N\]
+
+Here, f is the frequency of one category of a nominal variable. N is the
+total number of observations for all the categories of that variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f }\OtherTok{=} \DecValTok{37}
+\NormalTok{N }\OtherTok{=} \DecValTok{2000}
+
+\NormalTok{relative\_frequency }\OtherTok{=}\NormalTok{ f}\SpecialCharTok{/}\NormalTok{N}
+\NormalTok{relative\_frequency}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.0185
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent }\OtherTok{=}\NormalTok{ relative\_frequency}\SpecialCharTok{*}\DecValTok{100}
+\NormalTok{percent}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.85
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Relative Frequency Using Normal Curve}
+\phantomsection\label{relative-frequency-using-normal-curve}
+\begin{itemize}
+\item
+  \textbf{Proportion of Area under the Curve} is the proportion of total
+  area under the normal curve
+\item
+  \textbf{Percentile} is the percentage of all scores in the sample
+  below a particular score
+\item
+  \textbf{Cumulative Frequency} is the number of scores in the data at
+  or below a particular score
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Greek Terms}
+\phantomsection\label{greek-terms}
+\[\Sigma = Sum\;of\;scores\]
+
+\[\Sigma\;X = Sum\;Of\;X\]
+\end{frame}
+
+\begin{frame}{Greek Terms}
+\phantomsection\label{greek-terms-1}
+\begin{itemize}
+\item
+  Both of these are stating that we are adding all of the data points
+  together.
+\item
+  \textbf{Sum of X} is the sum of the scores in a sample
+
+  \begin{itemize}
+  \tightlist
+  \item
+    X is just another way to say all the data points for the variable.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Central Tendency}
+\phantomsection\label{central-tendency}
+\begin{itemize}
+\item
+  Concept that as statisticians every person is just a data point
+\item
+  We are interested in the central score
+
+  \begin{itemize}
+  \tightlist
+  \item
+    We are interested in how much a person is away from that central
+    score
+  \item
+    But when it comes to statistics we like to group together our
+    participants' scores/values
+  \end{itemize}
+\item
+  \textbf{Measures of Central Tendency} are statistics that summarize
+  the location of a distribution on a variable by indicating where the
+  center is
+\item
+  A Normal distribution will have the central point right down the
+  center
+\item
+  A skewed distribution will have the central point where the frequency
+  of scores is the highest
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Mode}
+\phantomsection\label{the-mode}
+.pull-left{[}
+\pandocbounded{\includegraphics[keepaspectratio]{Slides_files/mediabag/prj6o.jpg}}{]}
+
+.pull-right{[} * Value/score with the highest frequency
+
+\begin{itemize}
+\item
+  Essentially useless in statistics
+\item
+  \textbf{Unimodal distributions} distribution with only one hump; one
+  value is the mode
+\item
+  \textbf{Bimodal distributions} distribution with two humps; two values
+  with the highest frequency; two modes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Median}
+\phantomsection\label{the-median}
+.pull-left{[}
+\pandocbounded{\includegraphics[keepaspectratio]{Slides_files/mediabag/Thumbnail_expert_mic.png}}{]}
+
+.pull-right{[} * \textbf{Median} is the middle value/score; the 50th
+percentile
+
+\begin{itemize}
+\item
+  Unlike the mode, it will always be close to the middle of a
+  distribution
+\item
+  You'll only ever have one median
+\item
+  The symbol is: \[Mdn = Median\] {]}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Median}
+\phantomsection\label{the-median-1}
+\begin{itemize}
+\item
+  Preferred for ordinal/ordered data
+\item
+  Not the best option for normally distributed interval \& ratio scores
+\item
+  Is more reliable when dealing with skewed data
+\item
+  \emph{Important Note} If you have an even number of scores/values,
+  then you will add the two middle values and divide by 2
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The Mean/Average}
+\phantomsection\label{the-meanaverage}
+\begin{itemize}
+\item
+  \textbf{Mean} is the score located at the \texttt{mathematical} center
+  of a distribution
+\item
+  Xbar is often used for the mean
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \[ \overline{X} \]
+  \end{itemize}
+\item
+  \[\overline{X} = \frac{\Sigma\;X}{N} \] is the formula to calculate
+  the mean.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Xbar is the Sum of X/Scores divided by the total number of
+    observations/scores/values
+  \end{itemize}
+\item
+  Calculate the mean for interval and ratio scales
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The mean of ordinal/ordered data makes no sense
+  \end{itemize}
+\item
+  Basis for most \texttt{inferential\ statistics}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{When to Use Each Measure}
+\phantomsection\label{when-to-use-each-measure}
+\begin{itemize}
+\tightlist
+\item
+  The Median more accurately describes/summarizes skewed data compared
+  to the mean
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The mean will be pulled toward the extreme tail of the distribution
+  \end{itemize}
+\item
+  Normal distribution then use the mean as the best measure to
+  describe/summarize data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Mean in Research}
+\phantomsection\label{the-mean-in-research}
+\begin{itemize}
+\item
+  Most statistics revolve around the mean
+\item
+  Can't just trust descriptive statistics like the mean
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deviation}
+\phantomsection\label{deviation}
+\begin{itemize}
+\item
+  The distance a participant's score/value is from the mean/average
+\item
+  Deviations can be positive or negative
+
+  \begin{itemize}
+  \tightlist
+  \item
+    participants can score lower (negative) than the mean and higher
+    (positive) than the mean
+  \end{itemize}
+\item
+  To get the deviation, you subtract the mean from each participant's
+  score
+\item
+  \[ X - \overline{X} \]
+\item
+  The larger the value the farther away from the mean the score/value is
+\item
+  \textbf{Sum of the deviations around the mean} is the sum of all
+  differences between the scores and the mean
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Looking to the Future}
+\phantomsection\label{looking-to-the-future}
+\begin{itemize}
+\item
+  Deviations is the start for upcoming lectures and statistical tests,
+  especially the sum of the deviations
+\item
+  \[ \Sigma(X - \overline{X}) \]
+\item
+  If the sum of the deviations is 0 then that means your math is good
+\item
+  Deviation of each score/value from the mean is often referred to as
+  error/residual in statistical tests
+\item
+  Correlational designs use the mean of IV and the mean of DV to look
+  for a relationship between the two variables
+\item
+  Experiments compare the two or more groups (IV) and the relationship
+  with the mean value/score of the DV
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Visuals}
+\phantomsection\label{visuals}
+\begin{itemize}
+\item
+  Line Graphs are good for showing progress or change in time
+\item
+  To show group differences (nominal or ordinal IV), bar graphs are the
+  norm
+\item
+  Scatterplots are best for continuous IV and continuous DV (interval or
+  ratio)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Describing the Population Mean}
+\phantomsection\label{describing-the-population-mean}
+\begin{itemize}
+\item
+  \[ \mu = Population\;Mean \]
+\item
+  If you test a population then you would use mu instead of xbar
+\item
+  \[ \mu = \frac{\Sigma\;X}{N} \]
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}

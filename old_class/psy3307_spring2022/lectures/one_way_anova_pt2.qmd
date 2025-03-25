@@ -1,0 +1,765 @@
+---
+title: "one-way anova pt2"
+format: beamer
+editor: visual
+execute:
+  echo = TRUE
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(palmerpenguins)
+
+penguins <- drop_na(penguins)
+```
+
+## Total Sum of Squares
+
+-   we first want to find the total amount of variation within our data to see the difference between each participant and the grand mean
+
+$$
+SS_{T} = \sum^N_{i = 1}(x_{i} - \overline{X}_{grand})^2
+$$
+
+-   the variance and the sums of squares are related because variance is
+
+$$
+S^2 = \frac{SS}{(N - 1)}
+$$
+
+## Total Sum of Squares
+
+-   N -1 is the same thing as df
+
+-   we can calculate the total sum of squares from the variance of all observations (all participants from each group) or the **grand variance**, by making small changes to the equation by changing
+
+$$
+SS_{T} = S^2_{grand}(N - 1)
+$$
+
+## Total Sum of Squares
+
+-   the grand variance is the variation between all values/scores without thinking about which group they are from
+
+-   Total sum of squares is the difference between the observed data and the mean value of your outcome (grand mean)
+
+-   the N is the total number of observations (all groups' participants)
+
+    -   Note the capital N
+
+    -   this is also the total degrees of freedom
+
+$$
+df_{T}
+$$
+
+## Model Sum of Squares
+
+-   the model sum of squares is the amount of variance accounted for by our model (how much of the variance in our outcome is explained by different scores from the groups)
+
+-   the model sum of squares is the differences between the mean value of your outcome (grand mean) and the model
+
+-   Model sum of squares is calculated by taking the difference between values predicted by the model and the grand mean
+
+## Model Sum of Squares
+
+-   to calculate the model sum of squares, we must get each group's mean and the grand mean
+
+$$
+SS_{M} = \sum^k_{g = 1} n_{g}(\overline{X}_{g} - \overline{X}_{grand})^2
+$$
+
+-   the difference between the mean of each group $\overline{X}_{g}$ and the grand mean $\overline{X}_{grand}$
+
+-   square each of these differences
+
+## Model Sum of Squares
+
+-   multiply each result by the number of participants within that group $n_{g}$
+
+-   add values for each group together
+
+-   for the model sum of squares, the degrees of freedom, we will use the number of groups minus 1 ($k - 1$)
+
+## Residual Sum of Squares
+
+-   the residual sum of squares is the differences between the observed data and the model (group means)
+
+-   the residual sum of squares $SS_{R}$ tells us how much of the variation cannot be explained by our model
+
+-   The simplest way of calculating the residual sum of squares is to use the sum of squares values we already have ($SS_{T}$ and $SS_{M}$)
+
+$$
+SS_{R} = SS_{T} - SS_{M}
+$$
+
+## Residual Sum of Squares
+
+-   residual sum of squares is calculated by getting the difference between each participant score and the each group mean
+
+$$
+SS_{R} = \sum^k_{g = 1} \sum^n_{i = 1}(X_{ig} - \overline{X}_{g})^2
+$$
+
+$$
+SS_{R} = \sum^k_{g = 1}S^2_{g}(n_{g} - 1)
+$$
+
+## Residual Sum of Squares
+
+-   multiply the variance for each group by one less than the number of people in that group
+
+    -   then add everything together
+
+-   degrees of freedom for the $SS_{R}$ are the total df minus the df for the model
+
+$$
+df_{R} = df_{T} - df_{M}
+$$
+
+-   or simply put:
+
+$$
+N - k
+$$
+
+-   where k is the number of groups and N is the total sample size
+-   JP Note: just calculate it from the information we have instead of the more difficult way
+
+## Mean Squares
+
+-   $SS_{M}$ tells us the total variation that the model explains and $SS_{R}$ tells us the total variation that is due to unmeasured factors
+
+    -   because these values are sums, there is bias introduced
+
+-   to reduce the bias, we average our sum of squares
+
+    -   these are our **mean squares values**
+
+## Mean Squares
+
+-   rather than divide by the number of scores used for each sum of squares values
+
+    -   divide by the df consistent with each part
+
+        -   model sum of squares divided by model degrees of freedom
+
+        -   residual sum of squares divided by residual degrees of freedom
+
+$$
+MS_{M} = \frac{SS_{M}}{df_{M}}
+$$
+
+$$
+MS_{R} = \frac{SS_{R}}{df_{R}}
+$$
+
+## Mean Squares
+
+-   model mean squares is the average amount of variation explained by the model
+
+-   residual mean squares is the average amount of variation explained unmeasured variables
+
+## The F-statistic
+
+-   or the F-ratio is the measure of the ratio of variance explained by the model and the variation attributable to unsystematic factors
+
+-   F-statistic is a signal-to-noise ratio
+
+    -   in experiments, looks at the difference between groups
+
+## The F-statistic
+
+-   F statistic is
+
+$$
+F = \frac{MS_{M}}{MS_{R}}
+$$
+
+-   meaning the how much your model explained systematic variation divided by the unsystematic variation
+
+## Interpreting F
+
+-   F assesses overall fit of the model to the data
+
+    -   F evaluates whether overall there are differences between means
+
+        -   it is an **omnibus test**
+
+-   it does not tell you which groups are different from one another
+
+-   why can't we just run several independent t-tests
+
+## Interpreting F
+
+-   we can't run multiple t-tests because because that inflates the type I error
+
+```{r}
+# mean_body_mass_g = 4201.75
+penguins %>% 
+  rowid_to_column() %>% 
+  ggplot(aes(rowid, body_mass_g)) + 
+  geom_point(aes(color = species)) +
+  geom_hline(yintercept = 4201.75,
+             color = 'black',
+             linetype = 2,
+             size = 1) +
+  annotate(geom = 'text',
+           x = 200,
+           y = 4300,
+           label = 'Grand Mean') +
+  theme_minimal()
+```
+
+## Interpreting F
+
+```{r}
+penguins %>% 
+  rowid_to_column() %>% 
+  group_by(species) %>% 
+  mutate(body_mass_mean = mean(body_mass_g)) %>% 
+  ungroup() %>% 
+  ggplot(aes(rowid, body_mass_g)) + 
+  geom_point(aes(color = species)) +
+  geom_hline(yintercept = 4201.75,
+             color = 'black',
+             linetype = 2,
+             size = 1) +
+  geom_hline(yintercept = 3700.66,
+             linetype = 1,
+             color = 'red',
+             size = 1) +
+  geom_hline(yintercept = 3733.09,
+             linetype = 1,
+             color = 'dodgerblue',
+             size = 1) + 
+  geom_hline(yintercept = 5076.02,
+             linetype = 1,
+             color = 'darkgreen',
+             size = 1) +
+  scale_color_manual(values = c('red', 'dodgerblue', 'darkgreen')) +
+  theme_minimal()
+```
+
+## Tukey Steps
+
+-   Find $q_{k}$, which are values of studentized range statistic
+
+    -   We'll come back to studentized values
+
+    -   locate the $k$
+
+    -   find the $df$ for residuals
+
+-   Compute the HSD
+
+$$
+HSD = (q_{k})(\sqrt{\frac{MS_{R}}{n}})
+$$
+
+-   Determine the differences between each pair of means
+
+-   Compare each difference between means to the Tukey HSD value
+
+    -   if the absolute difference between two means is greater than the HSD then these differences are significantly different
+
+        -   similar to a independent samples t-test with a significant t-obtained value
+
+## Calculating the F-statistic
+
+```{r}
+example <- data.frame(group1 = c(1, 2, 4, 2, 3),
+                      group2 = c(3, 6, 7, 8, 1),
+                      group3 = c(3, 5, 4, 1, 2))
+example
+```
+
+## Calculating the F-statistic
+
+-   Get the group means
+
+```{r, echo = TRUE}
+(1 + 2 + 4 + 2 + 3)/5
+
+(3 + 6 + 7 + 8 + 1)/5
+
+(3 + 5 + 4 + 1 + 2)/5
+```
+
+## Calculating the F-statistic
+
+-   get group variances and sd
+
+```{r, echo = TRUE}
+
+```
+
+## Calculating the F-statistic
+
+-   Get the grand mean
+
+```{r, echo = TRUE}
+(1 + 2 + 4 + 2 + 3 + 3 + 6 + 7 + 8 + 1 + 3 + 5 + 4 + 1 + 2)/15
+
+(2.4 + 5 + 3)/3
+```
+
+## Calculating the F-statistic
+
+-   get the grand variance
+
+```{r, echo = TRUE}
+(1 - 3.47)^2 + 
+(2 - 3.47)^2 + 
+(4 - 3.47)^2 + 
+(2 - 3.47)^2 + 
+(3 - 3.47)^2 + 
+(3 - 3.47)^2 + 
+(6 - 3.47)^2 + 
+(7 - 3.47)^2 + 
+(8 - 3.47)^2 + 
+(1 - 3.47)^2 + 
+(3 - 3.47)^2 + 
+(5 - 3.47)^2 + 
+(4 - 3.47)^2 + 
+(1 - 3.47)^2 + 
+(2 - 3.47)^2
+
+67.73/14
+```
+
+## Calculating the F-statistic
+
+-   Get the Total Sum of Squares
+
+$$
+SS_{T} = 4.84(15 - 1)
+$$
+
+```{r, echo = TRUE}
+15 - 1
+
+4.84*14
+```
+
+## Calculating the F-statistic
+
+$$
+SS_{T} = 67.76
+$$
+
+## Calculating the F-statistic
+
+-   Get the Model Sum of Squares
+
+$$
+SS_{M} = \sum^k_{g = 1} n_{g}(\overline{X}_{g} - \overline{X}_{grand})^2
+$$
+
+```{r, echo = TRUE}
+5*(2.4 - 3.47)^2 + 5*(5 - 3.47)^2 + 5*(3 - 3.47)^2
+```
+
+## Calculating the F-statistic
+
+$$
+SS_{M} = 5(2.4 - 3.47)^2 + 5(5 - 3.47)^2 + 5(3 - 3.47)^2
+$$
+
+## Calculating the F-statistic
+
+```{r, echo = TRUE}
+2.4-3.47
+5-3.47
+3-3.47
+```
+
+## Calculating the F-statistic
+
+```{r, echo = TRUE}
+(-1.07)^2
+1.53^2
+(-.47)^2
+```
+
+## Calculating the F-statistic
+
+```{r, echo = TRUE}
+5*1.14
+5*2.34
+5*.22
+
+5.7 + 11.7 + 1.1
+```
+
+## Calculating the F-statistic
+
+$$
+SS_{M} = 18.53
+$$
+
+## Calculating the F-statistic
+
+-   Get the Residual Sum of Squares
+
+```{r, echo = TRUE}
+67.76 - 18.53
+```
+
+$$
+SS_{R} = SS_{T} - SS_{M}
+$$
+
+$$
+SS_{R} = 49.23
+$$
+
+## Calculating the F-statistic
+
+-   Get the degrees of freedom
+
+```{r, echo = TRUE}
+15 - 1
+
+3 - 1
+```
+
+-   total df = total N - 1
+
+-   df for model = number of groups - 1
+
+## Calculating the F-statistic
+
+```{r, echo = TRUE}
+14 - 2
+```
+
+$$
+df_{R} = df_{T} - df_{M}
+$$
+
+## Calculating the F-statistic
+
+$$
+MS_{M} = \frac{SS_{M}}{df_{M}}
+$$
+
+-   Get the Mean Squares
+
+    -   for the model
+
+```{r, echo = TRUE}
+18.53/2
+```
+
+## Calculating the F-statistic
+
+$$
+MS_{R} = \frac{SS_{R}}{df_{R}}
+$$
+
+-   Mean squares for the residual
+
+```{r, echo = TRUE}
+49.23/12
+```
+
+## Calculating the F-statistic
+
+$$
+F = \frac{MS_{M}}{MS_{R}}
+$$
+
+-   Calculate the *F*-statistic
+
+```{r, echo = TRUE}
+9.27/4.10
+```
+
+## Calculating the F-statistic
+
+-   F-obtained is 2.26, check for significance using our two df
+
+    -   smallest value first (between), then larger value (residual)
+
+## Calculating the F-statistic
+
+-   Calculate post-hoc tests
+
+    -   locate the $k$
+
+    -   find the $df$ for residuals
+
+        -   both needed for studentized value
+
+## Calculating the F-statistic
+
+$$
+HSD = (q_{k})(\sqrt{\frac{MS_{R}}{n}})
+$$
+
+## Calculating the F-statistic
+
+```{r, echo = TRUE}
+4.10/5
+
+sqrt(.82)
+
+3.773*.91
+```
+
+-   Tukey HSD is 3.43
+
+```{r, echo = TRUE}
+2.4 - 5
+2.4 - 3
+
+5 - 3
+```
+
+-   mean differences must be larger than the Tukey HSD value
+
+    -   2.6
+
+    -   0.6
+
+    -   2
+
+-   none are larger than the Tukey HSD so no significant differences between groups
+
+## Assumptions When Comparing Means
+
+-   normality is tested on scores within groups (not across the whole sample)
+
+-   homogeneity of variance
+
+    -   when group sizes are unequal, we violate this assumption
+
+    -   Levene's test can be used to conclude whether variances are significantly different
+
+-   F-statistic from homogeneity of variance can be adjusted for the degree of heterogeneity
+
+    -   Brown-Forsythe F
+
+    -   Welch's F
+
+## ANOVA Robust?
+
+-   does it control Type I error?
+
+-   does it have enough power (Type II error)?
+
+-   if group distributions are equal then the F statistic is robust enough
+
+-   worries of violations to the assumption of independence
+
+    -   we'll look at residuals for this for our groups
+
+## What To Do With Violated Assumptions
+
+-   you can interpret Welch's F but also bootstrap analyses
+
+    -   won't affect F but more confidence in the model parameters being robust
+
+## Planned Contrasts
+
+-   conducted before collecting data
+
+-   when we dummy code variables
+
+    -   compare mean of baseline group to the group coded with a 1 in a particular dummy variable
+
+## Planned Contrasts
+
+-   two options
+
+    -   **contrast coding** assigns weights to groups in dummy variables to carry out **planned contrasts** or planned comparisons
+
+    -   weights are assigned in a way that the contrasts are independent
+
+        -   controls for Type I error rate
+
+    -   second option is to use post-hoc tests
+
+        -   compare each group mean to every other group
+
+        -   change the familywise error rate
+
+## Which Contrast?
+
+-   while we discuss contrasts, we will be using post-hoc analyses in our calculations
+
+    -   we will use both contrasts and post-hoc tests when using SPSS
+
+-   first decide what group to compare to other groups
+
+    -   if you are conducting an experiment, you'd want to compare the control group to other (treatment) groups
+
+-   planned contrasts take what is explained in the model and then make comparisons between your chosen group and the other group(s)
+
+-   contrasts can only compare two chunks of variance to see if there is a difference between two groups
+
+## Comparison of Variance Chunks
+
+-   Choose sensible contrasts
+
+    -   only compare two "chunks" of variance and if a group is singled out in one contrast, that group should be excluded from other contrasts
+
+-   groups coded with positive weights will be compared to groups with negative weights
+
+-   if you add up weights for a contrast, the result should be zero
+
+-   if a group is not involved in a contrast, automatically assign a weight of zero
+
+    -   eliminates that group from the contrast
+
+-   for a given contrast, the weights assigned to the group in one "chunk" of variation should be equal to the number of groups in the opposite chunk of variation
+
+## Which Contrast?
+
+-   **orthogonal contrasts** are independent or uncorrelated
+
+    -   JP note: orthogonal in a linear relationship is the part of the line that is not correlated with the predicted linear regression
+
+## Which Contrast?
+
+```{r, echo = FALSE}
+penguins %>% 
+  ggplot(aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(alpha = .5) + 
+  geom_smooth(method = 'lm', se = FALSE) + 
+  geom_smooth(method = 'lm', se = FALSE,
+              formula = y ~ x + I(x^2),
+              color = 'red')
+```
+
+## Which Contrast?
+
+```{r}
+arm::display(lm(body_mass_g ~ poly(flipper_length_mm, 2, raw = TRUE),
+                data = penguins),
+             detail = TRUE)
+```
+
+## Which Contrast?
+
+```{r}
+arm::display(lm(body_mass_g ~ poly(flipper_length_mm, 2),
+                data = penguins),
+             detail = TRUE)
+```
+
+-   non-orthogonal contrasts
+
+    -   are related to one another
+
+## Built-in Contrasts
+
+-   we'll keep it simple, by only really focusing on the simple contrast
+
+    -   each category is compare to either the first category or the last category
+
+    -   incorporates the weights previously mentioned
+
+## Polynomial Contrasts
+
+-   **polynomial contrasts** are used to test for trends in the data
+
+    -   mainly focusing on non-linear trends in the data
+
+-   **quadratic trend** is where there is a curve in the line or a curvilinear relationship
+
+-   **cubic trend** is when there are two changes in the direction of the trend
+
+-   **quartic trend** is when a trend that three changes of direction
+
+-   these polynomial trends can be extended to better fit the data
+
+    -   leads to overfitting (you are fitting the data well but it is probably not accurate of the real relationship)
+
+## Polynomial Contrasts
+
+```{r}
+penguins %>% 
+  ggplot(aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(alpha = .5) + 
+  geom_smooth(method = 'loess', se = FALSE)
+```
+
+## Post-hoc Procedures
+
+-   post-hoc tests consists of **pairwise comparisons,** or the comparisons between each combination of groups
+
+    -   while contrasts are better for science, I would argue these are used more often
+
+-   useless because it inflates the Type I error
+
+    -   unless you use a correction, what is a correction we've learned about so far?
+
+-   **Least-significant difference** (LSD) pairwise comparison does not control for Type I error
+
+    -   you'll always find a significant difference with this one
+
+-   Benferroni's & Tukey's test both control for Type I error and are more conservative
+
+    -   JP: I would argue these are the best two to use
+
+## Robust Post-hoc Procedures
+
+-   with small deviations from normality, these tests are good
+
+-   when group sizes are unequal and when population variances are different, they are not as robust as contrasts
+
+-   Dunett's T3 and C are useful when variances are not equal among groups
+
+    -   also controls for Type I error rates
+
+## Calculating Effect Size
+
+-   SPSS does not provide effect size
+
+-   we can calculate $R^2$, which is not a true effect size measure but is very useful
+
+    -   especially because this is the amount of variation accounted for by all variables included in the model
+
+        -   we only have one variable, but it is useful for ANCOVA and multiple linear regression
+
+$$
+R^2 = \frac{SS_{M}}{SS_{T}}
+$$
+
+-   its usually referred to as **eta-squared** ($\eta^2$) in the ANOVA framework
+
+-   we can get a true effect size by getting the square root of the $R^2$ value
+
+$$
+r^2 = \eta^2 = \frac{SS_{M}}{SS_{T}}
+$$
+
+$$
+r^2 = \sqrt{r2\;value} --> r = effect\;size
+$$
+
+------------------------------------------------------------------------
+
+## Reporting One-way ANOVA
+
+-   information that we need
+
+    -   F value
+
+    -   exact p value or p \< .05 (if using a table only)
+
+    -   $df_{R}$
+
+    -   $df_{M}$
+
+-   *F*(2, 12) = 2.26, *p* \< .05
+
+    -   There was no evidence of a significant relationship between IV and DV; *F*(2, 12) = 2.26, *p* \< .05.
+
+-   if significant F value
+
+    -   There was evidence of a significant relationship between IV and DV; F test results
+
+        -   Post-hoc analyses/Tukey's HSD revealed differences between **Group 1** (*M* = #, *SD* = #) and **Group 3** (*M* = #, *SD* = #) only (*p* \< .05). No differences were found between **Group 1** (*M* = #, *SD* = #) and **Group 2** (*M* = #, *SD* = #, *p* \> .05).

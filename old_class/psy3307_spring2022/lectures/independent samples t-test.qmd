@@ -1,0 +1,393 @@
+---
+title: "Independent Samples t-tests"
+author: "Jonathan A. Pedroza, PhD"
+format: beamer
+editor: visual
+---
+
+## Looking at Differences
+
+-   the easiest form of an experiment is to compare two groups on an outcome
+
+    -   Ex: treatment vs control on depression rates
+
+-   you can also just compare two groups on an outcome that do not need to be in an experimental design
+
+    -   preliminary analyses - comparing the ages of male and female
+
+-   two different ways of comparing means
+
+    -   **between-groups/subjects or independent design/independent-samples**
+
+        -   comparing two *separate* groups together
+
+    -   **repeated-measures or within-subjects design**
+
+        -   comparing two time points
+
+## Technically Categorical Predictors in the Linear Model
+
+```{r, include = FALSE}
+library(tidyverse)
+mtcars <- mtcars %>% 
+  filter(cyl != 6)
+```
+
+```{r, echo = FALSE}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(mean_mpg = mean(mpg)) %>% 
+  ggplot(aes(as.factor(cyl), mean_mpg)) + 
+  geom_col(aes(fill = as.factor(cyl))) +
+  theme(legend.position = 'none')
+```
+
+## Technically Categorical Predictors in the Linear Model
+
+-   the t-test is comparing the means between our two groups
+
+    -   it also fits in the linear model that we have been focusing on
+
+    -   Ex: comparing 4 and 8 cylinder cars on miles per gallon (MPG)
+
+$$
+outcome_{i} = (model) + error_{i}
+$$
+
+-   Let's look at how these variables fit in our linear model
+
+$$
+Y_{i} = (b_{0} + b_{1}X_{1i}) + e_{i}
+$$
+
+$$
+MPG_{i} = (b_{0} + b_{1}8cyl_{i}) + e_{i}
+$$
+
+## Technically Categorical Predictors in the Linear Model
+
+-   since cylinder is a nominal variable, we convert this variable into numbers
+
+    -   we refer to these as **dummy variables**, where 0 means the value is not representative of that column and 1 means the value is representative of that column
+
+    -   the first case, **8 cylinder = 0, 4 cylinder = 1** states that the car in question is not a 8 cylinder and is a 4 cylinder
+
+```{r, echo = FALSE}
+psych::dummy.code(mtcars$cyl) %>% 
+  head()
+```
+
+## Technically Categorical Predictors in the Linear Model
+
+-   Since the outcome is the same as the group mean for one group, we can make some changes to the equation
+
+$$
+MPG_{i} = b_{0} + b_{1}8cyl_{i}
+$$
+
+$$
+\overline{X}_{4cyl} = b_{0} + (b1 x 0)
+$$
+
+$$
+\overline{X}_{4cyl} = b_{0}
+$$
+
+## Technically Categorical Predictors in the Linear Model
+
+-   this gives us the intercept for our model, which is our b0, which is also known as our y-intercept
+
+$$
+\overline{X}_{4cyl} = \overline{X}_{8cyl} + b_{1}
+$$
+
+$$
+b_{1} = \overline{X}_{4cyl} - \overline{X}_{8cyl}
+$$
+
+-   so b1 is just difference between the means of the two groups
+
+    -   what is the 4 cylinder average MPG minus the 8 cylinder average MPG
+
+-   since this is a linear model, you can technically run this in SPSS as a regression and it will give you the constant (b0) and the difference between the two groups (b1) because what is working underneath the hood is a t-test
+
+## Technically Categorical Predictors in the Linear Model
+
+```{r, echo = FALSE}
+t.test(mpg ~ cyl, data = mtcars, var.equal = TRUE)
+```
+
+## Technically Categorical Predictors in the Linear Model
+
+```{r, echo = FALSE}
+summary(lm(mpg ~ as.factor(cyl), data = mtcars))
+```
+
+## The t-test
+
+-   there are three (two are more useful) types of t-test
+
+    -   **independent t-test** is used to compare two means that come from different conditions for two separate groups (between)
+
+    -   **paired-samples t-test** or **dependent t-test** is when you want to compare two means that come from different conditions from the same participants (within)
+
+    -   **one-sample t-test**
+
+## Rationale for the t-test
+
+-   we want to see if the means of two different samples are different from one another
+
+-   if the samples come from the same population, they would be roughly equal (no statistical significance found)
+
+    -   while we could have difference due to sampling variation, significant differences would occur infrequently (5%)
+
+    -   we are interested in the difference between the sample means
+
+        -   if there is = statistical significance = difference between groups
+
+        -   if no difference = not statistically significant = groups are roughly equal
+
+## Rationale for the t-test
+
+-   we use the standard error to gauge variability between sample means
+
+-   most test statistics are a signal-to-noise ratio, where the variance explained by the model is divided by what the model can't explain (error)
+
+$$
+t = \frac{obs\;diff\;between\;sample\;means - expect\;diff\;between\;pop\;means\;(if\;null = TRUE)}{SE\;diff\;between\;2\;sample\;means}
+$$
+
+## The Independent Samples t-test Equation
+
+$$
+t = \frac{(\overline{X}_{1} - \overline{X}_{2}) - (\mu_{1} - \mu_{2})}{SE \;estimate}
+$$
+
+-   we are comparing the difference between the sample means and the population means
+
+    -   using the null hypothesis, we would assume that the populations would be same or that there would be no difference
+
+    -   so we can refer to that difference as zero
+
+$$
+t = \frac{(\overline{X}_{1} - \overline{X}_{2}) - (\mu_{1} - \mu_{2})}{SE \;estimate}
+$$
+
+## The Independent Samples t-test Equation
+
+-   additionally we need to know what the SE estimate is
+
+    -   first, we'll need to get the variances, standard deviations for both groups
+
+        -   along with the n for each group
+
+$$
+SS = \sum(X - \overline{X})^2
+$$
+
+$$
+S^2 = \frac{SS}{df}
+$$
+
+$$
+S = \sqrt{\frac{SS}{df}}
+$$
+
+## The Independent Samples t-test Equation
+
+-   then we can calculate the standard error for both groups
+
+$$
+S_{\overline{X}} = \frac{S}{\sqrt{n}} \;\;OR\;\;S_{\overline{X}} = \frac{S^2}{n}
+$$
+
+-   we can use the **variance sum law**, which states that the variance of a difference between two two groups is equal to the sum of their variances
+
+    -   this means that we can estimate the variance of the sampling distribution of differences by adding together the variances
+
+$$
+\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}
+$$
+
+## The Independent Samples t-test Equation
+
+-   we could then get the standard error by taking the square root
+
+$$
+S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}}
+$$
+
+-   if we don't have equal groups then we have an additional step
+
+$$
+S^2_{p} = \frac{(n_{1} - 1)S^2_{1} + (n_{2} - 1)S^2_{2}}{n_{1} + n_{2} - 2}
+$$
+
+## The Independent Samples t-test Equation
+
+-   then we can conduct a independent t-test
+
+$$
+t_{obt} = \frac{\overline{X}_{1} - \overline{X}_{2}}{\sqrt{\frac{S^2_{p}}{n_{1}} + \frac{S^2_{p}}{n_{2}}}}
+$$
+
+-   the book doesn't cover this but our df changes slightly for our independent samples t-test
+
+$$
+df = (n_{1} - 1) + (n_{2} - 1)
+$$
+
+## Steps to Independent Samples t-test
+
+```{r, echo = FALSE}
+ex_compare <- data.frame(group1 = c(1, 4, 6, 7, 3, 6),
+                         group2 = c(5, 6, 3, 4, 8, 7))
+ex_compare
+```
+
+## Steps to Independent Samples t-test
+
+-   Get the means of both groups
+
+```{r, echo = TRUE}
+(1 + 4 + 6 + 7 + 3 + 6)/6
+# 4.5 group 1
+
+(5 + 6 + 3 + 4 + 8 + 7)/6
+# 5.5 group 2
+```
+
+## Steps to Independent Samples t-test
+
+-   Get the n for each group
+
+    -   6 per group
+
+## Steps to Independent Samples t-test
+
+-   Get the sum of squares
+
+```{r, echo = TRUE}
+(1 - 4.5)^2 + (4 - 4.5)^2 + (6 - 4.5)^2 +
+  (7 - 4.5)^2 + (3 - 4.5)^2 + (6 - 4.5)^2
+# group 1 25.5 ss
+
+(5 - 5.5)^2 + (6 - 5.5)^2 + (3 - 5.5)^2 +
+  (4 - 5.5)^2 + (8 - 5.5)^2 + (7 - 5.5)^2
+# group 2 17.5 ss 
+```
+
+## Steps to Independent Samples t-test
+
+-   df per group
+
+    -   6 - 1 = 5
+
+## Steps to Independent Samples t-test
+
+-   get the variance and sd
+
+```{r, echo = TRUE}
+25.5/5
+sqrt(5.1)
+# group 1 variance = 5.1
+# group 1 sd = 2.26
+```
+
+## Steps to Independent Samples t-test
+
+```{r, echo = TRUE}
+17.5/5
+sqrt(3.5)
+# group 2 variance = 3.5
+# group 2 sd = 1.87
+```
+
+## Steps to Independent Samples t-test
+
+-   get the differences in standard error
+
+$$
+S_{\overline{X_{1}} - \overline{X_{2}}} = \sqrt{\frac{S^2_{1}}{n_{1}} + \frac{S^2_{2}}{n_{2}}}
+$$
+
+## Steps to Independent Samples t-test
+
+```{r, echo = TRUE}
+5.1/6
+# group 1 part of the standard error = .85
+
+3.5/6
+# group 2 part of the standard error = .58
+
+sqrt(.58 + .58)
+# standard error is 1.08
+```
+
+## Steps to Independent Samples t-test
+
+-   get the t-obtained value
+
+$$
+t_{obt} = \frac{\overline{X}_{1} - \overline{X}_{2}}{\sqrt{\frac{S^2_{p}}{n_{1}} + \frac{S^2_{p}}{n_{2}}}}
+$$
+
+## Steps to Independent Samples t-test
+
+```{r, echo = TRUE}
+4.5 - 5.5
+# numerator is -1
+
+# denominator is 1.08 from previous step
+
+-1/1.08
+# t-test is -.93
+```
+
+## Steps to Independent Samples t-test
+
+-   negative and positive values just indicate which group you're comparing to the other
+
+    -   since it is negative, we can conclude that the mean of group 1 is less than group 2's mean
+
+## Steps to Independent Samples t-test
+
+-   get df for the group comparisons
+
+    -   this is because we are looking at a sampling distribution for the differences between the two samples/groups
+
+$$
+df = (n_{1} - 1) + (n_{2} - 1)
+$$
+
+```{r, echo = TRUE}
+(6 - 1) + (6 - 1)
+```
+
+-   df is 10
+
+    -   look at t-table for t-obtained value of -.93 and a df of 10
+
+## Reporting an Independent Samples t-test
+
+-   When reporting an independent samples t-test, we are comparing the means of the outcome between the two groups that are interested in comparing
+
+    -   Ex: Sex differences in statistics quiz scores
+
+    -   H0: There will be no differences in statistics quiz scores between male and female students
+
+    -   H1: There will be differences in statistics quiz scores between male and female students
+
+    -   Reporting: On average, when comparing male students (*M* = 74.3, *SD* = 1.24) to female students (*M* = 94.7, *SD* = 4.40), male students' scores were significant worse on their statistics quiz; *t*(10) = 4.84, *p* = .03.
+
+## Reporting an Independent Samples t-test
+
+-   the t-test includes:
+
+    -   an italicized lowercase t
+
+    -   df in the parentheses
+
+    -   the t-obtained value
+
+    -   the exact p value italicized (when using SPSS) or *p* \< .05 (when using the t-table)
